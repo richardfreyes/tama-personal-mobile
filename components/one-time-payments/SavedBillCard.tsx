@@ -69,7 +69,7 @@ export default function SavedBillCard({ bill, logoUrl, onPress }: SavedBillCardP
         >
           {amount}
         </AppText>
-        <AppText color="aqua10" numberOfLines={1} size="extraSmall" weight="600">
+        <AppText color="red10" numberOfLines={1} size="extraSmall" weight="600">
           {caption}
         </AppText>
       </View>

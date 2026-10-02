@@ -49,7 +49,7 @@ export const customTheme = {
   
   colors: {
     ...DefaultTheme.colors,
-    primary: Colors.aqua10,
+    primary: Colors.red10,
     background: Colors.neutral01,
     outline: Colors.neutral05,
     onSurface: Colors.neutral08,

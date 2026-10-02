@@ -69,7 +69,7 @@ export default function PaymentMethodDetailsCard() {
   if (!referenceId || !paymentMethod) {
     return (
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <NativeLoadingIndicator label="Loading payment method" size="large" color={Colors.aqua10} />
+        <NativeLoadingIndicator label="Loading payment method" size="large" color={Colors.red10} />
       </View>
     );
   }

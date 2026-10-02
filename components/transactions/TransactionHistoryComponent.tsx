@@ -50,8 +50,8 @@ const getStatusDisplay = (item: UnifiedTransaction) => {
       return { color: Colors.success09, bg: Colors.success01, text: 'Paid' };
     }
     return {
-      color: Colors.aegeanBlue10,
-      bg: Colors.aegeanBlue01,
+      color: Colors.maroon10,
+      bg: Colors.maroon01,
       text: formatBackendStatus(item.statusLabel || item.status || 'Unknown'),
     };
   }

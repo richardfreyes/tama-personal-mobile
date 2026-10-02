@@ -24,7 +24,7 @@ export const billingReferenceIdStyles = StyleSheet.create({
     textAlign: 'center',
   },
   newCardNotice: {
-    backgroundColor: Colors.aqua01,
+    backgroundColor: Colors.red01,
     borderRadius: 8,
     padding: 12,
   },

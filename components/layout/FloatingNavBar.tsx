@@ -53,7 +53,7 @@ const FloatingNavBar = ({ state, descriptors, navigation }: BottomTabBarProps) =
           if (!iconConfig || !iconConfig.Component) return null;
           const { Component, color: inactiveColor } = iconConfig;
           const isFocused = getSection(route.name) === activeSection;
-          const iconColor = isFocused ? Colors.aqua10 : inactiveColor;
+          const iconColor = isFocused ? Colors.red10 : inactiveColor;
 
           const onPress = () => {
             const event = navigation.emit({

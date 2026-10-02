@@ -43,7 +43,7 @@ export const enrollmentDetailsStyles = StyleSheet.create({
     lineHeight: 28,
   },
   paymentType: {
-    color: Colors.aegeanBlue10,
+    color: Colors.maroon10,
     lineHeight: 18,
     marginTop: 2,
   },
@@ -54,8 +54,8 @@ export const enrollmentDetailsStyles = StyleSheet.create({
   },
   referencePanel: {
     alignItems: 'center',
-    backgroundColor: Colors.aegeanBlue01,
-    borderColor: Colors.aegeanBlue02,
+    backgroundColor: Colors.maroon01,
+    borderColor: Colors.maroon02,
     borderRadius: 12,
     borderWidth: 1,
     flexDirection: 'row',
@@ -84,7 +84,7 @@ export const enrollmentDetailsStyles = StyleSheet.create({
   copyButton: {
     alignItems: 'center',
     backgroundColor: Colors.neutral01,
-    borderColor: Colors.aegeanBlue03,
+    borderColor: Colors.maroon03,
     borderRadius: 10,
     borderWidth: 1,
     height: 44,
@@ -93,21 +93,21 @@ export const enrollmentDetailsStyles = StyleSheet.create({
     width: 44,
   },
   copyButtonPressed: {
-    backgroundColor: Colors.aqua02,
-    borderColor: Colors.aqua10,
+    backgroundColor: Colors.red02,
+    borderColor: Colors.red10,
   },
   copyButtonFocused: {
     borderColor: Colors.info10,
     borderWidth: 2,
   },
   paymentSummaryCard: {
-    backgroundColor: Colors.aegeanBlue10,
+    backgroundColor: Colors.maroon10,
     borderRadius: 18,
     overflow: 'hidden',
     padding: 20,
   },
   amountLabel: {
-    color: Colors.aqua04,
+    color: Colors.red04,
     letterSpacing: 1,
     lineHeight: 18,
   },
@@ -121,7 +121,7 @@ export const enrollmentDetailsStyles = StyleSheet.create({
   estimatedTotalPill: {
     alignItems: 'center',
     alignSelf: 'flex-start',
-    backgroundColor: Colors.aegeanBlue09,
+    backgroundColor: Colors.maroon09,
     borderRadius: 999,
     flexDirection: 'row',
     gap: 6,
@@ -130,7 +130,7 @@ export const enrollmentDetailsStyles = StyleSheet.create({
     paddingVertical: 6,
   },
   estimatedTotalLabel: {
-    color: Colors.aegeanBlue02,
+    color: Colors.maroon02,
     lineHeight: 15,
   },
   estimatedTotalValue: {
@@ -144,8 +144,8 @@ export const enrollmentDetailsStyles = StyleSheet.create({
     marginTop: 18,
   },
   summaryMetric: {
-    backgroundColor: Colors.aegeanBlue09,
-    borderColor: Colors.aegeanBlue08,
+    backgroundColor: Colors.maroon09,
+    borderColor: Colors.maroon08,
     borderRadius: 10,
     borderWidth: 1,
     flexBasis: '47%',
@@ -158,7 +158,7 @@ export const enrollmentDetailsStyles = StyleSheet.create({
     flexBasis: '22%',
   },
   summaryMetricLabel: {
-    color: Colors.aegeanBlue03,
+    color: Colors.maroon03,
     lineHeight: 15,
   },
   summaryMetricValue: {
@@ -174,8 +174,8 @@ export const enrollmentDetailsStyles = StyleSheet.create({
     padding: 18,
   },
   secondaryCard: {
-    backgroundColor: Colors.aegeanBlue01,
-    borderColor: Colors.aegeanBlue02,
+    backgroundColor: Colors.maroon01,
+    borderColor: Colors.maroon02,
   },
   sectionTitleGroup: {
     flex: 1,
@@ -197,7 +197,7 @@ export const enrollmentDetailsStyles = StyleSheet.create({
     gap: 12,
   },
   progressPercentage: {
-    color: Colors.aegeanBlue10,
+    color: Colors.maroon10,
     fontSize: FontSizes.large,
     lineHeight: 24,
   },
@@ -303,7 +303,7 @@ export const enrollmentDetailsStyles = StyleSheet.create({
     flexDirection: 'row',
   },
   importantNoteBullet: {
-    backgroundColor: Colors.aqua10,
+    backgroundColor: Colors.red10,
     borderRadius: 4,
     height: 8,
     marginRight: 11,
@@ -322,8 +322,8 @@ export const enrollmentDetailsStyles = StyleSheet.create({
   },
   supportCard: {
     alignItems: 'flex-start',
-    backgroundColor: Colors.aqua01,
-    borderColor: Colors.aqua03,
+    backgroundColor: Colors.red01,
+    borderColor: Colors.red03,
     borderRadius: 14,
     borderWidth: 1,
     flexDirection: 'row',
@@ -364,7 +364,7 @@ export const enrollmentDetailsStyles = StyleSheet.create({
     opacity: 0.65,
   },
   supportEmailText: {
-    color: Colors.aegeanBlue10,
+    color: Colors.maroon10,
     lineHeight: 19,
     textDecorationLine: 'underline',
   },
@@ -380,7 +380,7 @@ export const enrollmentDetailsStyles = StyleSheet.create({
     padding: 18,
   },
   skeletonSummary: {
-    backgroundColor: Colors.aegeanBlue01,
+    backgroundColor: Colors.maroon01,
   },
   skeletonHeaderRow: {
     alignItems: 'center',

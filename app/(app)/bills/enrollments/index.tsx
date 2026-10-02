@@ -63,10 +63,10 @@ export default function Bills() {
         contentContainerStyle={globalStyle.screenContainer}
         refreshControl={(
           <RefreshControl
-            colors={[Colors.aqua10]}
+            colors={[Colors.red10]}
             onRefresh={handleRefresh}
             refreshing={refreshing}
-            tintColor={Colors.aqua10}
+            tintColor={Colors.red10}
           />
         )}
       >

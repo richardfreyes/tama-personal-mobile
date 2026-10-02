@@ -99,7 +99,7 @@ export const EnrollmentVerificationWebView = ({ url, accessSignature, accessType
     <NativeLoadingIndicator
       label="Loading enrollment verification"
       size="large"
-      color={Colors.aqua10}
+      color={Colors.red10}
       style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }}
     />
   ), []);
@@ -203,7 +203,7 @@ export const EnrollmentVerificationWebView = ({ url, accessSignature, accessType
                 <NativeLoadingIndicator
                   label="Completing verification"
                   size="large"
-                  color={Colors.aqua10}
+                  color={Colors.red10}
                 />
               </View>
             )}

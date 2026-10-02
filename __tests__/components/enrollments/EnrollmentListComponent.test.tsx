@@ -7,6 +7,7 @@ import { Image, StyleSheet } from 'react-native';
 import EnrollmentListComponent from '../../../components/enrollments/EnrollmentListComponent';
 import enrollmentSelectionReducer from '../../../redux/features/enrollmentSelection/enrollmentSelectionSlice';
 import { Colors } from '../../../styles/common/colors';
+import { inputFocusColor } from '../../../styles/common/globals';
 import { renderWithProviders } from '../../../utils/test-utils';
 
 const mockUseGetEnrollmentsQuery = jest.fn();
@@ -237,13 +238,13 @@ describe('EnrollmentListComponent', () => {
 
     const inputAfterFirstCharacter = screen.getByTestId('enrollment-search-input');
     expect(inputAfterFirstCharacter).toBe(input);
-    expect(StyleSheet.flatten(inputAfterFirstCharacter.props.style).borderColor).toBe(Colors.aqua10);
+    expect(StyleSheet.flatten(inputAfterFirstCharacter.props.style).borderColor).toBe(inputFocusColor);
 
     fireEvent.changeText(inputAfterFirstCharacter, 'EN');
 
     const inputAfterSecondCharacter = screen.getByTestId('enrollment-search-input');
     expect(inputAfterSecondCharacter).toBe(input);
-    expect(StyleSheet.flatten(inputAfterSecondCharacter.props.style).borderColor).toBe(Colors.aqua10);
+    expect(StyleSheet.flatten(inputAfterSecondCharacter.props.style).borderColor).toBe(inputFocusColor);
   });
 
   it('requests the next page when load more is triggered', () => {

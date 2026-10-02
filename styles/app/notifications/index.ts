@@ -18,7 +18,7 @@ export const notificationStyles = StyleSheet.create({
     marginBottom: 'auto',
   },
   sectionHeader: {
-    color: Colors.aqua10,
+    color: Colors.red10,
     marginTop: 24,
     marginBottom: 24,
     paddingHorizontal: 20,

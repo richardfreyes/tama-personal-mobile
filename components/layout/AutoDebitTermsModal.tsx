@@ -24,9 +24,9 @@ export const AutoDebitTermsModal = ({ visible, onClose }: AutoDebitTermsModalPro
       <AppText size='small' weight='600' style={{ width: 24 }}>{"3."}</AppText>
       <AppText size='small' style={{ flex: 1 }}>
         {"The property owner has the right to terminate the authorization at any time online by emailing our customer support at "}
-        <AppText size='small' style={{ color: Colors.aqua10 }} onPress={() => Linking.openURL('mailto:support@aqwire.co')}>{"support@aqwire.co"}</AppText>
+        <AppText size='small' style={{ color: Colors.red10 }} onPress={() => Linking.openURL('mailto:support@aqwire.co')}>{"support@aqwire.co"}</AppText>
         {" and terminating automatic payments or by calling our Tama office at "}
-        <AppText size='small' style={{ color: Colors.aqua10 }} onPress={() => Linking.openURL('tel:+14083350522')}>{"+1 408-335-0522 (USA)"}</AppText>
+        <AppText size='small' style={{ color: Colors.red10 }} onPress={() => Linking.openURL('tel:+14083350522')}>{"+1 408-335-0522 (USA)"}</AppText>
         {" and terminating the authorization with a Tama customer support representative. Termination of the authorization should be done 3 business days prior to the property owner's next auto debit date."}
       </AppText>
     </View>
@@ -35,7 +35,7 @@ export const AutoDebitTermsModal = ({ visible, onClose }: AutoDebitTermsModalPro
       <AppText size='small' weight='600' style={{ width: 24 }}>{"4."}</AppText>
       <AppText size='small' style={{ flex: 1 }}>
         {"The property owner must update any necessary changes to his/her checking/savings account or credit/debit card information by sending us an email at "}
-        <AppText size='small' style={{ color: Colors.aqua10 }} onPress={() => Linking.openURL('mailto:support@aqwire.co')}>{"support@aqwire.co"}</AppText>
+        <AppText size='small' style={{ color: Colors.red10 }} onPress={() => Linking.openURL('mailto:support@aqwire.co')}>{"support@aqwire.co"}</AppText>
         {". If the property owner does not update his/her checking/savings account or credit/debit card information and Tama is unable to charge the property owner's credit card or withdraw funds from the property owner's debit card, checking account, or savings account for the amount due on the property owner's monthly amortization/monthly mortgage, the property owner may be subject to applicable late fees and any fees or charges assessed by the property owner's financial institution. Please contact your property developer directly for any concerns on late payments."}
       </AppText>
     </View>

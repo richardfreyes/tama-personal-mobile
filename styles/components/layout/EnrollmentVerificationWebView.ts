@@ -35,7 +35,7 @@ export const enrollmentVerificationWebViewStyles = StyleSheet.create({
     position: 'absolute',
   },
   cancelButtonText: {
-    color: Colors.aqua10,
+    color: Colors.red10,
     fontSize: FontSizes.base,
     fontWeight: '600',
   },

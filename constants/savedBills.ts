@@ -1,8 +1,8 @@
 import { Colors } from '@/styles/common/colors';
 
 export const AVATAR_COLORS = [
-  Colors.aqua10,
-  Colors.aegeanBlue10,
+  Colors.red10,
+  Colors.maroon10,
   Colors.info06,
   Colors.amber09,
   Colors.rose08,

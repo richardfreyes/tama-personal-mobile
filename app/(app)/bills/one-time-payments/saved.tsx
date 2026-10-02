@@ -140,7 +140,7 @@ export default function SavedBillsScreen() {
       testID="saved-bills-banner"
     >
       <AppText color="neutral07" size="small">Pay a Bill</AppText>
-      <AppText color="aqua10" size="small">{countLabel}</AppText>
+      <AppText color="red10" size="small">{countLabel}</AppText>
     </View>
   );
 
@@ -208,10 +208,10 @@ export default function SavedBillsScreen() {
         onScroll={scrollHandler}
         refreshControl={(
           <RefreshControl
-            colors={[Colors.aqua10]}
+            colors={[Colors.red10]}
             onRefresh={refresh}
             refreshing={isRefreshing}
-            tintColor={Colors.aqua10}
+            tintColor={Colors.red10}
           />
         )}
         removeClippedSubviews={Platform.OS !== 'web'}

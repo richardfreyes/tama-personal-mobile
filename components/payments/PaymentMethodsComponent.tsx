@@ -70,8 +70,8 @@ export default function PaymentMethodsComponent({ sectionHeader, route, onAddPay
             <RefreshControl
               refreshing={isRefreshing}
               onRefresh={handleRefresh}
-              tintColor={Colors.aqua10}
-              colors={[Colors.aqua10]}
+              tintColor={Colors.red10}
+              colors={[Colors.red10]}
             />
           }
         >

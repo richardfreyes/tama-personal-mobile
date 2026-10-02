@@ -16,7 +16,7 @@ export const billsStyles = StyleSheet.create({
     fontWeight: 'bold',
   },
   addButton: {
-    backgroundColor: Colors.aqua10,
+    backgroundColor: Colors.red10,
     paddingVertical: 8,
     paddingHorizontal: 15,
     borderRadius: 8,
@@ -99,7 +99,7 @@ export const billsStyles = StyleSheet.create({
     borderWidth: 1,
   },
   pillActive: {
-    borderColor: Colors.aqua10,
+    borderColor: Colors.red10,
   },
   pillInactive: {
   },

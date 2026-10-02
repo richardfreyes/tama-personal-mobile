@@ -73,7 +73,7 @@ export default function ModalComponent() {
           <AppText style={{ marginBottom: 16 }}>
             To permanently delete your account and associated data, please send an email to{' '}
             <AppText
-              style={{ color: Colors.aqua10 }}
+              style={{ color: Colors.red10 }}
               onPress={() => Linking.openURL(`mailto:support@aqwire.co?subject=[ACCOUNT DEACTIVATION OR DELETION REQUEST] - ${email}`)}
             >
               support@aqwire.co
@@ -165,7 +165,7 @@ export default function ModalComponent() {
 //       case 'Sched':
 //         return { 
 //           Icon: ClockIcon, 
-//           fillColor: Colors.aegeanBlue10 
+//           fillColor: Colors.maroon10 
 //         };
 //       default:
 //         return { 
@@ -204,7 +204,7 @@ export default function ModalComponent() {
 //             { invoiceStatus === 'Paid' ? (
 //               <>
 //                 <AppText size='extraSmall' style={styles.invoiceLabel}>Retries: <AppText size='extraSmall'>{retries}</AppText></AppText>
-//                 <AppText size='extraSmall' style={styles.invoiceLabel}>Payment Reference ID: <AppText size='extraSmall' weight='700' style={{color: Colors.aqua10, textDecorationLine: 'underline'}}>{paymentRefId}</AppText></AppText>
+//                 <AppText size='extraSmall' style={styles.invoiceLabel}>Payment Reference ID: <AppText size='extraSmall' weight='700' style={{color: Colors.red10, textDecorationLine: 'underline'}}>{paymentRefId}</AppText></AppText>
 //               </>
 //             ) : null }
 //             <AppText size='extraSmall' style={styles.invoiceLabel}>{ invoiceStatus === 'Paid' ? 'Paid At: ' : 'Due At: '}<AppText size='extraSmall' weight='700'>{datePaid}</AppText></AppText>

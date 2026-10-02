@@ -1,6 +1,6 @@
 import WarningIcon from '@/assets/icons/warning.svg';
 import { Colors } from '@/styles/common/colors';
-import { globalStyle } from '@/styles/common/globals';
+import { globalStyle, inputFocusColor } from '@/styles/common/globals';
 import { fullScreenModalStyles as styles } from '@/styles/components/layout/FullScreenModal';
 import { FullScreenModalProps, IconProps } from '@/types';
 import React from 'react';
@@ -57,6 +57,7 @@ const FullScreenModal: React.FC<FullScreenModalProps> = ({
             </View>
             <TextInput
               mode="outlined"
+              activeOutlineColor={inputFocusColor}
               label="Reason for Cancellation"
               placeholder="Please state your reason."
               placeholderTextColor="#A9A9A9"
@@ -67,7 +68,7 @@ const FullScreenModal: React.FC<FullScreenModalProps> = ({
               style={{ marginBottom: 12 }}
             />
             <AppText style={{ marginBottom: 12 }} size='extraSmall'>Cancellation of an invoice is final. Type <AppText size='extraSmall' weight='700'>"cancel invoice"</AppText> below to confirm cancellation:</AppText>
-            <TextInput mode="outlined" style={{ marginBottom: 24 }}/>
+            <TextInput mode="outlined" activeOutlineColor={inputFocusColor} style={{ marginBottom: 24 }}/>
             <View style={styles.btnContainer}>
               <View style={{flex: 1, marginRight: 4}}>
                 <AppButton 

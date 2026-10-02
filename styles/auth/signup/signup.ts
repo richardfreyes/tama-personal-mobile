@@ -34,7 +34,7 @@ export const signupStyles = StyleSheet.create({
   },
   loginLink: {
     fontSize: FontSizes.small,
-    color: Colors.aqua10, 
+    color: Colors.red10, 
     fontWeight: 'bold',
     textDecorationLine: 'underline'
   }

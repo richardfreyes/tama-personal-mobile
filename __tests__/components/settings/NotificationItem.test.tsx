@@ -38,14 +38,14 @@ describe('NotificationItem', () => {
     renderWithProviders(<NotificationItem {...baseProps} isRead={false} />);
     const card = screen.UNSAFE_getAllByType(TouchableOpacity)[0];
     const style = StyleSheet.flatten(card.props.style);
-    expect(style.backgroundColor).toBe(Colors.aegeanBlue01);
+    expect(style.backgroundColor).toBe(Colors.maroon01);
   });
 
   it('does not apply the unread background when isRead is true', () => {
     renderWithProviders(<NotificationItem {...baseProps} isRead />);
     const card = screen.UNSAFE_getAllByType(TouchableOpacity)[0];
     const style = StyleSheet.flatten(card.props.style);
-    expect(style.backgroundColor).not.toBe(Colors.aegeanBlue01);
+    expect(style.backgroundColor).not.toBe(Colors.maroon01);
   });
 
   // ---- Interaction ----

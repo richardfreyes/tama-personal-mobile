@@ -58,8 +58,8 @@ export default function Transactions() {
           <RefreshControl
             refreshing={refreshing}
             onRefresh={handleRefresh}
-            tintColor={Colors.aqua10}
-            colors={[Colors.aqua10]}
+            tintColor={Colors.red10}
+            colors={[Colors.red10]}
           />
         }
         scrollEventThrottle={16}>

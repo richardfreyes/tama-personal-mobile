@@ -17,7 +17,7 @@ export const PageState: React.FC<PageStateProps> = ({title, description, childre
         <View style={style.brandLogoHolder}>
           <BrandLogo style={style.brandLogo} width={217} height={55} />
         </View>
-        <AppText weight="700" color='aegeanBlue10' style={[globalStyle.headerTitle, { marginBottom: 24 }]}>{title}</AppText>
+        <AppText weight="700" color='maroon10' style={[globalStyle.headerTitle, { marginBottom: 24 }]}>{title}</AppText>
         <AppText>{description}</AppText>
       </View>
       <View>

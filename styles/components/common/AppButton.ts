@@ -13,18 +13,18 @@ export const appButtonStyles = StyleSheet.create({
     borderColor: Colors.transparent,
   },
   primary: {
-    backgroundColor: Colors.aqua10
+    backgroundColor: Colors.red10
   },
   secondary: {
-    backgroundColor: Colors.aqua02,
+    backgroundColor: Colors.red02,
   },
   tertiary: {
     backgroundColor: Colors.transparent,
-    borderColor: Colors.aqua10,
+    borderColor: Colors.red10,
   },
   quaternary: {
     backgroundColor: Colors.transparent,
-    borderColor: Colors.aegeanBlue10,
+    borderColor: Colors.maroon10,
   },
   danger: {
     backgroundColor: Colors.error06,
@@ -57,13 +57,13 @@ export const appButtonStyles = StyleSheet.create({
     color: Colors.neutral01,
   },
   textSecondary: {
-    color: Colors.aqua10
+    color: Colors.red10
   },
   textTertiary: {
-    color: Colors.aqua10,
+    color: Colors.red10,
   },
   textQuaternary: {
-    color: Colors.aegeanBlue10,
+    color: Colors.maroon10,
   },
   textDanger: {
     color: Colors.neutral01

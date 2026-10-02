@@ -70,7 +70,7 @@ describe('EnrollmentVerificationWebView', () => {
       position: 'absolute',
       right: 16,
     });
-    expect(cancelTextStyle.color).toBe(Colors.aqua10);
+    expect(cancelTextStyle.color).toBe(Colors.red10);
   });
 
   it('renders the WebView with the correct source url', () => {
@@ -163,7 +163,7 @@ describe('EnrollmentVerificationWebView', () => {
       maxWidth: 440,
       width: '100%',
     });
-    expect(returnButtonStyle.backgroundColor).toBe(Colors.aqua10);
+    expect(returnButtonStyle.backgroundColor).toBe(Colors.red10);
 
     fireEvent.press(screen.getByTestId('return-to-app-button'));
 

@@ -72,9 +72,9 @@ export default function SearchMerchants({
                 <IconComponent 
                   style={{ marginRight: 8 }}
                   {...category.iconProps}
-                  fill={isActive ? Colors.aqua10 : Colors.neutral10}
+                  fill={isActive ? Colors.red10 : Colors.neutral10}
                 />
-                <AppText size='small' style={{ color: isActive ? Colors.aqua10 : Colors.neutral10 }}>
+                <AppText size='small' style={{ color: isActive ? Colors.red10 : Colors.neutral10 }}>
                   {category.name}
                 </AppText>
               </TouchableOpacity>

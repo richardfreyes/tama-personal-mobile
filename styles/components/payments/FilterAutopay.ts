@@ -33,7 +33,7 @@ export const filterAutoPayStyles = StyleSheet.create({
   },
   resetButtonText: {
     fontSize: FontSizes.small,
-    color: Colors.aqua10,
+    color: Colors.red10,
   },
   checkboxContainer: {
     flexDirection: 'row',

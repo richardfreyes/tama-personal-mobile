@@ -49,7 +49,7 @@ const RedirectingPage = () => {
         <BrandLogo width={150} height={50} />
         <NativeLoadingIndicator
           label="Preparing app"
-          color={Colors.aqua10}
+          color={Colors.red10}
           style={rootStyles.loader}
         />
       </View>

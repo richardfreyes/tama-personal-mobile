@@ -127,7 +127,7 @@ const DirectDebit = () => {
     <ScrollView contentContainerStyle={[globalStyle.screenContainer, globalStyle.screenContainerTop]}>
       <NavHeaderComponent title="Link a Bank Account" />
       <View style={globalStyle.outerContainer}>
-        <AppText size="medium" color="aegeanBlue10" weight="700" mBottom={8}>Choose your bank</AppText>
+        <AppText size="medium" color="maroon10" weight="700" mBottom={8}>Choose your bank</AppText>
         <AppText size="small" mBottom={16}>
           You&apos;ll be redirected to your bank to authorize direct debit. Your account details stay with the
           bank — we only store a secure token.

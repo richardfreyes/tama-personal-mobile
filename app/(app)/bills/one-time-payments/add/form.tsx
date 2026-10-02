@@ -321,7 +321,7 @@ export default function AddBillerFormScreen() {
                     <Checkbox.Android
                       status={formData.termsAccepted ? 'checked' : 'unchecked'}
                       onPress={() => handleTextChange('termsAccepted', !formData.termsAccepted)}
-                      uncheckedColor={Colors.aqua10}
+                      uncheckedColor={Colors.red10}
                     />
                     <View style={{ flex: 1 }}>
                       <AppText size='small' style={{ lineHeight: 20, textAlign: 'justify' }}>

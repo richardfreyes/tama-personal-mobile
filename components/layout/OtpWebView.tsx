@@ -361,7 +361,7 @@ export const OtpWebView = ({
     <NativeLoadingIndicator
       label="Loading verification page"
       size="large"
-      color={Colors.aqua10}
+      color={Colors.red10}
       style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }}
     />
   ), []);
@@ -408,7 +408,7 @@ export const OtpWebView = ({
             <NativeLoadingIndicator
               label={isWaitingOnDismiss && !isProcessing && !isCompletingCallback ? 'Waiting for confirmation' : processingLabel}
               size="large"
-              color={Colors.aqua10}
+              color={Colors.red10}
             />
           </View>
         ) : null}

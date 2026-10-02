@@ -43,7 +43,7 @@ const useLoadingAnnouncement = (label?: string) => {
 export const NativeLoadingIndicator = ({
   label = 'Loading',
   size = 'small',
-  color = Colors.aqua10,
+  color = Colors.red10,
   style,
   testID = 'native-loading-indicator',
 }: NativeLoadingIndicatorProps) => {

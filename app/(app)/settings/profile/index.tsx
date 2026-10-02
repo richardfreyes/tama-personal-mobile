@@ -36,8 +36,8 @@ export default function ProfileScreen() {
         <RefreshControl
           refreshing={isFetching && !isLoading}
           onRefresh={refetch}
-          tintColor={Colors.aqua10}
-          colors={[Colors.aqua10]}
+          tintColor={Colors.red10}
+          colors={[Colors.red10]}
         />
       }
     >

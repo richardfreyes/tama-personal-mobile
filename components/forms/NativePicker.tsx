@@ -1,6 +1,6 @@
 import { AppText } from '@/components/common/AppText';
 import { Colors } from '@/styles/common/colors';
-import { globalStyle } from '@/styles/common/globals';
+import { globalStyle, inputFocusColor } from '@/styles/common/globals';
 import { nativePickerStyles as styles } from '@/styles/components/forms/NativePicker';
 import { NativePickerProps } from '@/types';
 import { Picker } from '@react-native-picker/picker';
@@ -67,6 +67,7 @@ const NativePicker: React.FC<NativePickerProps> = ({
     <View pointerEvents="none">
       <TextInput
         mode="outlined"
+        activeOutlineColor={inputFocusColor}
         label={label}
         value={displayValue}
         placeholder={placeholder}

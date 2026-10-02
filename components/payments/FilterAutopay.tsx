@@ -7,6 +7,7 @@ import { KeyboardAvoidingView, Platform, ScrollView, TouchableOpacity, View } fr
 import { Checkbox, TextInput } from 'react-native-paper';
 import { DatePickerModal } from 'react-native-paper-dates';
 import { Colors } from '../../styles/common/colors';
+import { inputFocusColor } from '../../styles/common/globals';
 import { AppButton } from '../common/AppButton';
 import { AppText } from '../common/AppText';
 import { SpacerComponent } from '../common/SpacerComponent';
@@ -89,7 +90,7 @@ const FilterAutopay: React.FC<FilterAutopayProps> = ({ onApply, onReset }) => {
                 <Checkbox.Android
                   status={statusFilters.includes(status) ? 'checked' : 'unchecked'}
                   onPress={() => handleStatusChange(status)}
-                  color={Colors.aqua10}
+                  color={Colors.red10}
                   testID={`filter-status-${status}`}
                   uncheckedColor={Colors.neutral05}
                 />
@@ -107,7 +108,7 @@ const FilterAutopay: React.FC<FilterAutopayProps> = ({ onApply, onReset }) => {
                 <Checkbox.Android
                   status={transactionTypeFilters.includes(value) ? 'checked' : 'unchecked'}
                   onPress={() => handleTransactionTypeChange(value)}
-                  color={Colors.aqua10}
+                  color={Colors.red10}
                   testID={`filter-transaction-type-${value}`}
                   uncheckedColor={Colors.neutral05}
                 />
@@ -122,6 +123,7 @@ const FilterAutopay: React.FC<FilterAutopayProps> = ({ onApply, onReset }) => {
             value={formatDateRangeDisplay()}
             placeholder="Select date range"
             mode="outlined"
+            activeOutlineColor={inputFocusColor}
             editable={false}
             right={
               <TextInput.Icon

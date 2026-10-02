@@ -12,7 +12,7 @@ export const invoiceItemStyles = StyleSheet.create({
     justifyContent: 'center',
   },
   billerName: {
-    color: Colors.aqua10,
+    color: Colors.red10,
     marginBottom: 2,
   },
   dateText: {
@@ -38,6 +38,6 @@ export const invoiceItemStyles = StyleSheet.create({
     left: 0,
     right: 0,
     height: 1,
-    backgroundColor: Colors.aegeanBlue02,
+    backgroundColor: Colors.maroon02,
   }
 });

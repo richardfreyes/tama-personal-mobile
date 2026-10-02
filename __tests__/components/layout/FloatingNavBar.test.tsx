@@ -107,8 +107,8 @@ describe('FloatingNavBar', () => {
 
     const buttons = getTabButtons();
     expect(buttons).toHaveLength(VALID_ROUTE_NAMES.length);
-    expect(buttons[0].props.children.props.fill).not.toBe(Colors.aqua10);
-    expect(buttons[2].props.children.props.fill).toBe(Colors.aqua10);
+    expect(buttons[0].props.children.props.fill).not.toBe(Colors.red10);
+    expect(buttons[2].props.children.props.fill).toBe(Colors.red10);
   });
 
   it('keeps Bills active when the focused navigator route is Saved Bills', () => {
@@ -120,7 +120,7 @@ describe('FloatingNavBar', () => {
 
     const buttons = getTabButtons();
     expect(buttons).toHaveLength(1);
-    expect(buttons[0].props.children.props.fill).toBe(Colors.aqua10);
+    expect(buttons[0].props.children.props.fill).toBe(Colors.red10);
   });
 
   it('renders a tab button for each route that has an icon config', () => {
@@ -265,12 +265,12 @@ describe('FloatingNavBar', () => {
     buttons.forEach((btn, i) => {
       const iconEl = btn.props.children;
       if (i === 2) {
-        // Focused tab gets the aqua highlight
-        expect(iconEl.props.fill).toBe(Colors.aqua10);
+        // Focused tab gets the brand red highlight
+        expect(iconEl.props.fill).toBe(Colors.red10);
       } else {
         // Unfocused tabs get their configured inactive color
         expect(iconEl.props.fill).toBeTruthy();
-        expect(iconEl.props.fill).not.toBe(Colors.aqua10);
+        expect(iconEl.props.fill).not.toBe(Colors.red10);
       }
     });
   });
@@ -279,15 +279,15 @@ describe('FloatingNavBar', () => {
     // First render with index 0
     const { unmount } = renderNavBar({ index: 0 });
     let buttons = getTabButtons();
-    expect(buttons[0].props.children.props.fill).toBe(Colors.aqua10);
-    expect(buttons[1].props.children.props.fill).not.toBe(Colors.aqua10);
+    expect(buttons[0].props.children.props.fill).toBe(Colors.red10);
+    expect(buttons[1].props.children.props.fill).not.toBe(Colors.red10);
     unmount();
 
     // Re-render with index 1
     renderNavBar({ index: 1 });
     buttons = getTabButtons();
-    expect(buttons[0].props.children.props.fill).not.toBe(Colors.aqua10);
-    expect(buttons[1].props.children.props.fill).toBe(Colors.aqua10);
+    expect(buttons[0].props.children.props.fill).not.toBe(Colors.red10);
+    expect(buttons[1].props.children.props.fill).toBe(Colors.red10);
   });
 
   it('keeps the Bills navigation item active throughout the Add Biller flow', () => {
@@ -296,8 +296,8 @@ describe('FloatingNavBar', () => {
     renderNavBar({ index: 0 });
 
     const buttons = getTabButtons();
-    expect(buttons[0].props.children.props.fill).not.toBe(Colors.aqua10);
-    expect(buttons[2].props.children.props.fill).toBe(Colors.aqua10);
+    expect(buttons[0].props.children.props.fill).not.toBe(Colors.red10);
+    expect(buttons[2].props.children.props.fill).toBe(Colors.red10);
   });
 
   // ---- onLayout ----

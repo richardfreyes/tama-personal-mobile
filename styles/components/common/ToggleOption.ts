@@ -6,7 +6,7 @@ export const toggleOptionStyles = StyleSheet.create({
   container: {
     display: 'flex',
     flexDirection: 'row',
-    backgroundColor: Colors.aegeanBlue01,
+    backgroundColor: Colors.maroon01,
     padding: 4,
     borderRadius: 12,
     justifyContent: 'space-between',
@@ -24,7 +24,7 @@ export const toggleOptionStyles = StyleSheet.create({
     fontSize: FontSizes.base
   },
   selectedText: {
-    color: Colors.aqua10,
+    color: Colors.red10,
   },
   unselectedText: {
     color: Colors.neutral08

@@ -1,5 +1,6 @@
 import { StyleSheet } from "react-native";
 import { Colors } from "../../common/colors";
+import { inputFocusColor } from "../../common/globals";
 import { FontSizes } from "../../common/typography";
 
 export const OTPInputStyles = StyleSheet.create({
@@ -20,11 +21,11 @@ export const OTPInputStyles = StyleSheet.create({
     color: Colors.neutral08,
     backgroundColor: Colors.neutral01,
     fontWeight: 'bold',
-    outlineColor: Colors.aqua10,
+    outlineColor: inputFocusColor,
   },
   inputFocused: {
     backgroundColor: 'red',
-    borderColor: Colors.aqua10, 
+    borderColor: inputFocusColor,
   },
   helperText: {
     marginTop: 4,

@@ -60,7 +60,7 @@ export const enrollmentListComponentStyles = StyleSheet.create({
   },
   avatar: {
     alignItems: 'center',
-    backgroundColor: Colors.aegeanBlue10,
+    backgroundColor: Colors.maroon10,
     borderRadius: 10,
     height: 40,
     justifyContent: 'center',
@@ -98,14 +98,14 @@ export const enrollmentListComponentStyles = StyleSheet.create({
     marginLeft: 4,
   },
   amountPanel: {
-    backgroundColor: Colors.aqua01,
+    backgroundColor: Colors.red01,
     borderRadius: 14,
     marginTop: 18,
     paddingHorizontal: 18,
     paddingVertical: 16,
   },
   panelLabel: {
-    color: Colors.aegeanBlue10,
+    color: Colors.maroon10,
     letterSpacing: 0.8,
   },
   panelAmount: {
@@ -115,7 +115,7 @@ export const enrollmentListComponentStyles = StyleSheet.create({
     lineHeight: 34,
   },
   panelDivider: {
-    backgroundColor: Colors.aegeanBlue04,
+    backgroundColor: Colors.maroon04,
     height: 1,
     marginVertical: 5,
   },

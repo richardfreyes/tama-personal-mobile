@@ -5,7 +5,7 @@ import NavHeaderComponent from '@/components/layout/NavHeaderComponent';
 import { useResendDirectDebitOtpMutation, useValidateDirectDebitOtpMutation } from '@/redux/features/paymentMethods/paymentMethodApi';
 import { showSnackbar } from '@/redux/features/snackbar/snackbarSlice';
 import { useAppDispatch } from '@/redux/hooks';
-import { globalStyle } from '@/styles/common/globals';
+import { globalStyle, inputFocusColor } from '@/styles/common/globals';
 import { router, useLocalSearchParams } from 'expo-router';
 import React, { useState } from 'react';
 import { ScrollView, View } from 'react-native';
@@ -62,7 +62,7 @@ const DirectDebitOtp = () => {
     <ScrollView contentContainerStyle={[globalStyle.screenContainer, globalStyle.screenContainerTop]}>
       <NavHeaderComponent title="Confirm Payment" />
       <View style={globalStyle.outerContainer}>
-        <AppText size="medium" color="aegeanBlue10" weight="700" mBottom={8}>Enter the code</AppText>
+        <AppText size="medium" color="maroon10" weight="700" mBottom={8}>Enter the code</AppText>
         <AppText size="small" mBottom={16}>
           We sent a 6-digit code {otpMobileNumber ? `to ${otpMobileNumber}` : 'to your registered mobile number'}. Enter
           it to authorize this direct-debit payment.
@@ -70,6 +70,7 @@ const DirectDebitOtp = () => {
 
         <TextInput
           mode="outlined"
+          activeOutlineColor={inputFocusColor}
           label="6-digit code"
           value={otp}
           onChangeText={(text) => setOtp(text.replace(/\D/g, '').slice(0, 6))}

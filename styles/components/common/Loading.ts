@@ -96,7 +96,7 @@ export const loadingStyles = StyleSheet.create({
     gap: 6,
   },
   formContainer: {
-    backgroundColor: Colors.aegeanBlue01,
+    backgroundColor: Colors.maroon01,
     borderRadius: 8,
     gap: 16,
     padding: 12,
@@ -108,7 +108,7 @@ export const loadingStyles = StyleSheet.create({
     gap: 12,
   },
   detailsSection: {
-    backgroundColor: Colors.aegeanBlue01,
+    backgroundColor: Colors.maroon01,
     borderRadius: 8,
     gap: 12,
     padding: 12,
@@ -121,7 +121,7 @@ export const loadingStyles = StyleSheet.create({
     gap: 12,
   },
   profileSection: {
-    backgroundColor: Colors.aegeanBlue01,
+    backgroundColor: Colors.maroon01,
     borderRadius: 8,
     gap: 12,
     padding: 12,
@@ -186,7 +186,7 @@ export const loadingStyles = StyleSheet.create({
     width: '100%',
   },
   progressFill: {
-    backgroundColor: Colors.aqua10,
+    backgroundColor: Colors.red10,
     borderRadius: 4,
     height: '100%',
   },

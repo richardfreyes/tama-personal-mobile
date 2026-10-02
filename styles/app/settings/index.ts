@@ -17,7 +17,7 @@ export const settingsStyles = StyleSheet.create({
     height: 64,
     borderRadius: 32,
     marginBottom: 8,
-    backgroundColor: Colors.aqua07,
+    backgroundColor: Colors.red07,
   },
   infoBlock: {
     alignItems: 'center',

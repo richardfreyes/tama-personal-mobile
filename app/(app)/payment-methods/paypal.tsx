@@ -199,7 +199,7 @@ const PayPalPayment = () => {
           </View>
         ) : errorMessage ? (
           <View>
-            <AppText size="medium" weight="700" color="aegeanBlue10" mBottom={8}>Payment not completed</AppText>
+            <AppText size="medium" weight="700" color="maroon10" mBottom={8}>Payment not completed</AppText>
             <AppText size="small" mBottom={20}>{errorMessage}</AppText>
             <AppButton
               title={session ? (retryApproval ? 'Return to PayPal' : 'Check Payment Status') : 'Try Again'}

@@ -1,29 +1,29 @@
 
 export const Colors = {
-  // Aqua Palette
-  aqua01: '#F4FDFD',
-  aqua02: '#DEF8F9',
-  aqua03: '#C9F3F6',
-  aqua04: '#B3EEF2',
-  aqua05: '#9DE9EE',
-  aqua06: '#88E4EA',
-  aqua07: '#72DFE6',
-  aqua08: '#5CDAE3',
-  aqua09: '#36D1DC',
-  aqua10: '#31D0DB',
-  
-  // Aegean Blue Palette
-  aegeanBlue01: '#F7F9FA',
-  aegeanBlue02: '#E7ECF1',
-  aegeanBlue03: '#D6DFE8',
-  aegeanBlue04: '#C6D2DF',
-  aegeanBlue05: '#B6C5D6',
-  aegeanBlue06: '#A5B8CD',
-  aegeanBlue07: '#95ACC3',
-  aegeanBlue08: '#859FBA',
-  aegeanBlue09: '#7492B1',
-  aegeanBlue10: '#3F5770',
-  aegeanBlue11: '#26394A',
+  // Red Palette (TamaPay brand red - primary)
+  red01: '#FCF3F2',
+  red02: '#F5DAD9',
+  red03: '#EEC2C1',
+  red04: '#E7AAA8',
+  red05: '#E1918F',
+  red06: '#DA7A77',
+  red07: '#D3615E',
+  red08: '#CC4845',
+  red09: '#C11E1A',
+  red10: '#BF1814',
+
+  // Maroon Palette (warm dark neutral - text and container backgrounds)
+  maroon01: '#F7F6F6',
+  maroon02: '#E7E4E3',
+  maroon03: '#D6D0D0',
+  maroon04: '#C5BEBD',
+  maroon05: '#B5ACAB',
+  maroon06: '#A49897',
+  maroon07: '#948685',
+  maroon08: '#847473',
+  maroon09: '#73605F',
+  maroon10: '#3D2422',
+  maroon11: '#251615',
 
   // Support Info Palette
   info01: '#E7F3FC',
@@ -85,17 +85,17 @@ export const Colors = {
   neutral09: '#262626',
   neutral10: '#000',
 
-  // Sunglow (Amber) Palette
-  amber01: '#FFFBF2',
-  amber02: '#FFF4D9',
-  amber03: '#FFEDBF',
-  amber04: '#FFE6A6',
-  amber05: '#FFDF8C',
-  amber06: '#FFD773',
-  amber07: '#FFD059',
-  amber08: '#FFC83C',
-  amber09: '#FFC226',
-  amber10: '#FFBB0D',
+  // Amber Palette (TamaPay brand orange)
+  amber01: '#FEFAF4',
+  amber02: '#FDF1E0',
+  amber03: '#FCE8CA',
+  amber04: '#FBDFB5',
+  amber05: '#FAD6A0',
+  amber06: '#F9CD8B',
+  amber07: '#F7C376',
+  amber08: '#F6B95E',
+  amber09: '#F5B14C',
+  amber10: '#F4A837',
 
   // Other Colors
   transparent: 'transparent',

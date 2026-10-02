@@ -14,7 +14,7 @@ export const sectionHeaderComponentStyles = StyleSheet.create({
 		color: Colors.neutral07,
 	},
 	link: {
-		color: Colors.aqua10,
+		color: Colors.red10,
 		fontSize: FontSizes.small,
 		textDecorationLine: 'underline',
 	},

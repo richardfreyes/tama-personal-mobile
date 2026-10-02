@@ -22,21 +22,21 @@ export const legalStyles = StyleSheet.create({
     textAlign: 'center',
   },
   documentTitle: {
-    color: Colors.aegeanBlue10,
+    color: Colors.maroon10,
     fontSize: FontSizes.extraExtraLarge,
     lineHeight: 30,
     marginBottom: 18,
     textAlign: 'center',
   },
   sectionHeading: {
-    color: Colors.aegeanBlue10,
+    color: Colors.maroon10,
     fontSize: FontSizes.medium,
     lineHeight: 22,
     marginBottom: 8,
     marginTop: 14,
   },
   subheading: {
-    color: Colors.aegeanBlue10,
+    color: Colors.maroon10,
     fontSize: FontSizes.base,
     lineHeight: 21,
     marginBottom: 6,
@@ -76,7 +76,7 @@ export const legalStyles = StyleSheet.create({
     lineHeight: 19,
   },
   inlineLink: {
-    color: Colors.aqua10,
+    color: Colors.red10,
   },
   legalTableScroll: {
     marginBottom: 12,
@@ -97,7 +97,7 @@ export const legalStyles = StyleSheet.create({
     borderBottomWidth: 0,
   },
   legalTableHeaderRow: {
-    backgroundColor: Colors.aegeanBlue01,
+    backgroundColor: Colors.maroon01,
   },
   legalTableCell: {
     justifyContent: 'center',
@@ -109,7 +109,7 @@ export const legalStyles = StyleSheet.create({
     borderRightWidth: 1,
   },
   legalTableHeaderText: {
-    color: Colors.aegeanBlue10,
+    color: Colors.maroon10,
     fontSize: FontSizes.small,
     lineHeight: 18,
   },
@@ -119,6 +119,6 @@ export const legalStyles = StyleSheet.create({
     lineHeight: 19,
   },
   legalTableFirstColumnText: {
-    color: Colors.aegeanBlue10,
+    color: Colors.maroon10,
   },
 });

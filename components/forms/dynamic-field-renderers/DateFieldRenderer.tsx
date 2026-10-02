@@ -1,4 +1,4 @@
-import { globalStyle } from '@/styles/common/globals';
+import { globalStyle, inputFocusColor } from '@/styles/common/globals';
 import { DateFieldRendererProps } from '@/types';
 import { formatDateDisplay } from '@/utils/date';
 import { TouchableOpacity, View } from 'react-native';
@@ -22,6 +22,7 @@ export const DateFieldRenderer = ({
         <View pointerEvents="none">
           <TextInput
             mode="outlined"
+            activeOutlineColor={inputFocusColor}
             label={field.label}
             value={formatDateDisplay(formData[field.key])}
             placeholder={field.placeholder || field.label}

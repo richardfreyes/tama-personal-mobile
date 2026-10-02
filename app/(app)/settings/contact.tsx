@@ -46,7 +46,7 @@ export default function ContactScreen() {
               style={[styles.contactRow, isLast ? styles.contactRowLast : null]}
             >
               <View style={styles.iconCircle}>
-                <Feather name={channel.icon} size={18} color={Colors.aqua10} />
+                <Feather name={channel.icon} size={18} color={Colors.red10} />
               </View>
               <View style={styles.contactText}>
                 <AppText weight="600" style={styles.contactTitle}>{channel.title}</AppText>

@@ -1,5 +1,5 @@
 import { Colors } from "@/styles/common/colors";
-import { globalStyle } from "@/styles/common/globals";
+import { globalStyle, inputFocusColor } from "@/styles/common/globals";
 import { InputValidationProps } from "@/types";
 import { formatCurrencyInput, getCurrencyInputSelection, normalizeCurrencyInput } from "@/utils/format";
 import React, { memo, useLayoutEffect, useRef, useState } from "react";
@@ -184,7 +184,7 @@ const InputValidationComponent = ({
         <PaperTextInput.Icon
           icon={isPasswordVisible ? "eye-off" : "eye"}
           onPress={() => setIsPasswordVisible((v) => !v)}
-          color={Colors.aqua10}
+          color={Colors.red10}
           forceTextInputFocus={false}
         />
       );
@@ -223,6 +223,7 @@ const InputValidationComponent = ({
         secureTextEntry={finalSecureTextEntry}
         maxLength={maxLength}
         theme={{ colors: { primary: theme.colors.primary } }}
+        activeOutlineColor={inputFocusColor}
         right={getRightAccessory()}
         left={left}
         multiline={multiline}

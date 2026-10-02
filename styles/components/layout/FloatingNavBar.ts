@@ -11,7 +11,7 @@ export const floatingNavBarStyles = StyleSheet.create({
     justifyContent: 'center',
   },
   tabBar: {
-    backgroundColor: Colors.aegeanBlue10,
+    backgroundColor: Colors.maroon10,
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'center',

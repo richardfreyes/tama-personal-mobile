@@ -283,7 +283,7 @@ const LoginScreen = () => {
               ) :
               (
                 <View>
-                  <AppText weight='700' mBottom={16} size='extraExtraLarge' color='aegeanBlue10'>Login</AppText>
+                  <AppText weight='700' mBottom={16} size='extraExtraLarge' color='maroon10'>Login</AppText>
                   <InputValidationComponent
                     field='email'
                     value={formData.email}
@@ -305,7 +305,7 @@ const LoginScreen = () => {
                         status={formData.rememberMe ? 'checked' : 'unchecked'}
                         onPress={() => handleSetValue('rememberMe', !formData.rememberMe)}
                         style={styles.checkbox}
-                        uncheckedColor={Colors.aqua10}
+                        uncheckedColor={Colors.red10}
                       />
                       <AppText>Remember me</AppText>
                     </View>
@@ -336,7 +336,7 @@ const LoginScreen = () => {
                 </TouchableOpacity>
                 <View>
                   <AppText style={[globalStyle.textAlignCenter, {marginBottom: 24}]}>Not you? 
-                    <AppText style={{color: Colors.aqua10}} onPress={handleSwitchAccount}> Switch Account</AppText>
+                    <AppText style={{color: Colors.red10}} onPress={handleSwitchAccount}> Switch Account</AppText>
                   </AppText>
                   {btnLogin()}
                   <SpacerComponent height={24} />

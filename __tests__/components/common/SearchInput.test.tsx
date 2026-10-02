@@ -4,6 +4,7 @@ import React from 'react';
 import { StyleSheet } from 'react-native';
 import SearchInput from '../../../components/common/SearchInput';
 import { Colors } from '../../../styles/common/colors';
+import { inputFocusColor } from '../../../styles/common/globals';
 
 describe('SearchInput', () => {
   it('centers the icon and reserves space for it', () => {
@@ -50,7 +51,7 @@ describe('SearchInput', () => {
     const input = screen.getByTestId('search-input');
 
     fireEvent(input, 'focus');
-    expect(StyleSheet.flatten(input.props.style).borderColor).toBe(Colors.aqua10);
+    expect(StyleSheet.flatten(input.props.style).borderColor).toBe(inputFocusColor);
     expect(onFocus).toHaveBeenCalledTimes(1);
 
     fireEvent(input, 'blur');

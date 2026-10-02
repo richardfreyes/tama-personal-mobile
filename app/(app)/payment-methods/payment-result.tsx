@@ -98,7 +98,7 @@ const PaymentResult = () => {
           </View>
         ) : (
           <View>
-            <AppText size="medium" weight="700" color="aegeanBlue10" mBottom={8}>{copy.title}</AppText>
+            <AppText size="medium" weight="700" color="maroon10" mBottom={8}>{copy.title}</AppText>
             <AppText size="small" mBottom={20}>{errorMessage || copy.message}</AppText>
             {canCheckAgain && (
               <>

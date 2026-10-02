@@ -33,7 +33,7 @@ const IntroScreen: React.FC = () => {
       <View style={styles.overlay} />
       <View style={styles.contentContainer}>
         <View style={styles.logoContainer}>
-          <BrandLogoWhite style={styles.logo} width={250} height={57} />
+          <BrandLogoWhite style={styles.logo} width={300} height={99} />
         </View>
         <View style={styles.buttonContainer}>
           {/* TODO: Phase 2 */}

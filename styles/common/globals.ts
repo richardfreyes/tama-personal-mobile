@@ -2,6 +2,10 @@ import { StyleSheet } from 'react-native';
 import { Colors } from './colors';
 import { FontSizes } from './typography';
 
+// Focus colour for text inputs: a soft charcoal rather than pure black.
+// Deliberately not red or amber so a focused field never reads as an error or a warning.
+export const inputFocusColor = Colors.neutral08;
+
 export const globalStyle = StyleSheet.create({
   paperTextInput: {
     borderRadius: 4,
@@ -23,7 +27,7 @@ export const globalStyle = StyleSheet.create({
     justifyContent: 'flex-start',
   },
   outerContainer: {
-    backgroundColor: Colors.aegeanBlue01,
+    backgroundColor: Colors.maroon01,
     padding: 12,
     borderRadius: 8
   },
@@ -96,7 +100,7 @@ export const globalStyle = StyleSheet.create({
     width: '100%',
   },
   inputFocused: {
-    borderColor: Colors.aqua10,
+    borderColor: inputFocusColor,
   },
   inputDisabled: {
     backgroundColor: Colors.neutral03,

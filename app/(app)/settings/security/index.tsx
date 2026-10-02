@@ -22,7 +22,7 @@ export default function Security() {
         bodyType: 'accountDeletion',
         buttonConfig: {
           primaryLabel: 'Send Email',
-          primaryStyle: { backgroundColor: Colors.aqua10 }, 
+          primaryStyle: { backgroundColor: Colors.red10 }, 
           secondaryLabel: 'Cancel',
           direction: 'row',
         },

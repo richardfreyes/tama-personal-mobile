@@ -5,7 +5,7 @@ import { StyleSheet } from 'react-native';
 export const monthlyBillsStyles = StyleSheet.create({
   container: {
     alignSelf: 'stretch',
-    backgroundColor: Colors.aegeanBlue01,
+    backgroundColor: Colors.maroon01,
     borderColor: Colors.neutral03,
     borderRadius: 8,
     borderWidth: 0.5,
@@ -31,12 +31,12 @@ export const monthlyBillsStyles = StyleSheet.create({
     alignSelf: 'stretch',
   },
   merchantName: {
-    color: Colors.aegeanBlue09,
+    color: Colors.maroon09,
     lineHeight: 18,
     marginBottom: 2,
   },
   heading: {
-    color: Colors.aegeanBlue10,
+    color: Colors.maroon10,
     fontSize: FontSizes.extraExtraLarge,
     lineHeight: 32,
     width: '100%',
@@ -72,33 +72,33 @@ export const monthlyBillsStyles = StyleSheet.create({
     width: 10,
   },
   monthlyIndicatorInactive: {
-    backgroundColor: Colors.aqua05,
+    backgroundColor: Colors.red05,
     borderRadius: 3,
     height: 6,
     width: 6,
   },
   monthlyIndicatorActive: {
-    backgroundColor: Colors.aqua09,
+    backgroundColor: Colors.red09,
     borderRadius: 3,
     height: 6,
     position: 'absolute',
     width: 12,
   },
   indicatorDot: {
-    backgroundColor: Colors.aqua10,
+    backgroundColor: Colors.red10,
     borderRadius: 4,
     height: 6,
     width: 6,
   },
   indicatorActive: {
-    backgroundColor: Colors.aqua10,
+    backgroundColor: Colors.red10,
     width: 19,
   },
   indicatorInactive: {
-    backgroundColor: Colors.aqua05,
+    backgroundColor: Colors.red05,
   },
   indicatorCount: {
-    color: Colors.aegeanBlue08,
+    color: Colors.maroon08,
     fontSize: FontSizes.extraSmall,
     fontVariant: ['tabular-nums'],
     lineHeight: 14,
@@ -133,7 +133,7 @@ export const monthlyBillsStyles = StyleSheet.create({
     paddingVertical: 12,
   },
   emptyTitle: {
-    color: Colors.aegeanBlue10,
+    color: Colors.maroon10,
     lineHeight: 18,
     marginTop: 6,
     textAlign: 'center',

@@ -30,7 +30,7 @@ export const loginStyle = StyleSheet.create({
   forgotPasswordText: {
     fontSize: 14,
     fontWeight: '400',
-    color: Colors.aqua10,
+    color: Colors.red10,
     textDecorationLine: 'underline',
   },
   signupRow: {

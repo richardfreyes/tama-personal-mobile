@@ -21,7 +21,7 @@ export const onboardingFlowStyles = StyleSheet.create({
     marginBottom: 12,
     textAlign: 'center',
     fontSize: FontSizes.extraExtraLarge,
-    color: Colors.aegeanBlue10
+    color: Colors.maroon10
   },
   desc: {
     textAlign: 'center',

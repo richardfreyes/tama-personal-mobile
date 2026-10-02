@@ -17,7 +17,7 @@ export const optDeliverySelectionStyles = StyleSheet.create({
     marginBottom: 24,
   },
   cardContainer: {
-    backgroundColor: Colors.aegeanBlue01,
+    backgroundColor: Colors.maroon01,
     borderRadius: 8,
     padding: 12,
   },

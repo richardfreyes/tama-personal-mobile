@@ -21,7 +21,7 @@ export const modalComponentStyles = StyleSheet.create({
     width: '80%',
   },
   icon: {
-    color: Colors.aqua10,
+    color: Colors.red10,
     marginBottom: 12,
   },
   modalText: {

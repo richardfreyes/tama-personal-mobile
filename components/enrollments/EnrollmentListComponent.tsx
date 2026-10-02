@@ -332,10 +332,10 @@ const EnrollmentListComponent = forwardRef<EnrollmentListRef, EnrollmentListComp
         onScroll={tabBarScrollHandler}
         refreshControl={(
           <RefreshControl
-            colors={[Colors.aqua10]}
+            colors={[Colors.red10]}
             onRefresh={refresh}
             refreshing={isRefreshing}
-            tintColor={Colors.aqua10}
+            tintColor={Colors.red10}
           />
         )}
         removeClippedSubviews={Platform.OS !== 'web'}

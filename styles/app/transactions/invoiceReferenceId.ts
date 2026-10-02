@@ -17,7 +17,7 @@ export const invoiceReferenceIdStyles = StyleSheet.create({
     fontSize: 16,
   },
   backLink: {
-    color: Colors.aqua10,
+    color: Colors.red10,
     marginTop: 10,
   },
 });

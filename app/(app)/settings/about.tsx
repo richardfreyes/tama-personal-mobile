@@ -41,7 +41,7 @@ export default function AboutScreen() {
                 ]}
               >
                 <View style={[styles.iconCircle, !isStatsHorizontal ? styles.iconCircleVertical : null]}>
-                  <Feather name={stat.icon} size={22} color={Colors.aqua10} />
+                  <Feather name={stat.icon} size={22} color={Colors.red10} />
                 </View>
                 <View style={isStatsHorizontal ? styles.statContentHorizontal : styles.statContentVertical}>
                   <AppText weight="700" style={[styles.statValue, !isStatsHorizontal ? styles.statTextVertical : null]}>
@@ -80,7 +80,7 @@ export default function AboutScreen() {
         <View style={styles.legalList}>
           {LEGAL_ROWS.map(row => (
             <TouchableOpacity key={row.title} style={styles.legalRow} onPress={row.onPress} activeOpacity={0.7}>
-              <Feather name={row.icon} size={16} color={Colors.aegeanBlue10} style={styles.legalIcon} />
+              <Feather name={row.icon} size={16} color={Colors.maroon10} style={styles.legalIcon} />
               <AppText weight="600" style={styles.legalTitle}>{row.title}</AppText>
               <ChevronRightIcon width={16} height={16} />
             </TouchableOpacity>

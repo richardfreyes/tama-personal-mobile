@@ -376,7 +376,7 @@ const FormDetails = () => {
         <View>
           <View style={globalStyle.outerContainer}>
             <View style={styles.outerContainer}>
-              <AppText size='medium' color='aegeanBlue10' weight='700' mBottom={16}>{methodTitle || 'Add Payment Method'}</AppText>
+              <AppText size='medium' color='maroon10' weight='700' mBottom={16}>{methodTitle || 'Add Payment Method'}</AppText>
               { selectedOption?.logos?.length || selectedOption?.mainLogoUri ? (
                 <View style={styles.logosContainer}>
                   {selectedOption?.logos?.length && (selectedOption.logos.map((item) => {
@@ -404,7 +404,7 @@ const FormDetails = () => {
                 <AppText style={styles.infoText}>To verify your card is valid and active, we may place a temporary authorization hold of $1 or ₱10 on your account. This is not an actual charge and will be automatically reversed.</AppText>
               </View>
 
-              <AppText size='medium' color='aegeanBlue10' weight='700' mBottom={16}>Card Information</AppText>
+              <AppText size='medium' color='maroon10' weight='700' mBottom={16}>Card Information</AppText>
 
               <InputValidationComponent
                 field="fullName"
@@ -462,7 +462,7 @@ const FormDetails = () => {
 
               <SpacerComponent height={12} />
 
-              <AppText size='medium' color='aegeanBlue10' weight='700' mBottom={16}>Billing Information</AppText>
+              <AppText size='medium' color='maroon10' weight='700' mBottom={16}>Billing Information</AppText>
 
               <SpacerComponent height={8} />
 

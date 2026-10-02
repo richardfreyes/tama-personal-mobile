@@ -107,7 +107,7 @@ export default function EnrollmentDetailsContent({ enrollment }: EnrollmentDetai
               ]}
               testID="copy-enrollment-reference"
             >
-              <Feather color={Colors.aegeanBlue10} name="copy" size={18} />
+              <Feather color={Colors.maroon10} name="copy" size={18} />
             </Pressable>
           </View>
         ) : null}
@@ -280,7 +280,7 @@ export default function EnrollmentDetailsContent({ enrollment }: EnrollmentDetai
 
       <View style={styles.supportCard}>
         <View style={styles.supportIcon}>
-          <Feather color={Colors.aegeanBlue10} name="help-circle" size={20} />
+          <Feather color={Colors.maroon10} name="help-circle" size={20} />
         </View>
         <View style={styles.supportTextGroup}>
           <AppText weight="700" style={styles.supportTitle}>Need help?</AppText>
@@ -294,7 +294,7 @@ export default function EnrollmentDetailsContent({ enrollment }: EnrollmentDetai
               onPress={() => { void Linking.openURL(SUPPORT_EMAIL.url); }}
               style={({ pressed }) => [styles.supportEmailLink, pressed && styles.supportEmailLinkPressed]}
             >
-              <Feather color={Colors.aegeanBlue10} name="mail" size={16} />
+              <Feather color={Colors.maroon10} name="mail" size={16} />
               <AppText size="small" weight="600" style={styles.supportEmailText}>
                 {SUPPORT_EMAIL.label}
               </AppText>

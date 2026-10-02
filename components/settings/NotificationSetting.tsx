@@ -19,7 +19,7 @@ const SettingToggleItem: React.FC<SettingToggleItemProps> = ({
       activeOpacity={0.8}
     >
       <View style={styles.toggleLabel}>
-        <AppText weight='700' style={{ color: Colors.aqua10 }}>{label}</AppText>
+        <AppText weight='700' style={{ color: Colors.red10 }}>{label}</AppText>
         {description && (
           <AppText style={{ marginTop: 4 }} size='small'>
             {description}
@@ -28,7 +28,7 @@ const SettingToggleItem: React.FC<SettingToggleItemProps> = ({
       </View>
       
       <Switch
-        trackColor={{ false: Colors.neutral05, true: Colors.aqua10 }}
+        trackColor={{ false: Colors.neutral05, true: Colors.red10 }}
         thumbColor={Colors.neutral01}
         onValueChange={onToggle}
         value={isEnabled}

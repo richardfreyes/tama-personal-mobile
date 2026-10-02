@@ -1,0 +1,19 @@
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect x="0.5" y="0.5" width="23" height="23" rx="11.5" fill="#3F5770" stroke="#D9D9D9"/>
+<g transform="translate(2.6178 3.8750) scale(0.2580)">
+<path d="M33.5504 13.5561L19.6025 36.7036L9.35817 52.5926C8.87313 53.6388 9.73083 54.6068 10.4992 54.6814C16.5866 55.2688 34.9536 44.076 42.355 31.5842L49.1129 20.245C49.1129 20.245 48.064 11.8702 41.1179 10.6719C37.2136 9.9977 33.5504 13.5561 33.5504 13.5561Z" fill="url(#aqwire_logo_paint0)"/>
+<path d="M58.0776 20.7113L54.2358 13.8667C53.2302 12.1595 51.7946 10.7282 50.0635 9.70683C48.1698 8.60216 46.0023 8.01855 43.7931 8.01855C41.5839 8.01855 39.4163 8.60216 37.5227 9.70683C35.7914 10.7279 34.3557 12.1593 33.3504 13.8667L27.1333 24.2175C30.8465 17.2097 37.4833 18.9955 40.6183 23.658C42.6132 26.6224 55.638 47.3287 55.638 47.3287L58.0776 20.7113Z" fill="url(#aqwire_logo_paint1)"/>
+<path d="M29.206 51.9384C50.7906 36.071 54.2233 13.8513 54.232 13.8662C62.6524 27.9013 78.2552 58.4772 29.9763 54.6539C28.3925 54.5289 28.0237 52.8085 29.206 51.9384Z" fill="#36D1DC"/>
+</g>
+<defs>
+<linearGradient id="aqwire_logo_paint0" x1="20.3872" y1="49.4538" x2="45.783" y2="8.27027" gradientUnits="userSpaceOnUse">
+<stop offset="0.45" stop-color="#36D1DC"/>
+<stop offset="0.81" stop-color="#36BDDC"/>
+</linearGradient>
+<linearGradient id="aqwire_logo_paint1" x1="37.0568" y1="18.8631" x2="56.8114" y2="31.6715" gradientUnits="userSpaceOnUse">
+<stop offset="0.35" stop-color="#36D1DC"/>
+<stop offset="0.56" stop-color="#36CADC"/>
+<stop offset="0.77" stop-color="#36BDDC"/>
+</linearGradient>
+</defs>
+</svg>

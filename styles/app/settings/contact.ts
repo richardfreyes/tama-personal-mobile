@@ -7,19 +7,19 @@ export const contactStyles = StyleSheet.create({
     justifyContent: 'flex-start',
   },
   introCard: {
-    backgroundColor: Colors.aegeanBlue01,
+    backgroundColor: Colors.maroon01,
     borderRadius: 8,
     marginBottom: 16,
     padding: 16,
   },
   introEyebrow: {
-    color: Colors.aqua10,
+    color: Colors.red10,
     fontSize: FontSizes.extraSmall,
     marginBottom: 8,
     textTransform: 'uppercase',
   },
   introTitle: {
-    color: Colors.aegeanBlue10,
+    color: Colors.maroon10,
     fontSize: FontSizes.extraExtraLarge,
     lineHeight: 30,
     marginBottom: 10,
@@ -30,7 +30,7 @@ export const contactStyles = StyleSheet.create({
     lineHeight: 21,
   },
   sectionTitle: {
-    color: Colors.aegeanBlue10,
+    color: Colors.maroon10,
     fontSize: FontSizes.large,
     lineHeight: 24,
     marginBottom: 12,
@@ -55,7 +55,7 @@ export const contactStyles = StyleSheet.create({
   },
   iconCircle: {
     alignItems: 'center',
-    backgroundColor: Colors.aqua01,
+    backgroundColor: Colors.red01,
     borderRadius: 20,
     height: 40,
     justifyContent: 'center',
@@ -66,7 +66,7 @@ export const contactStyles = StyleSheet.create({
     flex: 1,
   },
   contactTitle: {
-    color: Colors.aegeanBlue10,
+    color: Colors.maroon10,
     fontSize: FontSizes.small,
     lineHeight: 17,
     marginBottom: 2,
@@ -91,7 +91,7 @@ export const contactStyles = StyleSheet.create({
     marginBottom: 0,
   },
   infoLabel: {
-    color: Colors.aegeanBlue10,
+    color: Colors.maroon10,
     fontSize: FontSizes.small,
     lineHeight: 17,
     marginBottom: 4,

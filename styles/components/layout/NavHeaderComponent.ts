@@ -28,7 +28,7 @@ const navHeaderStyles = StyleSheet.create({
   },
   backButton: {
     ...navButtonBase,
-    backgroundColor: Colors.aegeanBlue01,
+    backgroundColor: Colors.maroon01,
   },
   rightNav: {
     ...navButtonBase

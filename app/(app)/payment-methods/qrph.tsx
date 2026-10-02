@@ -205,7 +205,7 @@ const QrphPayment = () => {
           </View>
         ) : errorMessage ? (
           <View>
-            <AppText size="medium" weight="700" color="aegeanBlue10" mBottom={8}>
+            <AppText size="medium" weight="700" color="maroon10" mBottom={8}>
               {isPending ? 'Payment processing' : 'Payment not completed'}
             </AppText>
             <AppText size="small" mBottom={20}>{errorMessage}</AppText>

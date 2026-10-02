@@ -5,7 +5,7 @@ import { FontSizes } from "../../common/typography";
 export const transactionHistoryComponentStyles = StyleSheet.create({
   dateSeparatorText: {
     fontSize: FontSizes.small,
-    color: Colors.aqua10,
+    color: Colors.red10,
     marginTop: 12,
   },
   itemContainer: {
@@ -49,7 +49,7 @@ export const transactionHistoryComponentStyles = StyleSheet.create({
   },
   unitName: {
     fontSize: FontSizes.extraSmall,
-    color: Colors.aqua10,
+    color: Colors.red10,
   },
   colRight: {
     flex: 1.5,
@@ -92,7 +92,7 @@ export const transactionHistoryComponentStyles = StyleSheet.create({
     marginRight: 4,
     backgroundColor: Colors.neutral03,
     borderRadius: 8,
-    color: Colors.aegeanBlue05
+    color: Colors.maroon05
   },
   oneTimePaymentTypeBadge: {
     backgroundColor: Colors.neutral01,
@@ -130,7 +130,7 @@ export const transactionHistoryComponentStyles = StyleSheet.create({
     alignItems: 'center',
     width: 40,
     height: 40,
-    backgroundColor: '#3F5770',
+    backgroundColor: Colors.maroon10,
     borderRadius: 20,
     marginLeft: 12,
   },

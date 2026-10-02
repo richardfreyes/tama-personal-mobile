@@ -1,5 +1,6 @@
 import { COMMON } from '@/constants/common';
 import { Colors } from '@/styles/common/colors';
+import { inputFocusColor } from '@/styles/common/globals';
 import { OTPInputStyles as styles } from '@/styles/components/forms/OTPInput';
 import { OTPInputProps } from '@/types';
 import React, { useRef, useState } from 'react';
@@ -66,8 +67,8 @@ const OTPInput: React.FC<OTPInputProps> = ({
               inputStyle,
               error ? { borderColor: Colors.error10 } : {}
             ]}
-            cursorColor={Colors.aqua10}
-            selectionColor={Colors.aqua10}
+            cursorColor={inputFocusColor}
+            selectionColor={inputFocusColor}
             keyboardType="number-pad"
             maxLength={index === 0 ? length : 1}
             textContentType={index === 0 ? 'oneTimeCode' : 'none'}

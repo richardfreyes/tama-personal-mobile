@@ -40,11 +40,11 @@ The application uses a semantic palette defined in `styles/common/colors.ts`. Co
 
 | Palette | Token Range | Usage |
 | :--- | :--- | :--- |
-| **Aqua** (Primary) | `aqua01` - `aqua10` | Brand identity. `aqua10` (\#31D0DB) is the primary action color. `aqua01` is the lightest tint. |
-| **Aegean Blue** | `aegeanBlue01` - `aegeanBlue10` | Secondary UI elements. `aegeanBlue01` is used for container backgrounds. |
+| **Red** (Primary) | `red01` - `red10` | TamaPay brand red. `red10` (\#BF1814) is the primary action color. `red01` is the lightest tint. |
+| **Maroon** | `maroon01` - `maroon11` | Warm dark neutral for titles, the tab bar and dark panels. `maroon10` (\#3D2422) is the deep tone, `maroon01` is used for container backgrounds. |
 | **Neutral** | `neutral01` - `neutral10` | `neutral01` (White) for surfaces. `neutral10` (Black) for main text. `neutral03` for borders. |
 | **Support** | `success01` - `10`, `error01` - `10` | Feedback states. `error06` is used for danger buttons. |
-| **Special** | `rose`, `amber` | Additional semantic highlights. |
+| **Special** | `rose`, `amber` | Additional semantic highlights. `amber10` (\#F4A837) is the TamaPay brand orange. Input focus uses `neutral08` (\#595959) via `inputFocusColor` in `globals.ts`. |
 
 ### Usage Example
 
@@ -53,7 +53,7 @@ import { Colors } from '@/styles/common/colors';
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: Colors.aqua10,
+    backgroundColor: Colors.red10,
     borderColor: Colors.neutral03,
   }
 });
@@ -113,7 +113,7 @@ Common layout patterns and input styles are exported from `styles/common/globals
 | Class | Description |
 | :--- | :--- |
 | `screenContainer` | Standard screen wrapper with `flexGrow: 1` and padding. |
-| `outerContainer` | Card-like container with `aegeanBlue01` background and radius. |
+| `outerContainer` | Card-like container with `maroon01` background and radius. |
 | `paperTextInput` | Standard styling for React Native Paper inputs (borderRadius: 4). |
 | `inputBase` / `inputFocused` | Styles for custom search/text inputs. |
 | `loadingContainer` | Centered flex container for activity indicators. |
@@ -146,10 +146,10 @@ A multi-variant button component.
 
 | Variant | Visual Style |
 | :--- | :--- |
-| `primary` | Solid `aqua10` background, White text. |
-| `secondary` | Light `aqua02` background, Aqua text. |
-| `tertiary` | Transparent background, Aqua text & border. |
-| `quaternary` | Transparent background, AegeanBlue text & border. |
+| `primary` | Solid `red10` background, White text. |
+| `secondary` | Light `red02` background, Red text. |
+| `tertiary` | Transparent background, Red text & border. |
+| `quaternary` | Transparent background, Maroon text & border. |
 | `danger` | Solid `error06` background, White text. |
 
 #### Usage
@@ -174,7 +174,7 @@ Custom bottom navigation bar with shadow elevation and absolute positioning.
 #### Characteristics
 
   * **Position:** Absolute, floating 24px from bottom.
-  * **Active State:** Icon fills with `Colors.aqua10`.
+  * **Active State:** Icon fills with `Colors.red10`.
   * **Inactive State:** Icon fills with configured inactive color.
 
 -----

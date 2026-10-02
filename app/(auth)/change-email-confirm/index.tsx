@@ -28,7 +28,7 @@ const ChangeEmailConfirmScreen = () => {
   if (isLoading) {
     return (
       <View style={[globalStyle.screenContainer, styles.container, { justifyContent: 'center', alignItems: 'center' }]}>
-        <NativeLoadingIndicator label="Verifying your new email" size="large" color={Colors.aqua10} />
+        <NativeLoadingIndicator label="Verifying your new email" size="large" color={Colors.red10} />
         <SpacerComponent height={24} />
         <AppText>Verifying your new email...</AppText>
       </View>

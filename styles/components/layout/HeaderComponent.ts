@@ -23,7 +23,7 @@ export const headerComponentStyles = StyleSheet.create({
     height: 32,
     borderRadius: 18,
     marginRight: 8,
-    backgroundColor: Colors.aqua07,
+    backgroundColor: Colors.red07,
   },
   profileImage: {
     width: 32,

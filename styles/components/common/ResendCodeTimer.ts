@@ -13,7 +13,7 @@ export const resendCodeTimerStyles = StyleSheet.create({
   },
   resendText: {
     fontSize: FontSizes.small,
-    color: Colors.aqua10,
+    color: Colors.red10,
     textDecorationLine: 'underline',
   },
 });

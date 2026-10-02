@@ -94,7 +94,7 @@ export const nativePickerStyles = StyleSheet.create({
   },
 
   doneButton: { 
-    color: Colors.aqua10, 
+    color: Colors.red10, 
     fontSize: 17, 
     fontWeight: '600' 
   },

@@ -42,7 +42,7 @@ const DirectDebitResult = () => {
     <ScrollView contentContainerStyle={globalStyle.screenContainer}>
       <NavHeaderComponent title="Payment Methods" />
       <View style={globalStyle.outerContainer}>
-        <AppText size="medium" color="aegeanBlue10" weight="700" mBottom={8}>{copy.title}</AppText>
+        <AppText size="medium" color="maroon10" weight="700" mBottom={8}>{copy.title}</AppText>
         <AppText mBottom={24}>{copy.message}</AppText>
 
         <AppButton

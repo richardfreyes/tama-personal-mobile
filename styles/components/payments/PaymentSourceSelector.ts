@@ -16,8 +16,8 @@ export const paymentSourceSelectorStyles = StyleSheet.create({
     backgroundColor: Colors.neutral01,
   },
   optionSelected: {
-    borderColor: Colors.aqua10,
-    backgroundColor: Colors.aqua01,
+    borderColor: Colors.red10,
+    backgroundColor: Colors.red01,
   },
   radioOuter: {
     width: 20,
@@ -31,13 +31,13 @@ export const paymentSourceSelectorStyles = StyleSheet.create({
     marginTop: 2,
   },
   radioOuterSelected: {
-    borderColor: Colors.aqua10,
+    borderColor: Colors.red10,
   },
   radioInner: {
     width: 10,
     height: 10,
     borderRadius: 5,
-    backgroundColor: Colors.aqua10,
+    backgroundColor: Colors.red10,
   },
   optionTextContainer: {
     flex: 1,

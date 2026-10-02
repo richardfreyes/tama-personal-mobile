@@ -1,7 +1,7 @@
+import AqwireLogo from '@/assets/icons/aqwire-logo.svg';
 import DeleteIcon from '@/assets/icons/delete.svg';
 import Lefticon from '@/assets/icons/left.svg';
 import MoreIcon from '@/assets/icons/more.svg';
-import MockLogo from '@/assets/images/mock-logo.svg';
 import { navHeaderComponentStyles as styles } from '@/styles/components/layout/NavHeaderComponent';
 import { IconProps, NavHeaderProps } from '@/types';
 import { useIsFocused } from '@react-navigation/native';
@@ -139,10 +139,10 @@ const NavHeaderComponent: React.FC<NavHeaderProps> = ({title, onBackPress, right
       <View style={styles.titleWrapper}>
         { logo && logo ? (
           <View style={{ marginRight: 8 }}>
-            <MockLogo width={24} height={24} /> 
+            <AqwireLogo width={24} height={24} />
           </View>) : null
         }
-        <AppText color='aegeanBlue10' style={[styles.headerTitle]} weight='700'>
+        <AppText color='maroon10' style={[styles.headerTitle]} weight='700'>
           {title}
         </AppText>
       </View>

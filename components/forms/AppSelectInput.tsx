@@ -1,3 +1,4 @@
+import { inputFocusColor } from '@/styles/common/globals';
 import { appSelectInputStyles as styles } from '@/styles/components/forms/AppSelectInput';
 import { AppSelectInputProps } from '@/types';
 import React, { useState } from 'react';
@@ -49,13 +50,14 @@ const AppSelectInput = ({
               <View pointerEvents="none"> 
                 <TextInput
                   mode="outlined"
+                  activeOutlineColor={inputFocusColor}
                   label={label}
                   value={inputLabel}
                   placeholder={placeholder}
                   style={[
                     styles.input, 
                     isPlaceholder ? { color: theme.colors.outline } : {}, 
-                    isFocused && { borderColor: theme.colors.primary }
+                    isFocused && { borderColor: inputFocusColor }
                   ]}
                   right={
                     <TextInput.Icon 
