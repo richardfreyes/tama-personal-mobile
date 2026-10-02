@@ -18,8 +18,8 @@ describe('enrollment presentation', () => {
   const enrollment: Enrollment = {
     referenceId: 'ENR-001',
     propertyName: 'Acqua Private Residences',
-    merchantName: 'Aqwire Homes',
-    merchantCode: 'AQWIRE',
+    merchantName: 'Tama Homes',
+    merchantCode: 'TAMA',
     unitNumber: 'Unit 1804',
     customerName: 'Jane Customer',
     customerEmail: 'jane@example.com',
@@ -44,7 +44,7 @@ describe('enrollment presentation', () => {
   it('builds the compact summary from the best available fields', () => {
     expect(getEnrollmentTitle(enrollment)).toBe('Acqua Private Residences');
     expect(getEnrollmentReferenceId(enrollment)).toBe('ENR-001');
-    expect(getEnrollmentMerchantCode(enrollment)).toBe('AQWIRE');
+    expect(getEnrollmentMerchantCode(enrollment)).toBe('TAMA');
     expect(getEnrollmentMonthlyAmount(enrollment)).toBe('PHP 1,234.56');
     expect(getEnrollmentNextDebitDate(enrollment)).toBe('Mar 15, 2026');
     expect(getEnrollmentPaymentMethod(enrollment)).toEqual({
@@ -92,7 +92,7 @@ describe('enrollment presentation', () => {
     ]));
     expect(values).toEqual(expect.arrayContaining([
       'ENR-001',
-      'Aqwire Homes',
+      'Tama Homes',
       'Unit 1804',
       'Jane Customer',
       'jane@example.com',

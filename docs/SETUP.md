@@ -21,7 +21,7 @@ Before you begin, ensure you have the following installed:
 ## 🎯 One-Line Setup
 
 ```bash
-git clone https://github.com/Qwikwire/wiremo-personal-mob.git && cd wiremo-personal-mob && npm install && cd __mocks__/server && npm install && cd ../.. && npm start
+cd tama-personal-mobile && npm install && cd __mocks__/server && npm install && cd ../.. && npm start
 ```
 
 Then start the mock server in a separate terminal:
@@ -83,8 +83,7 @@ cd __mocks__/server && npm start
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/Qwikwire/wiremo-personal-mob.git
-cd wiremo-personal-mob
+cd tama-personal-mobile
 ```
 
 ### 2. Install Dependencies

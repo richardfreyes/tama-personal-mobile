@@ -1,11 +1,11 @@
-# Aqwire Personal Dashboard (Mobile)
+# Tama Personal Dashboard (Mobile)
 
 **Version:** 1.1.0  
 **Tech Stack:** React Native (Expo), TypeScript, Redux Toolkit, React Native Paper
 
 ## Overview
 
-Aqwire Personal is a mobile application designed for personal finance management, allowing users to manage bills, view transactions, and handle payments. It is built using the **Expo** framework for cross-platform compatibility (iOS & Android) and utilizes **Expo Router** for file-based navigation.
+Tama Personal is a mobile application designed for personal finance management, allowing users to manage bills, view transactions, and handle payments. It is built using the **Expo** framework for cross-platform compatibility (iOS & Android) and utilizes **Expo Router** for file-based navigation.
 
 ## Key Features
 

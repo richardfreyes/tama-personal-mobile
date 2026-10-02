@@ -30,7 +30,7 @@ export const MOCK_DATA = {
       "clientNotes": "Notes",
       "customer": {
         "name": "RICHARD",
-        "email": "richardreyes@aqwire.co",
+        "email": "user@example.com",
         "mobile": "+639770884111",
         "countryPrefix": "63",
         "countryIso2": "ph"
@@ -96,7 +96,7 @@ export const MOCK_DATA = {
       "createdAt": "2026-05-05T13:30:09.576707+08:00",
       "customerCountryCode": "ph",
       "customerCountryPrefix": "63",
-      "customerEmail": "richardreyes@aqwire.co",
+      "customerEmail": "user@example.com",
       "customerMobileNo": "+639770884111",
       "customerName": "RICHARD",
       "dueAt": null,
@@ -116,7 +116,7 @@ export const MOCK_DATA = {
       "methodCardNumber": null,
       "methodCustomerCountryCode": null,
       "methodCustomerCountryName": null,
-      "methodCustomerEmailAddress": "richardreyes@aqwire.co",
+      "methodCustomerEmailAddress": "user@example.com",
       "methodCustomerFamilyName": null,
       "methodCustomerFullName": null,
       "methodCustomerGivenName": null,

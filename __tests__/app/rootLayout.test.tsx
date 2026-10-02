@@ -177,7 +177,7 @@ describe('RootLayout', () => {
       return true;
     });
     render(<RootLayout />);
-    mockUrlListener?.({ url: 'aqwire://enrollment-callback' });
+    mockUrlListener?.({ url: 'personaldashboardmob://enrollment-callback' });
     expect(mockRouter.replace).toHaveBeenCalledWith({
       pathname: '/bills/enrollments/result',
       params: { outcome: 'success', message: 'Verified' },
@@ -218,7 +218,7 @@ describe('RootLayout', () => {
     });
     render(<RootLayout />);
 
-    mockUrlListener?.({ url: 'aqwire://enrollment-callback' });
+    mockUrlListener?.({ url: 'personaldashboardmob://enrollment-callback' });
 
     expect(mockDispatch).toHaveBeenCalledWith(expect.objectContaining({
       type: 'modal/showModal',
@@ -249,12 +249,12 @@ describe('RootLayout', () => {
         queryParams: { Otoken: 'OLD', Ntoken: 'NEW', code: 'CODE' },
       });
     render(<RootLayout />);
-    mockUrlListener?.({ url: 'aqwire://reset-password' });
+    mockUrlListener?.({ url: 'personaldashboardmob://reset-password' });
     expect(mockRouter.push).toHaveBeenCalledWith(
       '/(auth)/reset-password/create-new-password?token=TOKEN&code=CODE',
     );
 
-    mockUrlListener?.({ url: 'aqwire://change-email-confirm' });
+    mockUrlListener?.({ url: 'personaldashboardmob://change-email-confirm' });
     expect(mockDispatch).toHaveBeenCalledWith(expect.any(Function));
     expect(mockRouter.push).toHaveBeenCalledWith(
       '/(auth)/change-email-confirm?Otoken=OLD&Ntoken=NEW&code=CODE',
@@ -276,7 +276,7 @@ describe('RootLayout', () => {
       queryParams: {},
     });
     const { unmount } = render(<RootLayout />);
-    mockUrlListener?.({ url: 'aqwire://reset-password' });
+    mockUrlListener?.({ url: 'personaldashboardmob://reset-password' });
     expect(warning).toHaveBeenCalledWith('Reset password link missing token or code');
     unmount();
     expect(remove).toHaveBeenCalled();

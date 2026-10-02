@@ -22,7 +22,7 @@ export default function AboutScreen() {
         <AppText weight="700" style={styles.eyebrow}>Learn More About Us</AppText>
         <AppText weight="700" style={styles.missionTitle}>Our mission is to expand your reach globally.</AppText>
         <AppText style={styles.bodyText}>
-          Aqwire helps enterprises expand their reach globally by providing a convenient, secure, and efficient way of collecting payments from their customers, anywhere in the world.
+          Tama helps enterprises expand their reach globally by providing a convenient, secure, and efficient way of collecting payments from their customers, anywhere in the world.
         </AppText>
       </View>
 

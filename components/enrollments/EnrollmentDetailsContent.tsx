@@ -23,7 +23,7 @@ export default function EnrollmentDetailsContent({ enrollment }: EnrollmentDetai
   const opacity = useRef(new Animated.Value(0)).current;
   const details = useMemo(() => buildEnrollmentDetailsViewModel(enrollment), [enrollment]);
   const { uri: PaymentMethodIcon } = getCardIcon(details.paymentMethod?.cardType);
-  const AQWIRE_SUPPORT_EMAIL = CONTACT_CHANNELS.find(({ action }) => action === 'email');
+  const SUPPORT_EMAIL = CONTACT_CHANNELS.find(({ action }) => action === 'email');
   const compactFields = <T,>(items: (T | null)[]): T[] => items.filter((item): item is T => item !== null);
   const summaryMetrics = compactFields([
     details.paymentFrequency ? { key: 'frequency', label: 'Payment frequency', value: details.paymentFrequency } : null,
@@ -260,7 +260,7 @@ export default function EnrollmentDetailsContent({ enrollment }: EnrollmentDetai
               'Automatic payments will be charged to your enrolled card based on the payment schedule shown above.',
               'Keep your card active and ensure sufficient available credit or funds before each scheduled payment.',
               'The cardholder must be authorized to use this card for the enrolled account.',
-              `Contact ${details.merchantName === 'Enrollment' ? 'the merchant' : details.merchantName} or Aqwire Support before your next payment if your card or enrollment details need to change.`,
+              `Contact ${details.merchantName === 'Enrollment' ? 'the merchant' : details.merchantName} or Tama Support before your next payment if your card or enrollment details need to change.`,
             ].map((note) => (
               <View key={note} style={styles.importantNoteRow}>
                 <View style={styles.importantNoteBullet} />
@@ -285,18 +285,18 @@ export default function EnrollmentDetailsContent({ enrollment }: EnrollmentDetai
         <View style={styles.supportTextGroup}>
           <AppText weight="700" style={styles.supportTitle}>Need help?</AppText>
           <AppText size="small" style={styles.supportText}>
-            Contact {details.merchantName === 'Enrollment' ? 'the merchant' : details.merchantName} or Aqwire Support and share your enrollment reference.
+            Contact {details.merchantName === 'Enrollment' ? 'the merchant' : details.merchantName} or Tama Support and share your enrollment reference.
           </AppText>
-          {AQWIRE_SUPPORT_EMAIL ? (
+          {SUPPORT_EMAIL ? (
             <Pressable
-              accessibilityLabel={`Email Aqwire Support at ${AQWIRE_SUPPORT_EMAIL.label}`}
+              accessibilityLabel={`Email Tama Support at ${SUPPORT_EMAIL.label}`}
               accessibilityRole="link"
-              onPress={() => { void Linking.openURL(AQWIRE_SUPPORT_EMAIL.url); }}
+              onPress={() => { void Linking.openURL(SUPPORT_EMAIL.url); }}
               style={({ pressed }) => [styles.supportEmailLink, pressed && styles.supportEmailLinkPressed]}
             >
               <Feather color={Colors.aegeanBlue10} name="mail" size={16} />
               <AppText size="small" weight="600" style={styles.supportEmailText}>
-                {AQWIRE_SUPPORT_EMAIL.label}
+                {SUPPORT_EMAIL.label}
               </AppText>
             </Pressable>
           ) : null}

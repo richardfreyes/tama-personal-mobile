@@ -14,7 +14,7 @@ export default function LicensesScreen() {
         <AppText weight="600" style={styles.licensesEyebrow}>Secure and Compliant</AppText>
         <AppText weight="700" style={styles.licensesTitle}>Your payments are safe with us</AppText>
         <AppText style={styles.licensesBody}>
-          Aqwire is secure and is compliant. This means all your payments and information are protected and secured with top of the line encryption.
+          Tama is secure and is compliant. This means all your payments and information are protected and secured with top of the line encryption.
         </AppText>
         <AppText weight="600" style={styles.licensesSubtitle}>Our licenses, accreditations and partners:</AppText>
 

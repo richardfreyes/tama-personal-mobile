@@ -22,7 +22,7 @@ describe('enrollmentApi', () => {
           referenceId: 'ENR-001',
           transactionId: 'txn-001',
           externalTransactionId: 'ext-001',
-          merchantName: 'Aqwire Homes',
+          merchantName: 'Tama Homes',
           customerName: 'Jane Customer',
           status: 'active',
           baseAmount: 1234.56,

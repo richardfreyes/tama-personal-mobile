@@ -22,7 +22,7 @@ const currentMonthDate = new Date(currentYear, currentMonth, currentDay, 12).toI
 const enrollment = {
   referenceId: 'ENR-001',
   propertyName: 'Acqua Private Residences',
-  merchantName: 'Aqwire Homes',
+  merchantName: 'Tama Homes',
   baseAmount: 1120,
   baseCurrency: 'PHP',
   nextDebitDate: currentMonthDate,
@@ -53,7 +53,7 @@ describe('MonthlyBillsComponent', () => {
     renderWithProviders(<MonthlyBillsComponent />);
 
     expect(screen.getByText(/^Next bill due /)).toBeTruthy();
-    expect(screen.getByText('Aqwire Homes')).toBeTruthy();
+    expect(screen.getByText('Tama Homes')).toBeTruthy();
     expect(screen.getByText('PHP 1,120.00')).toBeTruthy();
     expect(screen.queryByText('Acqua Private Residences')).toBeNull();
     expect(screen.queryByText('Auto Debit')).toBeNull();

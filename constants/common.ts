@@ -3,7 +3,7 @@ import { BACK_BUTTON_SIZE, CALC_DEBOUNCE_TIME, RIGHT_SPACER_WIDTH, SPLASH_DURATI
 import { MOCK_DATA } from '@/__mocks__/data/mockData';
 import { ACCOUNT_SECURITY, BILLER_CATEGORIES, MENU_SVG_ICONS, NOTIFICATIONS, ONBOARDING_IMGS, PROFILE, PROFILE_IMAGE_URI, SETTINGS } from './navigationItems';
 import { AUTOPAY_STATUS, PAYMENT_OPTIONS, STATUS_LABELS } from './paymentOptions';
-import { AQWEB_URL, ERRORS, SUCCESS, WEBVIEW } from './enrollment';
+import { LEGAL_URLS, ERRORS, SUCCESS, WEBVIEW } from './enrollment';
 import { ROUTES } from './routes';
 import { SECURE_STORE_KEYS, STORAGE_ONBOARD_KEY } from './storageKeys';
 import { OBJECT_VALUE_KEYS, PASSWORD_RULE_TEXTS, VALIDATORS } from './validators';
@@ -37,6 +37,6 @@ export const COMMON = {
   DEFAULT_AMOUNT,
   OBJECT_VALUE_KEYS,
   WEBVIEW,
-  AQWEB_URL,
+  LEGAL_URLS,
   MOCK_DATA,
 };

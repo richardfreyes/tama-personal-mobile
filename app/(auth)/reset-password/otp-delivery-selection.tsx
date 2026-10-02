@@ -30,7 +30,7 @@ const OTPDeliverySelectionScreen: React.FC = () => {
   const [selectedMethod, setSelectedMethod] = useState<'email' | 'text' | null>('email');
 
   // mock from the previous screen (reset-password.tsx)
-  const userEmail = 'richardreyes@aqwire.co';
+  const userEmail = 'user@example.com';
   const userPhone = '+63 955 577* ***';
   
   const handleContinue = (otp: string) => {

@@ -10,14 +10,14 @@ export const CONTACT_CHANNELS: {
   {
     action: 'web',
     icon: 'facebook',
-    label: 'Aqwire',
+    label: 'Tama',
     title: 'Facebook',
     url: 'https://www.facebook.com/Aqwireofficial',
   },
   {
     action: 'web',
     icon: 'instagram',
-    label: '@Aqwireofficial',
+    label: 'Tama',
     title: 'Instagram',
     url: 'https://www.instagram.com/aqwireofficial/',
   },

@@ -169,7 +169,7 @@ const SignupScreen = () => {
           </View>
         </View>
 
-        <AppText weight='700' style={[globalStyle.headerTitle, { marginBottom: 16 }]}>Sign Up with Aqwire</AppText>
+        <AppText weight='700' style={[globalStyle.headerTitle, { marginBottom: 16 }]}>Sign Up with Tama</AppText>
 
         <View style={{ marginBottom: 24 }}>
           <InputValidationComponent

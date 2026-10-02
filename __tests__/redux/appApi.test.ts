@@ -54,7 +54,7 @@ describe('appApi base query', () => {
     const prepared = mockFetchBaseQueryConfig.prepareHeaders(headers, {
       getState: () => ({ login: { token: 'token' } }),
     });
-    expect(prepared.get('x-aqwire-client')).toBe('beta-mobile-app');
+    expect(prepared.get('x-tama-client')).toBe('beta-mobile-app');
     expect(prepared.get('X-Client-Platform')).toBe('mobile');
     expect(prepared.get('accept')).toBe('application/json');
     expect(prepared.get('authorization')).toBe('Bearer token');

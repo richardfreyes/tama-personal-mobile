@@ -352,7 +352,7 @@ describe('OtpWebView', () => {
 
     // ...then the redirect to the web dashboard is blocked and reported as a decline.
     expect(getWebView().props.onShouldStartLoadWithRequest({
-      url: 'https://app.aqwire.io/dashboard/payment-methods',
+      url: 'https://app.example.com/dashboard/payment-methods',
       isTopFrame: true,
     })).toBe(false);
 

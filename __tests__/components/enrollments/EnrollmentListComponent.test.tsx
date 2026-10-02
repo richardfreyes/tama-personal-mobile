@@ -30,8 +30,8 @@ const enrollment = {
   transactionId: 'txn-001',
   externalTransactionId: 'ext-001',
   propertyName: 'Acqua Private Residences',
-  merchantName: 'Aqwire Homes',
-  merchantCode: 'AQWIRE',
+  merchantName: 'Tama Homes',
+  merchantCode: 'TAMA',
   customerName: 'Jane Customer',
   customerEmail: 'jane@example.com',
   customerMobileNo: '+639171234567',
@@ -127,7 +127,7 @@ describe('EnrollmentListComponent', () => {
   it('renders only the compact enrollment summary', () => {
     renderWithProviders(<EnrollmentListComponent />);
 
-    expect(screen.getByText('AQWIRE')).toBeTruthy();
+    expect(screen.getByText('TAMA')).toBeTruthy();
     expect(screen.getByText('Active')).toBeTruthy();
     expect(screen.getByText('PHP 1,234.56')).toBeTruthy();
     expect(screen.getByText('Mar 15, 2026')).toBeTruthy();
@@ -137,7 +137,7 @@ describe('EnrollmentListComponent', () => {
     expect(screen.getByText('NEXT DEBIT')).toBeTruthy();
 
     expect(screen.queryByText('Acqua Private Residences')).toBeNull();
-    expect(screen.queryByText('Aqwire Homes')).toBeNull();
+    expect(screen.queryByText('Tama Homes')).toBeNull();
     expect(screen.queryByText('Jane Customer')).toBeNull();
     expect(screen.queryByText('Monthly Amortization')).toBeNull();
     expect(screen.queryByText('Jan 15, 2026')).toBeNull();

@@ -198,7 +198,7 @@ export default function EditAddress() {
           <View style={globalStyle.outerContainer}>
             <View style={styles.wrapper}>
               <AppText style={styles.mainTitle} weight='600'>Update Your Address</AppText>
-              <AppText style={[styles.descriptionText, { marginBottom: 24 }]}>Adding an address will help us verify your payments easily. Add your current address to enjoy seamless payments with Aqwire Personal.</AppText>
+              <AppText style={[styles.descriptionText, { marginBottom: 24 }]}>Adding an address will help us verify your payments easily. Add your current address to enjoy seamless payments with Tama Personal.</AppText>
               <View style={styles.inputFieldContainer}>
                   <NativePicker
                     label="Country"

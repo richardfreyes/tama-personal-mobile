@@ -29,7 +29,7 @@ export default function ContactScreen() {
         <AppText weight="700" style={styles.introEyebrow}>Connect with us</AppText>
         <AppText weight="700" style={styles.introTitle}>We are here to help</AppText>
         <AppText style={styles.introBody}>
-          Reach Aqwire through our official support channels for account, billing, payment, and transaction concerns.
+          Reach Tama through our official support channels for account, billing, payment, and transaction concerns.
         </AppText>
       </View>
 

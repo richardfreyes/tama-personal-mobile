@@ -29,7 +29,7 @@ app.use((req, res, next) => {
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET,POST,PUT,PATCH,DELETE,OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, Qw-Merchant-Id, X-Xsrf-Token, Idempotency-Key, x-aqwire-client');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, Qw-Merchant-Id, X-Xsrf-Token, Idempotency-Key, x-tama-client');
   if (req.method === 'OPTIONS') return res.sendStatus(204);
   next();
 });

@@ -20,7 +20,7 @@ export const STATS: {
   {
     value: '100+',
     label: 'Partners',
-    description: 'Over 100+ partners trust Aqwire to process their cross-border payments.',
+    description: 'Over 100+ partners trust Tama to process their cross-border payments.',
     icon: 'users',
   },
   {

@@ -104,7 +104,7 @@ const ConfirmPaymentScreen = () => {
       <GlobalScrollView contentContainerStyle={globalStyle.screenContainer}>
         <View style={{ flex: 1 }}>
           <NavHeaderComponent title='Pay Bills' />
-          <DisplayNotice Icon={'info'} title='important:' description='Auto-debit arrangement enrollments with AQWIRE are charged in US Dollars and are subject to mid-market foreign exchange rates.'/>
+          <DisplayNotice Icon={'info'} title='important:' description='Auto-debit arrangement enrollments with Tama are charged in US Dollars and are subject to mid-market foreign exchange rates.'/>
           <View style={[globalStyle.outerContainer, { marginBottom: 24 }]}>
             <View style={styles.wrapper}>
               <View style={{ alignItems: 'center' }}>

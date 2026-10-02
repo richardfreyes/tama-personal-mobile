@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "Aqwire Personal",
-    "slug": "aqwire-personal",
+    "name": "Tama Personal",
+    "slug": "tama-personal",
     "version": "1.5.1",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -14,7 +14,7 @@
     "ios": {
       "buildNumber": "1",
       "supportsTablet": true,
-      "bundleIdentifier": "com.aqwire.mobile",
+      "bundleIdentifier": "com.tama.mobile",
       "infoPlist": {
         "NSFaceIDUsageDescription": "Allow this app to use Face ID for secure authentication."
       },
@@ -31,7 +31,7 @@
       },
       "edgeToEdgeEnabled": false,
       "predictiveBackGestureEnabled": false,
-      "package": "com.aqwire.mobile",
+      "package": "com.tama.mobile",
       "softwareKeyboardLayoutMode": "resize"
     },
     "web": {

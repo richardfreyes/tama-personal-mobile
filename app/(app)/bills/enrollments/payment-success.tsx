@@ -84,7 +84,7 @@ const EnrollmentPaymentSuccessScreen = () => {
       { label: `Amount in ${receipt.billConverted?.[0] || 'Converted Currency'}`, value: formatMoney(receipt.billConverted) },
       { label: 'Convenience Fee', value: formatMoney(receipt.billFee) },
       { label: 'Total Amount', value: formatMoney(receipt.billTotal) },
-      { label: 'AQWIRE Exchange Rate', value: receipt.qwxRate ? `${receipt.qwxRate[0]} 1 = ${receipt.qwxRate[2]} ${receipt.qwxRate[1]}` : 'N/A' },
+      { label: 'Tama Exchange Rate', value: receipt.qwxRate ? `${receipt.qwxRate[0]} 1 = ${receipt.qwxRate[2]} ${receipt.qwxRate[1]}` : 'N/A' },
       { label: 'Payment Status', value: resolveDisplayValue(receipt.paymentStatusName || receipt.status) },
     ]) : [];
 

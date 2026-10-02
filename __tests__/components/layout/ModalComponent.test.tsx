@@ -11,7 +11,7 @@ import ModalComponent from '../../../components/layout/ModalComponent';
 
 jest.spyOn(Linking, 'openURL').mockImplementation(jest.fn<typeof Linking.openURL>());
 
-const mockEmail = 'test@aqwire.co';
+const mockEmail = 'test@example.com';
 jest.mock('@/hooks/useAuth', () => ({
   useAuth: () => ({ email: mockEmail }),
 }));

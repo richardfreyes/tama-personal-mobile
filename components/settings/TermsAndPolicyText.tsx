@@ -57,7 +57,7 @@ const TermsAndConditionsCheckbox: React.FC<TermsAndConditionsCheckboxProps> = ({
             {extraText ? extraText + ' ' : ''}
             {"By ticking this checkbox, you agree to the "}
             <AppText style={styles.termsLink} onPress={onTermsLinkPress}>Terms and Conditions</AppText>
-            {" of AQWIRE Pte Ltd."}
+            {" of Tama Pte Ltd."}
             <AppText weight='light' style={{fontSize: FontSizes.small, color: Colors.error06}}> *</AppText>
           </AppText>
         ) : (

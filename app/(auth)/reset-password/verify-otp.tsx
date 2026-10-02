@@ -68,7 +68,7 @@ const VerificationScreen = () => {
         <NavHeaderComponent />
         <AppText weight='700' style={[globalStyle.headerTitle, { marginBottom: 24 }]}>Enter Verification Code</AppText>
         <AppText style={{fontSize: FontSizes.base}}>
-          We have sent a six-digit verification code to <AppText weight='700'>richardreyes@aqwire.co</AppText>. Please enter the code below to reset your password and regain access to your account.
+          We have sent a six-digit verification code to <AppText weight='700'>user@example.com</AppText>. Please enter the code below to reset your password and regain access to your account.
         </AppText>
         <OTPInput 
           length={6} 

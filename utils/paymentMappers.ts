@@ -132,7 +132,7 @@ export const buildPaymentDetails = ( transaction: ConfirmPaymentDisplayTransacti
       weight: '700',
     },
     {
-      label: 'AQWIRE Exchange Rate',
+      label: 'Tama Exchange Rate',
       value: formatExchangeRate(transaction),
     },
   ];
@@ -188,7 +188,7 @@ export const buildEnrollmentPaymentDetails = (
       weight: '700',
     },
     {
-      label: 'AQWIRE Exchange Rate',
+      label: 'Tama Exchange Rate',
       value: 'N/A',
     },
   ];

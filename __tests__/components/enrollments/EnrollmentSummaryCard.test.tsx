@@ -6,8 +6,8 @@ import { Animated } from 'react-native';
 
 const enrollment = {
   referenceId: 'ENR-001',
-  merchantCode: 'AQWIRE',
-  merchantName: 'Aqwire Homes',
+  merchantCode: 'TAMA',
+  merchantName: 'Tama Homes',
   status: 'active',
   baseAmount: 1250,
   baseCurrency: 'PHP',
@@ -31,7 +31,7 @@ describe('EnrollmentSummaryCard', () => {
   it('renders enrollment summary fields and opens the selected enrollment', () => {
     const onPress = jest.fn<(...args: any[]) => any>();
     render(<EnrollmentSummaryCard item={enrollment} index={0} onPress={onPress} />);
-    expect(screen.getByText('AQWIRE')).toBeTruthy();
+    expect(screen.getByText('TAMA')).toBeTruthy();
     expect(screen.getByText('ENR-001')).toBeTruthy();
     expect(screen.getByText('MONTHLY AMOUNT')).toBeTruthy();
     expect(screen.getByText('NEXT DEBIT')).toBeTruthy();

@@ -93,7 +93,7 @@ describe('reset-password route flow', () => {
       pathname: '/reset-password/verify-otp',
       params: {
         method: 'email',
-        identifier: 'richardreyes@aqwire.co',
+        identifier: 'user@example.com',
       },
     });
   });

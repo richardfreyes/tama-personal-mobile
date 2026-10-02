@@ -1,6 +1,6 @@
 # Mock Server & API Fixtures
 
-Local Express mock server and JSON fixtures for developing and testing the Aqwire Personal app without a live backend.
+Local Express mock server and JSON fixtures for developing and testing the Tama Personal app without a live backend.
 
 ---
 

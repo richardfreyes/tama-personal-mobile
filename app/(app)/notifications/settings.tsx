@@ -35,7 +35,7 @@ const NotificationSettingsScreen = () => {
       <View style={styles.container}>
         <View style={styles.wrapper}>
           <AppText weight='600' size='medium' mBottom={12}>Manage Alerts</AppText>
-          <AppText size='small'>Manage how you receive updates and alerts from Aqwire. Turn on the notifications you want to stay informed.</AppText>
+          <AppText size='small'>Manage how you receive updates and alerts from Tama. Turn on the notifications you want to stay informed.</AppText>
 
           <AppText  style={styles.sectionTitle} weight="600" size='medium'>General Notification</AppText>
 

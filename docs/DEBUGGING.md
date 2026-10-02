@@ -1,6 +1,6 @@
 # 🐛 Debugging Guide
 
-Tips and tools for debugging the Aqwire Personal mobile app across platforms.
+Tips and tools for debugging the Tama Personal mobile app across platforms.
 
 ---
 
@@ -131,7 +131,7 @@ This only affects production. In `__DEV__` mode, all console methods work normal
 - **Same Wi-Fi required** — Your phone and dev machine must be on the same network.
 - **Reactotron on physical device** — If auto-detection fails, set `host` in `ReactotronConfig.ts`:
   ```ts
-  .configure({ name: 'Aqwire Personal', host: '192.168.1.100' })
+  .configure({ name: 'Tama Personal', host: '192.168.1.100' })
   ```
   Replace with your machine's local IP (`ifconfig | grep inet`).
 

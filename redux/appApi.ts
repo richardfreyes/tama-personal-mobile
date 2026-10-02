@@ -14,7 +14,7 @@ export const baseQuery = fetchBaseQuery({
   timeout: 30000,
   prepareHeaders: (headers, { getState }) => {
     const token = (getState() as RootState).login.token;
-    headers.set('x-aqwire-client', 'beta-mobile-app');
+    headers.set('x-tama-client', 'beta-mobile-app');
     // Read by the API to record where a transaction started and to send provider
     // redirects (PayPal, QR Ph, Xendit) back to the app instead of the web app.
     headers.set('X-Client-Platform', 'mobile');

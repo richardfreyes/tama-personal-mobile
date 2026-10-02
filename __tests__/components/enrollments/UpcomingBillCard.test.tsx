@@ -6,7 +6,7 @@ import { Animated } from 'react-native';
 
 const bill = {
   title: 'Acqua Private Residences',
-  merchantName: 'Aqwire Homes',
+  merchantName: 'Tama Homes',
   amount: 'PHP 1,250.00',
   dueDateLabel: 'July 30, 2026',
   isNearestUpcoming: true,
@@ -24,11 +24,11 @@ describe('UpcomingBillCard', () => {
         scrollX={new Animated.Value(0)}
       />,
     );
-    expect(screen.getByText('Aqwire Homes')).toBeTruthy();
+    expect(screen.getByText('Tama Homes')).toBeTruthy();
     expect(screen.getByText('PHP 1,250.00')).toBeTruthy();
     expect(screen.getByText('Next bill due July 30, 2026')).toBeTruthy();
     expect(screen.getByRole('button', {
-      name: 'Aqwire Homes, PHP 1,250.00, due July 30, 2026',
+      name: 'Tama Homes, PHP 1,250.00, due July 30, 2026',
     })).toBeTruthy();
   });
 

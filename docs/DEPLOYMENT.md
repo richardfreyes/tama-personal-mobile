@@ -1,6 +1,6 @@
-# Aqwire Personal — Deployment Guide
+# Tama Personal — Deployment Guide
 
-This document outlines the step-by-step process for deploying the **Aqwire Personal** mobile application. As this project utilizes a **Manual Native Workflow**, these steps ensure that signing certificates, native modules and environment configurations are correctly applied.
+This document outlines the step-by-step process for deploying the **Tama Personal** mobile application. As this project utilizes a **Manual Native Workflow**, these steps ensure that signing certificates, native modules and environment configurations are correctly applied.
 
 ---
 
@@ -30,8 +30,8 @@ npm run prebuild:ios:prod
 
 ### 2. Xcode Archiving & Upload
 
-1. Open `ios/AqwirePersonal.xcworkspace` in Xcode.
-2. Click **Aqwire Personal** in the sidebar, select the **Signing & Capabilities** tab, and choose **Omnisent Corp** as the Team.
+1. Open `ios/TamaPersonal.xcworkspace` in Xcode.
+2. Click **Tama Personal** in the sidebar, select the **Signing & Capabilities** tab, and choose **Omnisent Corp** as the Team.
 3. Set the build target to **Any iOS Device (arm64)**.
 4. Select **Product > Archive** from the top menu.
 5. In the **Organizer** window, click **Distribute App**.

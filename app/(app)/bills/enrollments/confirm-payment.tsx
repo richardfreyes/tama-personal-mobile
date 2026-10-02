@@ -188,9 +188,11 @@ const ConfirmPaymentScreen = () => {
       rows.push({ label: "Visa's fees", value: formatLineItemFee(visaFeeLineItem.fee) });
     }
 
-    const aqwireConvenienceFeeLineItem = lineItems.find((item) => item.description === "Aqwire's convenience fee");
-    if (aqwireConvenienceFeeLineItem && isValidLineItemFee(aqwireConvenienceFeeLineItem.fee)) {
-      rows.push({ label: "Aqwire's convenience fee", value: formatLineItemFee(aqwireConvenienceFeeLineItem.fee) });
+    const convenienceFeeLineItem = lineItems.find((item) =>
+      item.description === "Aqwire's convenience fee" || item.description === "Tama's convenience fee"
+    );
+    if (convenienceFeeLineItem && isValidLineItemFee(convenienceFeeLineItem.fee)) {
+      rows.push({ label: 'Convenience fee', value: formatLineItemFee(convenienceFeeLineItem.fee) });
     }
 
     return rows;
@@ -301,7 +303,7 @@ const ConfirmPaymentScreen = () => {
   const isSubmitDisabled = isPaymentComplete || !isPaymentMethodReady || !hasAcceptedTerms || isProcessingPayment;
 
   const openCardAuthForm = useCallback(async () => {
-    await WebBrowser.openBrowserAsync(COMMON.AQWEB_URL.CARD_AUTH_FORM_URL);
+    await WebBrowser.openBrowserAsync(COMMON.LEGAL_URLS.CARD_AUTH_FORM_URL);
   }, []);
 
   const closeLegalModal = useCallback(() => {
@@ -338,7 +340,7 @@ const ConfirmPaymentScreen = () => {
               <DisplayNotice
                 Icon="info"
                 title="Important:"
-                description="Payments made through the AQWIRE platform incur forex charges based on AQWIRE's own internal FX rates. This is a standard fee for international remittances."
+                description="Payments made through the Tama platform incur forex charges based on Tama's own internal FX rates. This is a standard fee for international remittances."
               />
 
               <PaymentInfoSection title="Payment Details" rows={paymentDetailsWithFees} />
@@ -418,7 +420,7 @@ const ConfirmPaymentScreen = () => {
                       <AppText style={styles.link} onPress={() => setActiveLegalModal('privacy')}>Privacy Policy</AppText>
                       {' '}and{' '}
                       <AppText style={styles.link} onPress={() => setActiveLegalModal('refund')}>Refund Policy</AppText>
-                      {' '}of AQWIRE and certify that you are authorized to make a payment on this account.
+                      {' '}of Tama and certify that you are authorized to make a payment on this account.
                       <AppText weight="light" style={styles.required}> *</AppText>
                     </AppText>
                   </View>

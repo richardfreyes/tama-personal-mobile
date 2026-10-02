@@ -27,7 +27,7 @@ export const WEBVIEW = {
   DISMISS_WAIT_TIMEOUT_MS: 15000,
 };
 
-export const AQWEB_URL = {
+export const LEGAL_URLS = {
   CARD_AUTH_FORM_URL: 'https://pay.aqwire.io/assets/files/Card%20Authorization%20Form.pdf',
   TERMS_URL: 'https://aqwire.co/terms-of-service/',
   PRIVACY_URL: 'https://aqwire.co/privacy-policy/',

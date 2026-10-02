@@ -42,7 +42,7 @@ import Reactotron from 'reactotron-react-native';
 import { reactotronRedux } from 'reactotron-redux';
 
 const reactotron = Reactotron.setAsyncStorageHandler(AsyncStorage)
-  .configure({ name: 'Aqwire Personal' })
+  .configure({ name: 'Tama Personal' })
   .useReactNative({
     asyncStorage: true,
     networking: { ignoreUrls: /symbolicate|logs$/ },
@@ -167,7 +167,7 @@ If Reactotron doesn't auto-connect on a physical device:
 
 2. Update `ReactotronConfig.ts` with your IP:
    ```ts
-   .configure({ name: 'Aqwire Personal', host: '192.168.1.100' })
+   .configure({ name: 'Tama Personal', host: '192.168.1.100' })
    ```
 
 3. Ensure your phone and machine are on the **same Wi-Fi network**

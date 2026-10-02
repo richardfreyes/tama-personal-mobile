@@ -507,11 +507,11 @@ describe('Enrollment payment navigation', () => {
     fireEvent.press(screen.getAllByText('Privacy Policy')[0]);
 
     const privacyIntroStyle = StyleSheet.flatten(
-      screen.getByText('Your privacy is important to us at Aqwire. We respect your privacy regarding any information we may collect from you across our website.').props.style,
+      screen.getByText('Your privacy is important to us at Tama. We respect your privacy regarding any information we may collect from you across our website.').props.style,
     );
 
     expect(screen.getAllByText('Privacy Policy').length).toBeGreaterThan(1);
-    expect(screen.getByText('Your privacy is important to us at Aqwire. We respect your privacy regarding any information we may collect from you across our website.')).toBeTruthy();
+    expect(screen.getByText('Your privacy is important to us at Tama. We respect your privacy regarding any information we may collect from you across our website.')).toBeTruthy();
     expect(privacyIntroStyle).toMatchObject(StyleSheet.flatten(legalStyles.paragraph));
     expect(WebBrowser.openBrowserAsync).not.toHaveBeenCalled();
   });

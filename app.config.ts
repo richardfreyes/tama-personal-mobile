@@ -28,8 +28,8 @@ function resolveAppEnv(fallback?: string): string {
 
 export default ({ config }: ConfigContext): ExpoConfig => ({
   ...config,
-  name: config.name ?? 'Aqwire Personal',
-  slug: config.slug ?? 'aqwire-personal',
+  name: config.name ?? 'Tama Personal',
+  slug: config.slug ?? 'tama-personal',
   extra: {
     ...config.extra,
     APP_ENV: resolveAppEnv(config.extra?.APP_ENV as string | undefined),
