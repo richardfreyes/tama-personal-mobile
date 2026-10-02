@@ -1,0 +1,22 @@
+{
+    "MA": {
+        "name": "Monthly Amortization",
+        "projects": []
+    },
+    "OC": {
+        "name": "Others (Other Charges, Balance)",
+        "projects": []
+    },
+    "RF": {
+        "name": "Reservation Fee",
+        "projects": []
+    },
+    "SC": {
+        "name": "Spot Cash",
+        "projects": []
+    },
+    "SD": {
+        "name": "Spot Downpayment",
+        "projects": []
+    }
+}

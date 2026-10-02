@@ -1,0 +1,21 @@
+{
+  "computation": {
+    "baseAmount": 50000,
+    "baseCurrency": "PHP",
+    "convertedAmount": 900.2345,
+    "convertedCurrency": "USD",
+    "feeAmount": 18.0047,
+    "feeCurrency": "USD",
+    "internalExchange": {
+      "amount": 55.5476,
+      "baseCurrency": "USD",
+      "targetCurrency": "PHP"
+    },
+    "invoiceReferenceId": "inv_mock_20260728",
+    "targetCurrency": "USD",
+    "totalAmount": 918.2392,
+    "totalCurrency": "USD"
+  },
+  "message": "Transaction computation successful",
+  "transactionReferenceId": "txn_mock_20260728"
+}

@@ -1,0 +1,10 @@
+{
+  "accessSignature": "mock_access_signature_001",
+  "accessType": "view",
+  "referenceId": "ref_mock_001",
+  "data": {
+    "accessSignature": "mock_access_signature_001",
+    "accessType": "view",
+    "referenceId": "ref_mock_001"
+  }
+}

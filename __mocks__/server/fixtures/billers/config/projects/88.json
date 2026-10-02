@@ -1,0 +1,60 @@
+{
+    "projects": [
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1780,
+            "project_name": "Courtyard Village Homeowners Association, Inc."
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1787,
+            "project_name": "Hacienda Escudero Village Homeowners Association, Inc."
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1785,
+            "project_name": "Leisure Farms Village Homeowners Association, Inc."
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1781,
+            "project_name": "Montelago Nature Estates Village Homeowners Association, Inc."
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1784,
+            "project_name": "Playa Azalea Village Homeowners Association, Inc."
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1783,
+            "project_name": "Playa Calatagan Village Homeowners Association, Inc."
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1782,
+            "project_name": "Playa Laiya Village Homeowners Association Inc."
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1786,
+            "project_name": "Waterwood Park Village Homeowners Association, Inc."
+        }
+    ]
+}

@@ -1,0 +1,837 @@
+{
+    "projects": [
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Megaworld Corporation",
+            "project_id": 1426,
+            "project_name": "101 Newport Boulevard"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Megaworld Corporation",
+            "project_id": 1427,
+            "project_name": "115 Upper McKinley"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Megaworld Corporation",
+            "project_id": 1428,
+            "project_name": "150 Newport Boulevard-Wing A"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Megaworld Corporation",
+            "project_id": 1429,
+            "project_name": "18 Avenue de Triomphe"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Megaworld Corporation",
+            "project_id": 1430,
+            "project_name": "8 Forbestown Road"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Megaworld Corporation",
+            "project_id": 1431,
+            "project_name": "8 Newtown Boulevard"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Megaworld Corporation",
+            "project_id": 1432,
+            "project_name": "Arcovia Palazzo"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Megaworld Corporation",
+            "project_id": 1433,
+            "project_name": "Arden Botanical Village"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Megaworld Corporation",
+            "project_id": 1540,
+            "project_name": "Arden Westpark Village"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Bayshore",
+            "project_id": 1528,
+            "project_name": "Bayshore Residential Resort"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Bayshore",
+            "project_id": 1532,
+            "project_name": "Bayshore Residential Resort 2 Phase 2"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Bayshore",
+            "project_id": 1530,
+            "project_name": "Bayshore Residential Resort Tower 2"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Megaworld Corporation",
+            "project_id": 1434,
+            "project_name": "Bellagio I"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Megaworld Corporation",
+            "project_id": 1435,
+            "project_name": "Bellagio II"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Megaworld Corporation",
+            "project_id": 1436,
+            "project_name": "Bellagio III"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Megaworld Corporation",
+            "project_id": 1437,
+            "project_name": "Belmont Hotel Manila"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Capital Town",
+            "project_id": 1527,
+            "project_name": "Bryant Parklane - North Wing"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Capital Town",
+            "project_id": 1526,
+            "project_name": "Bryant Parklane - West Wing"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Capital Town",
+            "project_id": 1525,
+            "project_name": "Chelsea Parkplace"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Megaworld Corporation",
+            "project_id": 1438,
+            "project_name": "Eastwood Global Plaza Luxury Residence"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Megaworld Corporation",
+            "project_id": 1439,
+            "project_name": "Eastwood Legrand 1"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Megaworld Corporation",
+            "project_id": 1440,
+            "project_name": "Eastwood Legrand 2"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Megaworld Corporation",
+            "project_id": 1441,
+            "project_name": "Eastwood Legrand 3"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Megaworld Corporation",
+            "project_id": 1442,
+            "project_name": "Eastwood Park Hotel And Residential Suites"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Megaworld Corporation",
+            "project_id": 1443,
+            "project_name": "Eastwood Parkview"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Megaworld Corporation",
+            "project_id": 1444,
+            "project_name": "Eighty One Newport Blvd"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Megaworld Corporation",
+            "project_id": 1445,
+            "project_name": "El Jardin Del Presidente"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Megaworld Corporation",
+            "project_id": 1446,
+            "project_name": "El Jardin Del Presidente 2"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Megaworld Corporation",
+            "project_id": 1447,
+            "project_name": "Forbes Hill"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Megaworld Corporation",
+            "project_id": 1448,
+            "project_name": "Forbeswood Heights"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Megaworld Corporation",
+            "project_id": 1449,
+            "project_name": "Forbeswood Parklane"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Bayshore",
+            "project_id": 1533,
+            "project_name": "Gentry Manor Tower A"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Bayshore",
+            "project_id": 1534,
+            "project_name": "Gentry Manor Tower B"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Bayshore",
+            "project_id": 1535,
+            "project_name": "Gentry Manor Tower C"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Bayshore",
+            "project_id": 1537,
+            "project_name": "Gentry Manor Tower D"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Megaworld Corporation",
+            "project_id": 1450,
+            "project_name": "Golf Hills Terraces"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Megaworld Corporation",
+            "project_id": 1451,
+            "project_name": "Golf Hills Terraces 3"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Megaworld Corporation",
+            "project_id": 1452,
+            "project_name": "GolfHill Gardens"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Megaworld Corporation",
+            "project_id": 1453,
+            "project_name": "Grand Eastwood Palazzo Da Vinci Wing"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Megaworld Corporation",
+            "project_id": 1454,
+            "project_name": "Grand Eastwood Palazzo Michaelangelo Wing"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Bayshore",
+            "project_id": 1531,
+            "project_name": "Grand Westside Hotel"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Bayshore",
+            "project_id": 1536,
+            "project_name": "Grand Westside Hotel - North Tower"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Megaworld Corporation",
+            "project_id": 1455,
+            "project_name": "Greenbelt Chancellor"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Megaworld Corporation",
+            "project_id": 1456,
+            "project_name": "Greenbelt Excelsior"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Megaworld Corporation",
+            "project_id": 1457,
+            "project_name": "Greenbelt Hamilton"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Megaworld Corporation",
+            "project_id": 1458,
+            "project_name": "Greenbelt Hamilton Tower 2"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Megaworld Corporation",
+            "project_id": 1459,
+            "project_name": "Greenbelt Madisons"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Megaworld Corporation",
+            "project_id": 1460,
+            "project_name": "Greenhills Heights"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Megaworld Corporation",
+            "project_id": 1461,
+            "project_name": "Iloilo Boutique Hotel And Commercial District"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Megaworld Corporation",
+            "project_id": 1462,
+            "project_name": "International Corporate Plaza"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Bayshore",
+            "project_id": 1529,
+            "project_name": "Kingsford Hotel - Bayshore City"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Megaworld Corporation",
+            "project_id": 1523,
+            "project_name": "Kingsquare Residential Suites"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Megaworld Corporation",
+            "project_id": 1541,
+            "project_name": "La Cassia Residences"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Megaworld Corporation",
+            "project_id": 1463,
+            "project_name": "La Victoria Global Residences"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Megaworld Corporation",
+            "project_id": 1464,
+            "project_name": "Lafayette Park Square"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Megaworld Corporation",
+            "project_id": 1465,
+            "project_name": "Mactan Belmont Luxury Hotel"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Megaworld Corporation",
+            "project_id": 1467,
+            "project_name": "Manhattan Garden Villas"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Megaworld Corporation",
+            "project_id": 1466,
+            "project_name": "Manhattan Heights"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Megaworld Corporation",
+            "project_id": 1468,
+            "project_name": "Manhattan Parkview Residence"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Megaworld Corporation",
+            "project_id": 1469,
+            "project_name": "Manhattan Parkway Residence"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Megaworld Corporation",
+            "project_id": 1470,
+            "project_name": "Manhattan Plaza Tower 1"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Megaworld Corporation",
+            "project_id": 1471,
+            "project_name": "Manhattan Plaza Tower 2"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Megaworld Corporation",
+            "project_id": 1522,
+            "project_name": "Maple Grove Commercial District"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "San Vicente Coast, Inc.",
+            "project_id": 1543,
+            "project_name": "Mercato Shophouse District"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Megaworld Corporation",
+            "project_id": 1472,
+            "project_name": "Morgan Suites Executive Residences"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Megaworld Corporation",
+            "project_id": 1473,
+            "project_name": "Noble Place"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Northwin Properties, Inc.",
+            "project_id": 1544,
+            "project_name": "Northwin Main Street"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Megaworld Corporation",
+            "project_id": 1474,
+            "project_name": "One Central"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Megaworld Corporation",
+            "project_id": 1475,
+            "project_name": "One Central Park"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Megaworld Corporation",
+            "project_id": 1476,
+            "project_name": "One Corporate Place"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Megaworld Corporation",
+            "project_id": 1477,
+            "project_name": "One Eastwood Avenue"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Megaworld Corporation",
+            "project_id": 1478,
+            "project_name": "One Madison Place"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Megaworld Corporation",
+            "project_id": 1479,
+            "project_name": "One Manchester Place"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Megaworld Corporation",
+            "project_id": 1480,
+            "project_name": "One Manhattan at One Regis"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Megaworld Corporation",
+            "project_id": 1481,
+            "project_name": "One Orchard Road-Palm Spring"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Megaworld Corporation",
+            "project_id": 1482,
+            "project_name": "One Orchard Road-Royal Orchid"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Megaworld Corporation",
+            "project_id": 1483,
+            "project_name": "One Orchard Road-Tropical Mandarin"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Megaworld Corporation",
+            "project_id": 1484,
+            "project_name": "One Pacific Residence"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Megaworld Corporation",
+            "project_id": 1485,
+            "project_name": "One Regis"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Megaworld Corporation",
+            "project_id": 1486,
+            "project_name": "One Uptown Residence"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Megaworld Corporation",
+            "project_id": 1487,
+            "project_name": "Palmtree Villas 1"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Megaworld Corporation",
+            "project_id": 1488,
+            "project_name": "Park Mckinley West - Phase 1"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Megaworld Corporation",
+            "project_id": 1489,
+            "project_name": "Park Mckinley West-phase 2"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Megaworld Corporation",
+            "project_id": 1490,
+            "project_name": "Paseo Heights"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "San Vicente Coast, Inc.",
+            "project_id": 1542,
+            "project_name": "Porto Hotel District"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Megaworld Corporation",
+            "project_id": 1491,
+            "project_name": "Saint Dominique"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Megaworld Corporation",
+            "project_id": 1492,
+            "project_name": "Saint Honore"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Megaworld Corporation",
+            "project_id": 1493,
+            "project_name": "Salcedo Sky Suites"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Megaworld Corporation",
+            "project_id": 1494,
+            "project_name": "San Antonio Residence"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Megaworld Corporation",
+            "project_id": 1496,
+            "project_name": "Savoy Hotel Mactan Newtown"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Megaworld Corporation",
+            "project_id": 1495,
+            "project_name": "Savoy Hotel Manila"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Capital Town",
+            "project_id": 1524,
+            "project_name": "Shophouse District Capital Town"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Megaworld Corporation",
+            "project_id": 1497,
+            "project_name": "St. Mark Residences"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Megaworld Corporation",
+            "project_id": 1498,
+            "project_name": "St. Moritz Private Estate"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Megaworld Corporation",
+            "project_id": 1499,
+            "project_name": "Stamford Executive Residences"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Bayshore",
+            "project_id": 1538,
+            "project_name": "Sunny Coast Residential Resort Tower 2"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Bayshore",
+            "project_id": 1539,
+            "project_name": "Sunny Coast Residential Resort Tower 3"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Megaworld Corporation",
+            "project_id": 1500,
+            "project_name": "The Albany"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Megaworld Corporation",
+            "project_id": 1501,
+            "project_name": "The Ellis"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Megaworld Corporation",
+            "project_id": 1502,
+            "project_name": "The Florence At Mckinley Hill"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Megaworld Corporation",
+            "project_id": 1503,
+            "project_name": "The Palladium At Iloilo Business Park"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Megaworld Corporation",
+            "project_id": 1504,
+            "project_name": "The Palmtree 2 At Newport City"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Megaworld Corporation",
+            "project_id": 1505,
+            "project_name": "The Parkside Villas"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Megaworld Corporation",
+            "project_id": 1506,
+            "project_name": "The Pearl Global Residence"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Megaworld Corporation",
+            "project_id": 1507,
+            "project_name": "The Pinnacle"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Megaworld Corporation",
+            "project_id": 1508,
+            "project_name": "The Residential Resort At Newport City-Montecito"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Megaworld Corporation",
+            "project_id": 1509,
+            "project_name": "The Residential Resort At Newport City-Pinecrest"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Megaworld Corporation",
+            "project_id": 1510,
+            "project_name": "The Residential Resort At Newport City-Sarasota"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Megaworld Corporation",
+            "project_id": 1511,
+            "project_name": "The Venice Luxury Residences"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Megaworld Corporation",
+            "project_id": 1512,
+            "project_name": "The Verdin At Maple Grove"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Megaworld Corporation",
+            "project_id": 1513,
+            "project_name": "Three Central"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Megaworld Corporation",
+            "project_id": 1514,
+            "project_name": "Tuscany Private Estate"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Megaworld Corporation",
+            "project_id": 1515,
+            "project_name": "Two Central"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Megaworld Corporation",
+            "project_id": 1516,
+            "project_name": "Two Regis"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Megaworld Corporation",
+            "project_id": 1517,
+            "project_name": "Uptown Arts"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Megaworld Corporation",
+            "project_id": 1518,
+            "project_name": "Uptown Parksuites"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Megaworld Corporation",
+            "project_id": 1519,
+            "project_name": "Uptown Ritz Residence"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Megaworld Corporation",
+            "project_id": 1520,
+            "project_name": "Viceroy Towers"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Megaworld Corporation",
+            "project_id": 1521,
+            "project_name": "Vion Tower"
+        }
+    ]
+}

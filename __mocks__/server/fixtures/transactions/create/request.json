@@ -1,0 +1,8 @@
+{
+  "paymentMethodReferenceId": "instrument_X7aJmzPQCVU9VKy8idhtKr",
+  "billingReferenceId": "bill_hqGncANg6pBv9J29wy6n3A",
+  "baseAmount": 50000,
+  "baseCurrency": "PHP",
+  "transactionType": "payment",
+  "notes": null
+}

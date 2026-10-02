@@ -1,0 +1,40 @@
+[
+  {
+    "billingCardholderName": "TEST",
+    "billingCityAddress": "Guagua",
+    "billingCountryAddress": "PH",
+    "billingPostalCode": "2005",
+    "billingStateAddress": "Pampanga",
+    "billingStreetAddress": "Guagua Pampanga",
+    "isPrimary": true,
+    "lastFourAccountDigits": "****",
+    "lastFourCardDigits": "4242",
+    "lastFourRoutingDigits": "****",
+    "paymentMethodExpiry": "12 / 26",
+    "paymentMethodIssuer": null,
+    "paymentMethodName": "cc",
+    "paymentMethodOrigin": "PH",
+    "paymentMethodProvider": "visa",
+    "paymentMethodType": null,
+    "referenceId": "instrument_X7aJmzPQCVU9VKy8idhtKr"
+  },
+  {
+    "billingCardholderName": "TEST 2",
+    "billingCityAddress": "Guagua",
+    "billingCountryAddress": "PH",
+    "billingPostalCode": "2005",
+    "billingStateAddress": "Pampanga",
+    "billingStreetAddress": "Guagua Pampanga",
+    "isPrimary": false,
+    "lastFourAccountDigits": "****",
+    "lastFourCardDigits": "4242",
+    "lastFourRoutingDigits": "****",
+    "paymentMethodExpiry": "12 / 26",
+    "paymentMethodIssuer": null,
+    "paymentMethodName": "cc",
+    "paymentMethodOrigin": "PH",
+    "paymentMethodProvider": "visa",
+    "paymentMethodType": null,
+    "referenceId": "instrument_X7aJmzPQCVU9VKy8idhtKs"
+  }
+]

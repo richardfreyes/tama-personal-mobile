@@ -1,0 +1,88 @@
+{
+    "projects": [
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": null,
+            "project_id": 181,
+            "project_name": "Bel Air Central"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": null,
+            "project_id": 180,
+            "project_name": "Bel Air East"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": null,
+            "project_id": 179,
+            "project_name": "Bel Air West"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": null,
+            "project_id": 189,
+            "project_name": "Grand Broadmore"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": null,
+            "project_id": 185,
+            "project_name": "Grand Catalina"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": null,
+            "project_id": 186,
+            "project_name": "Grand Cedarcrest"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": null,
+            "project_id": 188,
+            "project_name": "Grand Forbes"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": null,
+            "project_id": 184,
+            "project_name": "Grand Meadows"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": null,
+            "project_id": 187,
+            "project_name": "Grand Oakridge"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": null,
+            "project_id": 190,
+            "project_name": "Grand Parklane"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": null,
+            "project_id": 183,
+            "project_name": "Grand Pasadena"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": null,
+            "project_id": 182,
+            "project_name": "Grand Riverdale"
+        }
+    ]
+}

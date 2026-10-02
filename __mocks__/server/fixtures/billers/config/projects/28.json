@@ -1,0 +1,95 @@
+{
+    "projects": [
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 483,
+            "project_name": "Alpine Villas"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 473,
+            "project_name": "Amore at Portofino"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 477,
+            "project_name": "Augusta"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 479,
+            "project_name": "Belle Reve"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 481,
+            "project_name": "Crosswinds"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 476,
+            "project_name": "Georgia Club"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 482,
+            "project_name": "Grand Quartier 3"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 474,
+            "project_name": "La Posada"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 480,
+            "project_name": "La Residencia de Sta. Rosa"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 475,
+            "project_name": "New Victorianne Row Area"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 471,
+            "project_name": "Portofino Heights"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 472,
+            "project_name": "Portofino South"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 478,
+            "project_name": "Promenade"
+        }
+    ]
+}

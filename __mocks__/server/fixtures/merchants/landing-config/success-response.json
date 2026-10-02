@@ -1,0 +1,12 @@
+{
+  "bannerButton": { "isEnabled": true, "text": "View Details" },
+  "enrollButton": { "isEnabled": true, "text": "Enroll Auto Debit" },
+  "isPublic": true,
+  "merchantId": "centuryprop",
+  "merchantType": "real_estate",
+  "payButton": { "isEnabled": true, "text": "Pay Online Now" },
+  "paymentMethods": [],
+  "pid": 48,
+  "subtitle": "Real Estate Payments Made Easy",
+  "title": "Century Properties"
+}

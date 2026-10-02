@@ -1,0 +1,14 @@
+[
+    {
+        "code": "CND",
+        "name": "Condominium"
+    },
+    {
+        "code": "HAL",
+        "name": "House and Lot"
+    },
+    {
+        "code": "LOT",
+        "name": "Lot only"
+    }
+]

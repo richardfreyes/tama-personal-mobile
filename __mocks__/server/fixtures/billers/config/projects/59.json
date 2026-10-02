@@ -1,0 +1,431 @@
+{
+    "projects": [
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1282,
+            "project_name": " Aruga Resort & Residences (Cebu)"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1283,
+            "project_name": "8 Forbestown Road"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1278,
+            "project_name": "8 New Town Boulevard"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1322,
+            "project_name": "81 Newport Boulevard"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1310,
+            "project_name": "Air Residences"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1319,
+            "project_name": "Alea Residences"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1279,
+            "project_name": "Avida Towers 34th Street"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1317,
+            "project_name": "Avida Towers Makati Southpoint"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1280,
+            "project_name": "Avida Towers Makati West"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1296,
+            "project_name": "Avida Towers One Union Place"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1329,
+            "project_name": "Azure Residences"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1309,
+            "project_name": "Brio Towers"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1330,
+            "project_name": "Coast Residences"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1284,
+            "project_name": "Entrata Urban Complex"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1311,
+            "project_name": "Fame Residences"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1325,
+            "project_name": "Filinvest"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1326,
+            "project_name": "Flair Tower"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1287,
+            "project_name": "Grand Hyatt Manila Residences"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1335,
+            "project_name": "Hotel 101 Boracay"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1334,
+            "project_name": "Hotel 101 Cebu"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1336,
+            "project_name": "Hotel 101 Davao"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1333,
+            "project_name": "Hotel 101 Fort"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1337,
+            "project_name": "Hotel 101 Palawan"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1300,
+            "project_name": "Jazz Residences"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1289,
+            "project_name": "Kroma Tower"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1327,
+            "project_name": "Light Residences"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1328,
+            "project_name": "Madison Park West"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1291,
+            "project_name": "Makati Palace Hotel"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1292,
+            "project_name": "Makati Place"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1293,
+            "project_name": "Makati Prime Citadel"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1308,
+            "project_name": "Manhattan Square"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1324,
+            "project_name": "Maricielo Villas Condominium Corp."
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1294,
+            "project_name": "Movenpick Hotel Mactan Island Cebu"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1338,
+            "project_name": "N/A"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1295,
+            "project_name": "One Central Makati"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1332,
+            "project_name": "Park Terraces"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1331,
+            "project_name": "Park Triangle"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1298,
+            "project_name": "Paseo Parkview Suites"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1297,
+            "project_name": "Paseo de Roces"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1313,
+            "project_name": "Salcedo Park Towers"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1299,
+            "project_name": "Shang Salcedo Place"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1314,
+            "project_name": "Shell Residences"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1323,
+            "project_name": "Solstice Tower"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1301,
+            "project_name": "South of Market"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1315,
+            "project_name": "Spring Residences"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1281,
+            "project_name": "The Beacon Makati"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1285,
+            "project_name": "The Eton Residences Greenbelt"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1286,
+            "project_name": "The Gramercy Residences"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1288,
+            "project_name": "The Knightsbridge Residences"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1290,
+            "project_name": "The Lerato"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1316,
+            "project_name": "The Montane"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1302,
+            "project_name": "The Rise Makati"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1318,
+            "project_name": "The Sapphire Bloc"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1320,
+            "project_name": "The Venice Luxury Residences"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1303,
+            "project_name": "Three Central Makati"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1304,
+            "project_name": "Trump Tower"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1305,
+            "project_name": "Two Central Makati"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1306,
+            "project_name": "Two Serendra"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1312,
+            "project_name": "Uptown Ritz Residence"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1307,
+            "project_name": "Vista Shaw Mandaluyong"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1321,
+            "project_name": "Wind Residences"
+        }
+    ]
+}

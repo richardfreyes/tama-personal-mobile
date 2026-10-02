@@ -1,0 +1,2 @@
+export const MILLISECONDS_PER_DAY = 24 * 60 * 60 * 1000;
+export const UPCOMING_BILL_DUE_SOON_DAYS = 7;

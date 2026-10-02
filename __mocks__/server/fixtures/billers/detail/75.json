@@ -1,0 +1,118 @@
+[
+    {
+        "displayOrder": 1,
+        "fieldType": "lookup",
+        "isAutoComplete": true,
+        "isRequired": true,
+        "key": "projectName",
+        "label": "Project Name",
+        "lookupReference": {
+            "location": "/merchants/msgrdc/projects",
+            "source": "link"
+        },
+        "pattern": null,
+        "placeholder": "Select Project Name"
+    },
+    {
+        "customClassName": null,
+        "displayOrder": 2,
+        "fieldType": "lookup",
+        "hint": "",
+        "isAutoComplete": false,
+        "isRequired": true,
+        "key": "paymentType",
+        "label": "Payment Type",
+        "lookupReference": {
+            "location": "/merchants/msgrdc/payment-types",
+            "source": "link"
+        },
+        "maxLength": 255,
+        "minLength": 0,
+        "pattern": null,
+        "placeholder": "Select Payment Type"
+    },
+    {
+        "displayOrder": 3,
+        "fieldType": "text",
+        "isRequired": true,
+        "key": "monthText",
+        "label": "Month",
+        "visibility": [
+            {
+                "lhs": "paymentType",
+                "operator": "equals",
+                "rhs": "MA"
+            }
+        ]
+    },
+    {
+        "displayOrder": 4,
+        "fieldType": "text",
+        "isRequired": true,
+        "key": "unitNumber",
+        "label": "Unit Number"
+    },
+    {
+        "displayOrder": 5,
+        "fieldType": "text",
+        "isRequired": true,
+        "key": "blockNumber",
+        "label": "Block Number"
+    },
+    {
+        "displayOrder": 6,
+        "fieldType": "text",
+        "isRequired": true,
+        "key": "lotNumber",
+        "label": "Lot Number"
+    },
+    {
+        "displayOrder": 7,
+        "fieldType": "text",
+        "isRequired": true,
+        "key": "phaseNumber",
+        "label": "Phase Number"
+    },
+    {
+        "displayOrder": 8,
+        "fieldType": "currency",
+        "hint": "",
+        "isRequired": true,
+        "key": "amount",
+        "label": "Amount Due in PHP",
+        "maxLength": 4900000,
+        "minLength": 1,
+        "pattern": "[0-9,.]+"
+    },
+    {
+        "displayOrder": 9,
+        "fieldType": "text",
+        "isRequired": true,
+        "key": "customerName",
+        "label": "Name of Unit Owner",
+        "pattern": "[a-zA-Z0-9-,.' ]+"
+    },
+    {
+        "displayOrder": 10,
+        "fieldType": "email",
+        "hint": "",
+        "isRequired": true,
+        "key": "customerEmail",
+        "label": "Email Address of Unit Owner",
+        "pattern": "\\S+@\\S+\\.\\S+"
+    },
+    {
+        "displayOrder": 11,
+        "fieldType": "tel",
+        "isRequired": true,
+        "key": "customerMobileNo",
+        "label": "Phone Number of Unit Owner",
+        "pattern": "[0-9]+"
+    },
+    {
+        "displayOrder": 12,
+        "fieldType": "longtext",
+        "key": "clientNotes",
+        "label": "Notes (Optional)"
+    }
+]

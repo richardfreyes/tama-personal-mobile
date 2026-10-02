@@ -1,0 +1,214 @@
+{
+    "projects": [
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Stateland, Inc.",
+            "project_id": 1880,
+            "project_name": "AVILA HEIGHTS"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Stateland, Inc.",
+            "project_id": 1881,
+            "project_name": "CASA LAGUERTA"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Stateland, Inc.",
+            "project_id": 1882,
+            "project_name": "CASA LAGUERTA 2"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Stateland, Inc.",
+            "project_id": 1883,
+            "project_name": "CHESTER PLACE"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Stateland, Inc.",
+            "project_id": 1884,
+            "project_name": "CRESCENT HILLS VILLAGE"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Stateland, Inc.",
+            "project_id": 1885,
+            "project_name": "CRYSTAL PLACE 1"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Stateland, Inc.",
+            "project_id": 1886,
+            "project_name": "CRYSTAL PLACE 2"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Stateland, Inc.",
+            "project_id": 1887,
+            "project_name": "DIAMOND CREST VILLAGE"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Stateland, Inc.",
+            "project_id": 1888,
+            "project_name": "EMERALD CREST VILLAGE"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Stateland, Inc.",
+            "project_id": 1889,
+            "project_name": "GRAN AVILA"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Stateland, Inc.",
+            "project_id": 1893,
+            "project_name": "GRAN SEVILLE - COMMERCIAL"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Stateland, Inc.",
+            "project_id": 1890,
+            "project_name": "GRAN SEVILLE 1"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Stateland, Inc.",
+            "project_id": 1891,
+            "project_name": "GRAN SEVILLE 2"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Stateland, Inc.",
+            "project_id": 1892,
+            "project_name": "GRAN SEVILLE 3"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Stateland, Inc.",
+            "project_id": 1894,
+            "project_name": "GREENFIELDS QC"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Stateland, Inc.",
+            "project_id": 1895,
+            "project_name": "GREENLAND"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Stateland, Inc.",
+            "project_id": 1896,
+            "project_name": "IVORY CREST VILLAGE"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Stateland, Inc.",
+            "project_id": 1897,
+            "project_name": "LA RIVIERA"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Stateland, Inc.",
+            "project_id": 1898,
+            "project_name": "NORTH CREST VILLAGE"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Stateland, Inc.",
+            "project_id": 1899,
+            "project_name": "NORTH OLYMPUS IV PRIME"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Stateland, Inc.",
+            "project_id": 1900,
+            "project_name": "PALO-ALTO"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Stateland, Inc.",
+            "project_id": 1901,
+            "project_name": "ROSETE (THE PARTHENON)"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Stateland, Inc.",
+            "project_id": 1902,
+            "project_name": "SAN FRANCISCO HEIGHTS"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Stateland, Inc.",
+            "project_id": 1903,
+            "project_name": "SUMMER MEADOWS SUBDIVISION"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Stateland, Inc.",
+            "project_id": 1904,
+            "project_name": "SUMMERCREST VILLAGE"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Stateland, Inc.",
+            "project_id": 1905,
+            "project_name": "SUNNY CREST ROYALE"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Stateland, Inc.",
+            "project_id": 1906,
+            "project_name": "SUNNY CREST VILLAGE"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Stateland, Inc.",
+            "project_id": 1907,
+            "project_name": "THE ARCADIA"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Stateland, Inc.",
+            "project_id": 1908,
+            "project_name": "VILLA SAN LORENZO"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Stateland, Inc.",
+            "project_id": 1909,
+            "project_name": "WASHINGTON PLACE"
+        }
+    ]
+}

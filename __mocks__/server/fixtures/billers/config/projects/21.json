@@ -1,0 +1,347 @@
+{
+    "projects": [
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Cebu Holdings, Inc.",
+            "project_id": 425,
+            "project_name": "1016 RESIDENCES"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Ayala Land, Inc.",
+            "project_id": 428,
+            "project_name": "ABRIO"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Ayala Land, Inc",
+            "project_id": 394,
+            "project_name": "ALEGRIA HILLS"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Ayala Land, Inc",
+            "project_id": 395,
+            "project_name": "ALTARAZA"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Nuevocentro Inc.",
+            "project_id": 421,
+            "project_name": "ALVIERA EAST COMMERCIAL CENTER"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Cebu Holdings, Inc.",
+            "project_id": 424,
+            "project_name": "AMARA"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Ayala Land, Inc",
+            "project_id": 396,
+            "project_name": "ANVAYA COVE"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Subic Bay Devt & Indtl",
+            "project_id": 417,
+            "project_name": "ANVAYA COVE"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Ayala Land, Inc",
+            "project_id": 397,
+            "project_name": "ANVAYA COVE BEACH & CLUB SHARE"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Subic Bay Devt & Indtl",
+            "project_id": 418,
+            "project_name": "ANVAYA COVE CLUB SHARE"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Ayala Land, Inc",
+            "project_id": 398,
+            "project_name": "ANVAYA COVE GOLF & SPORTS CLUB"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Subic Bay Devt & Indtl",
+            "project_id": 419,
+            "project_name": "ANVAYA COVE GOLF & SPORTS CLUB"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Ayala Land, Inc",
+            "project_id": 399,
+            "project_name": "ARBOR LANES"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Ayala Land, Inc",
+            "project_id": 400,
+            "project_name": "ARCA South"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Ayala Greenfield Development Corp.",
+            "project_id": 429,
+            "project_name": "AYALA GREENFIELD ESTATE"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Ayala Land, Inc",
+            "project_id": 401,
+            "project_name": "AYALA NORTH POINT"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Ayala Land, Inc",
+            "project_id": 402,
+            "project_name": "AYALA WESTGROVE HEIGHTS"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Nuevocentro Inc.",
+            "project_id": 420,
+            "project_name": "Alviera Country Club"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Ayala Land, Inc.",
+            "project_id": 436,
+            "project_name": "Andacillo"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Ayala Greenfield Development Corp.",
+            "project_id": 440,
+            "project_name": "Ayala Greenfield Estates - Parkside Terraces (Phase 4C)"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Aviana Development Corp.",
+            "project_id": 414,
+            "project_name": "Azuela Cove Commercial Lots"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Ayala Land, Inc",
+            "project_id": 403,
+            "project_name": "CERILO"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "AKL Properties, Inc.",
+            "project_id": 441,
+            "project_name": "Ciela at Aéra Heights"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "BG West Properties, Inc.",
+            "project_id": 410,
+            "project_name": "EAST GALLERY PLACE"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Ayala Land, Inc.",
+            "project_id": 430,
+            "project_name": "ELARO"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Ayala Land, Inc",
+            "project_id": 404,
+            "project_name": "GARDEN TOWERS"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Ayala Land, Inc",
+            "project_id": 437,
+            "project_name": "GARDENCOURT RESIDENCES"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Ayala Land, Inc",
+            "project_id": 438,
+            "project_name": "LANEWOOD HILLS"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Ayala Land, Inc.",
+            "project_id": 431,
+            "project_name": "LUSCARA"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Ayala Land, Inc",
+            "project_id": 439,
+            "project_name": "Lio Tourism Estate"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Ayala Land, Inc.",
+            "project_id": 432,
+            "project_name": "MONTECITO"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Ayala Land, Inc",
+            "project_id": 405,
+            "project_name": "ONE VERTIS PLAZA"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Ayala Hotels, Inc.",
+            "project_id": 412,
+            "project_name": "PARK CENTRAL TOWERS"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Nuevocentro Inc.",
+            "project_id": 422,
+            "project_name": "PARK ESTATES"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Cebu Holdings, Inc.",
+            "project_id": 426,
+            "project_name": "PARK POINT RESIDENCES"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Ayala Land, Inc.",
+            "project_id": 427,
+            "project_name": "PARK TERRACES"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "ALI Eton Prop. Dev'l Corp",
+            "project_id": 423,
+            "project_name": "PARKLINKS NORTH TOWER"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "DUMMY COMPANY",
+            "project_id": 442,
+            "project_name": "PARKLINKS NORTH TOWER - TEST"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Ayala Land, Inc",
+            "project_id": 406,
+            "project_name": "RIOMONTE"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Ayala Land, Inc.",
+            "project_id": 433,
+            "project_name": "SANTIERRA"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Ayala Land, Inc",
+            "project_id": 407,
+            "project_name": "SOLIENTO"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Southportal Properties",
+            "project_id": 413,
+            "project_name": "THE ALCOVES"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Ayala Land, Inc",
+            "project_id": 408,
+            "project_name": "THE COURTYARDS"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Ayala Land, Inc",
+            "project_id": 409,
+            "project_name": "THE ENCLAVES AT NORTH POINT"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Aviana Development Corp.",
+            "project_id": 415,
+            "project_name": "THE RESIDENCES AT AZUELA COVE"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Aviana Development Corp.",
+            "project_id": 416,
+            "project_name": "THE RESIDENCES AT AZUELA COVE - SOUTH TOWER"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "BG West Properties Inc.",
+            "project_id": 434,
+            "project_name": "THE SUITES AT ONE BONIFACIO HIGH STREET"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Roxas Land Triangle",
+            "project_id": 435,
+            "project_name": "TWO ROXAS TRIANGLE"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "BG West Properties, Inc.",
+            "project_id": 411,
+            "project_name": "WEST GALLERY PLACE"
+        }
+    ]
+}

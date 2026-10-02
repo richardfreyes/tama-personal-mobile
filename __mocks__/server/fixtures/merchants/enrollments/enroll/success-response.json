@@ -1,0 +1,10 @@
+{
+  "accessSignature": "mock_enroll_signature_001",
+  "accessType": "view",
+  "httpStatus": 201,
+  "message": "Enrollment completed successfully",
+  "referenceId": "ref_enr_mock_001",
+  "redirectUrl": "",
+  "verificationUrl": "",
+  "status": "successful"
+}

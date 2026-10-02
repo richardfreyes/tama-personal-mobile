@@ -1,0 +1,16 @@
+{
+  "customer": {
+    "customerAddress": "Guagua Pampanga",
+    "customerAddressCity": "Guagua",
+    "customerAddressPostalCode": "2005",
+    "customerAddressState": "Pampanga",
+    "customerCountryIso2Code": "PH",
+    "customerEntityType": "individual",
+    "customerMetadata": {
+      "ckoCustomerId": "cus_lnrppk4t72kuhelh3msbogdfmy"
+    },
+    "customerName": "",
+    "customerReferenceId": "P20250781424388",
+    "kycStatusCode": "NOT_STARTED"
+  }
+}

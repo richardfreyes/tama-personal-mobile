@@ -1,0 +1,249 @@
+{
+    "projects": [
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Azure",
+            "project_id": 621,
+            "project_name": "Bahamas"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Azure North",
+            "project_id": 612,
+            "project_name": "Bali"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Azure North",
+            "project_id": 611,
+            "project_name": "Barbados"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Century Limitless Corporation",
+            "project_id": 594,
+            "project_name": "Batulao Artscapes"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Azure",
+            "project_id": 620,
+            "project_name": "Boracay"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Commonwealth By Century",
+            "project_id": 603,
+            "project_name": "Canyon Ranch Moderno"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Century City",
+            "project_id": 609,
+            "project_name": "Centuria Medical Makati"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Century City",
+            "project_id": 608,
+            "project_name": "Century Spire"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Acqua Private Residences",
+            "project_id": 627,
+            "project_name": "Detifoss"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Century City",
+            "project_id": 607,
+            "project_name": "Gramercy Residences"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Acqua Private Residences",
+            "project_id": 626,
+            "project_name": "Iguazu"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Century City",
+            "project_id": 606,
+            "project_name": "Knightsbridge Residences"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Acqua Private Residences",
+            "project_id": 625,
+            "project_name": "Livingstone"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Azure",
+            "project_id": 619,
+            "project_name": "Maldives"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Azure",
+            "project_id": 618,
+            "project_name": "Maui"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Azure",
+            "project_id": 617,
+            "project_name": "Miami"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Century City",
+            "project_id": 605,
+            "project_name": "Milano Residences"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Azure North",
+            "project_id": 610,
+            "project_name": "Monaco"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Something",
+            "project_id": 2034,
+            "project_name": "New Project"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Acqua Private Residences",
+            "project_id": 624,
+            "project_name": "Niagara"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Acqua Private Residences",
+            "project_id": 623,
+            "project_name": "Novotel"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Commonwealth By Century",
+            "project_id": 602,
+            "project_name": "Osmena East"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Commonwealth By Century",
+            "project_id": 601,
+            "project_name": "Osmena West"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Azure",
+            "project_id": 616,
+            "project_name": "Positano"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Commonwealth By Century",
+            "project_id": 600,
+            "project_name": "Quezon North"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Commonwealth By Century",
+            "project_id": 599,
+            "project_name": "Quezon South"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Commonwealth By Century",
+            "project_id": 598,
+            "project_name": "Quirino East"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Commonwealth By Century",
+            "project_id": 597,
+            "project_name": "Quirino West"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Azure",
+            "project_id": 615,
+            "project_name": "Rio"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Commonwealth By Century",
+            "project_id": 596,
+            "project_name": "Roxas East"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Commonwealth By Century",
+            "project_id": 595,
+            "project_name": "Roxas West"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Azure",
+            "project_id": 614,
+            "project_name": "Santorini"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Azure",
+            "project_id": 613,
+            "project_name": "St.Tropez"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Acqua Private Residences",
+            "project_id": 622,
+            "project_name": "Sutherland"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Century City",
+            "project_id": 604,
+            "project_name": "Trump Tower"
+        }
+    ]
+}

@@ -1,0 +1,5 @@
+[
+  { "projectId": "proj_001", "name": "Barbados", "merchantProjectId": 5, "category": "Residential" },
+  { "projectId": "proj_002", "name": "Azure North", "merchantProjectId": 12, "category": "Residential" },
+  { "projectId": "proj_003", "name": "Acqua Private Residences", "merchantProjectId": 18, "category": "Condominium" }
+]

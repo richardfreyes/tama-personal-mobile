@@ -1,0 +1,145 @@
+[
+    {
+        "displayOrder": 1,
+        "fieldType": "lookup",
+        "isAutoComplete": true,
+        "isRequired": true,
+        "key": "projectName",
+        "label": "Property/Project Names/Subdivision Names",
+        "lookupReference": {
+            "location": "/merchants/phinmaprism/projects",
+            "source": "link"
+        },
+        "pattern": null,
+        "placeholder": "Select Project Name"
+    },
+    {
+        "customClassName": null,
+        "displayOrder": 2,
+        "fieldType": "lookup",
+        "hint": "",
+        "isAutoComplete": false,
+        "isRequired": true,
+        "key": "paymentType",
+        "label": "Payment Type",
+        "lookupReference": {
+            "location": "/merchants/phinmaprism/payment-types",
+            "source": "link"
+        },
+        "maxLength": 255,
+        "minLength": 0,
+        "pattern": null,
+        "placeholder": "Select Payment Type"
+    },
+    {
+        "customClassName": null,
+        "displayOrder": 3,
+        "fieldType": "text",
+        "hint": "",
+        "isAutoComplete": false,
+        "isRequired": false,
+        "key": "srsReferenceCode",
+        "label": "SRS Reference Number",
+        "lookupReference": null,
+        "maxLength": 255,
+        "minLength": 0,
+        "pattern": "^[a-zA-Z0-9]+$"
+    },
+    {
+        "displayOrder": 4,
+        "fieldType": "text",
+        "hint": "BXXUXX (Ex. B01U25)",
+        "isRequired": true,
+        "key": "unitNumber",
+        "label": "Unit Number",
+        "pattern": "^[bB][0-9]{1,2}[uU][0-9]{1,2}"
+    },
+    {
+        "displayOrder": 5,
+        "fieldType": "currency",
+        "hint": "",
+        "isRequired": true,
+        "key": "amount",
+        "label": "Amount Due in PHP",
+        "maxLength": 4900000,
+        "minLength": 1,
+        "pattern": "[0-9,.]+"
+    },
+    {
+        "customClassName": null,
+        "displayOrder": 6,
+        "fieldType": "text",
+        "hint": "",
+        "isAutoComplete": false,
+        "isRequired": true,
+        "key": "customerFirstName",
+        "label": "First Name",
+        "maxLength": 255,
+        "minLength": 0,
+        "pattern": "[a-zA-Z0-9-,.' ]+"
+    },
+    {
+        "customClassName": null,
+        "displayOrder": 7,
+        "fieldType": "text",
+        "hint": "",
+        "isAutoComplete": false,
+        "isRequired": true,
+        "key": "customerLastName",
+        "label": "Last Name",
+        "maxLength": 255,
+        "minLength": 0,
+        "pattern": "[a-zA-Z0-9-,.' ]+"
+    },
+    {
+        "displayOrder": 8,
+        "fieldType": "email",
+        "hint": "",
+        "isRequired": true,
+        "key": "customerEmail",
+        "label": "Email Address of Unit Owner",
+        "pattern": "\\S+@\\S+\\.\\S+"
+    },
+    {
+        "displayOrder": 9,
+        "fieldType": "tel",
+        "isRequired": true,
+        "key": "customerMobileNo",
+        "label": "Phone Number of Unit Owner",
+        "pattern": "[0-9]+"
+    },
+    {
+        "customClassName": null,
+        "displayOrder": 10,
+        "fieldType": "text",
+        "hint": "",
+        "isAutoComplete": false,
+        "isRequired": false,
+        "key": "agentName",
+        "label": "Agent's Full Name",
+        "lookupReference": null,
+        "maxLength": 255,
+        "minLength": 0,
+        "pattern": null
+    },
+    {
+        "customClassName": null,
+        "displayOrder": 11,
+        "fieldType": "email",
+        "hint": "",
+        "isAutoComplete": false,
+        "isRequired": false,
+        "key": "agentEmail",
+        "label": "Agent's Email",
+        "lookupReference": null,
+        "maxLength": 255,
+        "minLength": 0,
+        "pattern": "\\S+@\\S+\\.\\S+"
+    },
+    {
+        "displayOrder": 12,
+        "fieldType": "longtext",
+        "key": "clientNotes",
+        "label": "Notes (Optional)"
+    }
+]

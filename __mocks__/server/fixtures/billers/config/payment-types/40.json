@@ -1,0 +1,14 @@
+{
+    "LP": {
+        "name": "Lumpsum Payment",
+        "projects": []
+    },
+    "MA": {
+        "name": "Monthly Amortization",
+        "projects": []
+    },
+    "RF": {
+        "name": "Reservation Fee",
+        "projects": []
+    }
+}

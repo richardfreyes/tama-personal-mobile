@@ -1,0 +1,9 @@
+{
+  "accessSignature": "mock_access_signature_001",
+  "accessType": "view",
+  "httpStatus": 201,
+  "message": "Payment processed successfully",
+  "referenceId": "ref_mock_001",
+  "redirectUrl": "",
+  "status": "successful"
+}

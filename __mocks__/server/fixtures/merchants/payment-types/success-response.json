@@ -1,0 +1,5 @@
+[
+  { "typeCode": "DOWN_PAYMENT", "typeId": 1, "typeName": "Down Payment" },
+  { "typeCode": "MONTHLY_AMORT", "typeId": 2, "typeName": "Monthly Amortization" },
+  { "typeCode": "RESERVATION", "typeId": 3, "typeName": "Reservation Fee" }
+]

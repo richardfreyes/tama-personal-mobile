@@ -1,0 +1,43 @@
+{
+  "currencies": [
+    { "currency": "PHP", "maxAmount": 500000, "minAmount": 100 }
+  ],
+  "fields": [
+    {
+      "key": "customerName",
+      "label": "Full Name",
+      "name": "customerName",
+      "fieldType": "text",
+      "isRequired": true,
+      "maxLength": 100,
+      "placeholder": "Enter your full name"
+    },
+    {
+      "key": "customerEmail",
+      "label": "Email Address",
+      "name": "customerEmail",
+      "fieldType": "text",
+      "isRequired": true,
+      "maxLength": 100,
+      "placeholder": "Enter your email"
+    },
+    {
+      "key": "unitNumber",
+      "label": "Unit Number",
+      "name": "unitNumber",
+      "fieldType": "text",
+      "isRequired": false,
+      "maxLength": 50,
+      "placeholder": "Enter unit number"
+    },
+    {
+      "key": "projectName",
+      "label": "Project Name",
+      "name": "projectName",
+      "fieldType": "lookup",
+      "isRequired": true,
+      "lookupReference": { "location": "/merchants/centuryprop/projects", "source": "link" }
+    }
+  ],
+  "hasScripts": null
+}

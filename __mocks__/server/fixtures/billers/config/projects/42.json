@@ -1,0 +1,32 @@
+{
+    "projects": [
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 638,
+            "project_name": "Others"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 635,
+            "project_name": "Pine Suites (Tagaytay)"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 637,
+            "project_name": "The Courtyard (Taguig)"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 636,
+            "project_name": "The Loop (Cagayan de Oro)"
+        }
+    ]
+}

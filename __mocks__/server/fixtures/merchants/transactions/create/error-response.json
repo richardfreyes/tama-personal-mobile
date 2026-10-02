@@ -1,0 +1,4 @@
+{
+  "error": "Invalid merchant or missing required fields",
+  "code": "VALIDATION_ERROR"
+}

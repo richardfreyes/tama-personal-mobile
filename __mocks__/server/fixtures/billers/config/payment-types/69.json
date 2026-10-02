@@ -1,0 +1,30 @@
+{
+    "ADMIN_FEE": {
+        "name": "Admin Fee",
+        "projects": []
+    },
+    "EQUITY": {
+        "name": "Monthly Equity",
+        "projects": []
+    },
+    "MA": {
+        "name": "Monthly Amortization",
+        "projects": []
+    },
+    "OTHERS": {
+        "name": "Others",
+        "projects": []
+    },
+    "RF": {
+        "name": "Reservation Fee",
+        "projects": []
+    },
+    "TRANSFER_FEE": {
+        "name": "Transfer Charges",
+        "projects": []
+    },
+    "TURNOVER_FEE": {
+        "name": "Turn-over Charges",
+        "projects": []
+    }
+}

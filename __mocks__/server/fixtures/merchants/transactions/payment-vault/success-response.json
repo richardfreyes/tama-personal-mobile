@@ -1,0 +1,5 @@
+{
+  "httpStatus": 201,
+  "message": "Payment processed via vault",
+  "status": "successful"
+}

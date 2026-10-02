@@ -1,0 +1,4 @@
+{
+  "error": "Card validation failed",
+  "code": "CARD_DECLINED"
+}

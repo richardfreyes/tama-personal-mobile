@@ -1,0 +1,50 @@
+{
+    "DP": {
+        "name": "Down Payment",
+        "projects": []
+    },
+    "MA": {
+        "name": "Monthly Amortization",
+        "projects": []
+    },
+    "RF": {
+        "name": "Reservation Fee",
+        "projects": []
+    },
+    "STATELAND_UTILITIES": {
+        "name": "Utilities",
+        "projects": []
+    },
+    "SUNTRUST_CBOND": {
+        "name": "Construction Bond",
+        "projects": []
+    },
+    "SUNTRUST_DPP": {
+        "name": "Downpayment Penalty",
+        "projects": []
+    },
+    "SUNTRUST_ELEC": {
+        "name": "Electric Bill",
+        "projects": []
+    },
+    "SUNTRUST_MAP": {
+        "name": "Monthly Amortization Penalty",
+        "projects": []
+    },
+    "SUNTRUST_MRI": {
+        "name": "Mortgage Redemption Insurance",
+        "projects": []
+    },
+    "SUNTRUST_PMFEE": {
+        "name": "Property Management Fee",
+        "projects": []
+    },
+    "SUNTRUST_WATER": {
+        "name": "Water Bill",
+        "projects": []
+    },
+    "TF": {
+        "name": "Transfer Fee",
+        "projects": []
+    }
+}

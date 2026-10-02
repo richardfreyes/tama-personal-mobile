@@ -1,0 +1,17 @@
+{
+  "bill": { "amount": "12500", "currency": "PHP" },
+  "customer": {
+    "name": "Richard Frey Reyes",
+    "email": "testuser@user.com",
+    "mobile": "9171234567",
+    "countryPrefix": "+63",
+    "countryIso2": "PH"
+  },
+  "project": { "merchantProjectId": 5, "name": "Barbados", "projectId": "proj_001", "category": "Residential" },
+  "clientNotes": null,
+  "source": "mobile",
+  "fields": [
+    { "name": "customerName", "text": "Full Name", "value": "Richard Frey Reyes" },
+    { "name": "customerEmail", "text": "Email Address", "value": "testuser@user.com" }
+  ]
+}

@@ -1,0 +1,228 @@
+{
+    "projects": [
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1575,
+            "project_name": "(GRS) Grand Rivera Suites"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1546,
+            "project_name": "(HHM) Heritage Homes Marilao"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1571,
+            "project_name": "(HHTM) Heritage Homes Trece Martires"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1569,
+            "project_name": "(HSH) Heritage Spring Homes"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1558,
+            "project_name": "(HVA) Herritage Villas Angeles"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1550,
+            "project_name": "(HVSJ) Heritage Villas San Jose"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1557,
+            "project_name": "(MGA) Metrogate Angeles"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1548,
+            "project_name": "(MGC) Metrogate Complex"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1564,
+            "project_name": "(MGCT) Metrogate Centara Tagaytay"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1566,
+            "project_name": "(MGD) Metrogate Dasmarinas"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1567,
+            "project_name": "(MGDE) Metrogate Dasmarinas Estate"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1572,
+            "project_name": "(MGI) Metrogate Indang"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1552,
+            "project_name": "(MGNV) Metrogate North Villas"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1556,
+            "project_name": "(MGP) Metrogate Primavera"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1568,
+            "project_name": "(MGSE) Metrogate Silang Estate"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1551,
+            "project_name": "(MGSJ) Metrogate San Jose"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1549,
+            "project_name": "(MGSM) Metrogate Spring Meadows"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1553,
+            "project_name": "(MGSR) Metrogate Sta. Rosa"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1563,
+            "project_name": "(MGTE) Metrogate Tagaytay Estate"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1570,
+            "project_name": "(MGTM) Metrogate Trece Martires"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1560,
+            "project_name": "(MGV) Metrogate Villas"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1547,
+            "project_name": "(MMII) Metrogate Meycauayan II"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1577,
+            "project_name": "(MRB) Moldex Residences Baguio"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1574,
+            "project_name": "(MRV) Moldex Residences Valenzuela"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1565,
+            "project_name": "(MTM) Metrogate Tagaytay Manors"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1559,
+            "project_name": "(MVC) Metrovilla Executive Village"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1561,
+            "project_name": "(MVRE) Metroview Ridge Estates"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1573,
+            "project_name": "(TGT) The Grand Towers - Tower 1 & 2"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1562,
+            "project_name": "(TSE) Tagaytay Southridge"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1555,
+            "project_name": "(VADR) Villa Alegria Dos Rios"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1554,
+            "project_name": "(VCE) Villa Careres Estates"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1576,
+            "project_name": "1322 Grand Empire Tower"
+        }
+    ]
+}

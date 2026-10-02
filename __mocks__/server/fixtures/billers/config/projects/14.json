@@ -1,0 +1,25 @@
+{
+    "projects": [
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": null,
+            "project_id": 242,
+            "project_name": "AppleOne Banawa Heights"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": null,
+            "project_id": 241,
+            "project_name": "AppleOne Tower"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": null,
+            "project_id": 243,
+            "project_name": "The Residences at Sheraton Cebu Mactan Resort"
+        }
+    ]
+}

@@ -1,0 +1,174 @@
+[
+    {
+        "customClassName": null,
+        "displayOrder": 1,
+        "fieldType": "lookup",
+        "isAutoComplete": true,
+        "isRequired": true,
+        "key": "projectName",
+        "label": "Project Name",
+        "lookupReference": {
+            "location": "/merchants/landtraders/projects",
+            "source": "link"
+        },
+        "maxLength": 255,
+        "minLength": 0,
+        "pattern": null,
+        "placeholder": "Select Project Name"
+    },
+    {
+        "customClassName": null,
+        "displayOrder": 2,
+        "fieldType": "lookup",
+        "hint": "",
+        "isAutoComplete": false,
+        "isRequired": true,
+        "key": "otherPaymentType",
+        "label": "Type of Account",
+        "lookupReference": {
+            "location": "otherPaymentTypes",
+            "source": "self"
+        },
+        "maxLength": 255,
+        "minLength": 0,
+        "pattern": null,
+        "placeholder": "Select Type of Account"
+    },
+    {
+        "customClassName": null,
+        "displayOrder": 3,
+        "fieldType": "text",
+        "hint": "",
+        "isAutoComplete": false,
+        "isRequired": true,
+        "key": "unitNumber",
+        "label": "Unit Number",
+        "lookupReference": null,
+        "maxLength": 255,
+        "minLength": 0,
+        "pattern": null
+    },
+    {
+        "customClassName": null,
+        "displayOrder": 4,
+        "fieldType": "lookup",
+        "hint": "",
+        "isAutoComplete": false,
+        "isRequired": true,
+        "key": "paymentType",
+        "label": "Payment Type",
+        "lookupReference": {
+            "location": "/merchants/landtraders/payment-types",
+            "source": "link"
+        },
+        "maxLength": 255,
+        "minLength": 0,
+        "pattern": null,
+        "placeholder": "Select Payment Type"
+    },
+    {
+        "customClassName": null,
+        "displayOrder": 5,
+        "fieldType": "text",
+        "hint": "",
+        "isAutoComplete": false,
+        "isRequired": true,
+        "key": "others",
+        "label": "If Others, Please Specify:",
+        "lookupReference": null,
+        "maxLength": 50,
+        "minLength": 1,
+        "pattern": null,
+        "visibility": [
+            {
+                "lhs": "paymentType",
+                "operator": "equals",
+                "rhs": "OTHERS"
+            }
+        ]
+    },
+    {
+        "customClassName": null,
+        "displayOrder": 6,
+        "fieldType": "currency",
+        "hint": "",
+        "isAutoComplete": false,
+        "isRequired": true,
+        "key": "amount",
+        "label": "Amount Due in PHP",
+        "lookupReference": null,
+        "maxLength": 4900000,
+        "minLength": 1,
+        "pattern": "[0-9,.]+"
+    },
+    {
+        "customClassName": null,
+        "displayOrder": 7,
+        "fieldType": "text",
+        "hint": "First Name, Middle Name, Last Name",
+        "isAutoComplete": false,
+        "isRequired": true,
+        "key": "customerName",
+        "label": "Name of Unit Owner",
+        "lookupReference": null,
+        "maxLength": 255,
+        "minLength": 0,
+        "pattern": "[a-zA-Z0-9-,.' ]+"
+    },
+    {
+        "customClassName": null,
+        "displayOrder": 8,
+        "fieldType": "email",
+        "hint": "",
+        "isAutoComplete": false,
+        "isRequired": true,
+        "key": "customerEmail",
+        "label": "Email Address",
+        "lookupReference": null,
+        "maxLength": 255,
+        "minLength": 0,
+        "pattern": "\\S+@\\S+\\.\\S+"
+    },
+    {
+        "customClassName": null,
+        "displayOrder": 9,
+        "fieldType": "tel",
+        "hint": "",
+        "isAutoComplete": false,
+        "isRequired": true,
+        "key": "customerMobileNo",
+        "label": "Contact Number",
+        "lookupReference": null,
+        "maxLength": 255,
+        "minLength": 0,
+        "pattern": "[0-9]+"
+    },
+    {
+        "customClassName": null,
+        "displayOrder": 10,
+        "fieldType": "text",
+        "hint": "",
+        "isAutoComplete": false,
+        "isRequired": false,
+        "key": "agentName",
+        "label": "Name of Agent",
+        "lookupReference": null,
+        "maxLength": 255,
+        "minLength": 0,
+        "pattern": null
+    },
+    {
+        "customClassName": null,
+        "displayOrder": 11,
+        "fieldType": "longtext",
+        "hint": "",
+        "isAutoComplete": false,
+        "isRequired": false,
+        "key": "clientNotes",
+        "label": "Notes (Optional)",
+        "lookupReference": null,
+        "maxLength": 255,
+        "minLength": 0,
+        "pattern": null
+    }
+]

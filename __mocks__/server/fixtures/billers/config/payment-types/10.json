@@ -1,0 +1,10 @@
+{
+    "DP": {
+        "name": "Down Payment",
+        "projects": []
+    },
+    "RF": {
+        "name": "Reservation Fee",
+        "projects": []
+    }
+}

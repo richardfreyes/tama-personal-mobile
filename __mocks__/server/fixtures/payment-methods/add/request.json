@@ -1,0 +1,16 @@
+{
+  "creditCardNumber": "4111111111111111",
+  "expiryDate": "12/28",
+  "cardSecurityCode": "123",
+  "isPrimary": true,
+  "bin": "411111",
+  "cardProvider": "visa",
+  "cardholderName": "Richard Frey Reyes",
+  "cardOrigin": "PH",
+  "billingStreet": "Guagua Pampanga",
+  "billingCity": "Guagua",
+  "billingState": "Pampanga",
+  "billingCountry": "Philippines",
+  "billingCountryCode": "PH",
+  "billingPostalCode": "2005"
+}

@@ -1,0 +1,10 @@
+{
+  "customer": {
+    "customerAddress": "Guagua Pampanga",
+    "customerAddressCity": "Guagua",
+    "customerAddressPostalCode": "2005",
+    "customerAddressState": "Pampanga",
+    "customerCountryIso2Code": "PH"
+  },
+  "message": "Address updated successfully"
+}

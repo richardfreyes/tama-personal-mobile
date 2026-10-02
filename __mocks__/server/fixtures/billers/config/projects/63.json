@@ -1,0 +1,18 @@
+{
+    "projects": [
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": null,
+            "project_id": 1346,
+            "project_name": "I-LAND BAY PLAZA"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": null,
+            "project_id": 1345,
+            "project_name": "ILAND RESIDENCES SUCAT"
+        }
+    ]
+}

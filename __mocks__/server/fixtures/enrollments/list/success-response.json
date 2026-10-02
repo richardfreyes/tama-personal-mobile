@@ -1,0 +1,41 @@
+{
+  "enrollments": [
+    {
+      "referenceId": "ENR-001",
+      "transactionId": "enr_txn_001",
+      "externalTransactionId": "ext_enr_001",
+      "merchantName": "Century Properties",
+      "merchantCode": "centuryprop",
+      "customerName": "Richard Frey Reyes",
+      "customerEmail": "testuser@user.com",
+      "status": "active",
+      "baseAmount": 12500,
+      "baseCurrency": "PHP",
+      "enrollmentMonths": 12,
+      "enrollmentStartDate": "2026-08-15",
+      "monthlyAmount": 12500,
+      "createdAt": "2026-07-01T10:00:00.000000+08:00"
+    },
+    {
+      "referenceId": "ENR-002",
+      "transactionId": "enr_txn_002",
+      "externalTransactionId": "ext_enr_002",
+      "merchantName": "APEC Homes",
+      "merchantCode": "apechomes",
+      "customerName": "Jane Doe",
+      "customerEmail": "jane.doe@example.com",
+      "status": "pending",
+      "baseAmount": 8500,
+      "baseCurrency": "PHP",
+      "enrollmentMonths": 6,
+      "enrollmentStartDate": "2026-09-01",
+      "monthlyAmount": 8500,
+      "createdAt": "2026-07-15T14:30:00.000000+08:00"
+    }
+  ],
+  "pagination": {
+    "limit": 10,
+    "offset": 0,
+    "total": 2
+  }
+}

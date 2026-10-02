@@ -1,0 +1,46 @@
+{
+    "projects": [
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 665,
+            "project_name": "Alta Monte"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 666,
+            "project_name": "Leisure Suites North"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 667,
+            "project_name": "Leisure Suites South"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 669,
+            "project_name": "Monte Vista"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 668,
+            "project_name": "Montebello"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 670,
+            "project_name": "South Midland"
+        }
+    ]
+}

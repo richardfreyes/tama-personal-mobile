@@ -1,0 +1,25 @@
+{
+    "projects": [
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 630,
+            "project_name": "Diamond Beach Residences"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 629,
+            "project_name": "Tagaytay Clifton Resort Suites"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 628,
+            "project_name": "Tagaytay Fontaine Villas"
+        }
+    ]
+}

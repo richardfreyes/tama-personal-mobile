@@ -1,0 +1,53 @@
+{
+    "projects": [
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1755,
+            "project_name": "Idesia Bulacan"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1754,
+            "project_name": "Idesia Cabuyao"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1752,
+            "project_name": "Idesia Dasma Commercial"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1751,
+            "project_name": "Idesia Dasma Heights"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1749,
+            "project_name": "Idesia Dasma Phase 1"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1750,
+            "project_name": "Idesia Dasma Phase 2"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1753,
+            "project_name": "Idesia Lipa"
+        }
+    ]
+}

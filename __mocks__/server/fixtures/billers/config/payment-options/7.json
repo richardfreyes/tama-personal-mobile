@@ -1,0 +1,18 @@
+[
+    {
+        "code": "MO",
+        "name": "Monthly"
+    },
+    {
+        "code": "AN",
+        "name": "Annually"
+    },
+    {
+        "code": "OT",
+        "name": "Others"
+    },
+    {
+        "code": "PD",
+        "name": "Past Due"
+    }
+]

@@ -1,0 +1,42 @@
+{
+    "DP_P": {
+        "name": "Parking Down Payment",
+        "projects": []
+    },
+    "DP_U": {
+        "name": "Unit Down Payment",
+        "projects": []
+    },
+    "RF_P": {
+        "name": "Parking Reservation Fee",
+        "projects": []
+    },
+    "RF_P_ALA": {
+        "name": "Parking Reservation Fee - ALA",
+        "projects": []
+    },
+    "RF_P_P": {
+        "name": "Parking Reservation Fee - Promo",
+        "projects": []
+    },
+    "RF_U": {
+        "name": "Unit Reservation Fee",
+        "projects": []
+    },
+    "RF_U_ALA": {
+        "name": "Unit Reservation Fee - ALA",
+        "projects": []
+    },
+    "RF_U_P": {
+        "name": "Unit Reservation Fee - Promo",
+        "projects": []
+    },
+    "RF_U_SU_B": {
+        "name": "Unit Reservation Fee - Promo Big Units (2BR and Up)",
+        "projects": []
+    },
+    "RF_U_SU_S": {
+        "name": "Unit Reservation Fee - Promo Small Units (Studio - 1BR)",
+        "projects": []
+    }
+}

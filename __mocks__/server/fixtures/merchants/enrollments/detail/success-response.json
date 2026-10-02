@@ -1,0 +1,26 @@
+{
+  "merchantId": "centuryprop",
+  "merchantName": "Century Properties",
+  "transactionId": "enr_enrollment_mock_001",
+  "status": "pending",
+  "projectName": "Barbados",
+  "customerName": "Richard Frey Reyes",
+  "customerEmail": "testuser@user.com",
+  "customerMobileNo": "+639171234567",
+  "bill": { "amount": 12500, "currency": "PHP" },
+  "baseCurrency": "PHP",
+  "baseAmount": 12500,
+  "enrollmentMonths": 12,
+  "enrollmentStartDate": "2026-08-15",
+  "enrollmentLastPaymentAmount": 0,
+  "enrollmentLastPaymentDate": null,
+  "enrollmentMonthlyInvoiceAmount": 12500,
+  "fields": [
+    { "name": "customerName", "text": "Full Name", "value": "Richard Frey Reyes" },
+    { "name": "customerEmail", "text": "Email Address", "value": "testuser@user.com" },
+    { "name": "unitNumber", "text": "Unit Number", "value": "Unit 1606" },
+    { "name": "monthSpan", "text": "Month Span", "value": "12" }
+  ],
+  "unitNumber": "Unit 1606",
+  "xsrfKey": "xsrf_enr_mock_token_001"
+}

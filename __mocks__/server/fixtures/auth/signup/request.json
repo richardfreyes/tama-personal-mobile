@@ -1,0 +1,7 @@
+{
+  "firstName": "Jane",
+  "lastName": "Doe",
+  "emailAddress": "jane.doe@example.com",
+  "rawPassword": "SecurePass123!@#",
+  "turnstileToken": "mock_turnstile_token"
+}

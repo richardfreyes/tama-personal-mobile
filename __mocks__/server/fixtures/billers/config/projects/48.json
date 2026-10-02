@@ -1,0 +1,67 @@
+{
+    "projects": [
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": null,
+            "project_id": 676,
+            "project_name": "DD HappyHomes Mandurriao"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": null,
+            "project_id": 677,
+            "project_name": "DD HappyHomes Tanauan"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": null,
+            "project_id": 679,
+            "project_name": "FirstHomes"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": null,
+            "project_id": 673,
+            "project_name": "Hotel 101 - Cebu Mactan Airport"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": null,
+            "project_id": 672,
+            "project_name": "Hotel 101 - Davao"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": null,
+            "project_id": 671,
+            "project_name": "Hotel 101 - Fort"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": null,
+            "project_id": 675,
+            "project_name": "The SkySuites Towers"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": null,
+            "project_id": 678,
+            "project_name": "The Uptown Place"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": null,
+            "project_id": 674,
+            "project_name": "W.H. Taft Residences"
+        }
+    ]
+}

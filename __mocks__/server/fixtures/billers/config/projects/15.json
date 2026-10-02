@@ -1,0 +1,39 @@
+{
+    "projects": [
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": null,
+            "project_id": 244,
+            "project_name": "Arthaland Corp. - Arya Residences"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": null,
+            "project_id": 246,
+            "project_name": "Arthaland Corp. - Cebu Exchange"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": null,
+            "project_id": 245,
+            "project_name": "Arthaland Corp. - Century Pacific Tower"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": null,
+            "project_id": 247,
+            "project_name": "Arthaland Corp. - Savya Financial Center"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": null,
+            "project_id": 248,
+            "project_name": "Arthaland Corp. - Sevina Park Villas"
+        }
+    ]
+}

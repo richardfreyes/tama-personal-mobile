@@ -1,0 +1,151 @@
+[
+  {
+    "customClassName": null,
+    "displayOrder": 1,
+    "fieldType": "lookup",
+    "hint": "",
+    "isAutoComplete": false,
+    "isRequired": true,
+    "key": "projectName",
+    "label": "Merchant Name",
+    "lookupReference": {
+      "location": "/merchants/acqua-residences/projects",
+      "source": "link"
+    },
+    "maxLength": 255,
+    "minLength": 0,
+    "pattern": null,
+    "placeholder": "Select Merchant Name"
+  },
+  {
+    "customClassName": null,
+    "displayOrder": 2,
+    "fieldType": "lookup",
+    "hint": "",
+    "isAutoComplete": false,
+    "isRequired": true,
+    "key": "paymentType",
+    "label": "Payment Type",
+    "lookupReference": {
+      "location": "/merchants/acqua-residences/payment-types",
+      "source": "link"
+    },
+    "maxLength": 255,
+    "minLength": 0,
+    "pattern": null,
+    "placeholder": "Select Payment Type"
+  },
+  {
+    "customClassName": null,
+    "displayOrder": 3,
+    "fieldType": "text",
+    "hint": "",
+    "isAutoComplete": false,
+    "isRequired": true,
+    "key": "paymentOthers",
+    "label": "Others, please specify",
+    "lookupReference": null,
+    "maxLength": 255,
+    "minLength": 0,
+    "pattern": null,
+    "visibility": [
+      {
+        "lhs": "paymentType",
+        "operator": "equals",
+        "rhs": "OTHERS"
+      }
+    ]
+  },
+  {
+    "customClassName": null,
+    "displayOrder": 4,
+    "fieldType": "text",
+    "hint": "",
+    "isAutoComplete": false,
+    "isRequired": true,
+    "key": "soaNumber",
+    "label": "Invoice / SOA Number",
+    "lookupReference": null,
+    "maxLength": 255,
+    "minLength": 0,
+    "pattern": null
+  },
+  {
+    "customClassName": null,
+    "displayOrder": 5,
+    "fieldType": "text",
+    "hint": "",
+    "isAutoComplete": false,
+    "isRequired": true,
+    "key": "unitNumber",
+    "label": "Account Number / Unit Reference Code",
+    "lookupReference": null,
+    "maxLength": 255,
+    "minLength": 0,
+    "pattern": null
+  },
+  {
+    "customClassName": null,
+    "displayOrder": 6,
+    "fieldType": "currency",
+    "hint": "",
+    "isAutoComplete": false,
+    "isRequired": true,
+    "key": "amount",
+    "label": "Amount Due",
+    "lookupReference": null,
+    "maxLength": 4900000,
+    "minLength": 1,
+    "pattern": "[0-9,.]+"
+  },
+  {
+    "customClassName": null,
+    "displayOrder": 7,
+    "fieldType": "text",
+    "hint": "",
+    "isAutoComplete": false,
+    "isRequired": true,
+    "key": "customerName",
+    "label": "Customer Name",
+    "lookupReference": null,
+    "maxLength": 255,
+    "minLength": 0,
+    "pattern": "[a-zA-Z0-9-,.' ]+"
+  },
+  {
+    "customClassName": null,
+    "displayOrder": 8,
+    "fieldType": "email",
+    "hint": "",
+    "isAutoComplete": false,
+    "isRequired": true,
+    "key": "customerEmail",
+    "label": "Customer Email Address",
+    "lookupReference": null,
+    "maxLength": 255,
+    "minLength": 0,
+    "pattern": "\\S+@\\S+\\.\\S+"
+  },
+  {
+    "displayOrder": 9,
+    "fieldType": "tel",
+    "isRequired": true,
+    "key": "customerMobileNo",
+    "label": "Customer Phone Number",
+    "pattern": "[0-9]+"
+  },
+  {
+    "customClassName": null,
+    "displayOrder": 10,
+    "fieldType": "longtext",
+    "hint": "",
+    "isAutoComplete": false,
+    "isRequired": false,
+    "key": "clientNotes",
+    "label": "Notes",
+    "lookupReference": null,
+    "maxLength": 255,
+    "minLength": 0,
+    "pattern": null
+  }
+]

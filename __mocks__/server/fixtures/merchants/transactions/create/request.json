@@ -1,0 +1,22 @@
+{
+  "merchantId": "centuryprop",
+  "paymentType": "DOWN_PAYMENT",
+  "project": { "name": "Barbados", "projectId": "proj_001", "category": "Residential" },
+  "clientNotes": null,
+  "customer": {
+    "name": "Richard Frey Reyes",
+    "email": "testuser@user.com",
+    "mobile": "9171234567",
+    "countryPrefix": "+63",
+    "countryIso2": "PH"
+  },
+  "bill": { "base": { "amount": "50000", "currency": "PHP" } },
+  "transactionType": "payment",
+  "source": "mobile",
+  "adminNotes": null,
+  "fields": [
+    { "name": "customerName", "text": "Full Name", "value": "Richard Frey Reyes" },
+    { "name": "customerEmail", "text": "Email Address", "value": "testuser@user.com" },
+    { "name": "unitNumber", "text": "Unit Number", "value": "Unit 1606" }
+  ]
+}

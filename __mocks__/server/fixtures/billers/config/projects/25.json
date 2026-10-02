@@ -1,0 +1,39 @@
+{
+    "projects": [
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": null,
+            "project_id": 462,
+            "project_name": "BE Residences Lahug"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": null,
+            "project_id": 463,
+            "project_name": "BE Uptown Park"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": null,
+            "project_id": 465,
+            "project_name": "Balai Cordova"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": null,
+            "project_id": 466,
+            "project_name": "Balai Helena"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": null,
+            "project_id": 464,
+            "project_name": "Balai Punta Engaño Uno"
+        }
+    ]
+}

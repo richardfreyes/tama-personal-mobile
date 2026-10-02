@@ -1,0 +1,204 @@
+[
+  {
+    "customClassName": null,
+    "displayOrder": 1,
+    "fieldType": "lookup",
+    "hint": "",
+    "isAutoComplete": false,
+    "isRequired": true,
+    "key": "projectName",
+    "label": "Merchant Name",
+    "lookupReference": {
+      "location": "/merchants/azureurbanresort/projects",
+      "source": "link"
+    },
+    "maxLength": 255,
+    "minLength": 0,
+    "pattern": null,
+    "placeholder": "Select Merchant Name"
+  },
+  {
+    "customClassName": null,
+    "displayOrder": 2,
+    "fieldType": "lookup",
+    "hint": "",
+    "isAutoComplete": false,
+    "isRequired": true,
+    "key": "paymentType",
+    "label": "Payment Type",
+    "lookupReference": {
+      "location": "/merchants/azureurbanresort/payment-types",
+      "source": "link"
+    },
+    "maxLength": 255,
+    "minLength": 0,
+    "pattern": null,
+    "placeholder": "Select Payment Type"
+  },
+  {
+    "customClassName": null,
+    "displayOrder": 3,
+    "fieldType": "lookup",
+    "hint": "",
+    "isAutoComplete": false,
+    "isRequired": true,
+    "key": "condoPaymentType",
+    "label": "Condominium Dues",
+    "lookupReference": {
+      "location": "condoPaymentTypes",
+      "source": "self"
+    },
+    "maxLength": 255,
+    "minLength": 0,
+    "pattern": null,
+    "placeholder": "Select Condo Dues Payment Type",
+    "visibility": [
+      {
+        "lhs": "paymentType",
+        "operator": "equals",
+        "rhs": "CONDO_DUES"
+      }
+    ]
+  },
+  {
+    "customClassName": null,
+    "displayOrder": 4,
+    "fieldType": "lookup",
+    "hint": "",
+    "isAutoComplete": false,
+    "isRequired": true,
+    "key": "otherPaymentType",
+    "label": "Others",
+    "lookupReference": {
+      "location": "otherPaymentTypes",
+      "source": "self"
+    },
+    "maxLength": 255,
+    "minLength": 0,
+    "pattern": null,
+    "placeholder": "Select Other Payment Type",
+    "visibility": [
+      {
+        "lhs": "paymentType",
+        "operator": "equals",
+        "rhs": "OTHERS"
+      }
+    ]
+  },
+  {
+    "customClassName": null,
+    "displayOrder": 5,
+    "fieldType": "lookup",
+    "hint": "",
+    "isAutoComplete": false,
+    "isRequired": true,
+    "key": "towerName",
+    "label": "Tower",
+    "lookupReference": {
+      "location": "towerNames",
+      "source": "self"
+    },
+    "maxLength": 255,
+    "minLength": 0,
+    "pattern": null,
+    "placeholder": "Select Tower Name"
+  },
+  {
+    "customClassName": null,
+    "displayOrder": 6,
+    "fieldType": "text",
+    "hint": "",
+    "isAutoComplete": false,
+    "isRequired": true,
+    "key": "soaNumber",
+    "label": "Invoice / SOA Number",
+    "lookupReference": null,
+    "maxLength": 255,
+    "minLength": 0,
+    "pattern": null
+  },
+  {
+    "customClassName": null,
+    "displayOrder": 7,
+    "fieldType": "text",
+    "hint": "",
+    "isAutoComplete": false,
+    "isRequired": true,
+    "key": "unitNumber",
+    "label": "Account Number / Unit Reference Code",
+    "lookupReference": null,
+    "maxLength": 255,
+    "minLength": 0,
+    "pattern": null
+  },
+  {
+    "customClassName": null,
+    "displayOrder": 8,
+    "fieldType": "currency",
+    "hint": "",
+    "isAutoComplete": false,
+    "isRequired": true,
+    "key": "amount",
+    "label": "Amount Due",
+    "lookupReference": null,
+    "maxLength": 4900000,
+    "minLength": 1,
+    "pattern": "[0-9,.]+"
+  },
+  {
+    "customClassName": null,
+    "displayOrder": 9,
+    "fieldType": "text",
+    "hint": "",
+    "isAutoComplete": false,
+    "isRequired": true,
+    "key": "customerName",
+    "label": "Name of Unit Owner",
+    "lookupReference": null,
+    "maxLength": 255,
+    "minLength": 0,
+    "pattern": "[a-zA-Z0-9-,.' ]+"
+  },
+  {
+    "customClassName": null,
+    "displayOrder": 10,
+    "fieldType": "email",
+    "hint": "",
+    "isAutoComplete": false,
+    "isRequired": true,
+    "key": "customerEmail",
+    "label": "Email Address Unit Owner",
+    "lookupReference": null,
+    "maxLength": 255,
+    "minLength": 0,
+    "pattern": "\\S+@\\S+\\.\\S+"
+  },
+  {
+    "customClassName": null,
+    "displayOrder": 11,
+    "fieldType": "tel",
+    "hint": "",
+    "isAutoComplete": false,
+    "isRequired": false,
+    "key": "customerMobileNo",
+    "label": "Phone Number of Unit Owner",
+    "lookupReference": null,
+    "maxLength": 255,
+    "minLength": 0,
+    "pattern": "[0-9]+"
+  },
+  {
+    "customClassName": null,
+    "displayOrder": 12,
+    "fieldType": "longtext",
+    "hint": "",
+    "isAutoComplete": false,
+    "isRequired": false,
+    "key": "clientNotes",
+    "label": "Notes (Optional)",
+    "lookupReference": null,
+    "maxLength": 255,
+    "minLength": 0,
+    "pattern": null
+  }
+]

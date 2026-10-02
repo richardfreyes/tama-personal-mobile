@@ -1,0 +1,136 @@
+[
+    {
+        "displayOrder": 1,
+        "fieldType": "lookup",
+        "isAutoComplete": true,
+        "isRequired": true,
+        "key": "projectName",
+        "label": "Project Name",
+        "lookupReference": {
+            "location": "/merchants/phinfradev/projects",
+            "source": "link"
+        },
+        "pattern": null,
+        "placeholder": "Select Project Name"
+    },
+    {
+        "customClassName": null,
+        "displayOrder": 2,
+        "fieldType": "lookup",
+        "hint": "",
+        "isAutoComplete": false,
+        "isRequired": true,
+        "key": "paymentType",
+        "label": "Payment Type",
+        "lookupReference": {
+            "location": "/merchants/phinfradev/payment-types",
+            "source": "link"
+        },
+        "maxLength": 255,
+        "minLength": 0,
+        "pattern": null,
+        "placeholder": "Select Payment Type"
+    },
+    {
+        "customClassName": null,
+        "displayOrder": 3,
+        "fieldType": "lookup",
+        "hint": "",
+        "isAutoComplete": false,
+        "isRequired": true,
+        "key": "towerName",
+        "label": "Tower",
+        "lookupReference": {
+            "location": "towerNames",
+            "source": "self"
+        },
+        "maxLength": 255,
+        "minLength": 0,
+        "pattern": null,
+        "placeholder": "Select Tower Name"
+    },
+    {
+        "displayOrder": 4,
+        "fieldType": "text",
+        "isRequired": true,
+        "key": "unitFloor",
+        "label": "Unit Floor"
+    },
+    {
+        "displayOrder": 5,
+        "fieldType": "text",
+        "isRequired": true,
+        "key": "unitNumber",
+        "label": "Unit Number"
+    },
+    {
+        "displayOrder": 6,
+        "fieldType": "currency",
+        "hint": "",
+        "isRequired": true,
+        "key": "amount",
+        "label": "Amount Due in PHP",
+        "maxLength": 4900000,
+        "minLength": 1,
+        "pattern": "[0-9,.]+"
+    },
+    {
+        "displayOrder": 7,
+        "fieldType": "text",
+        "isRequired": true,
+        "key": "customerName",
+        "label": "Customer Name",
+        "pattern": "[a-zA-Z0-9-,.' ]+"
+    },
+    {
+        "displayOrder": 8,
+        "fieldType": "email",
+        "hint": "",
+        "isRequired": true,
+        "key": "customerEmail",
+        "label": "Customer Email",
+        "pattern": "\\S+@\\S+\\.\\S+"
+    },
+    {
+        "displayOrder": 9,
+        "fieldType": "tel",
+        "isRequired": true,
+        "key": "customerMobileNo",
+        "label": "Customer Phone Number",
+        "pattern": "[0-9]+"
+    },
+    {
+        "customClassName": null,
+        "displayOrder": 10,
+        "fieldType": "text",
+        "hint": "",
+        "isAutoComplete": false,
+        "isRequired": false,
+        "key": "agentName",
+        "label": "Agent Name (Optional)",
+        "lookupReference": null,
+        "maxLength": 255,
+        "minLength": 0,
+        "pattern": null
+    },
+    {
+        "customClassName": null,
+        "displayOrder": 11,
+        "fieldType": "email",
+        "hint": "",
+        "isAutoComplete": false,
+        "isRequired": false,
+        "key": "agentEmail",
+        "label": "Agent Email (Optional)",
+        "lookupReference": null,
+        "maxLength": 255,
+        "minLength": 0,
+        "pattern": "\\S+@\\S+\\.\\S+"
+    },
+    {
+        "displayOrder": 12,
+        "fieldType": "longtext",
+        "key": "clientNotes",
+        "label": "Notes (Optional)"
+    }
+]

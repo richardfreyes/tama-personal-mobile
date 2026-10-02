@@ -1,0 +1,38 @@
+{
+    "AD": {
+        "name": "Association Dues",
+        "projects": []
+    },
+    "AF": {
+        "name": "Admin Fees",
+        "projects": []
+    },
+    "BAL": {
+        "name": "Balance/Loanable Amount",
+        "projects": []
+    },
+    "IP": {
+        "name": "Interest and Penalties",
+        "projects": []
+    },
+    "LUMPSUM": {
+        "name": "Lumpsum",
+        "projects": []
+    },
+    "MA": {
+        "name": "Monthly Amortization",
+        "projects": []
+    },
+    "RF": {
+        "name": "Reservation Fee",
+        "projects": []
+    },
+    "RPT": {
+        "name": "Real Property Tax (RPT)",
+        "projects": []
+    },
+    "TC": {
+        "name": "Transfer Charges",
+        "projects": []
+    }
+}

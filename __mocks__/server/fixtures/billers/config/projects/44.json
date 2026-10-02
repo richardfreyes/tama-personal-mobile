@@ -1,0 +1,32 @@
+{
+    "projects": [
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 663,
+            "project_name": "Ameria"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 664,
+            "project_name": "Commercial Leasing"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 661,
+            "project_name": "Damosa Fairlane"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 662,
+            "project_name": "Seawind by Damosa Land"
+        }
+    ]
+}

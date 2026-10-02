@@ -1,0 +1,62 @@
+{
+  "bill": {
+    "billing_id": 2655,
+    "billing_name": "Test",
+    "billing_reference_id": "bill_Gf4sHginCX3NvGWaXBkYmh",
+    "billing_type": "saved",
+    "client_notes": "qweqwe",
+    "custom_fields": {
+      "agentEmail": {
+        "text": "Agent's Email",
+        "value": "qwe@qwe.qwe"
+      },
+      "agentName": {
+        "text": "Agent's Full Name",
+        "value": "qewwqeqwe"
+      },
+      "billName": {
+        "text": "Bill Name",
+        "value": "Test"
+      },
+      "customerEmail": {
+        "text": "Email of Unit Owner",
+        "value": "re@qwe.qwe"
+      },
+      "customerMobileNo": {
+        "text": "Mobile Number of Unit Owner",
+        "value": "12321321"
+      },
+      "customerName": {
+        "text": "Full Name of Unit Owner",
+        "value": "123"
+      },
+      "mobileCallingCode": {
+        "text": "Mobile Calling Code",
+        "value": "+63"
+      },
+      "mobileNo": {
+        "text": "Mobile Number",
+        "value": "+6312321321"
+      },
+      "paymentName": {
+        "text": "Payment Name",
+        "value": "Down Payment"
+      },
+      "projectName": {
+        "text": "Project Name",
+        "value": "Barbados"
+      },
+      "unitNumber": {
+        "text": "Unit Number",
+        "value": "123"
+      }
+    },
+    "customer_id": 9,
+    "merchant_category_name": "Real Estate Agents and Managers - Rentals",
+    "merchant_id": 37,
+    "merchant_name": "Century Properties",
+    "payment_type_id": 149,
+    "project_id": 611
+  },
+  "message": ""
+}

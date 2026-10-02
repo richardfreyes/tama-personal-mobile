@@ -1,0 +1,22 @@
+{
+    "HDMF_RF": {
+        "name": "HDMF Refiling Fee",
+        "projects": []
+    },
+    "MA": {
+        "name": "Monthly Amortization",
+        "projects": []
+    },
+    "RF": {
+        "name": "Reservation Fee",
+        "projects": []
+    },
+    "RPT": {
+        "name": "Real Property Tax",
+        "projects": []
+    },
+    "TURNOVER_FEE": {
+        "name": "Turnover Fee",
+        "projects": []
+    }
+}

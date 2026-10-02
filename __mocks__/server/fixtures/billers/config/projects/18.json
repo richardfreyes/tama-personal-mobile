@@ -1,0 +1,25 @@
+{
+    "projects": [
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": null,
+            "project_id": 257,
+            "project_name": "Caliraya Springs Golf Club Inc."
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": null,
+            "project_id": 256,
+            "project_name": "Grand Victoria Estates"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": null,
+            "project_id": 258,
+            "project_name": "Northfield Residences"
+        }
+    ]
+}

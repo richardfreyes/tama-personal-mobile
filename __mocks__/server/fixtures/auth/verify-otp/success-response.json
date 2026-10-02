@@ -1,0 +1,5 @@
+{
+  "importedTransactions": 0,
+  "message": "Email verified successfully",
+  "token": "eyJhbGciOiJFZERTQSIsInR5cCI6IkpXVCJ9.eyJmaXJzdE5hbWUiOiJKYW5lIiwibGFzdE5hbWUiOiJEb2UiLCJ1c2VybmFtZSI6ImphbmUuZG9lQGV4YW1wbGUuY29tIiwidWlkIjoxMH0.mock_verified_token"
+}

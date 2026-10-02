@@ -1,0 +1,14 @@
+[
+  {
+    "fields": [],
+    "channels": [
+      { "name": "creditcard", "isEnabled": true },
+      { "name": "gcash", "isEnabled": true },
+      { "name": "maya", "isEnabled": false }
+    ],
+    "currency": "PHP",
+    "isAutoDebitEnabled": true,
+    "isEnabled": true,
+    "mode": "live"
+  }
+]

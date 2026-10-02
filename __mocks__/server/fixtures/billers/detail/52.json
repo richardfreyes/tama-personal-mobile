@@ -1,0 +1,190 @@
+[
+    {
+        "customClassName": null,
+        "displayOrder": 1,
+        "fieldType": "lookup",
+        "hint": "",
+        "isAutoComplete": false,
+        "isRequired": true,
+        "key": "paymentType",
+        "label": "Payment Type",
+        "lookupReference": {
+            "location": "/merchants/empireeast/payment-types",
+            "source": "link"
+        },
+        "maxLength": 255,
+        "minLength": 0,
+        "pattern": null
+    },
+    {
+        "customClassName": null,
+        "displayOrder": 2,
+        "fieldType": "text",
+        "hint": "",
+        "isAutoComplete": false,
+        "isRequired": true,
+        "key": "contractNo",
+        "label": "Contract Number",
+        "lookupReference": null,
+        "maxLength": 13,
+        "minLength": 0,
+        "pattern": "^[0-9]+$",
+        "visibility": [
+            {
+                "lhs": "paymentType",
+                "operator": "not_equals",
+                "rhs": "RF"
+            }
+        ]
+    },
+    {
+        "customClassName": null,
+        "displayOrder": 3,
+        "fieldType": "lookup",
+        "hint": "",
+        "isAutoComplete": true,
+        "isRequired": true,
+        "key": "projectName",
+        "label": "Project Name",
+        "lookupReference": {
+            "location": "/merchants/empireeast/projects",
+            "source": "link"
+        },
+        "maxLength": 255,
+        "minLength": 0,
+        "pattern": "[a-zA-Z0-9-,.' ]+"
+    },
+    {
+        "customClassName": null,
+        "displayOrder": 4,
+        "fieldType": "text",
+        "hint": "",
+        "isAutoComplete": false,
+        "isRequired": true,
+        "key": "tower",
+        "label": "Tower",
+        "lookupReference": null,
+        "maxLength": 255,
+        "minLength": 0,
+        "pattern": "[a-zA-Z0-9-,.' ]+",
+        "visibility": [
+            {
+                "lhs": "projectName",
+                "operator": "not_equals",
+                "rhs": null
+            }
+        ]
+    },
+    {
+        "customClassName": null,
+        "displayOrder": 5,
+        "fieldType": "text",
+        "hint": "",
+        "isAutoComplete": false,
+        "isRequired": true,
+        "key": "floor",
+        "label": "Floor",
+        "lookupReference": null,
+        "maxLength": 255,
+        "minLength": 0,
+        "pattern": "[a-zA-Z0-9-,.' ]+",
+        "visibility": [
+            {
+                "lhs": "projectName",
+                "operator": "not_equals",
+                "rhs": null
+            }
+        ]
+    },
+    {
+        "customClassName": null,
+        "displayOrder": 6,
+        "fieldType": "text",
+        "hint": "",
+        "isAutoComplete": false,
+        "isRequired": true,
+        "key": "unit",
+        "label": "Unit Number",
+        "lookupReference": null,
+        "maxLength": 255,
+        "minLength": 0,
+        "pattern": "[a-zA-Z0-9-,.' ]+",
+        "visibility": [
+            {
+                "lhs": "projectName",
+                "operator": "not_equals",
+                "rhs": null
+            }
+        ]
+    },
+    {
+        "customClassName": null,
+        "displayOrder": 7,
+        "fieldType": "text",
+        "hint": "",
+        "isAutoComplete": false,
+        "isRequired": true,
+        "key": "customerName",
+        "label": "Full Name",
+        "lookupReference": null,
+        "maxLength": 255,
+        "minLength": 0,
+        "pattern": "[a-zA-Z0-9-,.' ]+"
+    },
+    {
+        "customClassName": null,
+        "displayOrder": 8,
+        "fieldType": "email",
+        "hint": "",
+        "isAutoComplete": false,
+        "isRequired": true,
+        "key": "customerEmail",
+        "label": "Email Address",
+        "lookupReference": null,
+        "maxLength": 255,
+        "minLength": 0,
+        "pattern": "\\S+@\\S+\\.\\S+"
+    },
+    {
+        "customClassName": null,
+        "displayOrder": 9,
+        "fieldType": "tel",
+        "hint": "",
+        "isAutoComplete": false,
+        "isRequired": true,
+        "key": "customerMobileNo",
+        "label": "Phone Number",
+        "lookupReference": null,
+        "maxLength": 255,
+        "minLength": 0,
+        "pattern": "[0-9]+"
+    },
+    {
+        "customClassName": null,
+        "displayOrder": 10,
+        "fieldType": "currency",
+        "hint": "",
+        "isAutoComplete": false,
+        "isRequired": true,
+        "key": "amount",
+        "label": "Amount Due",
+        "lookupReference": null,
+        "maxLength": 4900000,
+        "minLength": 1,
+        "pattern": "[0-9,.]+"
+    },
+    {
+        "customClassName": null,
+        "displayOrder": 11,
+        "fieldType": "longtext",
+        "hint": "",
+        "isAutoComplete": false,
+        "isRequired": false,
+        "key": "clientNotes",
+        "label": "Notes (optional)",
+        "lookupReference": null,
+        "maxLength": 255,
+        "minLength": 0,
+        "pattern": null
+    }
+]

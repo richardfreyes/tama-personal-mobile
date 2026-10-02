@@ -1,0 +1,375 @@
+{
+    "projects": [
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Camella",
+            "project_id": 508,
+            "project_name": "Aventine"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Camella",
+            "project_id": 536,
+            "project_name": "Bella Vista"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Camella",
+            "project_id": 490,
+            "project_name": "Camella Alfonso"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Camella",
+            "project_id": 503,
+            "project_name": "Camella Alta Silang"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Camella",
+            "project_id": 517,
+            "project_name": "Camella Altea"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Camella",
+            "project_id": 505,
+            "project_name": "Camella Altea Expansion"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Camella",
+            "project_id": 504,
+            "project_name": "Camella Altea Phase 2"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Camella",
+            "project_id": 492,
+            "project_name": "Camella Baia"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Camella",
+            "project_id": 487,
+            "project_name": "Camella Baia Phase 2"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Camella",
+            "project_id": 486,
+            "project_name": "Camella Baia Phase 2A"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Camella",
+            "project_id": 494,
+            "project_name": "Camella Bucandala 4 Expansion"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Camella",
+            "project_id": 493,
+            "project_name": "Camella Bucandala 5"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Camella",
+            "project_id": 519,
+            "project_name": "Camella Bukandala 2"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Camella",
+            "project_id": 518,
+            "project_name": "Camella Bukandala 3"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Camella",
+            "project_id": 513,
+            "project_name": "Camella Bukandala 3 Expansion"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Camella",
+            "project_id": 498,
+            "project_name": "Camella Bukandala 4"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Camella",
+            "project_id": 502,
+            "project_name": "Camella Carson"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Camella",
+            "project_id": 506,
+            "project_name": "Camella Dasma 2 at Islands Exp"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Camella",
+            "project_id": 522,
+            "project_name": "Camella Dasma 2 at the Islands"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Camella",
+            "project_id": 497,
+            "project_name": "Camella Dasma 3 at the Islands"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Camella",
+            "project_id": 507,
+            "project_name": "Camella Dasma at Islands Exp"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Camella",
+            "project_id": 526,
+            "project_name": "Camella Dasma at the Islands"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Camella",
+            "project_id": 530,
+            "project_name": "Camella Dasmarinas"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Camella",
+            "project_id": 496,
+            "project_name": "Camella Dos Rios Trails"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Camella",
+            "project_id": 509,
+            "project_name": "Camella Ellisande"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Camella",
+            "project_id": 489,
+            "project_name": "Camella General Trias"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Camella",
+            "project_id": 485,
+            "project_name": "Camella General Trias Phase 3"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Camella",
+            "project_id": 531,
+            "project_name": "Camella La Vecina"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Camella",
+            "project_id": 495,
+            "project_name": "Camella Meadows"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Camella",
+            "project_id": 488,
+            "project_name": "Camella Monticello"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Camella",
+            "project_id": 484,
+            "project_name": "Camella Palawan"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Camella",
+            "project_id": 514,
+            "project_name": "Camella Rizal"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Camella",
+            "project_id": 501,
+            "project_name": "Camella Sierra Metro East"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Camella",
+            "project_id": 516,
+            "project_name": "Camella Silang"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Camella",
+            "project_id": 511,
+            "project_name": "Camella Silang Phase 2"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Camella",
+            "project_id": 534,
+            "project_name": "Camella Tanza"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Camella",
+            "project_id": 535,
+            "project_name": "Camella Tanza Heights"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Camella",
+            "project_id": 491,
+            "project_name": "Camella Terrazas"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Camella",
+            "project_id": 521,
+            "project_name": "Camella Trece"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Camella",
+            "project_id": 499,
+            "project_name": "Camella Vita"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Camella",
+            "project_id": 533,
+            "project_name": "Cerritos Heights Phase 1"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Camella",
+            "project_id": 525,
+            "project_name": "Crestwood 3"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Camella",
+            "project_id": 500,
+            "project_name": "Crestwood Heights"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Camella",
+            "project_id": 512,
+            "project_name": "Glenmont Trails"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Camella",
+            "project_id": 532,
+            "project_name": "Lessandra Bacoor 4"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Camella",
+            "project_id": 529,
+            "project_name": "Lessandra Bacoor 5"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Camella",
+            "project_id": 527,
+            "project_name": "Lessandra Bacoor 6"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Camella",
+            "project_id": 524,
+            "project_name": "Lessandra Bacoor 7"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Camella",
+            "project_id": 515,
+            "project_name": "Lessandra Bacoor 8"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Camella",
+            "project_id": 510,
+            "project_name": "Lessandra Bacoor 9"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Camella",
+            "project_id": 528,
+            "project_name": "Lessandra Gen. Trias"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Camella",
+            "project_id": 523,
+            "project_name": "Lessandra Gentri 2"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Camella",
+            "project_id": 520,
+            "project_name": "Montego"
+        }
+    ]
+}

@@ -1,0 +1,10 @@
+export const sectionHeadingPattern = /^(?:[1-9]|1[0-9])\.\s+[^:]+$/;
+export const subheadingPattern = /^[a-e]\.\s+/;
+export const romanListPattern = /^(?:i{1,3}|iv|v|vi{0,3}|ix|x)\.\s+/;
+export const numberedListPattern = /^\d+\.\s+/;
+export const bulletLinePattern = /^(\s*)-\s+/;
+export const shortHeadingPattern = /^[A-Z][A-Za-z/,\-\s()?]+$/;
+export const shortLetteredHeadingMaxLength = 48;
+export const sampleScenariosHeader = 'Severity Level\tSample Scenarios';
+export const linkedTextPattern = /(https?:\/\/[^\s)]+)|([A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,})|(\+\d{8,15}|\+\d{1,3}(?:\s*\(\d{1,4}\))?(?:[\s.-]+\d{2,4}){2,4})/gi;
+export const trailingUrlPunctuationPattern = /[.,;:]+$/;

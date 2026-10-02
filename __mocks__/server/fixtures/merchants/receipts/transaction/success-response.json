@@ -1,0 +1,40 @@
+{
+  "billBase": ["PHP", 50000],
+  "billConverted": ["USD", 900.23],
+  "billFee": ["USD", 18.00],
+  "billTotal": ["USD", 918.23],
+  "createdAt": "2026-07-28T10:00:00.000000+08:00",
+  "customerEmail": "testuser@user.com",
+  "customerMobileNo": "+639171234567",
+  "customerName": "Richard Frey Reyes",
+  "lineItems": [
+    { "charged": ["USD", 900.23], "description": "Bills payment", "fee": ["USD", 18.00] }
+  ],
+  "merchantId": "centuryprop",
+  "merchantName": "Century Properties",
+  "methodCardNumber": "4242",
+  "methodCustomerFamilyName": "Frey Reyes",
+  "methodCustomerGivenName": "Richard",
+  "methodDescription": null,
+  "methodExpiry": "12/28",
+  "methodIssuer": "BDO Unibank",
+  "methodProcessor": "cko",
+  "methodProvider": "visa",
+  "methodStatus": "captured",
+  "methodType": "creditcard",
+  "paidAt": "2026-07-28T10:01:30.000000+08:00",
+  "paymentStatusCode": "SUCCESSFUL",
+  "paymentStatusName": "Successful",
+  "paymentTypeName": "Down Payment",
+  "projectName": "Barbados",
+  "qwxRate": ["USD", "PHP", 55.5476],
+  "referenceId": "ref_mock_001",
+  "status": "successful",
+  "transactionFields": [
+    { "name": "customerName", "text": "Full Name", "value": "Richard Frey Reyes" },
+    { "name": "unitNumber", "text": "Unit Number", "value": "Unit 1606" },
+    { "name": "lotCode", "text": "Lot Code", "value": "LOT-A1" },
+    { "name": "paymentMode", "text": "Payment Mode", "value": "Down Payment" }
+  ],
+  "transactionId": "txn_enrollment_mock_001"
+}

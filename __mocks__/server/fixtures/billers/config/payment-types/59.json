@@ -1,0 +1,106 @@
+{
+    "AD": {
+        "name": "Association Dues",
+        "projects": []
+    },
+    "BAL": {
+        "name": "Balance",
+        "projects": []
+    },
+    "BILL_ELECTRIC": {
+        "name": "Electric Bill",
+        "projects": []
+    },
+    "BILL_WATER": {
+        "name": "Water Bill",
+        "projects": []
+    },
+    "CGT": {
+        "name": "Capital Gains Tax",
+        "projects": []
+    },
+    "DP": {
+        "name": "Down Payment",
+        "projects": []
+    },
+    "DST": {
+        "name": "Documentary Stamp Tax",
+        "projects": []
+    },
+    "FEE_CLEANING": {
+        "name": "Cleaning Fee",
+        "projects": []
+    },
+    "FEE_COMMISSION": {
+        "name": "Commission Fee",
+        "projects": []
+    },
+    "FEE_DEPOSIT": {
+        "name": "Security Deposit",
+        "projects": []
+    },
+    "FEE_INTERIOR": {
+        "name": "Interior Fee",
+        "projects": []
+    },
+    "FEE_NOTARY": {
+        "name": "Notarial Fee",
+        "projects": []
+    },
+    "FEE_OTHERCHARGES": {
+        "name": "Estimated Other Charges",
+        "projects": []
+    },
+    "FEE_OTHERS": {
+        "name": "Other Service Fee",
+        "projects": []
+    },
+    "FEE_PROPMGT": {
+        "name": "Property Management Fee",
+        "projects": []
+    },
+    "FEE_RESTORATION": {
+        "name": "Restoration Fee",
+        "projects": []
+    },
+    "FEE_TOUR": {
+        "name": "Tour Support Fee",
+        "projects": []
+    },
+    "FEE_TRANSPORT": {
+        "name": "Transportation Fee",
+        "projects": []
+    },
+    "FEE_TURNOVER": {
+        "name": "Turn Over Support Fee",
+        "projects": []
+    },
+    "INSURANCE": {
+        "name": "Insurance",
+        "projects": []
+    },
+    "MA": {
+        "name": "Monthly Payment",
+        "projects": []
+    },
+    "OTHERS": {
+        "name": "Others",
+        "projects": []
+    },
+    "PAYMENT_ADVANCE": {
+        "name": "Advance Payment",
+        "projects": []
+    },
+    "PAYMENT_RENTAL": {
+        "name": "Rental Payment",
+        "projects": []
+    },
+    "RF": {
+        "name": "Reservation Fee",
+        "projects": []
+    },
+    "RPT": {
+        "name": "Real Property Tax",
+        "projects": []
+    }
+}

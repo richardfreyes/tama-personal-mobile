@@ -1,0 +1,25 @@
+{
+    "projects": [
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 467,
+            "project_name": "Bellefort Estates"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 469,
+            "project_name": "Carmona Estates"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 468,
+            "project_name": "Montefaro Village Phase 4"
+        }
+    ]
+}

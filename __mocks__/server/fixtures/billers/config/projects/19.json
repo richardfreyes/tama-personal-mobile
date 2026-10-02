@@ -1,0 +1,508 @@
+{
+    "projects": [
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Avida Land Corp",
+            "project_id": 326,
+            "project_name": "Aldea Grove Estates"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Avida Land Corp",
+            "project_id": 294,
+            "project_name": "Atria"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Avida Land Corp",
+            "project_id": 327,
+            "project_name": "Averdeen Estates Nuvali"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "BGNorth Properties, Inc",
+            "project_id": 309,
+            "project_name": "Avida Cityflex Towers BGC"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Avida Land Corp",
+            "project_id": 305,
+            "project_name": "Avida Parkfield Settings Pulilan"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Avida Land Corp",
+            "project_id": 288,
+            "project_name": "Avida Parkway Settings Nuvali"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Avida Land Corp",
+            "project_id": 278,
+            "project_name": "Avida Residences San Fernando"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Avida Land Corp",
+            "project_id": 272,
+            "project_name": "Avida Residences St. Alexandra"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Avida Land Corp",
+            "project_id": 273,
+            "project_name": "Avida Residences St. Gabriel"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Avida Land Corp",
+            "project_id": 275,
+            "project_name": "Avida Residences Sta. Arcadia"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Nuevocentro Inc.",
+            "project_id": 318,
+            "project_name": "Avida Settings Alviera"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Avida Land Corp",
+            "project_id": 297,
+            "project_name": "Avida Settings Batangas"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Avida Land Corp",
+            "project_id": 287,
+            "project_name": "Avida Settings Cabanatuan"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Avida Land Corp",
+            "project_id": 279,
+            "project_name": "Avida Settings Cavite"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Nuevocentro Inc.",
+            "project_id": 323,
+            "project_name": "Avida Settings Greendale Alviera"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Avida Land Corp",
+            "project_id": 307,
+            "project_name": "Avida Settings Lipa"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Avida Land Corp",
+            "project_id": 280,
+            "project_name": "Avida Settings Nuvali"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Aurora Properties, Inc.",
+            "project_id": 315,
+            "project_name": "Avida Settings Nuvali"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Avida Land Corp",
+            "project_id": 304,
+            "project_name": "Avida Settings Tuguegarao"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Avida Land Corporation",
+            "project_id": 329,
+            "project_name": "Avida Southdale Settings Nuvali"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Avida Land Corp",
+            "project_id": 302,
+            "project_name": "Avida Southfield Settings Nuvali"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Accendo Commercial Corp",
+            "project_id": 316,
+            "project_name": "Avida Towers Abreeza"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Ayala Land, Inc",
+            "project_id": 261,
+            "project_name": "Avida Towers Alabang"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Avida Land Corp",
+            "project_id": 283,
+            "project_name": "Avida Towers Alabang"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Avida Land Corp",
+            "project_id": 296,
+            "project_name": "Avida Towers Altura"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Avida Land Corp",
+            "project_id": 325,
+            "project_name": "Avida Towers Ardane"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "CagayanDeOro Gateway Corp.",
+            "project_id": 320,
+            "project_name": "Avida Towers Aspira"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Avida Land Corp",
+            "project_id": 298,
+            "project_name": "Avida Towers Asten"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Avida Land Corp",
+            "project_id": 299,
+            "project_name": "Avida Towers Astrea South"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "BGNorth Properties, Inc",
+            "project_id": 308,
+            "project_name": "Avida Towers BGC 34th St"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Avida Land Corp",
+            "project_id": 284,
+            "project_name": "Avida Towers BGC 9th Avenue"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Avida Land Corp",
+            "project_id": 282,
+            "project_name": "Avida Towers Cebu"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Avida Land Corp",
+            "project_id": 286,
+            "project_name": "Avida Towers Centera"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Avida Land Corporation",
+            "project_id": 330,
+            "project_name": "Avida Towers Centralis"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "AyalaLand Estates, Inc.",
+            "project_id": 322,
+            "project_name": "Avida Towers Cloverleaf"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Avencosouth Corp.",
+            "project_id": 314,
+            "project_name": "Avida Towers Davao"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Avida Land Corp",
+            "project_id": 290,
+            "project_name": "Avida Towers Intima"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Avida Land Corp",
+            "project_id": 321,
+            "project_name": "Avida Towers Makati Southpoint"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Avida Land Corp",
+            "project_id": 276,
+            "project_name": "Avida Towers New Manila"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Ayala Land, Inc",
+            "project_id": 263,
+            "project_name": "Avida Towers One Union Place"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Avida Land Corp",
+            "project_id": 289,
+            "project_name": "Avida Towers Prime Taft"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Avida Land Corp",
+            "project_id": 291,
+            "project_name": "Avida Towers Riala"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Avida Land Corp",
+            "project_id": 281,
+            "project_name": "Avida Towers San Lorenzo"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Ayala Land, Inc",
+            "project_id": 264,
+            "project_name": "Avida Towers Sola"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Ayala Land, Inc",
+            "project_id": 260,
+            "project_name": "Avida Towers Sucat"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Avida Land Corp",
+            "project_id": 274,
+            "project_name": "Avida Towers Sucat"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "BGNorth Properties, Inc",
+            "project_id": 313,
+            "project_name": "Avida Towers Turf BGC"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Avida Land Corp",
+            "project_id": 328,
+            "project_name": "Avida Towers Verge"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "BGNorth Properties, Inc",
+            "project_id": 310,
+            "project_name": "Avida Towers Verte BGC"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Ayala Land, Inc",
+            "project_id": 262,
+            "project_name": "Avida Towers Vita In Vertis North"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Ayalaland Inc.",
+            "project_id": 324,
+            "project_name": "Avida Verra Settings Vermosa"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Avida Land Corp",
+            "project_id": 285,
+            "project_name": "Avida Village North Point"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Avida Land Corp",
+            "project_id": 295,
+            "project_name": "Avida Woodhill Settings Nuvali"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "BGNorth Properties, Inc",
+            "project_id": 311,
+            "project_name": "Capital House"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "CagayanDeOro Gateway Corp.",
+            "project_id": 319,
+            "project_name": "Centrio Tower"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Avida Land Corp",
+            "project_id": 301,
+            "project_name": "Hillcrest Estates Nuvali"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Avida Land Corp",
+            "project_id": 292,
+            "project_name": "Madera Grove Estates"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Avida Land Corp",
+            "project_id": 306,
+            "project_name": "One Antonio"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Avida Land Corp",
+            "project_id": 277,
+            "project_name": "Riego De Dios Village"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Avida Land Corp",
+            "project_id": 270,
+            "project_name": "San Alfonso Homes"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Avida Land Corp",
+            "project_id": 265,
+            "project_name": "San Antonio Heights"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Greenfield Development Corp.",
+            "project_id": 317,
+            "project_name": "San Antonio Heights"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Avida Land Corp",
+            "project_id": 268,
+            "project_name": "San Francisco Village"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Avida Land Corp",
+            "project_id": 269,
+            "project_name": "San Ignacio Estates"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Avida Land Corp",
+            "project_id": 267,
+            "project_name": "Santa Barbara Homes"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Avida Land Corp",
+            "project_id": 266,
+            "project_name": "Santa Isabel Village"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Avida Land Corp",
+            "project_id": 303,
+            "project_name": "Serin East Tagaytay"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Avida Land Corp",
+            "project_id": 293,
+            "project_name": "Serin West Tagaytay"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Avida Land Corp",
+            "project_id": 300,
+            "project_name": "Southgrove Estates"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Avida Land Corp",
+            "project_id": 271,
+            "project_name": "St. Joseph Homes"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Ayala Land, Inc",
+            "project_id": 259,
+            "project_name": "St. Jude Village"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "BGNorth Properties, Inc",
+            "project_id": 312,
+            "project_name": "The Montane"
+        }
+    ]
+}

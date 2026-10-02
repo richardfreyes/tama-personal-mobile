@@ -1,0 +1,23 @@
+{
+  "merchantId": "centuryprop",
+  "transactionId": "txn_enrollment_mock_001",
+  "status": "pending",
+  "merchantName": "Century Properties",
+  "projectName": "Barbados",
+  "customerName": "Richard Frey Reyes",
+  "customerEmail": "testuser@user.com",
+  "customerMobileNo": "+639171234567",
+  "billBase": ["PHP", 50000],
+  "billConverted": ["USD", 900.23],
+  "billFee": ["USD", 18.00],
+  "billTotal": ["USD", 918.23],
+  "qwxRate": ["USD", "PHP", 55.5476],
+  "transactionFields": [
+    { "name": "customerName", "text": "Full Name", "value": "Richard Frey Reyes" },
+    { "name": "customerEmail", "text": "Email Address", "value": "testuser@user.com" },
+    { "name": "unitNumber", "text": "Unit Number", "value": "Unit 1606" },
+    { "name": "lotCode", "text": "Lot Code", "value": "LOT-A1" },
+    { "name": "paymentMode", "text": "Payment Mode", "value": "Down Payment" }
+  ],
+  "xsrfKey": "xsrf_mock_token_001"
+}

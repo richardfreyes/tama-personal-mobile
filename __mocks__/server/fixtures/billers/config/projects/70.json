@@ -1,0 +1,354 @@
+{
+    "projects": [
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1391,
+            "project_name": "Arezzo"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1410,
+            "project_name": "Camella Azienda Batangas"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1394,
+            "project_name": "Camella Baliwag Phase 2"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1395,
+            "project_name": "Camella Baliwag Phase 4"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1398,
+            "project_name": "Camella Baliwag Phase 7"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1392,
+            "project_name": "Camella Bulakan Phase 2"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1393,
+            "project_name": "Camella Bulakan Phase 3"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1396,
+            "project_name": "Camella Bulakan Phase 4"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1389,
+            "project_name": "Camella Calamba"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1419,
+            "project_name": "Camella Capas"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1387,
+            "project_name": "Camella Cielo at SJDM"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1384,
+            "project_name": "Camella Frontiera Heights"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1386,
+            "project_name": "Camella Frontiera South"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1417,
+            "project_name": "Camella Gapan"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1422,
+            "project_name": "Camella Heights"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1412,
+            "project_name": "Camella Lima"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1407,
+            "project_name": "Camella Lipa East Grove"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1411,
+            "project_name": "Camella Lipa Enclave"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1405,
+            "project_name": "Camella Lipa Heights"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1408,
+            "project_name": "Camella Lipa South Grove"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1409,
+            "project_name": "Camella Lipa Trails"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1420,
+            "project_name": "Camella Naga"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1400,
+            "project_name": "Camella Provence Phase 11"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1382,
+            "project_name": "Camella SJDM"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1397,
+            "project_name": "Camella San Ildefonso"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1418,
+            "project_name": "Camella San Jose"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1406,
+            "project_name": "Camella Solamente-Lessandra"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1424,
+            "project_name": "Camella Sorsogon"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1404,
+            "project_name": "Camella Sto. Tomas - Lessandra"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1381,
+            "project_name": "Camella Tanza"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1390,
+            "project_name": "Camella Tanza Heights"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1416,
+            "project_name": "Camella Tarlac Frontiera"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1413,
+            "project_name": "Camella Tarlac Phase 1"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1414,
+            "project_name": "Camella Tarlac Phase 2"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1415,
+            "project_name": "Camella Tarlac Phase 3"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1388,
+            "project_name": "Camella Terra Alta"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1385,
+            "project_name": "Camella Verra, Metro North"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1375,
+            "project_name": "El Paseo"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1376,
+            "project_name": "Grande Vita 1"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1377,
+            "project_name": "Green Leaf Classic"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1383,
+            "project_name": "Lessandra Frontiera Heights"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1423,
+            "project_name": "Lessandra Heights"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1421,
+            "project_name": "Lessandra Naga"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1380,
+            "project_name": "Lessandra SJDM"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1399,
+            "project_name": "Lessandra Sta. Maria Expansion"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1378,
+            "project_name": "Mirabela"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1401,
+            "project_name": "PM - Citrus Grove"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1402,
+            "project_name": "PM - Coffee Grove"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1403,
+            "project_name": "PM - Tamarind Grove"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1379,
+            "project_name": "Sienna Villas"
+        }
+    ]
+}

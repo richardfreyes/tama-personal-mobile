@@ -1,0 +1,26 @@
+{
+    "AD": {
+        "name": "Association Dues",
+        "projects": []
+    },
+    "DP": {
+        "name": "Down Payment",
+        "projects": []
+    },
+    "MA": {
+        "name": "Monthly Amortization",
+        "projects": []
+    },
+    "OTHER": {
+        "name": "Other",
+        "projects": []
+    },
+    "RC": {
+        "name": "Rental and Cusa",
+        "projects": []
+    },
+    "RF": {
+        "name": "Reservation Fee",
+        "projects": []
+    }
+}

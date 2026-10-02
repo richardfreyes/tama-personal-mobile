@@ -1,0 +1,53 @@
+{
+    "projects": [
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 250,
+            "project_name": "Casa Buena de Pulilan"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 252,
+            "project_name": "Dream Crest Homes"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 255,
+            "project_name": "Grand Industrial Estate"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 249,
+            "project_name": "Grand Royale"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 253,
+            "project_name": "Royal Estate"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 251,
+            "project_name": "The Meadows"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 254,
+            "project_name": "Woodlands of Grand Royale"
+        }
+    ]
+}

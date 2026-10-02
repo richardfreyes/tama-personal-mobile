@@ -1,0 +1,39 @@
+{
+    "projects": [
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "MBQ",
+            "project_id": 1344,
+            "project_name": "Office"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "MBS",
+            "project_id": 1341,
+            "project_name": "Parking"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "MBQ",
+            "project_id": 1343,
+            "project_name": "Parking"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "MBS",
+            "project_id": 1340,
+            "project_name": "Residential"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "MBQ",
+            "project_id": 1342,
+            "project_name": "Residential"
+        }
+    ]
+}

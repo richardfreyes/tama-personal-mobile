@@ -1,0 +1,12 @@
+{
+  "billName": "Monthly Dues",
+  "merchantCode": "centuryprop",
+  "projectId": 5,
+  "paymentTypeCode": "DOWN_PAYMENT",
+  "billBody": {
+    "customerName": { "value": "Richard Frey Reyes", "text": "Full Name of Unit Owner" },
+    "customerEmail": { "value": "testuser@user.com", "text": "Email of Unit Owner" },
+    "unitNumber": { "value": "Unit 1606", "text": "Unit Number" }
+  },
+  "clientNotes": "Monthly payment for unit"
+}

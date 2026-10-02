@@ -1,0 +1,14 @@
+{
+    "MA": {
+        "name": "Monthly Amortization",
+        "projects": []
+    },
+    "OTHERS": {
+        "name": "Others",
+        "projects": []
+    },
+    "RF": {
+        "name": "Reservation Fee",
+        "projects": []
+    }
+}

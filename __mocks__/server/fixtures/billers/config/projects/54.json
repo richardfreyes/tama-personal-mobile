@@ -1,0 +1,25 @@
+{
+    "projects": [
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": null,
+            "project_id": 705,
+            "project_name": "Kavanah Enclave"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": null,
+            "project_id": 706,
+            "project_name": "Kavanah Mountainscape"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": null,
+            "project_id": 704,
+            "project_name": "Montana at Hacienda Palico"
+        }
+    ]
+}

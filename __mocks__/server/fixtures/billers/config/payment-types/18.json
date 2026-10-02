@@ -1,0 +1,54 @@
+{
+    "CLUB_DUES": {
+        "name": "Club Dues",
+        "projects": []
+    },
+    "CLUB_SHARE": {
+        "name": "Club Share",
+        "projects": []
+    },
+    "DP": {
+        "name": "Downpayment",
+        "projects": []
+    },
+    "FULL_PAYMENT": {
+        "name": "Full Payment",
+        "projects": []
+    },
+    "MA": {
+        "name": "Monthly Amortization",
+        "projects": []
+    },
+    "MAINTENANCE_FEES": {
+        "name": "Garbage and Security Fees (Maintenance Fees)",
+        "projects": []
+    },
+    "MOVE_IN_FEE": {
+        "name": "Move In Fee",
+        "projects": []
+    },
+    "OTHERS": {
+        "name": "Others",
+        "projects": []
+    },
+    "PENALTY": {
+        "name": "Penalty",
+        "projects": []
+    },
+    "REGISTRATION_EXPENSE": {
+        "name": "Registration Expense",
+        "projects": []
+    },
+    "RENTAL_FEE": {
+        "name": "Rental Fee",
+        "projects": []
+    },
+    "RF": {
+        "name": "Reservation Fee",
+        "projects": []
+    },
+    "VAT": {
+        "name": "VAT",
+        "projects": []
+    }
+}

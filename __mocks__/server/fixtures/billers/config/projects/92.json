@@ -1,0 +1,305 @@
+{
+    "projects": [
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1825,
+            "project_name": "Rockwell Carmelray Dev't Corp. - Rockwell South Phase 1 Cluster 1"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1826,
+            "project_name": "Rockwell Carmelray Dev't Corp. - Rockwell South Phase 1 Cluster 2"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1814,
+            "project_name": "Rockwell Land Corp. - 32 Sanson Buri"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1815,
+            "project_name": "Rockwell Land Corp. - 32 Sanson Gmelina"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1816,
+            "project_name": "Rockwell Land Corp. - 32 Sanson Raffia"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1818,
+            "project_name": "Rockwell Land Corp. - 32 Sanson Sillion"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1817,
+            "project_name": "Rockwell Land Corp. - 32 Sanson Solihiya"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1813,
+            "project_name": "Rockwell Land Corp. - Aruga Residences Mactan-Cebu"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1790,
+            "project_name": "Rockwell Land Corp. - Balmori Suites"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1789,
+            "project_name": "Rockwell Land Corp. - Edades Aruga Apartments"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1821,
+            "project_name": "Rockwell Land Corp. - Nara Lots"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1819,
+            "project_name": "Rockwell Land Corp. - Nara Residences Tower A"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1820,
+            "project_name": "Rockwell Land Corp. - Nara Residences Tower B"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1802,
+            "project_name": "Rockwell Land Corp. - Stonewell Acacia Homes"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1804,
+            "project_name": "Rockwell Land Corp. - Stonewell Mahogany Homes"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1803,
+            "project_name": "Rockwell Land Corp. - Stonewell Royal Palm Homes"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1805,
+            "project_name": "Rockwell Land Corp. - Terreno South Phase 1"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1806,
+            "project_name": "Rockwell Land Corp. - Terreno South Phase 2"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1807,
+            "project_name": "Rockwell Land Corp. - The Grove Tower A"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1808,
+            "project_name": "Rockwell Land Corp. - The Grove Tower B"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1809,
+            "project_name": "Rockwell Land Corp. - The Grove Tower C"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1810,
+            "project_name": "Rockwell Land Corp. - The Grove Tower D"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1811,
+            "project_name": "Rockwell Land Corp. - The Grove Tower E"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1812,
+            "project_name": "Rockwell Land Corp. - The Grove Tower F"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1796,
+            "project_name": "Rockwell Land Corp. - The Proscenium - Garden Villas"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1797,
+            "project_name": "Rockwell Land Corp. - The Proscenium - Kirov"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1791,
+            "project_name": "Rockwell Land Corp. - The Proscenium - Kirov Podium Office"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1798,
+            "project_name": "Rockwell Land Corp. - The Proscenium - Lincoln"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1792,
+            "project_name": "Rockwell Land Corp. - The Proscenium - Lincoln Podium Office"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1799,
+            "project_name": "Rockwell Land Corp. - The Proscenium - Lorraine"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1793,
+            "project_name": "Rockwell Land Corp. - The Proscenium - Lorraine Podium Office"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1794,
+            "project_name": "Rockwell Land Corp. - The Proscenium - North, East and West Podium Office"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1800,
+            "project_name": "Rockwell Land Corp. - The Proscenium - Sakura"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1795,
+            "project_name": "Rockwell Land Corp. - The Proscenium - Sakura Podium Office"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1801,
+            "project_name": "Rockwell Land Corp. - The Proscenium Residences"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1824,
+            "project_name": "Rockwell MFA Corp. The Arton East"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1822,
+            "project_name": "Rockwell MFA Corp. The Arton North"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1823,
+            "project_name": "Rockwell MFA Corp. The Arton West"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1831,
+            "project_name": "Rockwell Nepo Dev't Corp. - The Manansala Tower"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1828,
+            "project_name": "Rockwell Primaries Dev't Corp. - Vantage East Tower"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1829,
+            "project_name": "Rockwell Primaries Dev't Corp. - Vantage West Tower"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1827,
+            "project_name": "Rockwell Primaries South Dev't Corp. - Eastbay Fordham Tower"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1830,
+            "project_name": "Rockwell Primaries South Dev't Corp. - Larsen"
+        }
+    ]
+}

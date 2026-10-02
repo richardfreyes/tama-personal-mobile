@@ -1,0 +1,11 @@
+{
+  "boxedLogo": "https://cdn.aqwire.io/portal/v3/client/centuryprop/centuryprop-boxed-logo.png",
+  "category": "Real Estate",
+  "id": "centuryprop",
+  "isAutoDebitEnabled": true,
+  "autoDebitEnabled": true,
+  "logoUrl": "https://cdn.aqwire.io/portal/v3/client/centuryprop/centuryprop-logo.png",
+  "name": "Century Properties",
+  "pid": 48,
+  "standardLogo": "https://cdn.aqwire.io/portal/v3/client/centuryprop/centuryprop-standard-logo.png"
+}

@@ -1,0 +1,39 @@
+{
+    "projects": [
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1960,
+            "project_name": "Bayani Hall Centrale Urdaneta"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1959,
+            "project_name": "Bayani Hall Dagupan Arellano"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1963,
+            "project_name": "Bayani Hall Metro Clark Angeles"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1961,
+            "project_name": "Bayani Hall Tuguegarao Lecaros"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1962,
+            "project_name": "Bayani Hall Tuguegarao Twin Towers Lakandula"
+        }
+    ]
+}

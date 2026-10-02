@@ -1,0 +1,208 @@
+{
+  "bills": [
+    {
+      "billing_id": 2653,
+      "billing_name": "724Care test 1",
+      "billing_reference_id": "bill_hqGncANg6pBv9J29wy6n3A",
+      "billing_type": "saved",
+      "client_notes": "notes",
+      "custom_fields": {
+        "billName": {
+          "text": "Bill Name",
+          "value": "724Care test 1"
+        },
+        "customerEmail": {
+          "text": "Email",
+          "value": "email@test.q"
+        },
+        "customerMobileNo": {
+          "text": "Mobile Number of Unit Owner",
+          "value": "123123"
+        },
+        "customerName": {
+          "text": "Name",
+          "value": "name"
+        },
+        "invoiceNo": {
+          "text": "Invoice Number",
+          "value": "1"
+        },
+        "mobileCallingCode": {
+          "text": "Mobile Calling Code",
+          "value": "+63"
+        },
+        "mobileNo": {
+          "text": "Mobile Number",
+          "value": "+63123123"
+        },
+        "paymentName": {
+          "text": "Payment Name",
+          "value": "Call Center Services"
+        },
+        "projectName": {
+          "text": "Project Name",
+          "value": ""
+        }
+      },
+      "customer_id": 9,
+      "merchant_category_name": "Professional Services ( Not Elsewhere Defined)",
+      "merchant_id": 2,
+      "merchant_name": "724Care",
+      "payment_type_id": 7,
+      "project_id": null
+    },
+    {
+      "billing_id": 2652,
+      "billing_name": "724Care",
+      "billing_reference_id": "bill_FfniiaLgqbRGp835Ynw37T",
+      "billing_type": "saved",
+      "client_notes": "Notes",
+      "custom_fields": {
+        "billName": {
+          "text": "Bill Name",
+          "value": "724Care"
+        },
+        "customerEmail": {
+          "text": "Email",
+          "value": "Email@email.em"
+        },
+        "customerMobileNo": {
+          "text": "Mobile Number of Unit Owner",
+          "value": "12345678"
+        },
+        "customerName": {
+          "text": "Name",
+          "value": "Name"
+        },
+        "invoiceNo": {
+          "text": "Invoice Number",
+          "value": "1"
+        },
+        "mobileCallingCode": {
+          "text": "Mobile Calling Code",
+          "value": "+63"
+        },
+        "mobileNo": {
+          "text": "Mobile Number",
+          "value": "+6312345678"
+        },
+        "paymentName": {
+          "text": "Payment Name",
+          "value": "Call Center Services"
+        },
+        "projectName": {
+          "text": "Project Name",
+          "value": ""
+        }
+      },
+      "customer_id": 9,
+      "merchant_category_name": "Professional Services ( Not Elsewhere Defined)",
+      "merchant_id": 2,
+      "merchant_name": "724Care",
+      "payment_type_id": 7,
+      "project_id": null
+    },
+    {
+      "billing_id": 2659,
+      "billing_name": "724Care",
+      "billing_reference_id": "bill_FfniiaLgqbRGp835Ynw37T",
+      "billing_type": "saved",
+      "client_notes": "Notes",
+      "custom_fields": {
+        "billName": {
+          "text": "Bill Name",
+          "value": "724Care"
+        },
+        "customerEmail": {
+          "text": "Email",
+          "value": "Email@email.em"
+        },
+        "customerMobileNo": {
+          "text": "Mobile Number of Unit Owner",
+          "value": "12345678"
+        },
+        "customerName": {
+          "text": "Name",
+          "value": "Name"
+        },
+        "invoiceNo": {
+          "text": "Invoice Number",
+          "value": "1"
+        },
+        "mobileCallingCode": {
+          "text": "Mobile Calling Code",
+          "value": "+63"
+        },
+        "mobileNo": {
+          "text": "Mobile Number",
+          "value": "+6312345678"
+        },
+        "paymentName": {
+          "text": "Payment Name",
+          "value": "Call Center Services"
+        },
+        "projectName": {
+          "text": "Project Name",
+          "value": ""
+        }
+      },
+      "customer_id": 9,
+      "merchant_category_name": "Professional Services ( Not Elsewhere Defined)",
+      "merchant_id": 2,
+      "merchant_name": "724Care",
+      "payment_type_id": 7,
+      "project_id": null
+    },
+    {
+      "billing_id": 2654,
+      "billing_name": "724Care",
+      "billing_reference_id": "bill_FfniiaLgqbRGp835Ynw37T",
+      "billing_type": "saved",
+      "client_notes": "Notes",
+      "custom_fields": {
+        "billName": {
+          "text": "Bill Name",
+          "value": "724Care"
+        },
+        "customerEmail": {
+          "text": "Email",
+          "value": "Email@email.em"
+        },
+        "customerMobileNo": {
+          "text": "Mobile Number of Unit Owner",
+          "value": "12345678"
+        },
+        "customerName": {
+          "text": "Name",
+          "value": "Name"
+        },
+        "invoiceNo": {
+          "text": "Invoice Number",
+          "value": "1"
+        },
+        "mobileCallingCode": {
+          "text": "Mobile Calling Code",
+          "value": "+63"
+        },
+        "mobileNo": {
+          "text": "Mobile Number",
+          "value": "+6312345678"
+        },
+        "paymentName": {
+          "text": "Payment Name",
+          "value": "Call Center Services"
+        },
+        "projectName": {
+          "text": "Project Name",
+          "value": ""
+        }
+      },
+      "customer_id": 9,
+      "merchant_category_name": "Professional Services ( Not Elsewhere Defined)",
+      "merchant_id": 2,
+      "merchant_name": "724Care",
+      "payment_type_id": 7,
+      "project_id": null
+    }
+  ]
+}

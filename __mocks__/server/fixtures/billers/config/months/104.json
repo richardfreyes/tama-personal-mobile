@@ -1,0 +1,50 @@
+[
+    {
+        "code": "JAN",
+        "name": "January"
+    },
+    {
+        "code": "FEB",
+        "name": "February"
+    },
+    {
+        "code": "MAR",
+        "name": "March"
+    },
+    {
+        "code": "APR",
+        "name": "April"
+    },
+    {
+        "code": "MAY",
+        "name": "May"
+    },
+    {
+        "code": "JUN",
+        "name": "June"
+    },
+    {
+        "code": "JUL",
+        "name": "July"
+    },
+    {
+        "code": "AUG",
+        "name": "August"
+    },
+    {
+        "code": "SEP",
+        "name": "September"
+    },
+    {
+        "code": "OCT",
+        "name": "October"
+    },
+    {
+        "code": "NOV",
+        "name": "November"
+    },
+    {
+        "code": "DEC",
+        "name": "December"
+    }
+]

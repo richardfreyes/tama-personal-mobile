@@ -1,0 +1,39 @@
+{
+    "projects": [
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 537,
+            "project_name": "Camella Manors Lipa - Lipa City, Batangas"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 539,
+            "project_name": "Camella Manors Olvera - Bacolod City"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 538,
+            "project_name": "Camella Manors Verdant - Puerto Princesa City, Palawan"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 541,
+            "project_name": "Northpoint - Davao City"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 540,
+            "project_name": "The Loop - Cagayan de Oro City"
+        }
+    ]
+}

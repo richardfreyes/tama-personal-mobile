@@ -1,0 +1,74 @@
+{
+    "projects": [
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": null,
+            "project_id": 1765,
+            "project_name": "My Enso Lofts - Parking"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1764,
+            "project_name": "My Enso Lofts - Unit"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1757,
+            "project_name": "The Hive Tower A - Parking"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1756,
+            "project_name": "The Hive Tower A - Unit"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1759,
+            "project_name": "The Hive Tower B - Parking"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1758,
+            "project_name": "The Hive Tower B - Unit"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1761,
+            "project_name": "The Hive Tower C - Parking"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1760,
+            "project_name": "The Hive Tower C - Unit"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1763,
+            "project_name": "The Hive Tower D - Parking"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1762,
+            "project_name": "The Hive Tower D - Unit"
+        }
+    ]
+}

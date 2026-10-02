@@ -1,0 +1,284 @@
+{
+    "projects": [
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Amaia Land Corp.",
+            "project_id": 177,
+            "project_name": "AMAIA SCAPES GENERAL TRIAS SECTOR 3 & 4"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Amaia Land Corp.",
+            "project_id": 139,
+            "project_name": "AMAIA SCAPES ILOILO"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Amaia Land Corp.",
+            "project_id": 178,
+            "project_name": "AMAIA SERIES NUVALI S1"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Amaia Land Corp.",
+            "project_id": 140,
+            "project_name": "AMAIA SERIES VERMOSA"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Amaia Southern Prop. Inc.",
+            "project_id": 141,
+            "project_name": "AMAIA STEPS MANDAUE - TOWER 2"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Amaia Land Corp.",
+            "project_id": 176,
+            "project_name": "AMAIA STEPS THE JUNCTION PLACE"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Amaia Land Corp.",
+            "project_id": 142,
+            "project_name": "Nova Square"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Amaia Land Corp.",
+            "project_id": 143,
+            "project_name": "Scapes Bauan"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Amaia Land Corp.",
+            "project_id": 144,
+            "project_name": "Scapes Bulacan"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Amaia Land Corp.",
+            "project_id": 145,
+            "project_name": "Scapes Cabanatuan"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Amaia Land Corp.",
+            "project_id": 146,
+            "project_name": "Scapes Cabuyao"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Amaia Land Corp.",
+            "project_id": 147,
+            "project_name": "Scapes Capas"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Amaia Land Corp.",
+            "project_id": 148,
+            "project_name": "Scapes Cavite"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Amaia Land Corp.",
+            "project_id": 149,
+            "project_name": "Scapes Gen. Trias"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Amaia Land Corp.",
+            "project_id": 150,
+            "project_name": "Scapes Laguna"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Amaia Land Corp.",
+            "project_id": 151,
+            "project_name": "Scapes Lipa"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Amaia Land Corp.",
+            "project_id": 152,
+            "project_name": "Scapes Lucena"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Amaia Land Corp.",
+            "project_id": 153,
+            "project_name": "Scapes North Point"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Amaia Land Corp.",
+            "project_id": 154,
+            "project_name": "Scapes Pampanga"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Amaia Land Corp.",
+            "project_id": 155,
+            "project_name": "Scapes San Fernando"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Amaia Land Corp.",
+            "project_id": 156,
+            "project_name": "Scapes San Pablo"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Amaia Land Corp.",
+            "project_id": 157,
+            "project_name": "Scapes Trece"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Amaia Land Corp.",
+            "project_id": 158,
+            "project_name": "Scapes Urdaneta"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Amaia Land Corp.",
+            "project_id": 159,
+            "project_name": "Series Novaliches"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Amaia Land Corp.",
+            "project_id": 160,
+            "project_name": "Skies Avenida"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Amaia Land Corp.",
+            "project_id": 161,
+            "project_name": "Skies Cubao"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Amaia Land Corp.",
+            "project_id": 162,
+            "project_name": "Skies Shaw"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Amaia Land Corp.",
+            "project_id": 163,
+            "project_name": "Skies Sta. Mesa"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Amaia Land Corp.",
+            "project_id": 164,
+            "project_name": "Steps Alabang"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Amaia Land Corp.",
+            "project_id": 165,
+            "project_name": "Steps Altaraza"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Amaia Land Corp.",
+            "project_id": 166,
+            "project_name": "Steps Bicutan"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Amaia Southern Prop. Inc.",
+            "project_id": 167,
+            "project_name": "Steps Capitol Central"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Amaia Southern Prop. Inc.",
+            "project_id": 168,
+            "project_name": "Steps Mandaue"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Amaia Land Corp.",
+            "project_id": 169,
+            "project_name": "Steps Novaliches"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Amaia Land Corp.",
+            "project_id": 170,
+            "project_name": "Steps Nuvali"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Amaia Land Corp.",
+            "project_id": 171,
+            "project_name": "Steps Parkway Nuvali"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Amaia Land Corp.",
+            "project_id": 172,
+            "project_name": "Steps Pasig Ph 1A"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Amaia Land Corp.",
+            "project_id": 173,
+            "project_name": "Steps Pasig Ph 1B"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Amaia Land Corp.",
+            "project_id": 174,
+            "project_name": "Steps Sucat"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "TEST",
+            "project_id": 175,
+            "project_name": "Test Project"
+        }
+    ]
+}

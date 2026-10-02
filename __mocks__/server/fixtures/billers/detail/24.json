@@ -1,0 +1,269 @@
+[
+  {
+    "customClassName": null,
+    "displayOrder": 1,
+    "fieldType": "text",
+    "hint": "",
+    "isAutoComplete": false,
+    "isRequired": true,
+    "key": "srsReferenceCode",
+    "label": "SRS Reference Code",
+    "lookupReference": null,
+    "maxLength": 255,
+    "minLength": 0,
+    "pattern": ""
+  },
+  {
+    "customClassName": null,
+    "displayOrder": 2,
+    "fieldType": "lookup",
+    "isAutoComplete": true,
+    "isRequired": true,
+    "key": "projectName",
+    "label": "Project Name",
+    "lookupReference": {
+      "location": "/merchants/bellavita/projects",
+      "source": "link"
+    },
+    "maxLength": 255,
+    "minLength": 0,
+    "pattern": null,
+    "placeholder": "Select Project Name"
+  },
+  {
+    "customClassName": null,
+    "displayOrder": 3,
+    "fieldType": "lookup",
+    "hint": "",
+    "isAutoComplete": false,
+    "isRequired": true,
+    "key": "paymentType",
+    "label": "Payment Type",
+    "lookupReference": {
+      "location": "/merchants/bellavita/payment-types",
+      "source": "link"
+    },
+    "maxLength": 255,
+    "minLength": 0,
+    "pattern": null,
+    "placeholder": "Select Payment Type"
+  },
+  {
+    "customClassName": null,
+    "displayOrder": 4,
+    "fieldType": "currency",
+    "hint": "",
+    "isAutoComplete": false,
+    "isRequired": true,
+    "key": "amount",
+    "label": "Amount Due",
+    "lookupReference": null,
+    "maxLength": 4900000,
+    "minLength": 1,
+    "pattern": "[0-9,.]+"
+  },
+  {
+    "customClassName": null,
+    "displayOrder": 5,
+    "fieldType": "text",
+    "hint": "",
+    "isAutoComplete": false,
+    "isRequired": true,
+    "key": "unitNumber",
+    "label": "Unit Number",
+    "lookupReference": null,
+    "maxLength": 255,
+    "minLength": 0,
+    "pattern": null
+  },
+  {
+    "customClassName": null,
+    "displayOrder": 6,
+    "fieldType": "text",
+    "hint": "",
+    "isAutoComplete": false,
+    "isRequired": true,
+    "key": "customerName",
+    "label": "Buyer's Full Name",
+    "lookupReference": null,
+    "maxLength": 255,
+    "minLength": 0,
+    "pattern": "[a-zA-Z0-9-,.' ]+"
+  },
+  {
+    "customClassName": null,
+    "displayOrder": 7,
+    "fieldType": "email",
+    "hint": "",
+    "isAutoComplete": false,
+    "isRequired": true,
+    "key": "customerEmail",
+    "label": "Buyer's Email Address",
+    "lookupReference": null,
+    "maxLength": 255,
+    "minLength": 0,
+    "pattern": "\\S+@\\S+\\.\\S+"
+  },
+  {
+    "customClassName": null,
+    "displayOrder": 8,
+    "fieldType": "tel",
+    "hint": "",
+    "isAutoComplete": false,
+    "isRequired": true,
+    "key": "customerMobileNo",
+    "label": "Buyer's Mobile Number",
+    "lookupReference": null,
+    "maxLength": 255,
+    "minLength": 0,
+    "pattern": "[0-9]+"
+  },
+  {
+    "customClassName": null,
+    "displayOrder": 9,
+    "fieldType": "text",
+    "hint": "",
+    "isAutoComplete": false,
+    "isRequired": false,
+    "key": "agentName2",
+    "label": "Agent's Full Name (Optional)",
+    "lookupReference": null,
+    "maxLength": 255,
+    "minLength": 0,
+    "pattern": null,
+    "visibility": [
+      {
+        "lhs": "paymentType",
+        "operator": "equals",
+        "rhs": "DP"
+      }
+    ]
+  },
+  {
+    "customClassName": null,
+    "displayOrder": 9,
+    "fieldType": "text",
+    "hint": "",
+    "isAutoComplete": false,
+    "isRequired": true,
+    "key": "agentName",
+    "label": "Agent's Full Name",
+    "lookupReference": null,
+    "maxLength": 255,
+    "minLength": 0,
+    "pattern": "[a-zA-Z0-9-,.' ]+",
+    "visibility": [
+      {
+        "lhs": "paymentType",
+        "operator": "equals",
+        "rhs": "RF"
+      }
+    ]
+  },
+  {
+    "customClassName": null,
+    "displayOrder": 10,
+    "fieldType": "email",
+    "hint": "",
+    "isAutoComplete": false,
+    "isRequired": false,
+    "key": "agentEmail2",
+    "label": "Agent's Email (Optional)",
+    "lookupReference": null,
+    "maxLength": 255,
+    "minLength": 0,
+    "pattern": null,
+    "visibility": [
+      {
+        "lhs": "paymentType",
+        "operator": "equals",
+        "rhs": "DP"
+      }
+    ]
+  },
+  {
+    "customClassName": null,
+    "displayOrder": 10,
+    "fieldType": "email",
+    "hint": "",
+    "isAutoComplete": false,
+    "isRequired": true,
+    "key": "agentEmail",
+    "label": "Agent's Email",
+    "lookupReference": null,
+    "maxLength": 255,
+    "minLength": 0,
+    "pattern": "\\S+@\\S+\\.\\S+",
+    "visibility": [
+      {
+        "lhs": "paymentType",
+        "operator": "equals",
+        "rhs": "RF"
+      }
+    ]
+  },
+  {
+    "customClassName": null,
+    "displayOrder": 11,
+    "fieldType": "lookup",
+    "hint": "",
+    "isAutoComplete": false,
+    "isRequired": false,
+    "key": "salesChannel2",
+    "label": "Sales Channel (Optional)",
+    "lookupReference": {
+      "location": "salesChannels",
+      "source": "self"
+    },
+    "maxLength": 255,
+    "minLength": 0,
+    "pattern": null,
+    "placeholder": "Select Sales Channel",
+    "visibility": [
+      {
+        "lhs": "paymentType",
+        "operator": "equals",
+        "rhs": "DP"
+      }
+    ]
+  },
+  {
+    "customClassName": null,
+    "displayOrder": 11,
+    "fieldType": "lookup",
+    "hint": "",
+    "isAutoComplete": false,
+    "isRequired": true,
+    "key": "salesChannel",
+    "label": "Sales Channel",
+    "lookupReference": {
+      "location": "salesChannels",
+      "source": "self"
+    },
+    "maxLength": 255,
+    "minLength": 0,
+    "pattern": null,
+    "placeholder": "Select Sales Channel",
+    "visibility": [
+      {
+        "lhs": "paymentType",
+        "operator": "equals",
+        "rhs": "RF"
+      }
+    ]
+  },
+  {
+    "customClassName": null,
+    "displayOrder": 12,
+    "fieldType": "longtext",
+    "hint": "",
+    "isAutoComplete": false,
+    "isRequired": false,
+    "key": "clientNotes",
+    "label": "Notes (Optional)",
+    "lookupReference": null,
+    "maxLength": 255,
+    "minLength": 0,
+    "pattern": null
+  }
+]

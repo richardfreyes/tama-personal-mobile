@@ -1,0 +1,173 @@
+[
+    {
+        "displayOrder": 1,
+        "fieldType": "lookup",
+        "isAutoComplete": true,
+        "isRequired": true,
+        "key": "projectName",
+        "label": "Project Name",
+        "lookupReference": {
+            "location": "/merchants/dontim/projects",
+            "source": "link"
+        },
+        "pattern": null,
+        "placeholder": "Select Project Name"
+    },
+    {
+        "customClassName": null,
+        "displayOrder": 2,
+        "fieldType": "lookup",
+        "hint": "",
+        "isAutoComplete": false,
+        "isRequired": true,
+        "key": "paymentType",
+        "label": "Payment Type",
+        "lookupReference": {
+            "location": "/merchants/dontim/payment-types",
+            "source": "link"
+        },
+        "maxLength": 255,
+        "minLength": 0,
+        "pattern": null,
+        "placeholder": "Select Payment Type"
+    },
+    {
+        "customClassName": null,
+        "displayOrder": 3,
+        "fieldType": "text",
+        "hint": "",
+        "isAutoComplete": false,
+        "isRequired": true,
+        "key": "others",
+        "label": "Others, please specify:",
+        "lookupReference": null,
+        "maxLength": 50,
+        "minLength": 1,
+        "pattern": null,
+        "visibility": [
+            {
+                "lhs": "paymentType",
+                "operator": "equals",
+                "rhs": "OTHERS"
+            }
+        ]
+    },
+    {
+        "customClassName": null,
+        "displayOrder": 4,
+        "fieldType": "text",
+        "hint": "",
+        "isAutoComplete": false,
+        "isRequired": true,
+        "key": "phase",
+        "label": "Phase/Cluster",
+        "lookupReference": null,
+        "maxLength": 1,
+        "minLength": 0,
+        "pattern": "^[a-zA-Z0-9]+",
+        "placeholder": "",
+        "visibility": [
+            {
+                "lhs": {
+                    "lhs": "projectName",
+                    "operator": "not_equals",
+                    "rhs": "Montebello"
+                },
+                "operator": "AND",
+                "rhs": {
+                    "lhs": "projectName",
+                    "operator": "not_equals",
+                    "rhs": "South Midland"
+                }
+            }
+        ]
+    },
+    {
+        "customClassName": null,
+        "displayOrder": 5,
+        "fieldType": "text",
+        "hint": "",
+        "isAutoComplete": false,
+        "isRequired": true,
+        "key": "block",
+        "label": "Block/Floor",
+        "lookupReference": null,
+        "maxLength": 3,
+        "minLength": 0,
+        "pattern": "^[a-zA-Z0-9]+",
+        "placeholder": ""
+    },
+    {
+        "customClassName": null,
+        "displayOrder": 6,
+        "fieldType": "text",
+        "hint": "",
+        "isAutoComplete": false,
+        "isRequired": true,
+        "key": "lotNumber",
+        "label": "Lot/Unit",
+        "lookupReference": null,
+        "maxLength": 3,
+        "minLength": 0,
+        "pattern": "^[a-zA-Z0-9]+",
+        "placeholder": ""
+    },
+    {
+        "displayOrder": 7,
+        "fieldType": "currency",
+        "hint": "",
+        "isRequired": true,
+        "key": "amount",
+        "label": "Amount Due",
+        "maxLength": 4900000,
+        "minLength": 1,
+        "pattern": "[0-9,.]+"
+    },
+    {
+        "displayOrder": 8,
+        "fieldType": "text",
+        "hint": "Surname, First Name, Middle Initial",
+        "isRequired": true,
+        "key": "customerName",
+        "label": "Customer Name",
+        "pattern": "[a-zA-Z0-9-,.' ]+"
+    },
+    {
+        "displayOrder": 9,
+        "fieldType": "email",
+        "hint": "",
+        "isRequired": true,
+        "key": "customerEmail",
+        "label": "Customer Email",
+        "pattern": "\\S+@\\S+\\.\\S+"
+    },
+    {
+        "displayOrder": 10,
+        "fieldType": "tel",
+        "isRequired": true,
+        "key": "customerMobileNo",
+        "label": "Customer Phone Number",
+        "pattern": "[0-9]+"
+    },
+    {
+        "customClassName": null,
+        "displayOrder": 11,
+        "fieldType": "text",
+        "hint": "Surname, First Name, Middle Initial",
+        "isAutoComplete": false,
+        "isRequired": true,
+        "key": "agentName",
+        "label": "Agent Name",
+        "lookupReference": null,
+        "maxLength": 255,
+        "minLength": 0,
+        "pattern": null
+    },
+    {
+        "displayOrder": 12,
+        "fieldType": "longtext",
+        "hint": "Ex. Specific Payment Description (Ex. RF, DP-01, DP-02…, MA-01, MA-02…, TOB)",
+        "key": "clientNotes",
+        "label": "Notes"
+    }
+]

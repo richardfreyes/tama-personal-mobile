@@ -1,0 +1,22 @@
+{
+    "AD": {
+        "name": "Association Dues",
+        "projects": []
+    },
+    "DP": {
+        "name": "Down Payment",
+        "projects": []
+    },
+    "GMTOE": {
+        "name": "GMTOE",
+        "projects": []
+    },
+    "MA": {
+        "name": "Monthly Amortization",
+        "projects": []
+    },
+    "RF": {
+        "name": "Reservation Fee",
+        "projects": []
+    }
+}

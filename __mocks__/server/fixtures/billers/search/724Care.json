@@ -1,0 +1,20 @@
+{
+  "billers": [
+    {
+      "address_one": "5046 Burgos Street",
+      "address_three": "Metro Manila",
+      "address_two": "Makati City",
+      "created_at": "Tue, 15 Apr 2025 05:25:19 GMT",
+      "is_active": true,
+      "is_public": true,
+      "merchant_code": "724care",
+      "merchant_id": 2,
+      "merchant_logo_url": "https://cdn.aqwire.io/portal/v3/client/724care/724care-logo.png",
+      "merchant_name": "724Care",
+      "merchant_status": "active",
+      "merchant_timezone": "Asia/Manila",
+      "updated_at": "Mon, 22 Sep 2025 05:41:09 GMT"
+    }
+  ],
+  "total": 1
+}

@@ -1,0 +1,25 @@
+{
+    "projects": [
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1246,
+            "project_name": "Elevé Camarin"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1248,
+            "project_name": "Elevé Homes Baguio"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "",
+            "project_id": 1247,
+            "project_name": "Elevé Homes Tagaytay"
+        }
+    ]
+}

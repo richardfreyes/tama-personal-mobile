@@ -1,0 +1,140 @@
+[
+    {
+        "customClassName": null,
+        "displayOrder": 1,
+        "fieldType": "lookup",
+        "hint": "",
+        "isAutoComplete": false,
+        "isRequired": true,
+        "key": "paymentType",
+        "label": "Payment Type",
+        "lookupReference": {
+            "location": "/merchants/ortigasland/payment-types",
+            "source": "link"
+        },
+        "maxLength": 255,
+        "minLength": 0,
+        "pattern": null,
+        "placeholder": "Select Payment Type"
+    },
+    {
+        "customClassName": null,
+        "displayOrder": 2,
+        "fieldType": "text",
+        "hint": "",
+        "isAutoComplete": false,
+        "isRequired": true,
+        "key": "others",
+        "label": "If Others, Please Specify:",
+        "lookupReference": null,
+        "maxLength": 50,
+        "minLength": 1,
+        "pattern": null,
+        "visibility": [
+            {
+                "lhs": "paymentType",
+                "operator": "equals",
+                "rhs": "OTHERS"
+            }
+        ]
+    },
+    {
+        "displayOrder": 3,
+        "fieldType": "lookup",
+        "isAutoComplete": true,
+        "isRequired": true,
+        "key": "projectName",
+        "label": "Property / Project / Subdivision Name",
+        "lookupReference": {
+            "location": "/merchants/ortigasland/projects",
+            "source": "link"
+        },
+        "pattern": null,
+        "placeholder": "Select Project Name"
+    },
+    {
+        "displayOrder": 4,
+        "fieldType": "text",
+        "isRequired": true,
+        "key": "unitNumber",
+        "label": "Unit Number"
+    },
+    {
+        "displayOrder": 5,
+        "fieldType": "text",
+        "isRequired": true,
+        "key": "contractNumber",
+        "label": "Contract Number"
+    },
+    {
+        "displayOrder": 6,
+        "fieldType": "currency",
+        "hint": "",
+        "isRequired": true,
+        "key": "amount",
+        "label": "Amount Due",
+        "maxLength": 4900000,
+        "minLength": 1,
+        "pattern": "[0-9,.]+"
+    },
+    {
+        "displayOrder": 7,
+        "fieldType": "text",
+        "isRequired": true,
+        "key": "customerName",
+        "label": "Name of Unit Owner",
+        "pattern": "[a-zA-Z0-9-,.' ]+"
+    },
+    {
+        "displayOrder": 8,
+        "fieldType": "email",
+        "hint": "",
+        "isRequired": true,
+        "key": "customerEmail",
+        "label": "Email Address of Unit Owner",
+        "pattern": "\\S+@\\S+\\.\\S+"
+    },
+    {
+        "displayOrder": 9,
+        "fieldType": "tel",
+        "isRequired": true,
+        "key": "customerMobileNo",
+        "label": "Phone Number of Unit Owner",
+        "pattern": "[0-9]+",
+        "placeholder": "off"
+    },
+    {
+        "customClassName": null,
+        "displayOrder": 10,
+        "fieldType": "text",
+        "hint": "",
+        "isAutoComplete": false,
+        "isRequired": false,
+        "key": "agentName",
+        "label": "Name of Agent (Optional)",
+        "lookupReference": null,
+        "maxLength": 255,
+        "minLength": 0,
+        "pattern": null
+    },
+    {
+        "customClassName": null,
+        "displayOrder": 11,
+        "fieldType": "email",
+        "hint": "",
+        "isAutoComplete": false,
+        "isRequired": false,
+        "key": "agentEmail",
+        "label": "Email Address of Agent (Optional)",
+        "lookupReference": null,
+        "maxLength": 255,
+        "minLength": 0,
+        "pattern": "\\S+@\\S+\\.\\S+"
+    },
+    {
+        "displayOrder": 12,
+        "fieldType": "longtext",
+        "key": "clientNotes",
+        "label": "Notes (Optional)"
+    }
+]

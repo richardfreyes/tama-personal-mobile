@@ -1,0 +1,207 @@
+[
+    {
+        "customClassName": null,
+        "displayOrder": 1,
+        "fieldType": "lookup",
+        "isAutoComplete": true,
+        "isRequired": true,
+        "key": "projectName",
+        "label": "Property Name",
+        "lookupReference": {
+            "location": "/merchants/pa-hankyuhanshin/projects",
+            "source": "link"
+        },
+        "maxLength": 255,
+        "minLength": 0,
+        "pattern": null,
+        "placeholder": "Select Property Name"
+    },
+    {
+        "customClassName": null,
+        "displayOrder": 2,
+        "fieldType": "lookup",
+        "hint": "",
+        "isAutoComplete": false,
+        "isRequired": true,
+        "key": "paymentType",
+        "label": "Payment Type",
+        "lookupReference": {
+            "location": "/merchants/pa-hankyuhanshin/payment-types",
+            "source": "link"
+        },
+        "maxLength": 255,
+        "minLength": 0,
+        "pattern": null,
+        "placeholder": "Select Payment Type"
+    },
+    {
+        "customClassName": null,
+        "displayOrder": 3,
+        "fieldType": "text",
+        "hint": "",
+        "isAutoComplete": false,
+        "isRequired": true,
+        "key": "paymentOthers",
+        "label": "Others, please specify",
+        "lookupReference": null,
+        "maxLength": 255,
+        "minLength": 0,
+        "pattern": null,
+        "visibility": [
+            {
+                "lhs": "paymentType",
+                "operator": "equals",
+                "rhs": "OTHERS"
+            }
+        ]
+    },
+    {
+        "customClassName": null,
+        "displayOrder": 4,
+        "fieldType": "text",
+        "hint": "",
+        "isAutoComplete": false,
+        "isRequired": true,
+        "key": "CinNo",
+        "label": "Customer Identification Number (CIN)",
+        "lookupReference": null,
+        "maxLength": 11,
+        "minLength": 0,
+        "pattern": null,
+        "placeholder": "Alphanumeric",
+        "visibility": [
+            {
+                "lhs": "paymentType",
+                "operator": "in",
+                "rhs": [
+                    "MA",
+                    "BALANCE",
+                    "OTHERS"
+                ]
+            }
+        ]
+    },
+    {
+        "customClassName": null,
+        "displayOrder": 5,
+        "fieldType": "text",
+        "hint": "",
+        "isAutoComplete": false,
+        "isRequired": false,
+        "key": "transactionReferenceNo",
+        "label": "Transaction Reference Number (Optional)",
+        "lookupReference": null,
+        "maxLength": 11,
+        "minLength": 0,
+        "pattern": null,
+        "placeholder": "",
+        "visibility": [
+            {
+                "lhs": "paymentType",
+                "operator": "in",
+                "rhs": [
+                    "RF",
+                    "OTHERS"
+                ]
+            }
+        ]
+    },
+    {
+        "customClassName": null,
+        "displayOrder": 6,
+        "fieldType": "text",
+        "hint": "",
+        "isAutoComplete": false,
+        "isRequired": true,
+        "key": "blockNumber",
+        "label": "Block",
+        "lookupReference": null,
+        "maxLength": 255,
+        "minLength": 0,
+        "pattern": "[a-zA-Z0-9- ]+"
+    },
+    {
+        "customClassName": null,
+        "displayOrder": 7,
+        "fieldType": "text",
+        "hint": "",
+        "isAutoComplete": false,
+        "isRequired": true,
+        "key": "lotNumber",
+        "label": "Lot",
+        "lookupReference": null,
+        "maxLength": 255,
+        "minLength": 0,
+        "pattern": "[a-zA-Z0-9- ]+"
+    },
+    {
+        "customClassName": null,
+        "displayOrder": 8,
+        "fieldType": "currency",
+        "hint": "",
+        "isAutoComplete": false,
+        "isRequired": true,
+        "key": "amount",
+        "label": "Amount Due",
+        "lookupReference": null,
+        "maxLength": 4900000,
+        "minLength": 1,
+        "pattern": "[0-9,.]+"
+    },
+    {
+        "customClassName": null,
+        "displayOrder": 9,
+        "fieldType": "text",
+        "hint": "",
+        "isAutoComplete": false,
+        "isRequired": true,
+        "key": "customerName",
+        "label": "Name of Unit Owner",
+        "lookupReference": null,
+        "maxLength": 255,
+        "minLength": 0,
+        "pattern": "[a-zA-Z0-9-,.' ]+"
+    },
+    {
+        "customClassName": null,
+        "displayOrder": 10,
+        "fieldType": "email",
+        "hint": "",
+        "isAutoComplete": false,
+        "isRequired": true,
+        "key": "customerEmail",
+        "label": "Email Address of Unit Owner",
+        "lookupReference": null,
+        "maxLength": 255,
+        "minLength": 0,
+        "pattern": "\\S+@\\S+\\.\\S+"
+    },
+    {
+        "customClassName": null,
+        "displayOrder": 11,
+        "fieldType": "tel",
+        "hint": "",
+        "isAutoComplete": false,
+        "isRequired": true,
+        "key": "customerMobileNo",
+        "label": "Phone Number of Unit Owner",
+        "lookupReference": null,
+        "maxLength": 255,
+        "minLength": 0,
+        "pattern": "[0-9]+"
+    },
+    {
+        "customClassName": null,
+        "displayOrder": 12,
+        "fieldType": "longtext",
+        "hint": "",
+        "isAutoComplete": false,
+        "isRequired": false,
+        "key": "clientNotes",
+        "label": "Notes (Optional)",
+        "lookupReference": null,
+        "maxLength": 255,
+        "minLength": 0,
+        "pattern": null
+    }
+]

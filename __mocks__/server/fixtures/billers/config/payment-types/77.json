@@ -1,0 +1,14 @@
+{
+    "OTHER": {
+        "name": "Others",
+        "projects": []
+    },
+    "REPAYMENT": {
+        "name": "Repayment",
+        "projects": []
+    },
+    "RF": {
+        "name": "Reservation",
+        "projects": []
+    }
+}

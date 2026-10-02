@@ -1,0 +1,263 @@
+{
+    "projects": [
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Suntrust Properties Inc.",
+            "project_id": 1910,
+            "project_name": "CYBERGREEN (SH2)"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Suntrust Properties Inc.",
+            "project_id": 1911,
+            "project_name": "CYBERVILLE (SH2 P2)"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Suntrust Properties Inc.",
+            "project_id": 1912,
+            "project_name": "EASTPARK RESIDENCES"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Suntrust Properties Inc.",
+            "project_id": 1913,
+            "project_name": "GOVERNOR'S HILLS"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Suntrust Properties Inc.",
+            "project_id": 1914,
+            "project_name": "ONE LAKESHORE DRIVE"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Suntrust Properties Inc.",
+            "project_id": 1915,
+            "project_name": "PALM CITY"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Suntrust Properties Inc.",
+            "project_id": 1916,
+            "project_name": "REGAL HOMES"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Suntrust Properties Inc.",
+            "project_id": 1917,
+            "project_name": "STA. ROSA HEIGHTS"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Suntrust Properties Inc.",
+            "project_id": 1918,
+            "project_name": "STA. ROSA HILLS"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Suntrust Properties Inc.",
+            "project_id": 1919,
+            "project_name": "SUNRISE HILLS 2 - PHASE 3"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Suntrust Properties Inc.",
+            "project_id": 1920,
+            "project_name": "SUNRISE HILLS I"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Suntrust Properties Inc.",
+            "project_id": 1921,
+            "project_name": "SUNTRUST 88 GILBRALTAR"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Suntrust Properties Inc.",
+            "project_id": 1922,
+            "project_name": "SUNTRUST ADRIATICO GARDENS"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Suntrust Properties Inc.",
+            "project_id": 1923,
+            "project_name": "SUNTRUST AMADEA"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Suntrust Properties Inc.",
+            "project_id": 1924,
+            "project_name": "SUNTRUST ASCENTIA"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Suntrust Properties Inc.",
+            "project_id": 1925,
+            "project_name": "SUNTRUST ASMARA"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Suntrust Properties Inc.",
+            "project_id": 1926,
+            "project_name": "SUNTRUST AURORA GARDEN"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Suntrust Properties Inc.",
+            "project_id": 1927,
+            "project_name": "SUNTRUST AURORA GARDEN 2"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Suntrust Properties Inc.",
+            "project_id": 1928,
+            "project_name": "SUNTRUST CAPITOL PLAZA"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Suntrust Properties Inc.",
+            "project_id": 1929,
+            "project_name": "SUNTRUST ECOTOWN"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Suntrust Properties Inc.",
+            "project_id": 1930,
+            "project_name": "SUNTRUST ECOTOWN EXTENSION"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Suntrust Properties Inc.",
+            "project_id": 1931,
+            "project_name": "SUNTRUST KIRANA"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Suntrust Properties Inc.",
+            "project_id": 1932,
+            "project_name": "SUNTRUST PARKVIEW"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Suntrust Properties Inc.",
+            "project_id": 1933,
+            "project_name": "SUNTRUST RIVABELLA"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Suntrust Properties Inc.",
+            "project_id": 1934,
+            "project_name": "SUNTRUST SENTOSA"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Suntrust Properties Inc.",
+            "project_id": 1935,
+            "project_name": "SUNTRUST SHANATA"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Suntrust Properties Inc.",
+            "project_id": 1936,
+            "project_name": "SUNTRUST SIENA HILLS"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Suntrust Properties Inc.",
+            "project_id": 1937,
+            "project_name": "SUNTRUST SOLANA"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Suntrust Properties Inc.",
+            "project_id": 1938,
+            "project_name": "SUNTRUST THE MIST RESIDENCES"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Suntrust Properties Inc.",
+            "project_id": 1939,
+            "project_name": "SUNTRUST TREETOP VILLAS"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Suntrust Properties Inc.",
+            "project_id": 1940,
+            "project_name": "SUNTRUST U.N. GARDENS"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Suntrust Properties Inc.",
+            "project_id": 1941,
+            "project_name": "SUNTRUST VERONA"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Suntrust Properties Inc.",
+            "project_id": 1942,
+            "project_name": "THE FOUNTAIN GROVE"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Suntrust Properties Inc.",
+            "project_id": 1943,
+            "project_name": "THE GENTRI HEIGHTS"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Suntrust Properties Inc.",
+            "project_id": 1944,
+            "project_name": "THE MANDARA"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Suntrust Properties Inc.",
+            "project_id": 1945,
+            "project_name": "THE SOFIA TERRACES"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Suntrust Properties Inc.",
+            "project_id": 1946,
+            "project_name": "TWO LAKESHORE DRIVE"
+        }
+    ]
+}

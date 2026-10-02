@@ -1,0 +1,60 @@
+{
+    "projects": [
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": null,
+            "project_id": 1957,
+            "project_name": "2Torre Lorenzo"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": null,
+            "project_id": 1958,
+            "project_name": "3Torre Lorenzo"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": null,
+            "project_id": 1951,
+            "project_name": "Dusit Thani Residence Davao"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": null,
+            "project_id": 1952,
+            "project_name": "Tierra Lorenzo Lipa"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": null,
+            "project_id": 1953,
+            "project_name": "Torre Central"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": null,
+            "project_id": 1954,
+            "project_name": "Torre Lorenzo Loyola"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": null,
+            "project_id": 1955,
+            "project_name": "Torre Lorenzo Malate"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": null,
+            "project_id": 1956,
+            "project_name": "Torre Sur"
+        }
+    ]
+}

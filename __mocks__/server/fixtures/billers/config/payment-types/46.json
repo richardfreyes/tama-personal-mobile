@@ -1,0 +1,13 @@
+{
+    "CASH": "Full Cash Payment",
+    "DP": "Down Payment",
+    "LATEFEES": "Late Payment Fees",
+    "MA": "Monthly Amortization",
+    "OTHERS": "Others",
+    "POWERRECOVERY": "Power Recovery",
+    "RF": "Reservation Fee",
+    "RPT": "Real Estate Property Tax",
+    "TITLINGCHARGES": "Titling Charges",
+    "TURNOVERBALANCE": "Turnover Balance",
+    "WATERRECOVERY": "Water Recovery"
+}

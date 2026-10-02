@@ -1,0 +1,14 @@
+[
+    {
+        "code": "EV",
+        "name": "Events"
+    },
+    {
+        "code": "AD",
+        "name": "Advances"
+    },
+    {
+        "code": "PD",
+        "name": "Past Due"
+    }
+]

@@ -1,0 +1,26 @@
+[
+    {
+        "code": "BN",
+        "name": "Broker Network"
+    },
+    {
+        "code": "CS",
+        "name": "Corporate Sales"
+    },
+    {
+        "code": "AA",
+        "name": "ALISI / ALSI"
+    },
+    {
+        "code": "OS",
+        "name": "Office Sales"
+    },
+    {
+        "code": "IH",
+        "name": "In House"
+    },
+    {
+        "code": "DIGITAL",
+        "name": "Digital Sales Group"
+    }
+]

@@ -1,0 +1,103 @@
+[
+    {
+        "customClassName": null,
+        "displayOrder": 1,
+        "fieldType": "text",
+        "hint": "",
+        "isAutoComplete": false,
+        "isRequired": true,
+        "key": "customerName",
+        "label": "Company Name",
+        "lookupReference": null,
+        "maxLength": 255,
+        "minLength": 0,
+        "pattern": "[a-zA-Z0-9-,.' ]+"
+    },
+    {
+        "customClassName": null,
+        "displayOrder": 2,
+        "fieldType": "lookup",
+        "hint": "",
+        "isAutoComplete": false,
+        "isRequired": true,
+        "key": "paymentType",
+        "label": "Payment Type",
+        "lookupReference": {
+            "location": "/merchants/savvi/payment-types",
+            "source": "link"
+        },
+        "maxLength": 255,
+        "minLength": 0,
+        "pattern": null
+    },
+    {
+        "customClassName": null,
+        "displayOrder": 3,
+        "fieldType": "text",
+        "hint": "",
+        "isAutoComplete": false,
+        "isRequired": true,
+        "key": "invoiceNumber",
+        "label": "Invoice Number",
+        "lookupReference": null,
+        "maxLength": 255,
+        "minLength": 0,
+        "pattern": "[a-zA-Z0-9-,.' ]+"
+    },
+    {
+        "customClassName": null,
+        "displayOrder": 4,
+        "fieldType": "currency",
+        "hint": "",
+        "isAutoComplete": false,
+        "isRequired": true,
+        "key": "amount",
+        "label": "Amount Due",
+        "lookupReference": null,
+        "maxLength": 19000,
+        "minLength": 1,
+        "pattern": "[0-9,.]+"
+    },
+    {
+        "customClassName": null,
+        "displayOrder": 5,
+        "fieldType": "email",
+        "hint": "",
+        "isAutoComplete": false,
+        "isRequired": true,
+        "key": "customerEmail",
+        "label": "Email Address",
+        "lookupReference": null,
+        "maxLength": 255,
+        "minLength": 0,
+        "pattern": "\\S+@\\S+\\.\\S+"
+    },
+    {
+        "customClassName": null,
+        "displayOrder": 6,
+        "fieldType": "tel",
+        "hint": "",
+        "isAutoComplete": false,
+        "isRequired": true,
+        "key": "customerMobileNo",
+        "label": "Mobile Number",
+        "lookupReference": null,
+        "maxLength": 255,
+        "minLength": 0,
+        "pattern": "[0-9]+"
+    },
+    {
+        "customClassName": null,
+        "displayOrder": 7,
+        "fieldType": "longtext",
+        "hint": "",
+        "isAutoComplete": false,
+        "isRequired": false,
+        "key": "clientNotes",
+        "label": "Notes (Optional)",
+        "lookupReference": null,
+        "maxLength": 255,
+        "minLength": 0,
+        "pattern": null
+    }
+]

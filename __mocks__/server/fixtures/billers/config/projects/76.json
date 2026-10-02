@@ -1,0 +1,998 @@
+{
+    "projects": [
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Don Jose Homes Housing",
+            "project_id": 1590,
+            "project_name": "DON JOSE HOMES"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Fort Victoria Condominium",
+            "project_id": 1591,
+            "project_name": "FORT VICTORIA A"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Fort Victoria Condominium",
+            "project_id": 1592,
+            "project_name": "FORT VICTORIA B"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Fort Victoria Condominium",
+            "project_id": 1593,
+            "project_name": "FORT VICTORIA C"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Fort Victoria Condominium",
+            "project_id": 1594,
+            "project_name": "FORT VICTORIA COMMERCIAL"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Fort Victoria Condominium",
+            "project_id": 1595,
+            "project_name": "FORT VICTORIA PARKING SLOT"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Francesca Tower Condominium",
+            "project_id": 1596,
+            "project_name": "FRANCESCA TOWER A"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Francesca Tower Condominium",
+            "project_id": 1597,
+            "project_name": "FRANCESCA TOWER B"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Francesca Tower Condominium",
+            "project_id": 1598,
+            "project_name": "FRANCESCA TOWER COMMERCIAL"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Francesca Tower Condominium",
+            "project_id": 1599,
+            "project_name": "FRANCESCA TOWER PARKING SLOT"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Functional Viable Residences",
+            "project_id": 1600,
+            "project_name": "FUNCTIONAL VIABLE RESIDENCES"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "GSIS City Metrohomes",
+            "project_id": 1601,
+            "project_name": "GSIS CITY METROHOMES 1"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "GSIS City Metrohomes",
+            "project_id": 1602,
+            "project_name": "GSIS CITY METROHOMES 2"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "GSIS City Metrohomes",
+            "project_id": 1609,
+            "project_name": "GSIS CITY METROHOMES 23"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "GSIS City Metrohomes",
+            "project_id": 1610,
+            "project_name": "GSIS CITY METROHOMES 24"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "GSIS City Metrohomes",
+            "project_id": 1611,
+            "project_name": "GSIS CITY METROHOMES 25"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "GSIS City Metrohomes",
+            "project_id": 1612,
+            "project_name": "GSIS CITY METROHOMES 26"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "GSIS City Metrohomes",
+            "project_id": 1613,
+            "project_name": "GSIS CITY METROHOMES 27"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "GSIS City Metrohomes",
+            "project_id": 1614,
+            "project_name": "GSIS CITY METROHOMES 28"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "GSIS City Metrohomes",
+            "project_id": 1615,
+            "project_name": "GSIS CITY METROHOMES 29"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "GSIS City Metrohomes",
+            "project_id": 1603,
+            "project_name": "GSIS CITY METROHOMES 3"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "GSIS City Metrohomes",
+            "project_id": 1604,
+            "project_name": "GSIS CITY METROHOMES 4"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "GSIS City Metrohomes",
+            "project_id": 1605,
+            "project_name": "GSIS CITY METROHOMES 5"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "GSIS City Metrohomes",
+            "project_id": 1606,
+            "project_name": "GSIS CITY METROHOMES 6"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "GSIS City Metrohomes",
+            "project_id": 1607,
+            "project_name": "GSIS CITY METROHOMES 7"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "GSIS City Metrohomes",
+            "project_id": 1608,
+            "project_name": "GSIS CITY METROHOMES 8"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Mary Homes",
+            "project_id": 1633,
+            "project_name": "GSIS Maryhomes"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Metro Manila Hills",
+            "project_id": 1647,
+            "project_name": "Isabel Terraces Commercial"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Metro Manila Hills",
+            "project_id": 1648,
+            "project_name": "Isabel Terraces Phase 3"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Isabel Tower",
+            "project_id": 1616,
+            "project_name": "Isabel Tower"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Isabel Tower",
+            "project_id": 1617,
+            "project_name": "Isabel Tower Parking Slot"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Isabelle De Hidalgo",
+            "project_id": 1618,
+            "project_name": "Isabelle De Hidalgo"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Isabelle De Hidalgo",
+            "project_id": 1619,
+            "project_name": "Isabelle De Hidalgo Commercial"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Isabelle De Hidalgo",
+            "project_id": 1620,
+            "project_name": "Isabelle De Hidalgo Parking Slot"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Isabelle De Valenzuela",
+            "project_id": 1621,
+            "project_name": "Isabelle De Valenzuela A"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Isabelle De Valenzuela",
+            "project_id": 1626,
+            "project_name": "Isabelle De Valenzuela A Parking Slot"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Isabelle De Valenzuela",
+            "project_id": 1622,
+            "project_name": "Isabelle De Valenzuela B"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Isabelle De Valenzuela",
+            "project_id": 1627,
+            "project_name": "Isabelle De Valenzuela BCD Parking Slot"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Isabelle De Valenzuela",
+            "project_id": 1623,
+            "project_name": "Isabelle De Valenzuela C"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Isabelle De Valenzuela",
+            "project_id": 1625,
+            "project_name": "Isabelle De Valenzuela Commercial"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Isabelle De Valenzuela",
+            "project_id": 1624,
+            "project_name": "Isabelle De Valenzuela D"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Juan Luna Condominium",
+            "project_id": 1628,
+            "project_name": "Juan Luna Condominium"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Kasiglahan Village",
+            "project_id": 1629,
+            "project_name": "Kasiglahan Village 1A"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Kasiglahan Village",
+            "project_id": 1630,
+            "project_name": "Kasiglahan Village 1B"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Kasiglahan Village",
+            "project_id": 1631,
+            "project_name": "Kasiglahan Village 1C"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Kasiglahan Village",
+            "project_id": 1632,
+            "project_name": "Kasiglahan Village 1D"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Mary Homes",
+            "project_id": 1635,
+            "project_name": "MH-CTS Generic"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Mary Homes",
+            "project_id": 1636,
+            "project_name": "MH-Kalayaan Commercial"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Mary Homes",
+            "project_id": 1637,
+            "project_name": "MH-Other Units"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Mary Homes",
+            "project_id": 1638,
+            "project_name": "MH-Rowhouse Commercial"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Mary Homes",
+            "project_id": 1639,
+            "project_name": "MH-Rowhouse Kalayaan"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Mary Homes",
+            "project_id": 1640,
+            "project_name": "MH-SADX Kalayaan"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Mary Homes",
+            "project_id": 1634,
+            "project_name": "Mary Homes"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Metro Manila Hills",
+            "project_id": 1641,
+            "project_name": "Metro Manila Hills 2A"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Metro Manila Hills",
+            "project_id": 1642,
+            "project_name": "Metro Manila Hills 2B"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Metro Manila Hills",
+            "project_id": 1643,
+            "project_name": "Metro Manila Hills 2C 1"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Metro Manila Hills",
+            "project_id": 1644,
+            "project_name": "Metro Manila Hills 2C 2"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Metro Manila Hills",
+            "project_id": 1645,
+            "project_name": "Metro Manila Hills 2D"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Metro Manila Hills",
+            "project_id": 1646,
+            "project_name": "Metro Manila Hills 2E - Townhomes"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "President Tower",
+            "project_id": 1652,
+            "project_name": "PTS-Bahay Caridad 1"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "President Tower",
+            "project_id": 1653,
+            "project_name": "PTS-Bahay Caridad 2"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "President Tower",
+            "project_id": 1654,
+            "project_name": "PTS-Bahay Caridad 3"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "President Tower",
+            "project_id": 1655,
+            "project_name": "PTS-Bahay Caridad 4"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "President Tower",
+            "project_id": 1656,
+            "project_name": "PTS-Bahay Caridad 5"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "President Tower",
+            "project_id": 1657,
+            "project_name": "PTS-Bahay Caridad 6"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "President Tower",
+            "project_id": 1658,
+            "project_name": "PTS-Bahay Caridad 7"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "President Tower",
+            "project_id": 1659,
+            "project_name": "PTS-Bahay Caridad 8"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "President Tower",
+            "project_id": 1660,
+            "project_name": "PTS-Bahay Caridad 9"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "President Tower",
+            "project_id": 1651,
+            "project_name": "President Tower"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Pueblo Real",
+            "project_id": 1661,
+            "project_name": "Pueblo Real"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Residencias De Francesca",
+            "project_id": 1662,
+            "project_name": "Residencias De Francesca"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Metro Manila Hills",
+            "project_id": 1650,
+            "project_name": "Residencias De Francesca - Victoria Villas"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Residencias De Manila",
+            "project_id": 1663,
+            "project_name": "Residencias De Manila 1"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Residencias De Manila",
+            "project_id": 1664,
+            "project_name": "Residencias De Manila 2"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Residencias De Manila",
+            "project_id": 1665,
+            "project_name": "Residencias De Manila 3"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Residencias De Manila",
+            "project_id": 1666,
+            "project_name": "Residencias De Manila 4"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Residencias De Manila",
+            "project_id": 1667,
+            "project_name": "Residencias De Manila 7A"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Residencias De Manila",
+            "project_id": 1668,
+            "project_name": "Residencias De Manila 7B"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Residencias De Manila",
+            "project_id": 1671,
+            "project_name": "Residencias De Manila 8 Commercial"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Residencias De Manila",
+            "project_id": 1669,
+            "project_name": "Residencias De Manila 8A"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Residencias De Manila",
+            "project_id": 1670,
+            "project_name": "Residencias De Manila 8B"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Residencias De Manila",
+            "project_id": 1672,
+            "project_name": "Residencias De Manila Parking Slot"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Saint John Condominium",
+            "project_id": 1673,
+            "project_name": "Saint John Condominium"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "San Andres Condominium",
+            "project_id": 1674,
+            "project_name": "San Andres Condominium"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "San Isidro Plains",
+            "project_id": 1675,
+            "project_name": "San Isidro Plains Phase 1-N-1"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "San Jose Condominium",
+            "project_id": 1676,
+            "project_name": "San Jose Condominium 1"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "San Jose Condominium",
+            "project_id": 1677,
+            "project_name": "San Jose Condominium 1 Parking"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "San Jose Condominium",
+            "project_id": 1678,
+            "project_name": "San Jose Condominium 2"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "San Jose Condominium",
+            "project_id": 1679,
+            "project_name": "San Jose Condominium 2 Parking"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "San Jose Plains",
+            "project_id": 1680,
+            "project_name": "San Jose Plains 1B Commercial"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "San Jose Condominium",
+            "project_id": 1681,
+            "project_name": "San Jose Plains 1N Housing"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Southville",
+            "project_id": 1682,
+            "project_name": "Southville 8C 1N"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Surburban Housing",
+            "project_id": 1683,
+            "project_name": "Surburban Housing"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Metro Manila Hills",
+            "project_id": 1649,
+            "project_name": "Theresa Heights"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Theresa Tower",
+            "project_id": 1684,
+            "project_name": "Theresa Tower"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Theresa Tower",
+            "project_id": 1685,
+            "project_name": "Theresa Tower Parking Slot"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Victoria Arts and Theater Tower",
+            "project_id": 1686,
+            "project_name": "Victoria Arts and Theater Tower"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Victoria Arts and Theater Tower",
+            "project_id": 1687,
+            "project_name": "Victoria Arts and Theater Tower Parking Slot"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Victoria De Hidalgo",
+            "project_id": 1688,
+            "project_name": "Victoria De Hidalgo"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Victoria De Hidalgo",
+            "project_id": 1689,
+            "project_name": "Victoria De Hidalgo Parking Slot"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Victoria De Makati",
+            "project_id": 1690,
+            "project_name": "Victoria De Makati A"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Victoria De Makati",
+            "project_id": 1691,
+            "project_name": "Victoria De Makati B"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Victoria De Makati",
+            "project_id": 1692,
+            "project_name": "Victoria De Makati Parking Slot"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Victoria De Malate",
+            "project_id": 1693,
+            "project_name": "Victoria De Malate A"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Victoria De Malate",
+            "project_id": 1694,
+            "project_name": "Victoria De Malate B"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Victoria De Malate",
+            "project_id": 1695,
+            "project_name": "Victoria De Malate Parking Slot"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Victoria De Manila 1",
+            "project_id": 1696,
+            "project_name": "Victoria De Manila - SOHO"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Victoria De Manila 2",
+            "project_id": 1702,
+            "project_name": "Victoria De Manila 2"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Victoria De Manila 2",
+            "project_id": 1703,
+            "project_name": "Victoria De Manila 2 Parking Slot"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Victoria De Manila 1",
+            "project_id": 1699,
+            "project_name": "Victoria De Manila A"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Victoria De Manila 1",
+            "project_id": 1700,
+            "project_name": "Victoria De Manila B"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Victoria De Manila 1",
+            "project_id": 1701,
+            "project_name": "Victoria De Manila C"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Victoria De Manila 1",
+            "project_id": 1697,
+            "project_name": "Victoria De Manila Commercial"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Victoria De Manila 1",
+            "project_id": 1698,
+            "project_name": "Victoria De Manila Parking Slot"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Victoria De Morato",
+            "project_id": 1704,
+            "project_name": "Victoria De Morato A"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Victoria De Morato",
+            "project_id": 1705,
+            "project_name": "Victoria De Morato B"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Victoria De Morato",
+            "project_id": 1706,
+            "project_name": "Victoria De Morato Parking Slot"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Victoria De Valenzuela",
+            "project_id": 1707,
+            "project_name": "Victoria De Valenzuela"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Victoria Sports Tower Monumento",
+            "project_id": 1708,
+            "project_name": "Victoria Sports Tower Monumento A"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Victoria Sports Tower Monumento",
+            "project_id": 1709,
+            "project_name": "Victoria Sports Tower Monumento B"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Victoria Station 1",
+            "project_id": 1714,
+            "project_name": "Victoria Station 1 Commercial"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Victoria Station 1",
+            "project_id": 1715,
+            "project_name": "Victoria Station 1 Parking Slot"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Victoria Station 1",
+            "project_id": 1710,
+            "project_name": "Victoria Station 1A"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Victoria Station 1",
+            "project_id": 1711,
+            "project_name": "Victoria Station 1A - SOHO"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Victoria Station 1",
+            "project_id": 1712,
+            "project_name": "Victoria Station 1B"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Victoria Station 1",
+            "project_id": 1713,
+            "project_name": "Victoria Station 1B - SOHO"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Victoria Station 1",
+            "project_id": 1718,
+            "project_name": "Victoria Station 2 Parking Slot"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Victoria Station 2",
+            "project_id": 1716,
+            "project_name": "Victoria Station 2A"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Victoria Station 2",
+            "project_id": 1717,
+            "project_name": "Victoria Station 2B"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Victoria Tower",
+            "project_id": 1719,
+            "project_name": "Victoria Tower A"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Victoria Tower",
+            "project_id": 1723,
+            "project_name": "Victoria Tower ABC Commercial"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Victoria Tower",
+            "project_id": 1724,
+            "project_name": "Victoria Tower ABC Parking Slot"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Victoria Tower",
+            "project_id": 1720,
+            "project_name": "Victoria Tower B"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Victoria Tower",
+            "project_id": 1721,
+            "project_name": "Victoria Tower C"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Victoria Tower",
+            "project_id": 1722,
+            "project_name": "Victoria Tower D"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Victoria Tower",
+            "project_id": 1725,
+            "project_name": "Victoria Tower D Parking Slot"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Waterfun Condominium",
+            "project_id": 1726,
+            "project_name": "Waterfun Condominium 1"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Waterfun Condominium",
+            "project_id": 1727,
+            "project_name": "Waterfun Condominium 1 Parking Slot"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Waterfun Condominium",
+            "project_id": 1728,
+            "project_name": "Waterfun Condominium 2"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Waterfun Condominium",
+            "project_id": 1729,
+            "project_name": "Waterfun Condominium 2 Parking Slot"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Waterfun Condominium",
+            "project_id": 1730,
+            "project_name": "Waterfun Condominium 3"
+        },
+        {
+            "is_active": true,
+            "is_enabled": true,
+            "project_category": "Waterfun Condominium",
+            "project_id": 1731,
+            "project_name": "Waterfun Condominium 5"
+        }
+    ]
+}

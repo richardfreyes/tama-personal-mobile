@@ -1,0 +1,10 @@
+{
+  "account": {
+    "country": { "code": "PH" },
+    "funding": "credit"
+  },
+  "brand": "Visa",
+  "issuer": { "name": "BDO Unibank" },
+  "product": { "name": "Classic", "segment": "Consumer" },
+  "scheme": { "name": "visa" }
+}

@@ -1,0 +1,17 @@
+{
+  "paymentMethod": "creditcard",
+  "cardType": "credit",
+  "cardScheme": "visa",
+  "cardCountryCode": "PH",
+  "brand": "Visa",
+  "issuingBank": "BDO Unibank",
+  "securityCode": "123",
+  "cardholderName": "Richard Frey Reyes",
+  "cardholderFirstName": "Richard",
+  "cardholderLastName": "Frey Reyes",
+  "cardholdersCountry": "Philippines",
+  "cardholdersCountryCode": "PH",
+  "zipCode": "2005",
+  "creditCardNumber": "4111111111111111",
+  "expiryDate": "12/28"
+}

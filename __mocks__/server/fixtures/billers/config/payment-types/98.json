@@ -1,0 +1,10 @@
+{
+    "RF": {
+        "name": "Reservation Fee",
+        "projects": []
+    },
+    "SPOTCASH": {
+        "name": "Spot Cash Payment",
+        "projects": []
+    }
+}

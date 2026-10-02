@@ -1,0 +1,14 @@
+{
+    "DP": {
+        "name": "Down Payment",
+        "projects": []
+    },
+    "MA": {
+        "name": "Monthly Amortization (International Clients)",
+        "projects": []
+    },
+    "RF": {
+        "name": "Reservation Fee",
+        "projects": []
+    }
+}

@@ -1,0 +1,168 @@
+[
+    {
+        "displayOrder": 1,
+        "fieldType": "row",
+        "fields": [
+            {
+                "customClassName": null,
+                "displayOrder": 1,
+                "fieldType": "text",
+                "hint": "",
+                "isAutoComplete": false,
+                "isRequired": true,
+                "key": "customerName",
+                "label": "Name of Customer",
+                "lookupReference": null,
+                "maxLength": 255,
+                "minLength": 0,
+                "pattern": "[a-zA-Z0-9-,.' ]+"
+            },
+            {
+                "customClassName": null,
+                "displayOrder": 2,
+                "fieldType": "email",
+                "hint": "",
+                "isAutoComplete": false,
+                "isRequired": true,
+                "key": "customerEmail",
+                "label": "Email Address",
+                "lookupReference": null,
+                "maxLength": 255,
+                "minLength": 0,
+                "pattern": "\\S+@\\S+\\.\\S+"
+            },
+            {
+                "customClassName": null,
+                "displayOrder": 3,
+                "fieldType": "tel",
+                "hint": "",
+                "isAutoComplete": false,
+                "isRequired": true,
+                "key": "customerMobileNo",
+                "label": "Phone Number",
+                "lookupReference": null,
+                "maxLength": 255,
+                "minLength": 0,
+                "pattern": "[0-9]+"
+            }
+        ]
+    },
+    {
+        "customClassName": null,
+        "displayOrder": 2,
+        "fieldType": "text",
+        "hint": "",
+        "isAutoComplete": false,
+        "isRequired": true,
+        "key": "billingAdressLine1",
+        "label": "Billing Address",
+        "lookupReference": null,
+        "maxLength": 255,
+        "minLength": 0,
+        "pattern": "[a-zA-Z0-9-,.' ]+"
+    },
+    {
+        "displayOrder": 3,
+        "fieldType": "row",
+        "fields": [
+            {
+                "customClassName": null,
+                "displayOrder": 1,
+                "fieldType": "text",
+                "hint": "",
+                "isAutoComplete": false,
+                "isRequired": true,
+                "key": "billingAddressCity",
+                "label": "City",
+                "lookupReference": null,
+                "maxLength": 255,
+                "minLength": 0,
+                "pattern": "[a-zA-Z0-9-,.' ]+"
+            },
+            {
+                "customClassName": null,
+                "displayOrder": 2,
+                "fieldType": "text",
+                "hint": "",
+                "isAutoComplete": false,
+                "isRequired": true,
+                "key": "billingAddressState",
+                "label": "State",
+                "lookupReference": null,
+                "maxLength": 255,
+                "minLength": 0,
+                "pattern": "[a-zA-Z0-9-,.' ]+"
+            },
+            {
+                "customClassName": null,
+                "displayOrder": 3,
+                "fieldType": "text",
+                "hint": "",
+                "isAutoComplete": false,
+                "isRequired": true,
+                "key": "billingAddressZip",
+                "label": "Zip Code",
+                "lookupReference": null,
+                "maxLength": 255,
+                "minLength": 0,
+                "pattern": "[a-zA-Z0-9-,.' ]+"
+            }
+        ]
+    },
+    {
+        "customClassName": null,
+        "displayOrder": 4,
+        "fieldType": "text",
+        "hint": "",
+        "isAutoComplete": false,
+        "isRequired": true,
+        "key": "serviceName",
+        "label": "Service Name",
+        "lookupReference": null,
+        "maxLength": 255,
+        "minLength": 0,
+        "pattern": "[a-zA-Z0-9-,.' ]+"
+    },
+    {
+        "customClassName": null,
+        "displayOrder": 5,
+        "fieldType": "currency",
+        "hint": "",
+        "isAutoComplete": false,
+        "isRequired": true,
+        "key": "amount",
+        "label": "Amount Due",
+        "lookupReference": null,
+        "maxLength": 19000,
+        "minLength": 1,
+        "pattern": "[0-9,.]+"
+    },
+    {
+        "customClassName": null,
+        "displayOrder": 6,
+        "fieldType": "text",
+        "hint": "",
+        "isAutoComplete": false,
+        "isRequired": true,
+        "key": "serviceInclusions",
+        "label": "Service Inclusion",
+        "lookupReference": null,
+        "maxLength": 255,
+        "minLength": 0,
+        "pattern": "[a-zA-Z0-9-,.' ]+"
+    },
+    {
+        "customClassName": null,
+        "displayOrder": 7,
+        "fieldType": "longtext",
+        "hint": "",
+        "isAutoComplete": false,
+        "isRequired": false,
+        "key": "clientNotes",
+        "label": "Notes (Optional)",
+        "lookupReference": null,
+        "maxLength": 255,
+        "minLength": 0,
+        "pattern": null
+    }
+]

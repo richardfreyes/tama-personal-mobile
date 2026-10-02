@@ -1,0 +1,10 @@
+[
+    {
+        "code": "FULL",
+        "name": "Full Payment"
+    },
+    {
+        "code": "PART",
+        "name": "Partial Payment"
+    }
+]

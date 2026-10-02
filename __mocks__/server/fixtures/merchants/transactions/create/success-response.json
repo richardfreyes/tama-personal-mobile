@@ -1,0 +1,7 @@
+{
+  "merchantId": "centuryprop",
+  "message": "Transaction created successfully",
+  "status": "created",
+  "transactionId": "txn_enrollment_mock_001",
+  "xsrfKey": "xsrf_mock_token_001"
+}

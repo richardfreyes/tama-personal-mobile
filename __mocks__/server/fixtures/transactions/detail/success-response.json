@@ -1,0 +1,90 @@
+{
+  "baseAmount": 765789.0,
+  "baseCurrency": "PHP",
+  "billingDetails": {
+    "agentEmail": {
+      "text": "Agent's Email",
+      "value": "qwe@qwe.qwe"
+    },
+    "agentName": {
+      "text": "Agent's Full Name",
+      "value": "qewwqeqwe"
+    },
+    "billName": {
+      "text": "Bill Name",
+      "value": "Test"
+    },
+    "customerEmail": {
+      "text": "Email of Unit Owner",
+      "value": "re@qwe.qwe"
+    },
+    "customerMobileNo": {
+      "text": "Mobile Number of Unit Owner",
+      "value": "12321321"
+    },
+    "customerName": {
+      "text": "Full Name of Unit Owner",
+      "value": "123"
+    },
+    "mobileCallingCode": {
+      "text": "Mobile Calling Code",
+      "value": "+63"
+    },
+    "mobileNo": {
+      "text": "Mobile Number",
+      "value": "+6312321321"
+    },
+    "paymentName": {
+      "text": "Payment Name",
+      "value": "Down Payment"
+    },
+    "projectName": {
+      "text": "Project Name",
+      "value": "Barbados"
+    },
+    "unitNumber": {
+      "text": "Unit Number",
+      "value": "123"
+    }
+  },
+  "billingName": "Test",
+  "externalTransactionId": "txn_DtJpPe38qWfk5EBJRHMPUs",
+  "items": [
+    {
+      "chargedAmount": 13850.2817,
+      "chargedCurrency": "USD",
+      "createdAt": "2025-09-30T10:11:53.250008+08:00",
+      "description": "Bills payment",
+      "feeAmount": 0.0,
+      "feeCurrency": "PHP",
+      "itemType": "payment",
+      "status": "new",
+      "updatedAt": "2025-09-30T10:11:53.250008+08:00"
+    },
+    {
+      "chargedAmount": 0.0,
+      "chargedCurrency": "PHP",
+      "createdAt": "2025-09-30T10:11:53.250008+08:00",
+      "description": "Fees",
+      "feeAmount": 277.0056,
+      "feeCurrency": "USD",
+      "itemType": "fee",
+      "status": "new",
+      "updatedAt": "2025-09-30T10:11:53.250008+08:00"
+    }
+  ],
+  "merchantName": "Century Properties",
+  "name": "",
+  "notes": null,
+  "paymentMethodNumber": "4242",
+  "paymentMethodProvider": "visa",
+  "paymentMethodType": "cc",
+  "paymentReferenceId": null,
+  "status": "uncaptured",
+  "totalAmount": 14543.2873,
+  "totalCurrency": "USD",
+  "transactionDate": "2025-09-30T10:11:52.430791+08:00",
+  "xrAmount": 55.2905,
+  "xrBaseCurrency": "USD",
+  "xrTargetCurrency": "PHP"
+}

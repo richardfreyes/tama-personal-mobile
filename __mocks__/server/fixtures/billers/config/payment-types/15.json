@@ -1,0 +1,18 @@
+{
+    "DP": {
+        "name": "Down Payment",
+        "projects": []
+    },
+    "MA": {
+        "name": "Monthly Amortization",
+        "projects": []
+    },
+    "OTHER": {
+        "name": "Others",
+        "projects": []
+    },
+    "RF": {
+        "name": "Reservation Fee",
+        "projects": []
+    }
+}
