@@ -23,6 +23,9 @@ export const billingReferenceIdStyles = StyleSheet.create({
   label: {
     textAlign: 'center',
   },
+  replaceCardButton: {
+    marginTop: 8,
+  },
   newCardNotice: {
     backgroundColor: Colors.red01,
     borderRadius: 8,

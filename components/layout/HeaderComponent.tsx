@@ -24,10 +24,10 @@ const HeaderComponent: React.FC<HeaderProps> = () => {
   return (
     <View style={[styles.headerContainer, { paddingTop: insets.top + 8 }]}>
       <Pressable
-        accessibilityHint="Opens your profile"
+        accessibilityHint="Opens your settings"
         accessibilityLabel={`Profile, ${name}`}
         accessibilityRole="button"
-        onPress={() => router.push('/settings/profile')}
+        onPress={() => router.push('/settings')}
         style={styles.profileButton}
       >
         <LinearGradient

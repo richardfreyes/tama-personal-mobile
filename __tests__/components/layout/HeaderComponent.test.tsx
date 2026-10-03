@@ -102,10 +102,10 @@ describe('HeaderComponent', () => {
     expect(screen.getByText(/^Good (morning|afternoon|evening),$/)).toBeTruthy();
   });
 
-  it('opens the profile when the avatar and name are pressed', () => {
+  it('opens settings when the avatar and name are pressed', () => {
     renderHeader();
     fireEvent.press(screen.getByRole('button', { name: 'Profile, John Doe' }));
-    expect(router.push).toHaveBeenCalledWith('/settings/profile');
+    expect(router.push).toHaveBeenCalledWith('/settings');
   });
 
   // ---- Edge cases ----

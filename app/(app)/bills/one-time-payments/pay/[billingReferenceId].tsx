@@ -16,14 +16,16 @@ import { useGetBillDetailQuery } from '@/redux/features/billDetail/billDetailApi
 import { useDeleteBillMutation } from '@/redux/features/bills/billsApi';
 import { showModal } from '@/redux/features/modal/modalSlice';
 import { selectLastCompletedInvoiceReferenceId } from '@/redux/features/oneTimePayment/oneTimePaymentSlice';
-import { useGetPaymentMethodsQuery } from '@/redux/features/paymentMethods/paymentMethodApi';
+import { useDeleteCardPaymentMutation, useGetPaymentMethodsQuery } from '@/redux/features/paymentMethods/paymentMethodApi';
 import { showSnackbar } from '@/redux/features/snackbar/snackbarSlice';
 import { useCreateTransactionComputationMutation } from '@/redux/features/transactions/transactionApi';
 import { TransactionComputationResponse } from '@/redux/features/transactions/transactionTypes';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
+import { openPaymentMethod } from '@/services/routeNavigation';
 import { billingReferenceIdStyles as styles } from '@/styles/app/bills/one-time-payments/pay/billingReferenceId';
 import { Colors } from '@/styles/common/colors';
 import { globalStyle } from '@/styles/common/globals';
+import { formatLastFourDigits } from '@/utils/card';
 import { formatMoney, normalizeCurrencyInput, parseCurrencyInput } from '@/utils/format';
 import { modalActions } from '@/utils/modalActions';
 import { validateField } from '@/utils/validators';
@@ -42,6 +44,7 @@ const PayBillScreen = () => {
   const isPaymentMethodsEmpty = !paymentMethodData || paymentMethodData.length === 0;
   const { data: billData, isLoading: billDetailIsLoading } = useGetBillDetailQuery(billingReferenceId);
   const [deleteBill] = useDeleteBillMutation();
+  const [deletePaymentMethod, { isLoading: isRemovingCard }] = useDeleteCardPaymentMutation();
   const isBillDataEmpty = !billData;
   const primaryMethod = paymentMethodData?.find(method => method.isPrimary === true);
   const preselectedMethod = preselectedReferenceId ? paymentMethodData?.find(method => method.referenceId === preselectedReferenceId) : undefined;
@@ -63,9 +66,14 @@ const PayBillScreen = () => {
 
   const seededAmountRef = useRef<string | null>(null);
 
+  const clearComputationError = useCallback(() => {
+    setComputationErr(false);
+    setCardNeedsReAdd(false);
+  }, []);
+
   useFocusEffect(
     useCallback(() => {
-      setComputationErr(false);
+      clearComputationError();
       return () => {
         setAmount('');
         setErrors({});
@@ -73,7 +81,7 @@ const PayBillScreen = () => {
         setNotes('');
         setResolvedComputation(null);
       };
-    }, [])
+    }, [clearComputationError])
   );
 
   // Start the next payment from a clean form once a payment has succeeded.
@@ -87,10 +95,10 @@ const PayBillScreen = () => {
     setTouched({});
     setNotes('');
     setResolvedComputation(null);
-    setComputationErr(false);
+    clearComputationError();
     setPaymentOption('saved');
     resetComputation();
-  }, [lastCompletedInvoiceReferenceId, resetComputation]);
+  }, [lastCompletedInvoiceReferenceId, resetComputation, clearComputationError]);
 
   useEffect(() => {
     if (returnedAmount && seededAmountRef.current !== returnedAmount) {
@@ -136,8 +144,7 @@ const PayBillScreen = () => {
         void createTransactionComputation(payload).unwrap().then((response) => {
           if (active) {
             setResolvedComputation({ key: JSON.stringify([billingReferenceId, selectedReferenceId, baseAmount, notes]), response });
-            setComputationErr(false);
-            setCardNeedsReAdd(false);
+            clearComputationError();
           }
         }).catch((error: { data?: { code?: string } }) => {
           if (active) {
@@ -149,6 +156,7 @@ const PayBillScreen = () => {
       }, COMMON.CALC_DEBOUNCE_TIME);
     } else {
       setResolvedComputation(null);
+      clearComputationError();
     }
     
     return () => {
@@ -157,7 +165,7 @@ const PayBillScreen = () => {
         clearTimeout(debounceTimer.current);
       }
     };
-  }, [amount, notes, selectedReferenceId, billingReferenceId, createTransactionComputation]);
+  }, [amount, notes, selectedReferenceId, billingReferenceId, createTransactionComputation, clearComputationError]);
 
   const handleDeleteBiller = async () => {
     if (!billData) return; 
@@ -204,6 +212,48 @@ const PayBillScreen = () => {
         returnAmount: amount,
       },
     });
+  };
+
+  const handleReplaceCard = async () => {
+    if (!selectedReferenceId) return;
+
+    try {
+      await deletePaymentMethod({ id: selectedReferenceId }).unwrap();
+    } catch (error: any) {
+      dispatch(showSnackbar({
+        message: error?.data?.message || 'Failed to remove payment method.',
+        variant: 'error'
+      }));
+      return;
+    }
+    handleAddPaymentMethod();
+  };
+
+  const handleReplaceCardPress = () => {
+    if (!selectedMethod) return;
+
+    // The card details screen blocks deleting a default card while others exist, so send the user
+    // there instead of failing the delete.
+    if (selectedMethod.isPrimary && (paymentMethodData?.length ?? 0) > 1) {
+      openPaymentMethod(selectedMethod.referenceId, `/bills/one-time-payments/pay/${billingReferenceId}`);
+      return;
+    }
+
+    const modalId = 'replaceCard';
+    modalActions[modalId] = handleReplaceCard;
+
+    dispatch(showModal({
+      id: modalId,
+      iconType: 'warning',
+      headerMessage: 'Replace Card?',
+      bodyMessage: `The card ending in ${formatLastFourDigits(selectedMethod.lastFourCardDigits)} will be removed so you can add it again.`,
+      buttonConfig: {
+        primaryLabel: 'Remove and add',
+        primaryStyle: { backgroundColor: Colors.error06 },
+        secondaryLabel: 'Cancel',
+        direction: 'row'
+      }
+    }));
   };
 
   const handleSelectPaymentMethod = () => {
@@ -321,11 +371,22 @@ const PayBillScreen = () => {
                   ) : (
                     <>
                       {computationErr ? (
-                        <AppText size='extraSmall' mVertical={2} color='error10' style={{textAlign: 'center'}}>
-                          {cardNeedsReAdd
-                            ? 'This card can no longer be used. Please remove it and add it again.'
-                            : 'Unable to calculate fees for this bill. Please try again later or contact support.'}
-                        </AppText>
+                        <>
+                          <AppText size='extraSmall' mVertical={2} color='error10' style={{textAlign: 'center'}}>
+                            {cardNeedsReAdd
+                              ? 'This card can no longer be used. Please remove it and add it again.'
+                              : 'Unable to calculate fees for this bill. Please try again later or contact support.'}
+                          </AppText>
+                          {cardNeedsReAdd ? (
+                            <AppButton
+                              title="Replace card"
+                              variant="tertiary"
+                              onPress={handleReplaceCardPress}
+                              isLoading={isRemovingCard}
+                              buttonStyle={styles.replaceCardButton}
+                            />
+                          ) : null}
+                        </>
                       ) : currentComputation ? (
                         <View>
                           <AppText size='extraSmall' style={styles.label}>

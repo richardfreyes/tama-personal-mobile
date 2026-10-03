@@ -1,8 +1,9 @@
-import { beforeEach, describe, expect, it, jest } from '@jest/globals';
+import { afterEach, beforeEach, describe, expect, it, jest } from '@jest/globals';
 import BillerFormScreen from '@/app/(app)/bills/one-time-payments/add/form';
 import PayBillScreen from '@/app/(app)/bills/one-time-payments/pay/[billingReferenceId]';
 import ConfirmPaymentScreen from '@/app/(app)/bills/one-time-payments/pay/confirm-payment';
 import PaymentSuccessScreen from '@/app/(app)/bills/one-time-payments/pay/payment-success';
+import { modalActions } from '@/utils/modalActions';
 import { act, fireEvent, render, screen, waitFor } from '@testing-library/react-native';
 import React from 'react';
 
@@ -11,6 +12,7 @@ const mockAddBill = jest.fn<(...args: any[]) => any>();
 const mockDeleteBill = jest.fn<(...args: any[]) => any>();
 const mockCreateComputation = jest.fn<(...args: any[]) => any>();
 const mockPayTransaction = jest.fn<(...args: any[]) => any>();
+const mockDeletePaymentMethod = jest.fn<(...args: any[]) => any>();
 const mockResetComputation = jest.fn<(...args: any[]) => any>();
 const mockState = { oneTimePayment: { lastCompletedInvoiceReferenceId: null as string | null } };
 const mockCacheCompletedTransaction = jest.fn<(...args: any[]) => any>((transaction) => ({
@@ -69,6 +71,7 @@ jest.mock('@/redux/features/billDetail/billDetailApi', () => ({
   useGetBillDetailQuery: () => mockBillQuery,
 }));
 jest.mock('@/redux/features/paymentMethods/paymentMethodApi', () => ({
+  useDeleteCardPaymentMutation: () => [mockDeletePaymentMethod, { isLoading: false }],
   useGetPaymentMethodsQuery: () => mockPaymentMethodsQuery,
 }));
 jest.mock('@/redux/features/transactions/transactionApi', () => ({
@@ -203,6 +206,7 @@ describe('saved-biller and bill-payment routes', () => {
     mockAddBill.mockReturnValue(resolvedTrigger({}));
     mockDeleteBill.mockReturnValue(resolvedTrigger({}));
     mockPayTransaction.mockReturnValue(resolvedTrigger({}));
+    mockDeletePaymentMethod.mockReturnValue(resolvedTrigger({ message: 'Removed' }));
     mockGetTransactionDetail.mockReturnValue(resolvedTrigger({ status: 'successful' }));
     mockCreateComputation.mockReturnValue(resolvedTrigger({
       transactionReferenceId: 'transaction-1',
@@ -385,6 +389,126 @@ describe('saved-biller and bill-payment routes', () => {
       pathname: '/bills/one-time-payments/payment-methods',
       params: expect.objectContaining({ baseAmount: '250' }),
     }));
+  });
+
+  describe('when the selected card needs to be added again', () => {
+    const revaultError = () => ({
+      unwrap: jest.fn<(...args: any[]) => any>().mockRejectedValue({ data: { code: 'CARD_REVAULT_REQUIRED' } }),
+    });
+
+    const renderWithRevaultCard = async (methods: any[], amount = '100') => {
+      Object.assign(mockParams, { billingReferenceId: 'bill-1', merchantName: 'Merchant One' });
+      mockBillQuery.data = { billing_id: 'bill-1', custom_fields: {} };
+      mockPaymentMethodsQuery.data = methods;
+      mockCreateComputation.mockReturnValue(revaultError());
+      render(<PayBillScreen />);
+      fireEvent.changeText(screen.getByLabelText('Amount'), amount);
+      await act(async () => {
+        jest.advanceTimersByTime(1000);
+      });
+    };
+
+    const card = (overrides: Record<string, any> = {}) => ({
+      referenceId: 'card-1', isPrimary: true, paymentMethodProvider: 'visa', lastFourCardDigits: '4242', ...overrides,
+    });
+
+    beforeEach(() => {
+      jest.useFakeTimers();
+    });
+
+    afterEach(() => {
+      jest.useRealTimers();
+    });
+
+    it('offers to replace the card only for the re-add error', async () => {
+      await renderWithRevaultCard([card()]);
+      expect(screen.getByText('This card can no longer be used. Please remove it and add it again.')).toBeTruthy();
+      expect(screen.getByRole('button', { name: 'Replace card' })).toBeTruthy();
+    });
+
+    it('does not offer to replace the card for other computation errors', async () => {
+      Object.assign(mockParams, { billingReferenceId: 'bill-1', merchantName: 'Merchant One' });
+      mockBillQuery.data = { billing_id: 'bill-1', custom_fields: {} };
+      mockPaymentMethodsQuery.data = [card()];
+      mockCreateComputation.mockReturnValue({
+        unwrap: jest.fn<(...args: any[]) => any>().mockRejectedValue({ data: { code: 'SOMETHING_ELSE' } }),
+      });
+      render(<PayBillScreen />);
+      fireEvent.changeText(screen.getByLabelText('Amount'), '100');
+      await act(async () => {
+        jest.advanceTimersByTime(1000);
+      });
+      expect(screen.getByText(/Unable to calculate fees/)).toBeTruthy();
+      expect(screen.queryByRole('button', { name: 'Replace card' })).toBeNull();
+    });
+
+    it('removes the card and opens add-card with the return path after confirmation', async () => {
+      await renderWithRevaultCard([card()]);
+      fireEvent.press(screen.getByRole('button', { name: 'Replace card' }));
+
+      expect(mockDispatch).toHaveBeenCalledWith(expect.objectContaining({
+        payload: expect.objectContaining({
+          id: 'replaceCard',
+          bodyMessage: 'The card ending in 4242 will be removed so you can add it again.',
+        }),
+      }));
+      expect(mockDeletePaymentMethod).not.toHaveBeenCalled();
+
+      await act(async () => {
+        modalActions.replaceCard();
+      });
+
+      expect(mockDeletePaymentMethod).toHaveBeenCalledWith({ id: 'card-1' });
+      expect(mockRouter.push).toHaveBeenCalledWith(expect.objectContaining({
+        pathname: '/payment-methods/add-card',
+        params: expect.objectContaining({
+          returnTo: '/bills/one-time-payments/pay/bill-1',
+          billingReferenceId: 'bill-1',
+          returnAmount: '100',
+        }),
+      }));
+    });
+
+    it('stays on the screen and reports the failure when the card cannot be removed', async () => {
+      mockDeletePaymentMethod.mockReturnValue({
+        unwrap: jest.fn<(...args: any[]) => any>().mockRejectedValue({ data: { message: 'Card is in use.' } }),
+      });
+      await renderWithRevaultCard([card()]);
+      fireEvent.press(screen.getByRole('button', { name: 'Replace card' }));
+
+      await act(async () => {
+        modalActions.replaceCard();
+      });
+
+      expect(mockRouter.push).not.toHaveBeenCalled();
+      expect(mockDispatch).toHaveBeenCalledWith(expect.objectContaining({
+        payload: { message: 'Card is in use.', variant: 'error' },
+      }));
+    });
+
+    it('opens the card details instead of deleting a default card while other cards exist', async () => {
+      await renderWithRevaultCard([card(), card({ referenceId: 'card-2', isPrimary: false, lastFourCardDigits: '5555' })]);
+      fireEvent.press(screen.getByRole('button', { name: 'Replace card' }));
+
+      expect(mockDeletePaymentMethod).not.toHaveBeenCalled();
+      expect(mockRouter.push).toHaveBeenCalledWith(
+        expect.objectContaining({
+          pathname: '/payment-methods/update-card',
+          params: { referenceId: 'card-1', route: '/bills/one-time-payments/pay/bill-1' },
+        }),
+        expect.anything(),
+      );
+    });
+
+    it('clears the error once the amount is emptied', async () => {
+      await renderWithRevaultCard([card()]);
+      expect(screen.getByRole('button', { name: 'Replace card' })).toBeTruthy();
+
+      fireEvent.changeText(screen.getByLabelText('Amount'), '');
+
+      expect(screen.queryByText(/can no longer be used/)).toBeNull();
+      expect(screen.queryByRole('button', { name: 'Replace card' })).toBeNull();
+    });
   });
 
   it('computes the payment with the first saved method when none is marked primary', () => {
