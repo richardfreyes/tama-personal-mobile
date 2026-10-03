@@ -2,9 +2,7 @@ import { afterEach, beforeEach, describe, expect, it, jest } from '@jest/globals
 import { fireEvent, screen } from '@testing-library/react-native';
 import { router } from 'expo-router';
 import React from 'react';
-import { TouchableOpacity } from 'react-native';
 import HeaderComponent from '../../../components/layout/HeaderComponent';
-import { COMMON } from '../../../constants/common';
 import { renderWithProviders } from '../../../utils/test-utils';
 
 jest.mock('react-native-safe-area-context', () => ({
@@ -99,19 +97,15 @@ describe('HeaderComponent', () => {
 
   // ---- Navigation ----
 
-  it('navigates to settings when the profile area is pressed', () => {
+  it('shows a time-of-day greeting', () => {
     renderHeader();
-    const profileTouchables = screen.UNSAFE_getAllByType(TouchableOpacity);
-    // The only TouchableOpacity wraps the profile info
-    fireEvent.press(profileTouchables[0]);
-    expect(router.push).toHaveBeenCalledWith(COMMON.ROUTES.settings);
+    expect(screen.getByText(/^Good (morning|afternoon|evening),$/)).toBeTruthy();
   });
 
-  it('navigates to the correct settings route', () => {
+  it('opens the profile when the avatar and name are pressed', () => {
     renderHeader();
-    const profileTouchables = screen.UNSAFE_getAllByType(TouchableOpacity);
-    fireEvent.press(profileTouchables[0]);
-    expect(router.push).toHaveBeenCalledWith('/settings');
+    fireEvent.press(screen.getByRole('button', { name: 'Profile, John Doe' }));
+    expect(router.push).toHaveBeenCalledWith('/settings/profile');
   });
 
   // ---- Edge cases ----

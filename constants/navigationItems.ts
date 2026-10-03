@@ -1,10 +1,9 @@
-import BillsIcon from '@/assets/icons/bills.svg';
 import CameraIcon from '@/assets/icons/camera.svg';
-import CreditCardIcon from '@/assets/icons/credit-card.svg';
 import DeleteIcon from '@/assets/icons/delete.svg';
 import DoubleCheckCircle from '@/assets/icons/double-check-circle.svg';
 import HelpIcon from '@/assets/icons/help.svg';
-import HomeIcon from '@/assets/icons/home.svg';
+import HistoryIcon from '@/assets/icons/history.svg';
+import HomeOutlineIcon from '@/assets/icons/home-outline.svg';
 import HouseIcon from '@/assets/icons/house.svg';
 import ImageIcon from '@/assets/icons/image.svg';
 import InfoIcon from '@/assets/icons/info-circle.svg';
@@ -12,15 +11,15 @@ import InvoicesIcon from '@/assets/icons/invoices.svg';
 import LockIcon from '@/assets/icons/lock.svg';
 import LogoutIcon from '@/assets/icons/logout.svg';
 import MailIcon from '@/assets/icons/mail.svg';
-import ResetClockIcon from '@/assets/icons/reset-clock.svg';
+import ReceiptIcon from '@/assets/icons/receipt.svg';
 import SettingIcon from '@/assets/icons/setting.svg';
 import TridotIcon from '@/assets/icons/tridot.svg';
 import UserDeletion from '@/assets/icons/user-deletion.svg';
 import UserIcon from '@/assets/icons/user.svg';
+import WalletIcon from '@/assets/icons/wallet.svg';
 import OnboardingImg1 from '@/assets/images/onboarding-1.svg';
 import OnboardingImg2 from '@/assets/images/onboarding-2.svg';
 import OnboardingImg3 from '@/assets/images/onboarding-3.svg';
-import { Colors } from '@/styles/common/colors';
 import type { BillerCategory } from '@/types';
 
 export const ONBOARDING_IMGS = [
@@ -35,12 +34,14 @@ export const BILLER_CATEGORIES = [
   // { id: 'education', name: 'Education', categoryId: 3, icon: HatIcon, iconProps: { width: 16, height: 16 } },
 ] as BillerCategory[];
 
-export const MENU_SVG_ICONS = {
-  "dashboard": { Component: HomeIcon, color: Colors.neutral01 },
-  "transactions/index": { Component: ResetClockIcon, color: Colors.neutral01 },
-  "bills/index": { Component: BillsIcon, color: Colors.neutral01 },
-  "payment-methods/index": { Component: CreditCardIcon, color: Colors.neutral01 },
-} as const;
+// Bottom bar tabs in display order. `name` is the Expo Router tab route; `href` is where a second
+// tap on the active tab returns to.
+export const FLOATING_NAV_TABS = [
+  { name: 'dashboard', label: 'Home', href: '/dashboard', icon: HomeOutlineIcon },
+  { name: 'bills/index', label: 'Bills', href: '/bills', icon: ReceiptIcon },
+  { name: 'transactions/index', label: 'History', href: '/transactions', icon: HistoryIcon },
+  { name: 'payment-methods/index', label: 'Wallet', href: '/payment-methods', icon: WalletIcon },
+] as const;
 
 export const SETTINGS = [
   { id: 'profile', title: 'Profile', icon: UserIcon, route: '/settings/profile' },

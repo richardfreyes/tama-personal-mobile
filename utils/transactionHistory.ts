@@ -1,6 +1,51 @@
+import { TRANSACTION_STATUS_BADGE_LABELS, TRANSACTION_STATUS_GROUPS, TRANSACTION_STATUS_TONE_COLORS } from '@/constants/transaction';
 import type { TransactionDetail } from '@/redux/features/transactionDetail/transactionDetailTypes';
 import type { TransactionsPage } from '@/redux/features/transactions/transactionTypes';
-import type { EnrollmentTransactionHistory, Transaction, UnifiedTransaction } from '@/types';
+import type { EnrollmentTransactionHistory, Transaction, TransactionStatusTone, UnifiedTransaction } from '@/types';
+import { formatMoney, formatPesoAmount } from '@/utils/format';
+
+export const formatTransactionStatus = (status: string): string => (
+  status
+    .trim()
+    .replace(/[_-]+/g, ' ')
+    .replace(/\b\w/g, (character) => character.toUpperCase())
+);
+
+// Enrollment statuses are not normalised by the backend, so anything not failed or in flight counts
+// as settled; for one-time payments an unrecognised status stays neutral instead of guessing.
+export const getTransactionStatusTone = (
+  { source, status }: Pick<UnifiedTransaction, 'source' | 'status'>,
+): TransactionStatusTone => {
+  const key = (status ?? '').toLowerCase();
+
+  if (TRANSACTION_STATUS_GROUPS.FAILED.has(key)) return 'failed';
+  if (TRANSACTION_STATUS_GROUPS.INCOMPLETE.has(key)) return 'pending';
+  if (source === 'enrollment' || TRANSACTION_STATUS_GROUPS.SUCCESSFUL.has(key)) return 'success';
+  return 'neutral';
+};
+
+// Settled transactions need no badge, so only the other tones render one.
+export const getTransactionStatusBadge = (transaction: UnifiedTransaction) => {
+  const tone = getTransactionStatusTone(transaction);
+  if (tone === 'success') {
+    return null;
+  }
+
+  const label = tone === 'neutral'
+    ? formatTransactionStatus(transaction.statusLabel || transaction.status || 'Unknown')
+    : TRANSACTION_STATUS_BADGE_LABELS[tone];
+
+  return { ...TRANSACTION_STATUS_TONE_COLORS[tone], label };
+};
+
+export const formatTransactionDebitAmount = ({ amount, currency }: UnifiedTransaction): string => {
+  const magnitude = Math.abs(Number(amount) || 0);
+  const formatted = currency.toUpperCase() === 'PHP'
+    ? formatPesoAmount(magnitude)
+    : formatMoney([currency, magnitude]);
+
+  return `−${formatted}`;
+};
 
 const enrollmentBillingName = (transaction: EnrollmentTransactionHistory): string | null => (
   transaction.enrollmentName ?? transaction.billingName ?? transaction.description

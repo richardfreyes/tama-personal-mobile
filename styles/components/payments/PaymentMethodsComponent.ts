@@ -1,43 +1,75 @@
 import { StyleSheet } from "react-native";
 import { Colors } from "../../common/colors";
-import { FontSizes } from "../../common/typography";
 
 export const paymentMethodsComponentStyles = StyleSheet.create({
-  cardContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+  row: {
     alignItems: 'center',
-    paddingTop: 12,
-    paddingBottom: 12,
-  },
-  detailsContainer: {
     flexDirection: 'row',
+    gap: 14,
+    minHeight: 58,
+    paddingVertical: 14,
+  },
+  rowPressed: {
+    backgroundColor: Colors.red01,
+  },
+  brandTile: {
     alignItems: 'center',
+    backgroundColor: Colors.neutral01,
+    borderColor: Colors.neutral04,
+    borderRadius: 6,
+    borderWidth: 1,
+    height: 30,
+    justifyContent: 'center',
+    overflow: 'hidden',
+    width: 44,
   },
-  cardIcon: {
-    width: 24,
-    height: 24,
-    marginRight: 12,
+  methodDetails: {
+    flex: 1,
+    gap: 1,
+    minWidth: 0,
   },
-  cardName: {
-    fontSize: FontSizes.small,
+  methodName: {
+    color: Colors.maroon11,
+    fontSize: 14,
+    lineHeight: 20,
   },
-  cardNumber: {
-    fontSize: FontSizes.extraSmall,
+  lastFour: {
+    color: Colors.maroon09,
+    fontSize: 13,
+    fontVariant: ['tabular-nums'],
+    letterSpacing: 0.26,
+    lineHeight: 18,
   },
-  defaultTag: {
-    backgroundColor: Colors.success10,
-    borderRadius: 20, 
-    paddingHorizontal: 12,
-    paddingVertical: 2,
+  defaultBadge: {
+    alignItems: 'center',
+    backgroundColor: Colors.success01,
+    borderRadius: 999,
+    flexDirection: 'row',
+    gap: 6,
+    height: 22,
+    paddingHorizontal: 8,
+  },
+  defaultDot: {
+    backgroundColor: Colors.success09,
+    borderRadius: 3,
+    height: 6,
+    width: 6,
   },
   defaultText: {
-    color: Colors.neutral01,
-    fontSize: FontSizes.extraSmall,
+    color: Colors.dashboardSuccessText,
+    fontSize: 12,
+    lineHeight: 18,
   },
-  centered: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    minHeight: 150,
+  divider: {
+    backgroundColor: Colors.dashboardSkeleton,
+    height: 1,
+    marginLeft: 58,
+  },
+  skeletonDetails: {
+    flex: 1,
+    gap: 8,
+  },
+  addButton: {
+    marginTop: 12,
   },
 });

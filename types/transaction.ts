@@ -52,6 +52,14 @@ export interface EnrollmentTransactionHistory {
 
 export type TransactionSource = 'oneTimePayment' | 'enrollment';
 
+export type TransactionStatusTone = 'success' | 'pending' | 'failed' | 'neutral';
+
+export interface TransactionStatusToneColors {
+  backgroundColor: string;
+  textColor: string;
+  dotColor: string;
+}
+
 export interface UnifiedTransaction {
   key: string;
   source: TransactionSource;

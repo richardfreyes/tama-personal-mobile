@@ -1,16 +1,32 @@
-import BillIcon from '@/assets/icons/invoices.svg';
+import { AppText } from '@/components/common/AppText';
+import EmptyStateCard from '@/components/common/EmptyStateCard';
+import { SkeletonBlock } from '@/components/common/Loading';
+import {
+  BRAND_ACTION_GRADIENT_COLORS,
+  BRAND_ACTION_GRADIENT_LOCATIONS,
+  BRAND_SOFT_GRADIENT_COLORS,
+  DASHBOARD_BILL_CAROUSEL_GAP,
+  DASHBOARD_BILL_PAGE_INSET,
+  GRADIENT_DIAGONAL_END,
+  GRADIENT_DIAGONAL_START,
+  GRADIENT_HORIZONTAL_END,
+  GRADIENT_HORIZONTAL_START,
+} from '@/constants';
 import { useGetMonthlyBillsEnrollmentsQuery } from '@/redux/features/enrollments/enrollmentApi';
 import { setSelectedEnrollment } from '@/redux/features/enrollmentSelection/enrollmentSelectionSlice';
 import { useAppDispatch } from '@/redux/hooks';
+import { openAddBiller } from '@/services/routeNavigation';
+import { Colors } from '@/styles/common/colors';
+import { globalStyle } from '@/styles/common/globals';
 import { monthlyBillsStyles as styles } from '@/styles/components/enrollments/MonthlyBills';
 import type { UpcomingEnrollmentBill } from '@/types/bill';
 import { getIndicatorSlots, getNearestBillIndexForSlot } from '@/utils/monthlyBillIndicators';
 import { getUpcomingBillsForMonth } from '@/utils/upcomingBills';
+import { Feather } from '@expo/vector-icons';
+import { LinearGradient } from 'expo-linear-gradient';
 import { router } from 'expo-router';
-import React, { useCallback, useMemo, useRef, useState } from 'react';
-import { Animated, FlatList, type LayoutChangeEvent, type ListRenderItemInfo, type NativeScrollEvent, type NativeSyntheticEvent, Platform, Pressable, View } from 'react-native';
-import { AppText } from '../common/AppText';
-import { SkeletonBlock } from '../common/Loading';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { FlatList, type LayoutChangeEvent, type ListRenderItemInfo, type NativeScrollEvent, type NativeSyntheticEvent, Platform, Pressable, View, useWindowDimensions } from 'react-native';
 import UpcomingBillCard from './UpcomingBillCard';
 
 const MonthlyBillsSkeleton = () => (
@@ -19,41 +35,46 @@ const MonthlyBillsSkeleton = () => (
     accessibilityLiveRegion="polite"
     accessibilityRole="progressbar"
     accessibilityState={{ busy: true }}
-    style={styles.loadingContainer}
+    style={styles.loadingCard}
     testID="monthly-bills-loading"
   >
-    <View style={styles.loadingCard}>
-      <SkeletonBlock width="42%" height={16} />
-      <SkeletonBlock width="62%" height={30} borderRadius={6} />
-      <SkeletonBlock width="52%" height={16} />
-    </View>
-    <View style={styles.loadingIndicatorRow}>
-      <View style={styles.loadingIndicatorDots}>
-        <SkeletonBlock width={18} height={6} borderRadius={3} />
-        <SkeletonBlock width={6} height={6} borderRadius={3} />
-        <SkeletonBlock width={6} height={6} borderRadius={3} />
+    <View style={styles.loadingHeadingRow}>
+      <View style={styles.loadingHeadingColumn}>
+        <SkeletonBlock borderRadius={5} height={10} style={globalStyle.skeletonOnCard} width={92} />
+        <SkeletonBlock borderRadius={7} height={14} style={globalStyle.skeletonOnCard} width={140} />
       </View>
-      <SkeletonBlock width={40} height={12} borderRadius={6} />
+      <SkeletonBlock borderRadius={12} height={24} style={globalStyle.skeletonOnCard} width={88} />
     </View>
+    <View style={styles.loadingAmountColumn}>
+      <SkeletonBlock borderRadius={10} height={38} style={globalStyle.skeletonOnCard} width={210} />
+      <SkeletonBlock borderRadius={5} height={10} style={globalStyle.skeletonOnCard} width={128} />
+    </View>
+    <SkeletonBlock borderRadius={14} height={48} style={globalStyle.skeletonOnCard} />
   </View>
 );
 
 export const MonthlyBillsComponent = () => {
   const dispatch = useAppDispatch();
+  const { width: windowWidth } = useWindowDimensions();
   const [activeIndex, setActiveIndex] = useState(0);
-  const [containerWidth, setContainerWidth] = useState(0);
-  const scrollX = useRef(new Animated.Value(0)).current;
+  const [containerWidth, setContainerWidth] = useState(windowWidth);
   const listRef = useRef<FlatList<UpcomingEnrollmentBill>>(null);
-  const { data, isError, isLoading } = useGetMonthlyBillsEnrollmentsQuery();
+  const { data, isError, isLoading, isFetching, refetch } = useGetMonthlyBillsEnrollmentsQuery();
   const upcomingBills = useMemo(
     () => getUpcomingBillsForMonth(data?.items || []),
     [data?.items],
   );
+  const hasEnrollments = (data?.items.length ?? 0) > 0;
   const indicatorSlots = useMemo(
     () => getIndicatorSlots(upcomingBills.length),
     [upcomingBills.length],
   );
-  const pageWidth = Math.max(containerWidth, 1);
+  const pageWidth = Math.max(containerWidth - DASHBOARD_BILL_PAGE_INSET * 2, 1);
+  const pageStride = pageWidth + DASHBOARD_BILL_CAROUSEL_GAP;
+
+  useEffect(() => {
+    setActiveIndex((previousIndex) => Math.min(previousIndex, Math.max(upcomingBills.length - 1, 0)));
+  }, [upcomingBills.length]);
 
   const handleBillPress = useCallback((bill: UpcomingEnrollmentBill) => {
     dispatch(setSelectedEnrollment(bill.enrollment));
@@ -65,20 +86,25 @@ export const MonthlyBillsComponent = () => {
     });
   }, [dispatch]);
 
+  const handleEnrollAutoDebit = useCallback(() => {
+    router.push('/(app)/bills/enrollments');
+  }, []);
+
   const handleLayout = useCallback((event: LayoutChangeEvent) => {
     const nextWidth = event.nativeEvent.layout.width;
     if (nextWidth <= 0 || nextWidth === containerWidth) return;
 
     setContainerWidth(nextWidth);
-    const nextOffset = activeIndex * nextWidth;
-    scrollX.setValue(nextOffset);
-    listRef.current?.scrollToOffset({ animated: false, offset: nextOffset });
-  }, [activeIndex, containerWidth, scrollX]);
+    const nextStride = Math.max(nextWidth - DASHBOARD_BILL_PAGE_INSET * 2, 1) + DASHBOARD_BILL_CAROUSEL_GAP;
+    listRef.current?.scrollToOffset({ animated: false, offset: activeIndex * nextStride });
+  }, [activeIndex, containerWidth]);
 
   const handleMomentumScrollEnd = useCallback((event: NativeSyntheticEvent<NativeScrollEvent>) => {
-    if (containerWidth <= 0) return;
-    setActiveIndex(Math.round(event.nativeEvent.contentOffset.x / containerWidth));
-  }, [containerWidth]);
+    setActiveIndex(Math.max(0, Math.min(
+      upcomingBills.length - 1,
+      Math.round(event.nativeEvent.contentOffset.x / pageStride),
+    )));
+  }, [pageStride, upcomingBills.length]);
 
   const handleIndicatorPress = useCallback((slotIndex: number) => {
     const billIndex = getNearestBillIndexForSlot(
@@ -89,42 +115,28 @@ export const MonthlyBillsComponent = () => {
     setActiveIndex(billIndex);
     listRef.current?.scrollToOffset({
       animated: true,
-      offset: billIndex * pageWidth,
+      offset: billIndex * pageStride,
     });
-  }, [activeIndex, pageWidth, upcomingBills.length]);
+  }, [activeIndex, pageStride, upcomingBills.length]);
 
   const renderBill = useCallback(({ item, index }: ListRenderItemInfo<UpcomingEnrollmentBill>) => (
     <UpcomingBillCard
       bill={item}
       index={index}
+      onEnroll={handleEnrollAutoDebit}
       onPress={handleBillPress}
       pageWidth={pageWidth}
-      scrollX={scrollX}
     />
-  ), [handleBillPress, pageWidth, scrollX]);
+  ), [handleBillPress, handleEnrollAutoDebit, pageWidth]);
 
   const renderIndicators = () => {
     if (upcomingBills.length <= 1) return null;
 
     return (
       <View style={styles.indicatorContainer}>
-        <View style={styles.indicatorTrack} testID="monthly-bill-indicator-track">
+        <View accessibilityRole="tablist" style={styles.indicatorTrack} testID="monthly-bill-indicator-track">
           {indicatorSlots.map((slotIndex) => {
             const isActive = slotIndex === activeIndex % indicatorSlots.length;
-            const inputRange = upcomingBills.map((_, billIndex) => billIndex * pageWidth);
-            const activeOutputRange = upcomingBills.map((_, billIndex) => (
-              billIndex % indicatorSlots.length === slotIndex ? 1 : 0
-            ));
-            const scaleX = scrollX.interpolate({
-              extrapolate: 'clamp',
-              inputRange,
-              outputRange: activeOutputRange.map((value) => (value ? 1 : 6 / 19)),
-            });
-            const opacity = scrollX.interpolate({
-              extrapolate: 'clamp',
-              inputRange,
-              outputRange: activeOutputRange,
-            });
             const targetBillIndex = getNearestBillIndexForSlot(
               slotIndex,
               activeIndex,
@@ -133,33 +145,32 @@ export const MonthlyBillsComponent = () => {
 
             return (
               <Pressable
-                accessibilityLabel={`Show bill ${targetBillIndex + 1} of ${upcomingBills.length}`}
-                accessibilityRole="button"
+                accessibilityLabel={`Bill ${targetBillIndex + 1} of ${upcomingBills.length}`}
+                accessibilityRole="tab"
                 accessibilityState={{ selected: isActive }}
-                hitSlop={6}
                 key={slotIndex}
                 onPress={() => handleIndicatorPress(slotIndex)}
-                style={styles.indicatorSlot}
+                style={[styles.indicatorSlot, isActive && styles.indicatorSlotActive]}
                 testID={`monthly-bill-indicator-${slotIndex}`}
               >
-                <View style={styles.indicatorVisual}>
-                  <View style={styles.monthlyIndicatorInactive} />
-                  <Animated.View
-                    style={[
-                      styles.monthlyIndicatorActive,
-                      { opacity, transform: [{ scaleX }] },
-                    ]}
-                    testID={`monthly-bill-indicator-active-${slotIndex}`}
-                  />
-                </View>
+                {isActive ? (
+                  <View style={styles.monthlyIndicatorActive} testID={`monthly-bill-indicator-active-${slotIndex}`}>
+                    <LinearGradient
+                      colors={BRAND_ACTION_GRADIENT_COLORS}
+                      locations={BRAND_ACTION_GRADIENT_LOCATIONS}
+                      start={GRADIENT_HORIZONTAL_START}
+                      end={GRADIENT_HORIZONTAL_END}
+                      style={styles.indicatorGradient}
+                    />
+                  </View>
+                ) : <View style={styles.monthlyIndicatorInactive} />}
               </Pressable>
             );
           })}
         </View>
         <AppText
           accessibilityLabel={`Bill ${activeIndex + 1} of ${upcomingBills.length}`}
-          size="extraSmall"
-          weight="600"
+          weight="500"
           style={styles.indicatorCount}
           testID="monthly-bill-indicator-count"
         >
@@ -169,57 +180,76 @@ export const MonthlyBillsComponent = () => {
     );
   };
 
-  return (
-    <View style={styles.container}>
-      {isLoading ? (
-        <MonthlyBillsSkeleton />
-      ) : isError ? (
-        <View style={styles.emptyContainer}>
-          <BillIcon height={28} width={28} />
-          <AppText size="small" weight="600" style={styles.emptyTitle}>Unable to load upcoming bills</AppText>
-          <AppText size="extraSmall" style={styles.emptySubtitle}>Please try again later.</AppText>
-        </View>
-      ) : upcomingBills.length === 0 ? (
-        <View style={styles.emptyContainer}>
-          <BillIcon height={28} width={28} />
-          <AppText size="small" weight="600" style={styles.emptyTitle}>No upcoming bills this month</AppText>
-          <AppText size="extraSmall" style={styles.emptySubtitle}>
-            You&apos;re all caught up. Upcoming Auto Debit bills will appear here automatically.
+  if (isLoading || (isError && isFetching)) return <MonthlyBillsSkeleton />;
+
+  if (isError) {
+    return (
+      <EmptyStateCard
+        message="Unable to load upcoming bills."
+        onRetry={() => { void refetch(); }}
+        retryLabel="Try loading upcoming bills again"
+        variant="error"
+      />
+    );
+  }
+
+  if (upcomingBills.length === 0) {
+    return (
+      <View style={styles.emptyCard}>
+        <LinearGradient colors={BRAND_SOFT_GRADIENT_COLORS} start={GRADIENT_DIAGONAL_START} end={GRADIENT_DIAGONAL_END} style={styles.emptyIcon}>
+          <Feather name="file-text" size={24} color={Colors.red09} />
+        </LinearGradient>
+        <View style={styles.emptyCopy}>
+          <AppText weight="600" style={styles.emptyTitle}>
+            {hasEnrollments ? 'No upcoming bills' : 'No bills yet'}
+          </AppText>
+          <AppText style={styles.emptySubtitle}>
+            {hasEnrollments
+              ? 'Your next scheduled bill will appear here when available.'
+              : 'Add your first biller to quickly manage and pay your bills from TamaPay.'}
           </AppText>
         </View>
-      ) : (
-        <>
-          <View onLayout={handleLayout} style={styles.carouselViewport}>
-            <Animated.FlatList
-              data={upcomingBills}
-              decelerationRate="fast"
-              disableIntervalMomentum
-              getItemLayout={(_, index) => ({ index, length: pageWidth, offset: pageWidth * index })}
-              horizontal
-              initialNumToRender={2}
-              keyExtractor={(item) => item.key}
-              maxToRenderPerBatch={3}
-              onMomentumScrollEnd={handleMomentumScrollEnd}
-              onScroll={Animated.event(
-                [{ nativeEvent: { contentOffset: { x: scrollX } } }],
-                { useNativeDriver: true },
-              )}
-              pagingEnabled
-              ref={listRef}
-              removeClippedSubviews={Platform.OS !== 'web'}
-              renderItem={renderBill}
-              scrollEventThrottle={16}
-              showsHorizontalScrollIndicator={false}
-              snapToAlignment="start"
-              snapToInterval={pageWidth}
-              style={styles.carousel}
-              testID="monthly-bills-carousel"
-              windowSize={3}
-            />
-          </View>
-          {renderIndicators()}
-        </>
-      )}
+        <Pressable
+          accessibilityRole="button"
+          onPress={openAddBiller}
+          style={({ pressed }) => [styles.emptyButton, pressed && styles.emptyButtonPressed]}
+        >
+          <LinearGradient colors={BRAND_ACTION_GRADIENT_COLORS} locations={BRAND_ACTION_GRADIENT_LOCATIONS} start={GRADIENT_HORIZONTAL_START} end={GRADIENT_HORIZONTAL_END} style={styles.emptyButtonGradient}>
+            <Feather name="plus" size={18} color={Colors.neutral01} />
+            <AppText weight="600" style={styles.emptyButtonText}>Add Biller</AppText>
+          </LinearGradient>
+        </Pressable>
+      </View>
+    );
+  }
+
+  return (
+    <View style={styles.container}>
+      <View onLayout={handleLayout} style={styles.carouselViewport}>
+        <FlatList
+          contentContainerStyle={styles.carouselContent}
+          data={upcomingBills}
+          decelerationRate="fast"
+          disableIntervalMomentum
+          getItemLayout={(_, index) => ({ index, length: pageStride, offset: pageStride * index })}
+          horizontal
+          initialNumToRender={2}
+          keyExtractor={(item) => item.key}
+          maxToRenderPerBatch={3}
+          onMomentumScrollEnd={handleMomentumScrollEnd}
+          pagingEnabled
+          ref={listRef}
+          removeClippedSubviews={Platform.OS !== 'web'}
+          renderItem={renderBill}
+          showsHorizontalScrollIndicator={false}
+          snapToAlignment="start"
+          snapToInterval={pageStride}
+          style={styles.carousel}
+          testID="monthly-bills-carousel"
+          windowSize={3}
+        />
+      </View>
+      {renderIndicators()}
     </View>
   );
 };

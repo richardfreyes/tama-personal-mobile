@@ -1,72 +1,65 @@
-import AutoDebitCard from '@/components/enrollments/AutoDebitCard';
-import BillsComponent from '@/components/one-time-payments/BillsComponent';
-import { MonthlyBillsComponent } from '@/components/enrollments/MonthlyBills';
 import { GlobalScrollView } from '@/components/common/GlobalScrollView';
-import { SpacerComponent } from '@/components/common/SpacerComponent';
-import PaymentMethodCardComponent from '@/components/payments/PaymentMethodsComponent';
+import DashboardStatusBarScrim from '@/components/dashboard/DashboardStatusBarScrim';
+import AutoDebitCard from '@/components/enrollments/AutoDebitCard';
+import { MonthlyBillsComponent } from '@/components/enrollments/MonthlyBills';
+import HeaderComponent from '@/components/layout/HeaderComponent';
+import BillsComponent from '@/components/one-time-payments/BillsComponent';
+import PaymentMethodsComponent from '@/components/payments/PaymentMethodsComponent';
 import TransactionHistoryComponent from '@/components/transactions/TransactionHistoryComponent';
-import { useTabBarAnimation } from '@/context/TabBarAnimationContext';
+import { DASHBOARD_RECENT_TRANSACTION_COUNT } from '@/constants';
 import { clearEnrollmentCardPayload, clearEnrollmentTransactionResponse } from '@/redux/features/enrollments/review/reviewSlice';
 import { useGetMonthlyBillsEnrollmentsQuery } from '@/redux/features/enrollments/enrollmentApi';
 import { useAppDispatch } from '@/redux/hooks';
-import { globalStyle } from '@/styles/common/globals';
+import { dashboardStyles as styles } from '@/styles/app/dashboard/index';
+import { countActiveEnrollments } from '@/utils/enrollmentPresentation';
 import { router } from 'expo-router';
+import React from 'react';
 import { View } from 'react-native';
-import { useAnimatedScrollHandler, useSharedValue } from 'react-native-reanimated';
 
 export default function Dashboard() {
-  const { tabBarTranslateY } = useTabBarAnimation();
-  const lastContentOffset = useSharedValue(0);
   const dispatch = useAppDispatch();
-  const { data: enrollments } = useGetMonthlyBillsEnrollmentsQuery();
-  const activeEnrollmentCount = enrollments?.items.filter((item) => ['ONGOING', 'PENDING', 'FOR_REVIEW', 'ACTIVE'].includes((item.status || '').toUpperCase().replace(/\s+/g, '_'))).length ?? 0;
+  const enrollmentsQuery = useGetMonthlyBillsEnrollmentsQuery();
+  const activeEnrollmentCount = countActiveEnrollments(enrollmentsQuery.data?.items);
 
-  const handleEnrollAutoDebit = () => {
+  const openAutoDebit = () => {
+    if (activeEnrollmentCount > 0) {
+      router.push('/(app)/bills/enrollments/enrolled');
+      return;
+    }
+
     dispatch(clearEnrollmentCardPayload());
     dispatch(clearEnrollmentTransactionResponse());
     router.push('/(app)/bills/enrollments');
   };
 
-  const handleAddBiller = () => {
-    router.push({ pathname: '/bills/one-time-payments', params: { view: 'add' } });
-  };
-
-  const handlePayNow = () => {
-    router.push('/bills/one-time-payments/saved');
-  };
-
-  const scrollHandler = useAnimatedScrollHandler({
-    onScroll: (event) => {
-      const currentOffset = event.contentOffset.y;
-      const diff = currentOffset - lastContentOffset.value;
-      if (diff > 0 && currentOffset > 50) {
-        tabBarTranslateY.value = 150;
-      } else if (diff < 0) {
-        tabBarTranslateY.value = 0;
-      }
-
-      lastContentOffset.value = currentOffset;
-    },
-  });
-
   return (
-    <GlobalScrollView contentContainerStyle={globalStyle.screenContainer}>
-      <View style={{ flex: 1 }}>
+    <View style={styles.screen}>
+      <GlobalScrollView contentContainerStyle={styles.content}>
+        <HeaderComponent />
         <MonthlyBillsComponent />
-        <SpacerComponent height={12} />
-        <AutoDebitCard onPress={handleEnrollAutoDebit} showViewAll activeCount={activeEnrollmentCount} />
-        <SpacerComponent height={12} />
+        <AutoDebitCard
+          activeCount={activeEnrollmentCount}
+          isError={enrollmentsQuery.isError}
+          isLoading={enrollmentsQuery.isLoading || (enrollmentsQuery.isError && enrollmentsQuery.isFetching)}
+          onPress={openAutoDebit}
+          onRetry={() => { void enrollmentsQuery.refetch(); }}
+        />
         <BillsComponent
           sectionHeader={{ title: 'One Time Payments', linkText: 'View All' }}
           sectionFooter={{ button: true }}
-          onAddBillerPress={handleAddBiller}
-          onPayNowPress={handlePayNow}
         />
-        <SpacerComponent height={12} />
-        <PaymentMethodCardComponent sectionHeader={{ title: 'Payment Methods', linkText: 'View All' }} sectionFooter={{ button: true }} />
-        <SpacerComponent height={12} />
-        <TransactionHistoryComponent sectionHeader={{ title: 'Recent Transactions', linkText: 'View All' }} sectionFooter={{ button: true }} />
-      </View>
-    </GlobalScrollView>
+        <TransactionHistoryComponent
+          limit={DASHBOARD_RECENT_TRANSACTION_COUNT}
+          sectionHeader={{ title: 'Recent Transactions', linkText: 'View All' }}
+        />
+        <PaymentMethodsComponent
+          isRefreshable={false}
+          route="/dashboard"
+          sectionFooter={{ button: false }}
+          sectionHeader={{ title: 'Payment Methods', linkText: 'View All' }}
+        />
+      </GlobalScrollView>
+      <DashboardStatusBarScrim />
+    </View>
   );
 }

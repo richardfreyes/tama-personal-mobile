@@ -2,6 +2,7 @@ import { beforeEach, describe, expect, it, jest } from '@jest/globals';
 import { fireEvent, screen } from '@testing-library/react-native';
 import { router } from 'expo-router';
 import React from 'react';
+import { Image } from 'react-native';
 import BillsComponent from '../../../components/one-time-payments/BillsComponent';
 import { renderWithProviders } from '../../../utils/test-utils';
 
@@ -121,7 +122,7 @@ describe('BillsComponent', () => {
     });
     renderWithProviders(<BillsComponent {...defaultProps} />);
     expect(screen.getByText('My Bills')).toBeTruthy();
-    expect(screen.getByTestId('horizontal-card-skeleton')).toBeTruthy();
+    expect(screen.getByTestId('bills-loading')).toBeTruthy();
     expect(screen.queryByText('My Electric Bill')).toBeNull();
   });
 
@@ -134,7 +135,7 @@ describe('BillsComponent', () => {
     });
     renderWithProviders(<BillsComponent {...defaultProps} />);
     expect(screen.getByText('My Bills')).toBeTruthy();
-    expect(screen.getByTestId('horizontal-card-skeleton')).toBeTruthy();
+    expect(screen.getByTestId('bills-loading')).toBeTruthy();
     expect(screen.queryByText('My Electric Bill')).toBeNull();
   });
 
@@ -153,7 +154,7 @@ describe('BillsComponent', () => {
     });
     renderWithProviders(<BillsComponent {...defaultProps} />);
     expect(screen.getByText('My Bills')).toBeTruthy();
-    expect(screen.getByTestId('horizontal-card-skeleton')).toBeTruthy();
+    expect(screen.getByTestId('bills-loading')).toBeTruthy();
   });
 
   // ---- Error state ----
@@ -166,11 +167,7 @@ describe('BillsComponent', () => {
       error: { status: 500, data: 'Server Error' },
     });
     renderWithProviders(<BillsComponent {...defaultProps} />);
-    expect(
-      screen.getByText(
-        'Unable to load bills at the moment. Please try again later.',
-      ),
-    ).toBeTruthy();
+    expect(screen.getByText('Unable to load your billers.')).toBeTruthy();
   });
 
   it('hides bill cards when billers query has error', () => {
@@ -206,11 +203,8 @@ describe('BillsComponent', () => {
       error: null,
     });
     renderWithProviders(<BillsComponent {...defaultProps} />);
-    expect(
-      screen.getByText(
-        "It looks like you don't have any bills added yet.",
-      ),
-    ).toBeTruthy();
+    expect(screen.getByText('No one-time payments yet')).toBeTruthy();
+    expect(screen.getByText('Billers you add for one-time payments will show up here.')).toBeTruthy();
   });
 
   it('shows empty state when bills data is null', () => {
@@ -221,11 +215,8 @@ describe('BillsComponent', () => {
       error: null,
     });
     renderWithProviders(<BillsComponent {...defaultProps} />);
-    expect(
-      screen.getByText(
-        "It looks like you don't have any bills added yet.",
-      ),
-    ).toBeTruthy();
+    expect(screen.getByText('No one-time payments yet')).toBeTruthy();
+    expect(screen.getByText('Billers you add for one-time payments will show up here.')).toBeTruthy();
   });
 
   it('shows empty state when bills data is undefined', () => {
@@ -236,11 +227,8 @@ describe('BillsComponent', () => {
       error: null,
     });
     renderWithProviders(<BillsComponent {...defaultProps} />);
-    expect(
-      screen.getByText(
-        "It looks like you don't have any bills added yet.",
-      ),
-    ).toBeTruthy();
+    expect(screen.getByText('No one-time payments yet')).toBeTruthy();
+    expect(screen.getByText('Billers you add for one-time payments will show up here.')).toBeTruthy();
   });
 
   it('shows error state when bills query fails', () => {
@@ -251,12 +239,41 @@ describe('BillsComponent', () => {
       error: { status: 500, data: 'Server Error' },
     });
     renderWithProviders(<BillsComponent {...defaultProps} />);
-    expect(
-      screen.getByText(
-        'Unable to load bills at the moment. Please try again later.',
-      ),
-    ).toBeTruthy();
+    expect(screen.getByText('Unable to load your billers.')).toBeTruthy();
     expect(screen.queryByText('Pay Now')).toBeNull();
+  });
+
+  it('retries both queries from the error state', () => {
+    const billsRefetch = jest.fn(() => Promise.resolve());
+    const billersRefetch = jest.fn(() => Promise.resolve());
+    mockUseGetBillsQuery.mockReturnValue({
+      data: undefined,
+      isLoading: false,
+      isFetching: false,
+      isError: true,
+      error: { status: 500, data: 'Server Error' },
+      refetch: billsRefetch,
+    });
+    mockUseGetBillersQuery.mockReturnValue({ ...successBillers, refetch: billersRefetch });
+    renderWithProviders(<BillsComponent {...defaultProps} />);
+
+    fireEvent.press(screen.getByRole('button', { name: 'Try loading your billers again' }));
+    expect(billsRefetch).toHaveBeenCalledTimes(1);
+    expect(billersRefetch).toHaveBeenCalledTimes(1);
+  });
+
+  it('shows the skeleton again while a failed request is being retried', () => {
+    mockUseGetBillsQuery.mockReturnValue({
+      data: undefined,
+      isLoading: false,
+      isFetching: true,
+      isError: true,
+      error: { status: 500, data: 'Server Error' },
+    });
+    renderWithProviders(<BillsComponent {...defaultProps} />);
+
+    expect(screen.getByTestId('bills-loading')).toBeTruthy();
+    expect(screen.queryByText('Unable to load your billers.')).toBeNull();
   });
 
   // ---- Success state rendering ----
@@ -288,8 +305,27 @@ describe('BillsComponent', () => {
 
   it('renders amount values on bill cards', () => {
     renderWithProviders(<BillsComponent {...defaultProps} />);
-    expect(screen.getByText('₱1,500.00')).toBeTruthy();
-    expect(screen.getByText('₱800.00')).toBeTruthy();
+    expect(screen.getByText('₱ 1,500.00')).toBeTruthy();
+    expect(screen.getByText('₱ 800.00')).toBeTruthy();
+  });
+
+  it('formats pesos to two decimals and keeps foreign or missing amounts as they are', () => {
+    const billWithAmount = (id: number, amount?: string) => ({
+      ...mockBills[0],
+      billing_id: id,
+      billing_reference_id: `ref-amount-${id}`,
+      billing_name: `Bill ${id}`,
+      custom_fields: amount === undefined ? {} : { amount: { text: 'Amount', value: amount } },
+    });
+    mockUseGetBillsQuery.mockReturnValue({
+      ...successBills,
+      data: [billWithAmount(1, '₱1,750'), billWithAmount(2, 'USD 25.5'), billWithAmount(3)],
+    });
+    renderWithProviders(<BillsComponent {...defaultProps} />);
+
+    expect(screen.getByText('₱ 1,750.00')).toBeTruthy();
+    expect(screen.getByText('USD 25.5')).toBeTruthy();
+    expect(screen.getByText('No amount set')).toBeTruthy();
   });
 
   it('renders bill card without crashing when biller has no matching logo', () => {
@@ -301,6 +337,20 @@ describe('BillsComponent', () => {
     });
     renderWithProviders(<BillsComponent {...defaultProps} />);
     expect(screen.getByText('My Electric Bill')).toBeTruthy();
+  });
+
+  it('shows a biller logo when the biller has one and falls back to initials otherwise', () => {
+    mockUseGetBillsQuery.mockReturnValue({
+      data: [mockBills[0], { ...mockBills[1], merchant_id: 999 }],
+      isLoading: false,
+      isError: false,
+      error: null,
+    });
+    renderWithProviders(<BillsComponent {...defaultProps} />);
+
+    expect(screen.UNSAFE_getAllByType(Image)).toHaveLength(1);
+    expect(screen.UNSAFE_getByType(Image).props.source).toEqual({ uri: 'https://example.com/logo1.png' });
+    expect(screen.getByText('WU')).toBeTruthy();
   });
 
   // ---- Section header ----
@@ -331,6 +381,23 @@ describe('BillsComponent', () => {
   it('shows Pay Now button when sectionFooter.button is true', () => {
     renderWithProviders(<BillsComponent {...defaultProps} />);
     expect(screen.getByText('Pay Now')).toBeTruthy();
+  });
+
+  it('offers Add Biller but not Pay Now while there are no saved bills', () => {
+    mockUseGetBillsQuery.mockReturnValue({
+      data: [],
+      isLoading: false,
+      isError: false,
+      error: null,
+    });
+    renderWithProviders(<BillsComponent {...defaultProps} />);
+
+    expect(screen.queryByText('Pay Now')).toBeNull();
+    fireEvent.press(screen.getByRole('button', { name: 'Add Biller' }));
+    expect(router.push).toHaveBeenCalledWith({
+      pathname: '/bills/one-time-payments',
+      params: { view: 'add' },
+    });
   });
 
   it('hides Pay Now button when sectionFooter.button is false', () => {

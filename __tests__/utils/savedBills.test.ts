@@ -1,7 +1,10 @@
 import { describe, expect, it } from '@jest/globals';
 import type { Bill } from '@/redux/features/bills/billsTypes';
+import type { Biller } from '@/redux/features/biller/billerTypes';
 import {
+  formatSavedBillAmount,
   getActiveSavedBillCount,
+  getBillerLogoMap,
   getSavedBillAmount,
   getSavedBillCaption,
   getSavedBillInitials,
@@ -69,5 +72,60 @@ describe('saved bills utilities', () => {
   it('uses a useful payment status when the API has no due metadata', () => {
     expect(getSavedBillCaption(makeBill())).toBe('Ready to pay');
     expect(getSavedBillAmount(makeBill({ custom_fields: {} }))).toBe('—');
+  });
+});
+
+describe('getBillerLogoMap', () => {
+  const makeBiller = (merchant_id: number, merchant_logo_url: string): Biller => ({
+    address_one: '',
+    address_three: '',
+    address_two: '',
+    created_at: '',
+    is_active: true,
+    is_public: true,
+    merchant_code: `m${merchant_id}`,
+    merchant_id,
+    merchant_logo_url,
+    merchant_name: `Merchant ${merchant_id}`,
+    merchant_status: 'active',
+    merchant_timezone: 'Asia/Manila',
+    updated_at: '',
+  });
+
+  it('maps merchant ids to their logos and skips billers without one', () => {
+    const logos = getBillerLogoMap([
+      makeBiller(1, 'https://example.com/one.png'),
+      makeBiller(2, ''),
+      makeBiller(3, 'https://example.com/three.png'),
+    ]);
+
+    expect(logos.get(1)).toBe('https://example.com/one.png');
+    expect(logos.get(3)).toBe('https://example.com/three.png');
+    expect(logos.has(2)).toBe(false);
+    expect(logos.size).toBe(2);
+  });
+
+  it('returns an empty map before billers have loaded', () => {
+    expect(getBillerLogoMap(undefined).size).toBe(0);
+    expect(getBillerLogoMap(null).size).toBe(0);
+    expect(getBillerLogoMap([]).size).toBe(0);
+  });
+});
+
+describe('formatSavedBillAmount', () => {
+  const withAmount = (value: string) => makeBill({ custom_fields: { amount: { text: 'Amount', value } } });
+
+  it('shows peso amounts with a peso sign and two decimals', () => {
+    expect(formatSavedBillAmount(withAmount('₱1,750'))).toBe('₱ 1,750.00');
+    expect(formatSavedBillAmount(withAmount('PHP 1,750.5'))).toBe('₱ 1,750.50');
+    expect(formatSavedBillAmount(withAmount('2500'))).toBe('₱ 2,500.00');
+  });
+
+  it('keeps foreign currencies as the bill reports them', () => {
+    expect(formatSavedBillAmount(withAmount('USD 25.5'))).toBe('USD 25.5');
+  });
+
+  it('falls back to the no-amount label when the bill has no amount', () => {
+    expect(formatSavedBillAmount(makeBill({ custom_fields: {} }))).toBe('No amount set');
   });
 });

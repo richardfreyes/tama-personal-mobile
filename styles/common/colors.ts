@@ -97,6 +97,24 @@ export const Colors = {
   amber09: '#F5B14C',
   amber10: '#F4A837',
 
+  // Dashboard surfaces and status accents from the home dashboard design.
+  dashboardPanel: '#FCFBFB',
+  dashboardPanelBorder: '#F4F2F1',
+  dashboardCardBorder: '#EEE9E8',
+  dashboardSkeleton: '#F1EEEE',
+  dashboardGradientEnd: '#FEF4EA',
+  dashboardErrorText: '#B31D00',
+  dashboardSuccessText: '#3F7A12',
+
+  // Stops between the logo red and orange, shared by the dashboard cards, the action buttons,
+  // the enrollment summary card and the profile avatar ring.
+  brandGradientDeep: '#7F211D',
+  brandGradientVivid: '#DF4029',
+  brandGradientWarm: '#E65F2C',
+  brandGradientAction: '#E5572B',
+
   // Other Colors
   transparent: 'transparent',
+  // neutral01 fading out; a gradient to plain 'transparent' passes through grey on iOS.
+  whiteTransparent: 'rgba(255,255,255,0)',
 } as const;

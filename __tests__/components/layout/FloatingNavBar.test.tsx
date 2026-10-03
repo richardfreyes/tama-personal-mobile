@@ -1,13 +1,14 @@
 import { afterEach, beforeEach, describe, expect, it, jest } from '@jest/globals';
 import { act, fireEvent, screen } from '@testing-library/react-native';
 import React from 'react';
-import { TouchableOpacity } from 'react-native';
+import { StyleSheet, TouchableOpacity } from 'react-native';
 import FloatingNavBar from '../../../components/layout/FloatingNavBar';
-import { COMMON } from '../../../constants/common';
+import { FLOATING_NAV_TABS } from '../../../constants/navigationItems';
 import { TabBarAnimationProvider, useTabBarAnimation } from '../../../context/TabBarAnimationContext';
 import { Colors } from '../../../styles/common/colors';
+import { floatingNavBarStyles } from '../../../styles/components/layout/FloatingNavBar';
 import { renderWithProviders } from '../../../utils/test-utils';
-import { usePathname, useSegments } from 'expo-router';
+import { router, usePathname, useSegments } from 'expo-router';
 
 const mockUsePathname = usePathname as jest.Mock;
 const mockUseSegments = useSegments as jest.Mock;
@@ -81,7 +82,11 @@ function getTabButtons() {
   return screen.UNSAFE_getAllByType(TouchableOpacity);
 }
 
-const VALID_ROUTE_NAMES = Object.keys(COMMON.MENU_SVG_ICONS);
+function getIconColor(button: ReturnType<typeof getTabButtons>[number]) {
+  return button.props.children[0].props.children.props.stroke;
+}
+
+const VALID_ROUTE_NAMES = FLOATING_NAV_TABS.map(({ name }) => name);
 
 describe('FloatingNavBar', () => {
   beforeEach(() => {
@@ -101,14 +106,31 @@ describe('FloatingNavBar', () => {
     expect(toJSON()).toBeTruthy();
   });
 
+  it('renders the light bar with labeled tabs in the handoff order and 44pt touch targets', () => {
+    renderNavBar();
+
+    const buttons = getTabButtons();
+    expect(buttons.map((button) => button.props.accessibilityLabel)).toEqual(['Home', 'Bills', 'History', 'Wallet']);
+    buttons.forEach((button) => {
+      expect(button.props.accessibilityRole).toBe('tab');
+      expect(StyleSheet.flatten(button.props.style).minHeight).toBeGreaterThanOrEqual(44);
+    });
+    expect(floatingNavBarStyles.tabBar).toEqual(expect.objectContaining({
+      backgroundColor: Colors.neutral01,
+      borderRadius: 24,
+      borderWidth: 1,
+    }));
+  });
+
   it('renders the tab bar with Bills active on the dedicated Saved Bills route', () => {
     mockUseSegments.mockReturnValue(['(app)', 'bills', 'saved']);
     renderNavBar({ index: 0 });
 
     const buttons = getTabButtons();
     expect(buttons).toHaveLength(VALID_ROUTE_NAMES.length);
-    expect(buttons[0].props.children.props.fill).not.toBe(Colors.red10);
-    expect(buttons[2].props.children.props.fill).toBe(Colors.red10);
+    expect(buttons[0].props.accessibilityState).toEqual({ selected: false });
+    expect(buttons[1].props.accessibilityState).toEqual({ selected: true });
+    expect(getIconColor(buttons[1])).toBe(Colors.red09);
   });
 
   it('keeps Bills active when the focused navigator route is Saved Bills', () => {
@@ -120,7 +142,8 @@ describe('FloatingNavBar', () => {
 
     const buttons = getTabButtons();
     expect(buttons).toHaveLength(1);
-    expect(buttons[0].props.children.props.fill).toBe(Colors.red10);
+    expect(buttons[0].props.accessibilityState).toEqual({ selected: true });
+    expect(getIconColor(buttons[0])).toBe(Colors.red09);
   });
 
   it('renders a tab button for each route that has an icon config', () => {
@@ -189,7 +212,7 @@ describe('FloatingNavBar', () => {
     renderNavBar({ index: 0, navigate, emit });
 
     const buttons = getTabButtons();
-    fireEvent.press(buttons[1]); // transactions tab
+    fireEvent.press(buttons[2]); // History tab
 
     expect(emit).toHaveBeenCalledWith(
       expect.objectContaining({
@@ -213,6 +236,28 @@ describe('FloatingNavBar', () => {
     expect(navigate).not.toHaveBeenCalled();
   });
 
+  it('returns to the section root when the active tab is pressed from a nested screen', () => {
+    mockUsePathname.mockReturnValue('/bills/one-time-payments/saved');
+    mockUseSegments.mockReturnValue(['(app)', 'bills', 'one-time-payments', 'saved']);
+    const navigate = jest.fn();
+    renderNavBar({ index: 0, navigate });
+
+    fireEvent.press(getTabButtons()[1]); // Bills is already the active section
+
+    expect(router.replace).toHaveBeenCalledWith('/bills');
+    expect(navigate).not.toHaveBeenCalled();
+  });
+
+  it('leaves the screen alone when the active tab is already on its root', () => {
+    mockUsePathname.mockReturnValue('/bills');
+    mockUseSegments.mockReturnValue(['(app)', 'bills']);
+    renderNavBar({ index: 0 });
+
+    fireEvent.press(getTabButtons()[1]);
+
+    expect(router.replace).not.toHaveBeenCalled();
+  });
+
   it('does not navigate when the event is default-prevented', () => {
     const navigate = jest.fn();
     const emit = jest.fn(() => ({ defaultPrevented: true }));
@@ -230,7 +275,7 @@ describe('FloatingNavBar', () => {
     renderNavBar({ index: 0, emit });
     const buttons = getTabButtons();
 
-    const expectedKeys = ['dashboard-key', 'transactions-key', 'bills-key', 'payments-key'];
+    const expectedKeys = ['dashboard-key', 'bills-key', 'transactions-key', 'payments-key'];
     buttons.forEach((btn, i) => {
       if (i === 0) return; // skip focused tab
       fireEvent.press(btn);
@@ -245,7 +290,7 @@ describe('FloatingNavBar', () => {
     renderNavBar({ index: 0, navigate, emit });
     const buttons = getTabButtons();
 
-    const expectedRoutes = ['dashboard', 'transactions/index', 'bills/index', 'payment-methods/index'];
+    const expectedRoutes = ['dashboard', 'bills/index', 'transactions/index', 'payment-methods/index'];
     buttons.forEach((btn, i) => {
       if (i === 0) return;
       fireEvent.press(btn);
@@ -258,19 +303,18 @@ describe('FloatingNavBar', () => {
   // ---- Focus state / icon color ----
 
   it('passes the active color to the focused icon and inactive color to others', () => {
-    renderNavBar({ index: 2 }); // bills tab focused
+    renderNavBar({ index: 2 }); // Bills is focused in navigator state
     const buttons = getTabButtons();
 
-    // Each button wraps an SVG mock component; its fill prop carries the icon color.
+    // Visual order is Home, Bills, History, Wallet, independently of navigator route order.
     buttons.forEach((btn, i) => {
-      const iconEl = btn.props.children;
-      if (i === 2) {
-        // Focused tab gets the brand red highlight
-        expect(iconEl.props.fill).toBe(Colors.red10);
+      if (i === 1) {
+        expect(btn.props.accessibilityState).toEqual({ selected: true });
+        expect(getIconColor(btn)).toBe(Colors.red09);
+        expect(StyleSheet.flatten(btn.props.children[0].props.style).backgroundColor).toBe(Colors.red01);
       } else {
-        // Unfocused tabs get their configured inactive color
-        expect(iconEl.props.fill).toBeTruthy();
-        expect(iconEl.props.fill).not.toBe(Colors.red10);
+        expect(btn.props.accessibilityState).toEqual({ selected: false });
+        expect(getIconColor(btn)).toBe(Colors.maroon09);
       }
     });
   });
@@ -279,15 +323,17 @@ describe('FloatingNavBar', () => {
     // First render with index 0
     const { unmount } = renderNavBar({ index: 0 });
     let buttons = getTabButtons();
-    expect(buttons[0].props.children.props.fill).toBe(Colors.red10);
-    expect(buttons[1].props.children.props.fill).not.toBe(Colors.red10);
+    expect(buttons[0].props.accessibilityState).toEqual({ selected: true });
+    expect(getIconColor(buttons[0])).toBe(Colors.red09);
+    expect(getIconColor(buttons[2])).toBe(Colors.maroon09);
     unmount();
 
-    // Re-render with index 1
+    // Navigator index 1 is History, now shown in the third visual slot.
     renderNavBar({ index: 1 });
     buttons = getTabButtons();
-    expect(buttons[0].props.children.props.fill).not.toBe(Colors.red10);
-    expect(buttons[1].props.children.props.fill).toBe(Colors.red10);
+    expect(buttons[0].props.accessibilityState).toEqual({ selected: false });
+    expect(buttons[2].props.accessibilityState).toEqual({ selected: true });
+    expect(getIconColor(buttons[2])).toBe(Colors.red09);
   });
 
   it('keeps the Bills navigation item active throughout the Add Biller flow', () => {
@@ -296,8 +342,9 @@ describe('FloatingNavBar', () => {
     renderNavBar({ index: 0 });
 
     const buttons = getTabButtons();
-    expect(buttons[0].props.children.props.fill).not.toBe(Colors.red10);
-    expect(buttons[2].props.children.props.fill).toBe(Colors.red10);
+    expect(buttons[0].props.accessibilityState).toEqual({ selected: false });
+    expect(buttons[1].props.accessibilityState).toEqual({ selected: true });
+    expect(getIconColor(buttons[1])).toBe(Colors.red09);
   });
 
   // ---- onLayout ----

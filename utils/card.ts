@@ -17,6 +17,8 @@ import UbIcon from '@/assets/icons/unionbank.svg';
 import UnionPayCardIcon from '@/assets/icons/unionpay.svg';
 import VisaCardIcon from '@/assets/icons/visa.svg';
 import { COMMON } from "@/constants/common";
+import { DIRECT_DEBIT_PAYMENT_METHOD_NAME } from '@/constants/directDebit';
+import type { PaymentMethod } from '@/redux/features/paymentMethods/paymentMethodTypes';
 
 export type CardProvider = 'visa' | 'mastercard' | 'amex' | 'discover' | 'unknown';
 
@@ -82,3 +84,11 @@ export const formatLastFourDigits = (lastFour?: string | null): string => {
 
   return trimmedLastFour || '----';
 };
+
+// Direct debit is a one-time-payment-only method offered inside the pay flow, so it is never
+// presented in the saved payment methods lists.
+export const getSavedPaymentMethods = (methods?: PaymentMethod[] | null): PaymentMethod[] => (
+  (methods ?? []).filter(
+    (method) => method.paymentMethodName?.toLowerCase() !== DIRECT_DEBIT_PAYMENT_METHOD_NAME,
+  )
+);

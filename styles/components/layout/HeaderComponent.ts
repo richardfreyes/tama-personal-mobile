@@ -1,58 +1,51 @@
-import { StyleSheet } from "react-native";
-import { Colors } from "../../common/colors";
+import { Colors } from '@/styles/common/colors';
+import { StyleSheet } from 'react-native';
 
 export const headerComponentStyles = StyleSheet.create({
   headerContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingHorizontal: 24,
-    paddingTop: 12,
-    paddingBottom: 12,
     backgroundColor: Colors.neutral01,
   },
-  profileInfo: {
-    flexDirection: 'row',
+  profileButton: {
     alignItems: 'center',
+    flexDirection: 'row',
+    minHeight: 44,
+    width: '100%',
   },
-  profileInitials: {
-    display: 'flex',
+  avatarRing: {
+    alignItems: 'center',
+    borderRadius: 22,
+    height: 44,
     justifyContent: 'center',
+    width: 44,
+  },
+  avatarInner: {
     alignItems: 'center',
-    width: 32,
-    height: 32,
-    borderRadius: 18,
-    marginRight: 8,
-    backgroundColor: Colors.red07,
+    backgroundColor: Colors.red01,
+    borderColor: Colors.neutral01,
+    borderRadius: 20,
+    borderWidth: 2,
+    height: 40,
+    justifyContent: 'center',
+    width: 40,
   },
-  profileImage: {
-    width: 32,
-    height: 32,
-    borderRadius: 18,
-    marginRight: 8,
-    borderWidth: 1,
-    borderColor: Colors.neutral05,
+  initials: {
+    color: Colors.red09,
+    fontSize: 14,
+    lineHeight: 20,
   },
-  iconContainer: {
-    flexDirection: 'row',
+  textColumn: {
+    flex: 1,
+    marginLeft: 12,
+    minWidth: 0,
   },
-  headerButton: {
-    position: 'relative',
-    marginLeft: 18, 
+  greeting: {
+    color: Colors.maroon09,
+    fontSize: 13,
+    lineHeight: 18,
   },
-  unreadBadge: {
-    position: 'absolute',
-    top: -2,
-    right: -2,
-    minHeight: 12,
-    minWidth: 12,
-    paddingHorizontal: 4,
-    backgroundColor: Colors.error06,
-    borderRadius: 8,
-    height: 12,
+  name: {
+    color: Colors.maroon11,
+    fontSize: 18,
+    lineHeight: 26,
   },
-  unreadCountLabel: {
-    textAlign: 'center',
-    color: Colors.neutral01,
-  }
 });

@@ -1,5 +1,4 @@
 import FloatingNavBar from '@/components/layout/FloatingNavBar';
-import HeaderComponent from '@/components/layout/HeaderComponent';
 import { TabBarAnimationProvider } from '@/context/TabBarAnimationContext';
 import { retrieveToken } from '@/redux/features/login/loginApi';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
@@ -32,13 +31,7 @@ export default function TabLayout() {
           tabBarStyle: { display: 'none' }, 
         }}
       >
-        <Tabs.Screen 
-          name="dashboard"
-          options={{
-            header: ({}) => <HeaderComponent />, 
-            headerShown: true
-          }}
-        />
+        <Tabs.Screen name="dashboard" />
       </Tabs>
     </TabBarAnimationProvider>
   );

@@ -270,6 +270,15 @@ export const getEnrollmentStatusLabel = (status?: string | null): string => {
     .join(' ');
 };
 
+// Home and Bills both report how many enrollments are running, so they share this one definition.
+export const isActiveEnrollment = ({ status }: Pick<Enrollment, 'status'>): boolean => (
+  getEnrollmentStatusLabel(status) === 'Active'
+);
+
+export const countActiveEnrollments = (enrollments: readonly Pick<Enrollment, 'status'>[] = []): number => (
+  enrollments.filter(isActiveEnrollment).length
+);
+
 const getFirstEnrollmentNumber = (enrollment: Enrollment, paths: string[]): number | null => {
   const value = getFirstEnrollmentValue(enrollment, paths);
   if (value === null) return null;
@@ -572,7 +581,13 @@ export const buildEnrollmentDetailsViewModel = (enrollment: Enrollment): Enrollm
     ? null
     : `${totalPayments} month${totalPayments === 1 ? '' : 's'}`;
   const nextPaymentDate = formatEnrollmentDate(getEnrollmentNextDebitDateValue(enrollment));
-  const merchantName = getEnrollmentMerchantName(enrollment) || 'Enrollment';
+  const merchantNameValue = getEnrollmentMerchantName(enrollment);
+  const merchantName = merchantNameValue || 'Enrollment';
+  const merchantContactName = merchantNameValue || 'the merchant';
+  const lastPayment = lastPaymentDate
+    ? [formattedLastPaymentAmount, lastPaymentDate].filter(Boolean).join(' · ')
+    : 'No payments yet';
+  const paymentMethod = getDetailedPaymentMethod(enrollment);
   const paymentTypeValue = getFirstEnrollmentValue(enrollment, [
     'paymentTypeName',
     'paymentType.name',
@@ -628,8 +643,24 @@ export const buildEnrollmentDetailsViewModel = (enrollment: Enrollment): Enrollm
     ])),
   ]);
 
+  const summaryMetrics = compactFields<EnrollmentDisplayField>([
+    buildDisplayField('frequency', 'Payment frequency', frequency),
+    buildDisplayField('duration', 'Number of payments', paymentDuration),
+    buildDisplayField('start', 'Start date', startDate),
+    buildDisplayField('last-payment', 'Last payment', lastPayment),
+  ]);
+
+  const paymentMethodFields = compactFields<EnrollmentDisplayField>([
+    buildDisplayField('card-type', 'Card type', paymentMethod?.cardType ?? null),
+    buildDisplayField('card', 'Card number', paymentMethod?.maskedCard ?? null),
+    buildDisplayField('cardholder', 'Cardholder', paymentMethod?.cardholder ?? null),
+    buildDisplayField('expiry', 'Expiry', paymentMethod?.expiry ?? null),
+    buildDisplayField('payment-method-type', 'Payment method', paymentMethod?.paymentMethodType ?? null),
+  ]);
+
   return {
     merchantName,
+    merchantContactName,
     paymentType,
     referenceId: getFirstEnrollmentValue(enrollment, [
       'referenceId',
@@ -642,16 +673,16 @@ export const buildEnrollmentDetailsViewModel = (enrollment: Enrollment): Enrollm
     paymentFrequency: frequency,
     paymentDuration,
     startDate,
-    lastPayment: lastPaymentDate
-      ? [formattedLastPaymentAmount, lastPaymentDate].filter(Boolean).join(' · ')
-      : 'No payments yet',
+    lastPayment,
     lastPaymentRecord: lastPaymentDate || 'No payments recorded yet',
     estimatedTotal,
     completedPayments,
     totalPayments,
     progress,
     nextPaymentDate,
-    paymentMethod: getDetailedPaymentMethod(enrollment),
+    summaryMetrics,
+    paymentMethod,
+    paymentMethodFields,
     enrollmentFields,
     customerFields,
     clientNotes: getFirstEnrollmentValue(enrollment, [

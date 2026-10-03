@@ -105,3 +105,5 @@ export const STATUS_LABELS = {
   uncaptured: 'Pending',
   declined: 'Declined',
 } as Record<string, string>;
+
+export const PAYMENT_METHOD_SKELETON_COUNT = 2;

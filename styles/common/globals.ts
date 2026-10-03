@@ -31,6 +31,28 @@ export const globalStyle = StyleSheet.create({
     padding: 12,
     borderRadius: 8
   },
+  // Flat container for a section header and its content; white cards sit inside it.
+  sectionPanel: {
+    backgroundColor: Colors.dashboardPanel,
+    borderColor: Colors.dashboardPanelBorder,
+    borderRadius: 24,
+    borderWidth: 1,
+    overflow: 'hidden',
+    padding: 16,
+  },
+  // White card inside a section panel; rows sit in it, separated by dividers.
+  listCard: {
+    backgroundColor: Colors.neutral01,
+    borderColor: Colors.dashboardCardBorder,
+    borderRadius: 20,
+    borderWidth: 1,
+    paddingHorizontal: 16,
+    paddingVertical: 2,
+  },
+  // Placeholder bars on white cards; the shared SkeletonBlock defaults to a darker grey.
+  skeletonOnCard: {
+    backgroundColor: Colors.dashboardSkeleton,
+  },
   headerTitle: {
     fontSize: 24,
   },

@@ -13,6 +13,7 @@ import {
   ProfileSkeleton,
   ReceiptSkeleton,
   SkeletonBlock,
+  SkeletonGroup,
   SkeletonList,
   TransactionDetailSkeleton,
   TransactionHistorySkeleton,
@@ -142,6 +143,21 @@ describe('Loading components', () => {
     render(<DetailsSkeleton sections={2} rowsPerSection={2} />);
     expect(screen.getByTestId('details-skeleton')).toBeTruthy();
     expect(screen.getAllByTestId('skeleton-block')).toHaveLength(10);
+  });
+
+  it('groups placeholder blocks as one busy region for screen readers', () => {
+    render(
+      <SkeletonGroup label="Loading payment methods" testID="group">
+        <SkeletonBlock testID="inside-block" />
+      </SkeletonGroup>,
+    );
+
+    const group = screen.getByTestId('group');
+    expect(group.props.accessibilityLabel).toBe('Loading payment methods');
+    expect(group.props.accessibilityRole).toBe('progressbar');
+    expect(group.props.accessibilityLiveRegion).toBe('polite');
+    expect(group.props.accessibilityState).toEqual({ busy: true });
+    expect(screen.getByTestId('inside-block')).toBeTruthy();
   });
 
   it.each([

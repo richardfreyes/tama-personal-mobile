@@ -167,5 +167,66 @@ export const transactionHistoryComponentStyles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
-  }
+  },
+  // Compact rows of the recent transactions preview.
+  recentRow: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    gap: 12,
+    minHeight: 68,
+    paddingVertical: 14,
+  },
+  recentDetails: {
+    flex: 1,
+    gap: 2,
+    minWidth: 0,
+  },
+  recentMerchant: {
+    color: Colors.maroon11,
+    fontSize: 14,
+    lineHeight: 20,
+  },
+  recentMeta: {
+    color: Colors.maroon09,
+    fontSize: 12,
+    lineHeight: 17,
+  },
+  recentAmountColumn: {
+    alignItems: 'flex-end',
+    flexShrink: 1,
+    gap: 4,
+    maxWidth: '48%',
+  },
+  recentAmount: {
+    color: Colors.maroon11,
+    fontSize: 14,
+    fontVariant: ['tabular-nums'],
+    lineHeight: 20,
+  },
+  recentBadge: {
+    alignItems: 'center',
+    borderRadius: 999,
+    flexDirection: 'row',
+    gap: 5,
+    height: 20,
+    paddingHorizontal: 7,
+  },
+  recentBadgeDot: {
+    borderRadius: 3,
+    height: 5,
+    width: 5,
+  },
+  recentBadgeText: {
+    fontSize: 11,
+    lineHeight: 16,
+  },
+  recentDivider: {
+    backgroundColor: Colors.dashboardSkeleton,
+    height: 1,
+    marginLeft: 52,
+  },
+  recentSkeletonDetails: {
+    flex: 1,
+    gap: 8,
+  },
 });

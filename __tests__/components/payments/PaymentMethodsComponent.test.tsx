@@ -63,8 +63,24 @@ describe('PaymentMethodsComponent', () => {
       refetch: jest.fn(),
     });
     renderWithProviders(<PaymentMethodsComponent {...defaultProps} />);
-    expect(screen.getByTestId('payment-method-list-skeleton')).toBeTruthy();
+    expect(screen.getByTestId('payment-methods-loading')).toBeTruthy();
+    expect(screen.getByLabelText('Loading payment methods')).toBeTruthy();
     expect(screen.getByText('Payment Methods')).toBeTruthy();
+    expect(screen.queryByText('Visa')).toBeNull();
+  });
+
+  it('shows the skeleton again while a failed request is being retried', () => {
+    mockUseGetPaymentMethodsQuery.mockReturnValue({
+      data: undefined,
+      isLoading: false,
+      isFetching: true,
+      isError: true,
+      error: { status: 500 },
+      refetch: jest.fn(),
+    });
+    renderWithProviders(<PaymentMethodsComponent {...defaultProps} />);
+    expect(screen.getByTestId('payment-methods-loading')).toBeTruthy();
+    expect(screen.queryByText('Unable to load payment methods.')).toBeNull();
   });
 
   // ---- Error ----
@@ -79,12 +95,24 @@ describe('PaymentMethodsComponent', () => {
       refetch: jest.fn(),
     });
     renderWithProviders(<PaymentMethodsComponent {...defaultProps} />);
-    expect(
-      screen.getByText(
-        'Unable to load payment methods at the moment. Please try again later.',
-      ),
-    ).toBeTruthy();
+    expect(screen.getByText('Unable to load payment methods.')).toBeTruthy();
     expect(screen.queryByText('Add Payment Method')).toBeNull();
+  });
+
+  it('retries the payment methods from the error state', () => {
+    const refetch = jest.fn();
+    mockUseGetPaymentMethodsQuery.mockReturnValue({
+      data: undefined,
+      isLoading: false,
+      isFetching: false,
+      isError: true,
+      error: { status: 500 },
+      refetch,
+    });
+    renderWithProviders(<PaymentMethodsComponent {...defaultProps} />);
+
+    fireEvent.press(screen.getByRole('button', { name: 'Try loading payment methods again' }));
+    expect(refetch).toHaveBeenCalledTimes(1);
   });
 
   // ---- Empty ----
@@ -99,11 +127,17 @@ describe('PaymentMethodsComponent', () => {
       refetch: jest.fn(),
     });
     renderWithProviders(<PaymentMethodsComponent {...defaultProps} />);
-    expect(
-      screen.getByText(
-        'No payment methods added yet. Add one to start making payments.',
-      ),
-    ).toBeTruthy();
+    expect(screen.getByText('No payment methods yet')).toBeTruthy();
+    expect(screen.getByText('Cards you save for paying bills will appear here.')).toBeTruthy();
+  });
+
+  it('shows the empty state when only direct debit accounts exist', () => {
+    mockUseGetPaymentMethodsQuery.mockReturnValue({
+      ...success,
+      data: [{ ...cards[1], referenceId: 'bank-1', paymentMethodName: 'directdebit', paymentMethodProvider: 'BPI' }],
+    });
+    renderWithProviders(<PaymentMethodsComponent {...defaultProps} />);
+    expect(screen.getByText('No payment methods yet')).toBeTruthy();
   });
 
   it('hides the View All link when empty but still shows the add button', () => {
@@ -150,7 +184,7 @@ describe('PaymentMethodsComponent', () => {
     renderWithProviders(<PaymentMethodsComponent {...defaultProps} />);
 
     expect(screen.getByText('Card')).toBeTruthy();
-    expect(screen.getByText('••••  ••••  ••••  3333')).toBeTruthy();
+    expect(screen.getByText('•••• 3333')).toBeTruthy();
 
     fireEvent.press(screen.getByText('Card'));
     expect(router.push).toHaveBeenCalledWith(
@@ -167,8 +201,8 @@ describe('PaymentMethodsComponent', () => {
 
   it('renders the masked card numbers', () => {
     renderWithProviders(<PaymentMethodsComponent {...defaultProps} />);
-    expect(screen.getByText('••••  ••••  ••••  4242')).toBeTruthy();
-    expect(screen.getByText('••••  ••••  ••••  1111')).toBeTruthy();
+    expect(screen.getByText('•••• 4242')).toBeTruthy();
+    expect(screen.getByText('•••• 1111')).toBeTruthy();
   });
 
   it('shows the Default tag only for the primary card', () => {
@@ -212,10 +246,49 @@ describe('PaymentMethodsComponent', () => {
 
   // ---- Navigation ----
 
+  it('never lists direct debit accounts, whatever their casing', () => {
+    mockUseGetPaymentMethodsQuery.mockReturnValue({
+      ...success,
+      data: [
+        ...cards,
+        { ...cards[1], referenceId: 'bank-1', paymentMethodName: 'DirectDebit', paymentMethodProvider: 'BPI', lastFourCardDigits: '9999' },
+      ],
+    });
+    renderWithProviders(<PaymentMethodsComponent {...defaultProps} />);
+
+    expect(screen.getByText('Visa')).toBeTruthy();
+    expect(screen.queryByText('Bpi')).toBeNull();
+    expect(screen.queryByText(/9999/)).toBeNull();
+  });
+
   it('navigates to the payment methods list on View All press', () => {
     renderWithProviders(<PaymentMethodsComponent {...defaultProps} />);
     fireEvent.press(screen.getByText('View All'));
     expect(router.push).toHaveBeenCalledWith('/payment-methods');
+  });
+
+  it('opens the add card form from the add button by default', () => {
+    const navigate = jest.fn();
+    (router as unknown as { navigate: typeof navigate }).navigate = navigate;
+    renderWithProviders(<PaymentMethodsComponent {...defaultProps} />);
+    fireEvent.press(screen.getByText('Add Payment Method'));
+    expect(navigate).toHaveBeenCalledWith('/payment-methods/add-card');
+  });
+
+  it('can hide the add button when it is embedded in another screen', () => {
+    renderWithProviders(<PaymentMethodsComponent {...defaultProps} sectionFooter={{ button: false }} />);
+    expect(screen.getByText('Visa')).toBeTruthy();
+    expect(screen.queryByText('Add Payment Method')).toBeNull();
+  });
+
+  it('is pull-to-refresh by default and can opt out when the screen already scrolls', () => {
+    const view = renderWithProviders(<PaymentMethodsComponent {...defaultProps} />);
+    expect(screen.UNSAFE_queryAllByType(RefreshControl)).toHaveLength(1);
+    view.unmount();
+
+    renderWithProviders(<PaymentMethodsComponent {...defaultProps} isRefreshable={false} />);
+    expect(screen.getByText('Visa')).toBeTruthy();
+    expect(screen.UNSAFE_queryAllByType(RefreshControl)).toHaveLength(0);
   });
 
   it('invokes the provided add-payment-method handler instead of the default route', () => {

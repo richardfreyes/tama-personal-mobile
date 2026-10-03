@@ -1,4 +1,4 @@
-import { formatAmountEnrollments, formatCurrencyInput, formatMonetaryDisplayValue, getCurrencyInputSelection, normalizeCurrencyInput, parseCurrencyInput } from '@/utils/format';
+import { formatAmountEnrollments, formatCurrencyAmount, formatCurrencyInput, formatMonetaryDisplayValue, formatPesoAmount, getAmountParts, getCurrencyInputSelection, normalizeCurrencyInput, parseCurrencyInput } from '@/utils/format';
 import { describe, expect, it } from '@jest/globals';
 
 describe('currency formatting utilities', () => {
@@ -93,5 +93,33 @@ describe('currency formatting utilities', () => {
       previousFormattedValue: '1,000',
       previousSelection: { start: 5, end: 5 },
     })).toEqual({ start: 8, end: 8 });
+  });
+});
+
+describe('peso and amount display helpers', () => {
+  it('formats pesos with two decimals regardless of the device locale', () => {
+    expect(formatPesoAmount(1234.5)).toBe('₱ 1,234.50');
+    expect(formatPesoAmount(0)).toBe('₱ 0.00');
+    expect(formatPesoAmount(1234567.891)).toBe('₱ 1,234,567.89');
+  });
+
+  it('lets callers pick the locale used to group a currency amount', () => {
+    const options = { minimumFractionDigits: 2, maximumFractionDigits: 2 };
+
+    expect(formatCurrencyAmount('EUR', 1234.5, options, 'de-DE')).toBe('EUR 1.234,50');
+    expect(formatCurrencyAmount('EUR', 1234.5, options, 'en-US')).toBe('EUR 1,234.50');
+  });
+
+  it('splits a display amount into currency, whole and cents', () => {
+    expect(getAmountParts('PHP 1,250.00')).toEqual({ currency: '₱', whole: '1,250', cents: '.00' });
+    expect(getAmountParts('₱1,250.50')).toEqual({ currency: '₱', whole: '1,250', cents: '.50' });
+    expect(getAmountParts('USD 2,300.00')).toEqual({ currency: 'USD', whole: '2,300', cents: '.00' });
+    expect(getAmountParts('€10.00')).toEqual({ currency: '€', whole: '10', cents: '.00' });
+  });
+
+  it('declines to split amounts that are not two-decimal money values', () => {
+    expect(getAmountParts('PHP 1,250')).toBeNull();
+    expect(getAmountParts('Amount unavailable')).toBeNull();
+    expect(getAmountParts('')).toBeNull();
   });
 });

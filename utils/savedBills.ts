@@ -1,9 +1,16 @@
 import { ENV_CONFIG } from '@/constants/env';
 import { MOCK_SAVED_BILLS } from '@/__mocks__/data/mockSavedBills';
-import { AMOUNT_FIELD_PATTERN, AVATAR_COLORS, INACTIVE_STATUS_PATTERN, PAID_STATUS_PATTERN } from '@/constants/savedBills';
+import { AMOUNT_FIELD_PATTERN, AVATAR_COLORS, INACTIVE_STATUS_PATTERN, PAID_STATUS_PATTERN, SAVED_BILL_NO_AMOUNT_LABEL } from '@/constants/savedBills';
+import type { Biller } from '@/redux/features/biller/billerTypes';
 import type { Bill } from '@/redux/features/bills/billsTypes';
-import { formatMonetaryDisplayValue } from '@/utils/format';
+import { formatMonetaryDisplayValue, formatPesoAmount, removeCurrencySeparators } from '@/utils/format';
 import { format, isValid, startOfDay } from 'date-fns';
+
+export const getBillerLogoMap = (billers?: Biller[] | null): Map<number, string> => new Map<number, string>(
+  (billers ?? [])
+    .filter((biller) => Boolean(biller.merchant_logo_url))
+    .map((biller) => [biller.merchant_id, biller.merchant_logo_url]),
+);
 
 const getCustomFieldValue = (bill: Bill, keys: string[]): any => {
   for (const key of keys) {
@@ -128,6 +135,23 @@ export const getSavedBillAmount = (bill: Bill): string => {
   return amountField
     ? formatMonetaryDisplayValue(amountField.value, amountField.text)
     : '—';
+};
+
+// Peso amounts are shown to two decimals; other currencies and missing amounts are left as the bill has them.
+export const formatSavedBillAmount = (bill: Bill): string => {
+  const amount = getSavedBillAmount(bill).trim();
+  if (!amount || amount === '—') {
+    return SAVED_BILL_NO_AMOUNT_LABEL;
+  }
+
+  const isPesoAmount = /^(?:₱|PHP\s*)/i.test(amount);
+  const isUnprefixedAmount = /^[\d,]+(?:\.\d+)?$/.test(amount);
+  if (!isPesoAmount && !isUnprefixedAmount) {
+    return amount;
+  }
+
+  const value = Number(removeCurrencySeparators(amount.replace(/^(?:₱|PHP)\s*/i, '')));
+  return Number.isFinite(value) ? formatPesoAmount(value) : amount;
 };
 
 const getSavedBillDueDate = (bill: Bill): Date | null => {

@@ -1,44 +1,52 @@
-import { COMMON } from '@/constants/common';
+import { AppText } from '@/components/common/AppText';
 import { useAuth } from '@/hooks/useAuth';
+import { Colors } from '@/styles/common/colors';
 import { headerComponentStyles as styles } from '@/styles/components/layout/HeaderComponent';
-import { HeaderProps } from '@/types';
+import type { HeaderProps } from '@/types';
+import { LinearGradient } from 'expo-linear-gradient';
 import { router } from 'expo-router';
 import React from 'react';
-import { TouchableOpacity, View } from 'react-native';
+import { Pressable, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { AppText } from '../common/AppText';
+
+const greetingForHour = (hour: number) => {
+  if (hour < 12) return 'Good morning,';
+  if (hour < 18) return 'Good afternoon,';
+  return 'Good evening,';
+};
 
 const HeaderComponent: React.FC<HeaderProps> = () => {
   const { firstName, lastName } = useAuth();
   const insets = useSafeAreaInsets();
-  const [unread, setUnread] = React.useState(3);
   const initials = `${firstName?.charAt(0) || ''}${lastName?.charAt(0) || ''}`.toUpperCase();
+  const name = `${firstName} ${lastName}`.trim();
 
-  const handleNotificationPress = () => {
-    router.push(COMMON.ROUTES.notifications);
-  }
-  
   return (
-    <View style={[styles.headerContainer, { paddingTop: insets.top + 12 }]}>
-      <TouchableOpacity onPress={() => router.push(COMMON.ROUTES.settings)}>
-        <View style={styles.profileInfo}>
-          <View style={styles.profileInitials}>
-            <AppText size='small'>{initials}</AppText>
+    <View style={[styles.headerContainer, { paddingTop: insets.top + 8 }]}>
+      <Pressable
+        accessibilityHint="Opens your profile"
+        accessibilityLabel={`Profile, ${name}`}
+        accessibilityRole="button"
+        onPress={() => router.push('/settings/profile')}
+        style={styles.profileButton}
+      >
+        <LinearGradient
+          colors={[Colors.red10, Colors.brandGradientVivid, Colors.amber10]}
+          end={{ x: 1, y: 1 }}
+          start={{ x: 0, y: 0 }}
+          style={styles.avatarRing}
+        >
+          <View style={styles.avatarInner}>
+            <AppText weight="600" style={styles.initials}>{initials}</AppText>
           </View>
-          {/* TODO: For phase 2
-          <Image source={{ uri: COMMON.PROFILE_IMAGE_URI }} style={styles.profileImage}/> */}
-          <AppText>{firstName} {lastName}</AppText>
+        </LinearGradient>
+        <View style={styles.textColumn}>
+          <AppText numberOfLines={1} style={styles.greeting}>{greetingForHour(new Date().getHours())}</AppText>
+          <AppText numberOfLines={1} ellipsizeMode="tail" weight="600" style={styles.name}>
+            {name}
+          </AppText>
         </View>
-      </TouchableOpacity>
-      {/* TODO: For Phase 2
-      <View style={styles.iconContainer}>
-        <TouchableOpacity style={styles.headerButton} onPress={handleNotificationPress}>
-          <Notification width={24} height={24} />
-          <View style={styles.unreadBadge}>
-            <AppText style={styles.unreadCountLabel} size='tiny' weight='600'>{unread}</AppText>
-          </View>
-        </TouchableOpacity>
-      </View> */}
+      </Pressable>
     </View>
   );
 };

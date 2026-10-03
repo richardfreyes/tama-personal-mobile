@@ -1,38 +1,48 @@
-import AutoDebitIcon from '@/assets/icons/auto-debit.svg';
-import ChevronRightIcon from '@/assets/icons/chevron-right-light.svg';
+import AutoPayStatusCard from '@/components/bills/AutoPayStatusCard';
+import EmptyStateCard from '@/components/common/EmptyStateCard';
+import { SkeletonBlock, SkeletonGroup } from '@/components/common/Loading';
 import { SectionHeaderComponent } from '@/components/common/SectionHeaderComponent';
 import { globalStyle } from '@/styles/common/globals';
+import { autoPayStatusCardStyles } from '@/styles/components/bills/AutoPayStatusCard';
 import { autoDebitCardStyles as styles } from '@/styles/components/enrollments/AutoDebitCard';
 import { AutoDebitCardProps } from '@/types/common';
-import AutoPayStatusCard from '@/components/bills/AutoPayStatusCard';
 import React from 'react';
-import { Text, TouchableOpacity, View } from 'react-native';
+import { View } from 'react-native';
 
-export default function AutoDebitCard({ onPress, showViewAll = false, activeCount = 0 }: AutoDebitCardProps) {
-
-  if (activeCount > 0) {
-    return <AutoPayStatusCard activeCount={activeCount} onManage={onPress} />;
-  }
-
+export default function AutoDebitCard({
+  onPress,
+  showViewAll = false,
+  activeCount = 0,
+  isLoading = false,
+  isError = false,
+  onRetry,
+}: AutoDebitCardProps) {
   return (
-    <View style={globalStyle.outerContainer}>
+    <View style={globalStyle.sectionPanel} testID="auto-debit-card">
       <SectionHeaderComponent
         title="Auto Debit"
         linkText={showViewAll ? 'View All' : undefined}
         onViewAllPress={onPress}
       />
-      <TouchableOpacity style={styles.card} activeOpacity={0.8} onPress={onPress} accessibilityRole="button" accessibilityLabel="Set up Auto Debit">
-        <View style={styles.iconBadge}>
-          <AutoDebitIcon width={24} height={24} />
-        </View>
-
-        <View style={styles.textWrap}>
-          <Text style={styles.title}>Never miss a bill</Text>
-          <Text style={styles.subtitle}>Set up automatic payments for eligible bills</Text>
-        </View>
-
-        <ChevronRightIcon width={8} height={14} />
-      </TouchableOpacity>
+      {isLoading ? (
+        <SkeletonGroup label="Loading Auto Debit" style={autoPayStatusCardStyles.card} testID="auto-debit-loading">
+          <SkeletonBlock borderRadius={14} height={44} style={globalStyle.skeletonOnCard} width={44} />
+          <View style={styles.skeletonColumn}>
+            <SkeletonBlock height={16} style={globalStyle.skeletonOnCard} width="68%" />
+            <SkeletonBlock height={12} style={globalStyle.skeletonOnCard} width="94%" />
+            <SkeletonBlock height={12} style={globalStyle.skeletonOnCard} width="76%" />
+          </View>
+        </SkeletonGroup>
+      ) : isError ? (
+        <EmptyStateCard
+          message="Unable to load Auto Debit."
+          onRetry={onRetry}
+          retryLabel="Try loading Auto Debit again"
+          variant="error"
+        />
+      ) : (
+        <AutoPayStatusCard activeCount={activeCount} onManage={onPress} />
+      )}
     </View>
   );
 }

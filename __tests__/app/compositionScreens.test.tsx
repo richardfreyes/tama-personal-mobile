@@ -5,7 +5,7 @@ import EnrolledScreen from '@/app/(app)/bills/enrollments/enrolled';
 import OneTimePaymentMethodsScreen from '@/app/(app)/bills/one-time-payments/payment-methods';
 import Dashboard from '@/app/(app)/dashboard';
 import PaymentMethodsScreen from '@/app/(app)/payment-methods';
-import { fireEvent, render, screen } from '@testing-library/react-native';
+import { fireEvent, render, screen, within } from '@testing-library/react-native';
 import { router, useLocalSearchParams } from 'expo-router';
 import React from 'react';
 
@@ -63,20 +63,26 @@ jest.mock('@/context/TabBarAnimationContext', () => ({
   useTabBarAnimation: () => ({ tabBarTranslateY: { value: 0 } }),
 }));
 jest.mock('@/components/common/GlobalScrollView', () => ({
-  GlobalScrollView: ({ children }: any) => {
+  GlobalScrollView: function MockGlobalScrollView({ children }: any) {
     const { View } = require('react-native');
-    return <View>{children}</View>;
+    return <View testID="dashboard-scroll">{children}</View>;
   },
   useTabBarScrollHandler: () => jest.fn(),
 }));
+jest.mock('@/components/layout/HeaderComponent', () => (
+  function MockHeaderComponent() {
+    const { Text } = require('react-native');
+    return <Text>Dashboard Header</Text>;
+  }
+));
 jest.mock('@/components/layout/NavHeaderComponent', () => (
-  ({ title }: any) => {
+  function MockNavHeaderComponent({ title }: any) {
     const { Text } = require('react-native');
     return <Text>{`Nav:${title || ''}`}</Text>;
   }
 ));
 jest.mock('@/components/one-time-payments/BillsComponent', () => (
-  ({ sectionHeader, sectionFooter, onViewAllPress, onAddBillerPress, onPayNowPress }: any) => {
+  function MockBillsComponent({ sectionHeader, sectionFooter, onViewAllPress, onAddBillerPress, onPayNowPress }: any) {
     const { Pressable, Text, View } = require('react-native');
     return (
       <View>
@@ -101,7 +107,7 @@ jest.mock('@/components/one-time-payments/BillsComponent', () => (
   }
 ));
 jest.mock('@/components/common/SearchMerchants', () => (
-  (props: any) => {
+  function MockSearchMerchants(props: any) {
     const { Pressable, Text, View } = require('react-native');
     return (
       <View>
@@ -118,43 +124,48 @@ jest.mock('@/components/common/SearchMerchants', () => (
   }
 ));
 jest.mock('@/components/enrollments/EnrollmentListComponent', () => (
-  ({ variant, screenHeader }: any) => {
+  function MockEnrollmentListComponent({ variant, screenHeader }: any) {
     const { Text, View } = require('react-native');
     return <View>{screenHeader}<Text>{`EnrollmentList:${variant}`}</Text></View>;
   }
 ));
 jest.mock('@/components/payments/PaymentMethodCardComponent', () => (
-  ({ option, onPress }: any) => {
+  function MockPaymentMethodCardComponent({ option, onPress }: any) {
     const { Pressable, Text } = require('react-native');
     return <Pressable accessibilityRole="button" onPress={onPress}><Text>{`Option:${option.title}`}</Text></Pressable>;
   }
 ));
 jest.mock('@/components/payments/PaymentMethodsComponent', () => (
-  ({ sectionHeader }: any) => {
-    const { Text } = require('react-native');
-    return <Text>{`PaymentMethods:${sectionHeader?.title}`}</Text>;
+  function MockPaymentMethodsComponent({ sectionHeader, sectionFooter, route, isRefreshable }: any) {
+    const { Text, View } = require('react-native');
+    return (
+      <View>
+        <Text>{`PaymentMethods:${sectionHeader?.title}`}</Text>
+        <Text>{`PaymentMethods options:${route ?? '-'}:${String(isRefreshable)}:${String(sectionFooter?.button)}`}</Text>
+      </View>
+    );
   }
 ));
 jest.mock('@/components/enrollments/MonthlyBills', () => ({
-  MonthlyBillsComponent: () => {
+  MonthlyBillsComponent: function MockMonthlyBillsComponent() {
     const { Text } = require('react-native');
     return <Text>MonthlyBills</Text>;
   },
 }));
 jest.mock('@/components/enrollments/AutoDebitCard', () => (
-  ({ onPress }: any) => {
+  function MockAutoDebitCard({ activeCount, isError, isLoading, onPress }: any) {
     const { Pressable, Text } = require('react-native');
     return (
       <Pressable accessibilityRole="button" onPress={onPress}>
-        <Text>Never miss a bill</Text>
+        <Text>{`Auto Debit:${activeCount}:${Boolean(isLoading)}:${Boolean(isError)}`}</Text>
       </Pressable>
     );
   }
 ));
 jest.mock('@/components/transactions/TransactionHistoryComponent', () => (
-  ({ sectionHeader }: any) => {
+  function MockTransactionHistoryComponent({ sectionHeader, limit }: any) {
     const { Text } = require('react-native');
-    return <Text>{`Transactions:${sectionHeader?.title}`}</Text>;
+    return <Text>{`Transactions:${sectionHeader?.title}:${limit ?? 'all'}`}</Text>;
   }
 ));
 
@@ -254,16 +265,43 @@ describe('route composition screens', () => {
     paymentMethods.unmount();
 
     render(<Dashboard />);
+    expect(within(screen.getByTestId('dashboard-scroll')).getByText('Dashboard Header')).toBeTruthy();
     expect(screen.getByText('MonthlyBills')).toBeTruthy();
-    expect(screen.getByText('Never miss a bill')).toBeTruthy();
+    expect(screen.getByText('Auto Debit:0:false:false')).toBeTruthy();
     expect(screen.getByText('Bills:One Time Payments')).toBeTruthy();
+    expect(screen.getByText('Transactions:Recent Transactions:3')).toBeTruthy();
     expect(screen.getByText('PaymentMethods:Payment Methods')).toBeTruthy();
-    expect(screen.getByText('Transactions:Recent Transactions')).toBeTruthy();
+  });
+
+  it('reuses the shared sections with the dashboard options', () => {
+    render(<Dashboard />);
+
+    // One Time Payments shows its Add Biller / Pay Now footer.
+    expect(screen.getByText('Add Biller')).toBeTruthy();
+    expect(screen.getByText('Pay Now')).toBeTruthy();
+    // Payment methods return to the dashboard, don't scroll on their own, and have no add button here.
+    expect(screen.getByText('PaymentMethods options:/dashboard:false:false')).toBeTruthy();
+  });
+
+  it('passes the loading and error state of the enrollments query to Auto Debit', () => {
+    mockUseGetMonthlyBillsEnrollmentsQuery.mockReturnValueOnce({ isLoading: true } as any);
+    const loading = render(<Dashboard />);
+    expect(screen.getByText('Auto Debit:0:true:false')).toBeTruthy();
+    loading.unmount();
+
+    mockUseGetMonthlyBillsEnrollmentsQuery.mockReturnValueOnce({ isError: true, isFetching: true } as any);
+    const retrying = render(<Dashboard />);
+    expect(screen.getByText('Auto Debit:0:true:true')).toBeTruthy();
+    retrying.unmount();
+
+    mockUseGetMonthlyBillsEnrollmentsQuery.mockReturnValueOnce({ isError: true, isFetching: false } as any);
+    render(<Dashboard />);
+    expect(screen.getByText('Auto Debit:0:false:true')).toBeTruthy();
   });
 
   it('clears enrollment state and navigates when enrolling in auto debit from the dashboard', () => {
     render(<Dashboard />);
-    fireEvent.press(screen.getByText('Never miss a bill'));
+    fireEvent.press(screen.getByText('Auto Debit:0:false:false'));
     expect(mockDispatch).toHaveBeenCalledWith({
       type: 'enrollmentReview/clearEnrollmentCardPayload',
     });
@@ -273,16 +311,30 @@ describe('route composition screens', () => {
     expect(router.push).toHaveBeenCalledWith('/(app)/bills/enrollments');
   });
 
-  it('selects mutually exclusive bill views from the dashboard actions', () => {
+  it('only counts running enrollments as active, not pending or in-review ones', () => {
+    mockUseGetMonthlyBillsEnrollmentsQuery.mockReturnValueOnce({
+      data: { items: [{ status: 'PENDING' }, { status: 'FOR_REVIEW' }, { status: 'ONGOING' }, { status: 'CANCELLED' }] },
+    } as any);
     render(<Dashboard />);
+    expect(screen.getByText('Auto Debit:1:false:false')).toBeTruthy();
+  });
 
-    fireEvent.press(screen.getByText('Add Biller'));
-    expect(router.push).toHaveBeenLastCalledWith({
-      pathname: '/bills/one-time-payments',
-      params: { view: 'add' },
-    });
+  it('sends a member with only pending enrollments to enroll rather than to the list', () => {
+    mockUseGetMonthlyBillsEnrollmentsQuery.mockReturnValueOnce({
+      data: { items: [{ status: 'PENDING' }] },
+    } as any);
+    render(<Dashboard />);
+    fireEvent.press(screen.getByText('Auto Debit:0:false:false'));
+    expect(router.push).toHaveBeenCalledWith('/(app)/bills/enrollments');
+  });
 
-    fireEvent.press(screen.getByText('Pay Now'));
-    expect(router.push).toHaveBeenLastCalledWith('/bills/one-time-payments/saved');
+  it('opens the existing Auto Debit enrollment list for an active member', () => {
+    mockUseGetMonthlyBillsEnrollmentsQuery.mockReturnValueOnce({
+      data: { items: [{ status: 'ACTIVE' }] },
+    } as any);
+    render(<Dashboard />);
+    fireEvent.press(screen.getByText('Auto Debit:1:false:false'));
+    expect(router.push).toHaveBeenCalledWith('/(app)/bills/enrollments/enrolled');
+    expect(mockDispatch).not.toHaveBeenCalled();
   });
 });

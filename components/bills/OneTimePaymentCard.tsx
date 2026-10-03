@@ -68,7 +68,7 @@ export default function OneTimePaymentCard({ onMakePayment }: OneTimePaymentCard
   };
 
   return (
-    <View style={globalStyle.outerContainer}>
+    <View style={globalStyle.sectionPanel}>
       <SectionHeaderComponent title="One Time Payment" />
       <View style={styles.card}>
         {renderContent()}

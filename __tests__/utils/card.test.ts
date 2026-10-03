@@ -1,4 +1,5 @@
-import { detectCardProvider, formatLastFourDigits, getCardIcon, getProviderDisplay } from '@/utils/card';
+import type { PaymentMethod } from '@/redux/features/paymentMethods/paymentMethodTypes';
+import { detectCardProvider, formatLastFourDigits, getCardIcon, getProviderDisplay, getSavedPaymentMethods } from '@/utils/card';
 import { describe, expect, it } from '@jest/globals';
 
 describe('detectCardProvider', () => {
@@ -70,5 +71,31 @@ describe('formatLastFourDigits', () => {
     expect(formatLastFourDigits(undefined)).toBe('----');
     expect(formatLastFourDigits('')).toBe('----');
     expect(formatLastFourDigits('  ')).toBe('----');
+  });
+});
+
+describe('getSavedPaymentMethods', () => {
+  const method = (referenceId: string, paymentMethodName: string) => ({ referenceId, paymentMethodName }) as PaymentMethod;
+
+  it('keeps saved cards and drops linked bank accounts used for direct debit', () => {
+    const methods = getSavedPaymentMethods([
+      method('card-1', 'card'),
+      method('bank-1', 'directdebit'),
+      method('card-2', 'card'),
+    ]);
+
+    expect(methods.map(({ referenceId }) => referenceId)).toEqual(['card-1', 'card-2']);
+  });
+
+  it('matches the direct debit name whatever its casing', () => {
+    expect(getSavedPaymentMethods([method('bank-1', 'DirectDebit'), method('bank-2', 'DIRECTDEBIT')])).toEqual([]);
+  });
+
+  it('copes with methods that are missing a name or have not loaded', () => {
+    const unnamed = { referenceId: 'card-1' } as PaymentMethod;
+
+    expect(getSavedPaymentMethods([unnamed])).toEqual([unnamed]);
+    expect(getSavedPaymentMethods(undefined)).toEqual([]);
+    expect(getSavedPaymentMethods(null)).toEqual([]);
   });
 });

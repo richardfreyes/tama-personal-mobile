@@ -7,12 +7,13 @@ import SavedBillCard from '@/components/one-time-payments/SavedBillCard';
 import { useGetBillersQuery } from '@/redux/features/biller/billerApi';
 import { useGetBillsQuery } from '@/redux/features/bills/billsApi';
 import type { Bill } from '@/redux/features/bills/billsTypes';
+import { openSavedBill } from '@/services/routeNavigation';
 import { billsStyles } from '@/styles/app/bills/one-time-payments';
 import { Colors } from '@/styles/common/colors';
 import { globalStyle } from '@/styles/common/globals';
 import { enrollmentListComponentStyles } from '@/styles/components/enrollments/EnrollmentListComponent';
-import { getActiveSavedBillCount, getSavedBillIdentity, getSavedBillsForDisplay, getUniqueSavedBills, shouldUseMockSavedBills } from '@/utils/savedBills';
-import { router, useFocusEffect } from 'expo-router';
+import { getActiveSavedBillCount, getBillerLogoMap, getSavedBillIdentity, getSavedBillsForDisplay, getUniqueSavedBills, shouldUseMockSavedBills } from '@/utils/savedBills';
+import { useFocusEffect } from 'expo-router';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Platform, RefreshControl, View } from 'react-native';
 import Animated from 'react-native-reanimated';
@@ -33,15 +34,8 @@ export default function SavedBillsScreen() {
     isLoading,
     refetch,
   } = useGetBillsQuery({ page });
-  const { data: billers = [] } = useGetBillersQuery({});
-  const billerLogosByMerchantId = useMemo(
-    () => new Map(
-      billers
-        .filter((biller) => Boolean(biller.merchant_logo_url))
-        .map((biller) => [biller.merchant_id, biller.merchant_logo_url]),
-    ),
-    [billers],
-  );
+  const { data: billers } = useGetBillersQuery({});
+  const billerLogosByMerchantId = useMemo(() => getBillerLogoMap(billers), [billers]);
   const isUsingMockData = page === 0 && shouldUseMockSavedBills(data);
 
   useEffect(() => {
@@ -107,16 +101,6 @@ export default function SavedBillsScreen() {
       setIsRefreshing(false);
     }
   }, [page, refetch]);
-
-  const handleBillPress = useCallback((bill: Bill) => {
-    router.push({
-      pathname: '/bills/one-time-payments/pay/[billingReferenceId]',
-      params: {
-        billingReferenceId: bill.billing_reference_id,
-        merchantName: bill.merchant_name,
-      },
-    });
-  }, []);
 
   const showInitialLoader = (isLoading || isFetching) && !isUsingMockData && items.length === 0;
   const showInitialError = isError && !isUsingMockData && items.length === 0;
@@ -219,7 +203,7 @@ export default function SavedBillsScreen() {
           <SavedBillCard
             bill={item}
             logoUrl={billerLogosByMerchantId.get(item.merchant_id)}
-            onPress={handleBillPress}
+            onPress={openSavedBill}
           />
         )}
         scrollEventThrottle={16}

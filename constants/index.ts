@@ -1,6 +1,8 @@
 export * from "./common";
+export * from "./dashboard";
 export * from "./enrollment";
 export * from "./env";
+export * from "./gradients";
 export * from "./initialStates";
 export * from "./layout";
 export * from "./monthlyBills";
@@ -11,4 +13,3 @@ export * from "./savedBills";
 export * from "./storageKeys";
 export * from "./transaction";
 export * from "./validators";
-

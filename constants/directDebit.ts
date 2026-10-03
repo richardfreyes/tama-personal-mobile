@@ -14,6 +14,9 @@ export interface DirectDebitBank {
   icon: SvgIcon;
 }
 
+// `paymentMethodName` the API gives a linked bank account, as opposed to a saved card.
+export const DIRECT_DEBIT_PAYMENT_METHOD_NAME = 'directdebit';
+
 export const DIRECT_DEBIT_BANKS: DirectDebitBank[] = [
   { channelCode: 'BA_BPI', label: 'Bank of the Philippine Islands (BPI)', icon: BpiIcon },
   { channelCode: 'BA_CHINABANK', label: 'China Bank Savings (CHINABANK)', icon: ChinabankIcon },

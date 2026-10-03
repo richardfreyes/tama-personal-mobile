@@ -51,6 +51,8 @@ export const CONTACT_CHANNELS: {
   },
 ];
 
+export const SUPPORT_EMAIL_CHANNEL = CONTACT_CHANNELS.find(({ action }) => action === 'email');
+
 export const CONTACT_SUPPORT_INFO = [
   {
     label: 'Support Hours',

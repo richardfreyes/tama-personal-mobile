@@ -61,7 +61,7 @@ const getDaysRemainingLabel = (daysRemaining: number): string => {
     return `${overdueDays} ${overdueDays === 1 ? 'day' : 'days'} overdue`;
   }
 
-  return `${daysRemaining} ${daysRemaining === 1 ? 'day' : 'days'} remaining`;
+  return `${daysRemaining} ${daysRemaining === 1 ? 'day' : 'days'} left`;
 };
 
 export const getUpcomingBillsForMonth = (
@@ -95,7 +95,7 @@ export const getUpcomingBillsForMonth = (
         daysRemaining,
         daysRemainingLabel: getDaysRemainingLabel(daysRemaining),
         dueDate,
-        dueDateLabel: formatApiDate(rawDueDate, 'MMM dd, yyyy'),
+        dueDateLabel: formatApiDate(rawDueDate, 'MMM d, yyyy'),
         enrollment,
         isNearestUpcoming: false,
         key: `${enrollmentKey}-${billKey}`,

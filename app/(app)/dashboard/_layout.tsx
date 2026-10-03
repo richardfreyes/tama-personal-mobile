@@ -1,19 +1,6 @@
-import { retrieveToken } from '@/redux/features/login/loginApi';
-import { useAppDispatch, useAppSelector } from '@/redux/hooks';
-import { Redirect, Stack } from 'expo-router';
-import { useEffect } from 'react';
+import { Stack } from 'expo-router';
 
-export default function AppLayout() {
-  const dispatch = useAppDispatch();
-  const { token, loading } = useAppSelector(state => state.login);
-
-  useEffect(() => {
-    dispatch(retrieveToken());
-  }, [dispatch]);
-
-  if (!token) {
-    return <Redirect href="/(auth)/login" />;
-  }
-
+// Sign-in is already enforced by the parent (app) layout before this one renders.
+export default function DashboardLayout() {
   return <Stack screenOptions={{ headerShown: false }} />;
 }

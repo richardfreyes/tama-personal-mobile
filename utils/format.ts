@@ -199,7 +199,8 @@ export const formatCurrencyAmount = (
   currency: string,
   amount: number,
   options?: Intl.NumberFormatOptions,
-): string => `${currency} ${Number(amount || 0).toLocaleString(undefined, options)}`;
+  locale?: string,
+): string => `${currency} ${Number(amount || 0).toLocaleString(locale, options)}`;
 
 export const formatAmount = (value: string) => {
   if (!value) return '';
@@ -214,6 +215,26 @@ export const formatMoney = (value?: [string, number]) => {
     minimumFractionDigits: 2,
     maximumFractionDigits: 2,
   });
+};
+
+// Fixed to en-PH so peso amounts group the same way whatever the device locale is.
+export const formatPesoAmount = (amount: number): string => formatCurrencyAmount(
+  '₱',
+  amount,
+  { minimumFractionDigits: 2, maximumFractionDigits: 2 },
+  'en-PH',
+);
+
+// Splits a display amount such as "PHP 1,250.00" so the currency, whole and cents can be styled separately.
+export const getAmountParts = (amount: string) => {
+  const match = amount.match(/^([A-Z]{3}|[₱$€£¥])\s*([\d,]+)(\.\d{2})$/);
+  if (!match) return null;
+
+  return {
+    currency: match[1] === 'PHP' ? '₱' : match[1],
+    whole: match[2],
+    cents: match[3],
+  };
 };
 
 export const getSearchParam = (value?: string | string[]) => {

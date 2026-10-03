@@ -51,6 +51,33 @@ describe('SectionHeaderComponent', () => {
     expect(() => fireEvent.press(screen.getByText('View All'))).not.toThrow();
   });
 
+  // ---- Link accessibility ----
+
+  it('exposes the link as a button that says what it opens', () => {
+    const onViewAllPress = jest.fn();
+    renderWithProviders(
+      <SectionHeaderComponent
+        title="One Time Payments"
+        linkText="View All"
+        onViewAllPress={onViewAllPress}
+      />,
+    );
+
+    fireEvent.press(screen.getByRole('button', { name: 'View All One Time Payments' }));
+    expect(onViewAllPress).toHaveBeenCalledTimes(1);
+  });
+
+  it('labels the link with its own text when there is no title', () => {
+    renderWithProviders(<SectionHeaderComponent linkText="View All" />);
+    expect(screen.getByRole('button', { name: 'View All' })).toBeTruthy();
+  });
+
+  it('renders only the title when there is no link', () => {
+    renderWithProviders(<SectionHeaderComponent title="Auto Debit" />);
+    expect(screen.getByText('Auto Debit')).toBeTruthy();
+    expect(screen.queryByRole('button')).toBeNull();
+  });
+
   // ---- Optional style props ----
 
   it('renders with custom style props without crashing', () => {

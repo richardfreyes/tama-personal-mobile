@@ -2,7 +2,16 @@ import { AppText } from '@/components/common/AppText';
 import { NativeProgressBar } from '@/components/common/Loading';
 import DetailRows from '@/components/enrollments/DetailRows';
 import EnrollmentStatusBadge from '@/components/enrollments/EnrollmentStatusBadge';
-import { CONTACT_CHANNELS } from '@/constants/contact';
+import { SUPPORT_EMAIL_CHANNEL } from '@/constants/contact';
+import {
+  ENROLLMENT_DETAILS_COPY,
+  ENROLLMENT_DETAILS_WIDE_BREAKPOINT,
+  ENROLLMENT_IMPORTANT_NOTES,
+  ENROLLMENT_SUMMARY_GRADIENT_COLORS,
+  ENROLLMENT_SUMMARY_GRADIENT_END,
+  ENROLLMENT_SUMMARY_GRADIENT_LOCATIONS,
+  ENROLLMENT_SUMMARY_GRADIENT_START,
+} from '@/constants/enrollment';
 import { showSnackbar } from '@/redux/features/snackbar/snackbarSlice';
 import { useAppDispatch } from '@/redux/hooks';
 import { enrollmentDetailsStyles as styles } from '@/styles/app/bills/enrollments/details';
@@ -12,25 +21,18 @@ import { getCardIcon } from '@/utils/card';
 import { buildEnrollmentDetailsViewModel } from '@/utils/enrollmentPresentation';
 import { Feather } from '@expo/vector-icons';
 import * as Clipboard from 'expo-clipboard';
+import { LinearGradient } from 'expo-linear-gradient';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { Animated, Easing, Linking, Pressable, useWindowDimensions, View } from 'react-native';
 
 export default function EnrollmentDetailsContent({ enrollment }: EnrollmentDetailsContentProps) {
   const dispatch = useAppDispatch();
   const { width } = useWindowDimensions();
-  const isWide = width >= 760;
+  const isWide = width >= ENROLLMENT_DETAILS_WIDE_BREAKPOINT;
   const [isCopyFocused, setIsCopyFocused] = useState(false);
   const opacity = useRef(new Animated.Value(0)).current;
   const details = useMemo(() => buildEnrollmentDetailsViewModel(enrollment), [enrollment]);
   const { uri: PaymentMethodIcon } = getCardIcon(details.paymentMethod?.cardType);
-  const SUPPORT_EMAIL = CONTACT_CHANNELS.find(({ action }) => action === 'email');
-  const compactFields = <T,>(items: (T | null)[]): T[] => items.filter((item): item is T => item !== null);
-  const summaryMetrics = compactFields([
-    details.paymentFrequency ? { key: 'frequency', label: 'Payment frequency', value: details.paymentFrequency } : null,
-    details.paymentDuration ? { key: 'duration', label: 'Number of payments', value: details.paymentDuration } : null,
-    details.startDate ? { key: 'start', label: 'Start date', value: details.startDate } : null,
-    { key: 'last-payment', label: 'Last payment', value: details.lastPayment },
-  ]);
 
   useEffect(() => {
     const animation = Animated.timing(opacity, {
@@ -54,6 +56,10 @@ export default function EnrollmentDetailsContent({ enrollment }: EnrollmentDetai
     }));
   };
 
+  const openSupportEmail = () => {
+    if (SUPPORT_EMAIL_CHANNEL) void Linking.openURL(SUPPORT_EMAIL_CHANNEL.url);
+  };
+
   const progressLabel = details.completedPayments !== null && details.totalPayments !== null
     ? `${details.completedPayments} of ${details.totalPayments} payments completed`
     : null;
@@ -72,9 +78,7 @@ export default function EnrollmentDetailsContent({ enrollment }: EnrollmentDetai
           </View>
           <EnrollmentStatusBadge status={enrollment.status} />
         </View>
-        <AppText size="small" style={styles.description}>
-          Review your payment schedule, enrolled card, and account information.
-        </AppText>
+        <AppText size="small" style={styles.description}>{ENROLLMENT_DETAILS_COPY.summary}</AppText>
 
         {details.referenceId ? (
           <View style={styles.referencePanel}>
@@ -113,7 +117,13 @@ export default function EnrollmentDetailsContent({ enrollment }: EnrollmentDetai
         ) : null}
       </View>
 
-      <View style={styles.paymentSummaryCard}>
+      <LinearGradient
+        colors={ENROLLMENT_SUMMARY_GRADIENT_COLORS}
+        end={ENROLLMENT_SUMMARY_GRADIENT_END}
+        locations={ENROLLMENT_SUMMARY_GRADIENT_LOCATIONS}
+        start={ENROLLMENT_SUMMARY_GRADIENT_START}
+        style={styles.paymentSummaryCard}
+      >
         <AppText size="small" weight="600" style={styles.amountLabel}>MONTHLY PAYMENT</AppText>
         <AppText
           accessibilityLabel={`Monthly payment ${details.monthlyAmount}`}
@@ -134,7 +144,7 @@ export default function EnrollmentDetailsContent({ enrollment }: EnrollmentDetai
         ) : null}
 
         <View style={styles.summaryMetrics}>
-          {summaryMetrics.map((metric) => (
+          {details.summaryMetrics.map((metric) => (
             <View
               key={metric.key}
               style={[styles.summaryMetric, isWide && styles.summaryMetricWide]}
@@ -144,7 +154,7 @@ export default function EnrollmentDetailsContent({ enrollment }: EnrollmentDetai
             </View>
           ))}
         </View>
-      </View>
+      </LinearGradient>
 
       <View style={styles.sectionCard}>
         <View style={styles.progressHeader}>
@@ -167,7 +177,7 @@ export default function EnrollmentDetailsContent({ enrollment }: EnrollmentDetai
           <NativeProgressBar label={progressLabel} progress={details.progress} style={styles.progressBar} />
         ) : (
           <AppText size="small" style={styles.unavailableText}>
-            Payment progress is not available for this enrollment.
+            {ENROLLMENT_DETAILS_COPY.progressUnavailable}
           </AppText>
         )}
 
@@ -200,21 +210,15 @@ export default function EnrollmentDetailsContent({ enrollment }: EnrollmentDetai
                 Payment method
               </AppText>
               <AppText size="extraSmall" style={styles.sectionDescription}>
-                Card enrolled for automatic payments
+                {ENROLLMENT_DETAILS_COPY.paymentMethodDescription}
               </AppText>
             </View>
           </View>
           {details.paymentMethod ? (
-            <DetailRows fields={compactFields([
-              details.paymentMethod.cardType ? { key: 'card-type', label: 'Card type', value: details.paymentMethod.cardType } : null,
-              details.paymentMethod.maskedCard ? { key: 'card', label: 'Card number', value: details.paymentMethod.maskedCard } : null,
-              details.paymentMethod.cardholder ? { key: 'cardholder', label: 'Cardholder', value: details.paymentMethod.cardholder } : null,
-              details.paymentMethod.expiry ? { key: 'expiry', label: 'Expiry', value: details.paymentMethod.expiry } : null,
-              details.paymentMethod.paymentMethodType ? { key: 'payment-method-type', label: 'Payment method', value: details.paymentMethod.paymentMethodType } : null,
-            ])} />
+            <DetailRows fields={details.paymentMethodFields} />
           ) : (
             <AppText size="small" style={styles.unavailableText}>
-              No payment method is available for this enrollment.
+              {ENROLLMENT_DETAILS_COPY.paymentMethodUnavailable}
             </AppText>
           )}
         </View>
@@ -227,7 +231,7 @@ export default function EnrollmentDetailsContent({ enrollment }: EnrollmentDetai
             <DetailRows fields={details.enrollmentFields} />
           ) : (
             <AppText size="small" style={styles.unavailableText}>
-              No additional enrollment information is available.
+              {ENROLLMENT_DETAILS_COPY.enrollmentFieldsUnavailable}
             </AppText>
           )}
         </View>
@@ -237,13 +241,13 @@ export default function EnrollmentDetailsContent({ enrollment }: EnrollmentDetai
             Customer information
           </AppText>
           <AppText size="extraSmall" style={styles.sectionDescription}>
-            Contact details associated with this enrollment
+            {ENROLLMENT_DETAILS_COPY.customerDescription}
           </AppText>
           {details.customerFields.length ? (
             <DetailRows fields={details.customerFields} />
           ) : (
             <AppText size="small" style={styles.unavailableText}>
-              Customer information is not available.
+              {ENROLLMENT_DETAILS_COPY.customerFieldsUnavailable}
             </AppText>
           )}
         </View>
@@ -253,14 +257,12 @@ export default function EnrollmentDetailsContent({ enrollment }: EnrollmentDetai
             Important Notes
           </AppText>
           <AppText size="extraSmall" style={styles.sectionDescription}>
-            Keep these reminders in mind for uninterrupted automatic payments
+            {ENROLLMENT_DETAILS_COPY.importantNotesDescription}
           </AppText>
           <View style={styles.importantNotesList}>
             {[
-              'Automatic payments will be charged to your enrolled card based on the payment schedule shown above.',
-              'Keep your card active and ensure sufficient available credit or funds before each scheduled payment.',
-              'The cardholder must be authorized to use this card for the enrolled account.',
-              `Contact ${details.merchantName === 'Enrollment' ? 'the merchant' : details.merchantName} or Tama Support before your next payment if your card or enrollment details need to change.`,
+              ...ENROLLMENT_IMPORTANT_NOTES,
+              `Contact ${details.merchantContactName} or Tama Support before your next payment if your card or enrollment details need to change.`,
             ].map((note) => (
               <View key={note} style={styles.importantNoteRow}>
                 <View style={styles.importantNoteBullet} />
@@ -285,18 +287,18 @@ export default function EnrollmentDetailsContent({ enrollment }: EnrollmentDetai
         <View style={styles.supportTextGroup}>
           <AppText weight="700" style={styles.supportTitle}>Need help?</AppText>
           <AppText size="small" style={styles.supportText}>
-            Contact {details.merchantName === 'Enrollment' ? 'the merchant' : details.merchantName} or Tama Support and share your enrollment reference.
+            Contact {details.merchantContactName} or Tama Support and share your enrollment reference.
           </AppText>
-          {SUPPORT_EMAIL ? (
+          {SUPPORT_EMAIL_CHANNEL ? (
             <Pressable
-              accessibilityLabel={`Email Tama Support at ${SUPPORT_EMAIL.label}`}
+              accessibilityLabel={`Email Tama Support at ${SUPPORT_EMAIL_CHANNEL.label}`}
               accessibilityRole="link"
-              onPress={() => { void Linking.openURL(SUPPORT_EMAIL.url); }}
+              onPress={openSupportEmail}
               style={({ pressed }) => [styles.supportEmailLink, pressed && styles.supportEmailLinkPressed]}
             >
               <Feather color={Colors.maroon10} name="mail" size={16} />
               <AppText size="small" weight="600" style={styles.supportEmailText}>
-                {SUPPORT_EMAIL.label}
+                {SUPPORT_EMAIL_CHANNEL.label}
               </AppText>
             </Pressable>
           ) : null}

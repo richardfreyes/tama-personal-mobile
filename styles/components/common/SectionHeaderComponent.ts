@@ -1,21 +1,33 @@
 import { StyleSheet } from "react-native";
 import { Colors } from "../../common/colors";
-import { FontSizes } from "../../common/typography";
 
 export const sectionHeaderComponentStyles = StyleSheet.create({
   container: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: 10,
+    flexDirection: 'row',
+    gap: 12,
+    justifyContent: 'space-between',
+    marginBottom: 12,
   },
-	title: {
-		fontSize: FontSizes.small,
-		color: Colors.neutral07,
-	},
-	link: {
-		color: Colors.red10,
-		fontSize: FontSizes.small,
-		textDecorationLine: 'underline',
-	},
+  title: {
+    color: Colors.maroon11,
+    flex: 1,
+    fontSize: 16,
+    lineHeight: 24,
+  },
+  // A 44pt touch target that doesn't add height to the row.
+  link: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    gap: 2,
+    height: 44,
+    marginRight: -8,
+    marginVertical: -10,
+    paddingHorizontal: 8,
+  },
+  linkText: {
+    color: Colors.red09,
+    fontSize: 14,
+    lineHeight: 20,
+  },
 });

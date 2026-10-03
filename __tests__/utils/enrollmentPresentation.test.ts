@@ -3,6 +3,7 @@ import type { Enrollment } from '../../types/enrollment';
 import {
   buildEnrollmentDetailsViewModel,
   buildEnrollmentDetailSections,
+  countActiveEnrollments,
   formatEnrollmentCurrency,
   formatEnrollmentPhone,
   getEnrollmentMonthlyAmount,
@@ -12,6 +13,7 @@ import {
   getEnrollmentReferenceId,
   getEnrollmentStatusLabel,
   getEnrollmentTitle,
+  isActiveEnrollment,
 } from '../../utils/enrollmentPresentation';
 
 describe('enrollment presentation', () => {
@@ -216,5 +218,89 @@ describe('enrollment presentation', () => {
   it('formats currency and Philippine phone numbers consistently', () => {
     expect(formatEnrollmentCurrency(13000, 'PHP')).toBe('₱13,000.00');
     expect(formatEnrollmentPhone('+639770884111')).toBe('+63 977 088 4111');
+  });
+});
+
+describe('active enrollments', () => {
+  it('counts only enrollments whose customer-facing status is Active', () => {
+    expect(isActiveEnrollment({ status: 'ONGOING' })).toBe(true);
+    expect(isActiveEnrollment({ status: 'ACTIVE' })).toBe(true);
+    expect(isActiveEnrollment({ status: ' active ' })).toBe(true);
+  });
+
+  it('does not count pending, in-review, finished or unknown enrollments', () => {
+    ['PENDING', 'FOR_REVIEW', 'pending_approval', 'COMPLETED', 'CANCELLED', 'EXPIRED', '', null, undefined].forEach((status) => {
+      expect(isActiveEnrollment({ status })).toBe(false);
+    });
+  });
+
+  it('counts the active enrollments in a list, including an empty or missing one', () => {
+    expect(countActiveEnrollments([
+      { status: 'ONGOING' },
+      { status: 'PENDING' },
+      { status: 'FOR_REVIEW' },
+      { status: 'ACTIVE' },
+      { status: 'CANCELLED' },
+    ])).toBe(2);
+    expect(countActiveEnrollments([])).toBe(0);
+    expect(countActiveEnrollments(undefined)).toBe(0);
+  });
+});
+
+describe('enrollment details view model additions', () => {
+  const detailed: Enrollment = {
+    baseAmount: 13000,
+    baseCurrency: 'PHP',
+    enrollmentMonths: 12,
+    enrollmentPeriod: 'monthly',
+    enrollmentStartDate: '2026-07-21T00:00:00+08:00',
+    merchantName: 'Camella Homes',
+    methodBrand: 'VISA',
+    methodCardNumber: '4242424242424242',
+    methodExpiry: '12/27',
+    methodType: 'credit_card',
+    status: 'ONGOING',
+  };
+
+  it('lists the summary metrics that have a value, always ending with the last payment', () => {
+    const { summaryMetrics } = buildEnrollmentDetailsViewModel(detailed);
+
+    expect(summaryMetrics.map(({ key }) => key)).toEqual(['frequency', 'duration', 'start', 'last-payment']);
+    expect(summaryMetrics.find(({ key }) => key === 'duration')).toEqual({
+      key: 'duration',
+      label: 'Number of payments',
+      value: '12 months',
+    });
+    expect(summaryMetrics.find(({ key }) => key === 'last-payment')?.value).toBe('No payments yet');
+  });
+
+  it('leaves out summary metrics the enrollment does not provide', () => {
+    const { summaryMetrics } = buildEnrollmentDetailsViewModel({ status: 'ONGOING' });
+
+    expect(summaryMetrics.map(({ key }) => key)).toEqual(['last-payment']);
+  });
+
+  it('lists the enrolled card details that are available', () => {
+    const { paymentMethodFields } = buildEnrollmentDetailsViewModel(detailed);
+
+    expect(paymentMethodFields).toEqual([
+      { key: 'card-type', label: 'Card type', value: 'Visa' },
+      { key: 'card', label: 'Card number', value: '•••• 4242' },
+      { key: 'expiry', label: 'Expiry', value: 'Dec 2027' },
+      { key: 'payment-method-type', label: 'Payment method', value: 'Credit card' },
+    ]);
+    expect(buildEnrollmentDetailsViewModel({ status: 'ONGOING' }).paymentMethodFields).toEqual([]);
+  });
+
+  it('names the merchant for contact copy, falling back to a generic phrase', () => {
+    expect(buildEnrollmentDetailsViewModel(detailed).merchantContactName).toBe('Camella Homes');
+
+    const unnamed = buildEnrollmentDetailsViewModel({ status: 'ONGOING' });
+    expect(unnamed.merchantName).toBe('Enrollment');
+    expect(unnamed.merchantContactName).toBe('the merchant');
+  });
+
+  it('does not mistake a merchant that is really named Enrollment for a missing one', () => {
+    expect(buildEnrollmentDetailsViewModel({ merchantName: 'Enrollment' }).merchantContactName).toBe('Enrollment');
   });
 });

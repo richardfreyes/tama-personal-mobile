@@ -1,149 +1,160 @@
 import { Colors } from '@/styles/common/colors';
-import { FontSizes } from '@/styles/common/typography';
 import { StyleSheet } from 'react-native';
 
 export const monthlyBillsStyles = StyleSheet.create({
   container: {
     alignSelf: 'stretch',
-    backgroundColor: Colors.maroon01,
-    borderColor: Colors.neutral03,
-    borderRadius: 8,
-    borderWidth: 0.5,
-    gap: 12,
-    overflow: 'hidden',
-    padding: 12,
   },
   carouselViewport: {
     alignSelf: 'stretch',
-    overflow: 'hidden',
-    width: '100%',
+    marginHorizontal: -20,
+    // The track pads 16 above and below the card so its shadow isn't clipped; pull it back so the
+    // card sits 16 below the header and the indicators 10 below the card.
+    marginVertical: -16,
   },
   carousel: {
     alignSelf: 'stretch',
     width: '100%',
   },
-  pressableCard: {
-    alignItems: 'center',
-    gap: 12,
-    width: '100%',
-  },
-  amountGroup: {
-    alignSelf: 'stretch',
-  },
-  merchantName: {
-    color: Colors.maroon09,
-    lineHeight: 18,
-    marginBottom: 2,
-  },
-  heading: {
-    color: Colors.maroon10,
-    fontSize: FontSizes.extraExtraLarge,
-    lineHeight: 32,
-    width: '100%',
-  },
-  amountLabel: {
-    color: Colors.neutral07,
-    fontSize: FontSizes.small,
-    lineHeight: 20,
-    marginBottom: 0,
+  carouselContent: {
+    paddingHorizontal: 20,
+    paddingVertical: 16,
   },
   indicatorContainer: {
     alignItems: 'center',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    minHeight: 20,
-    paddingHorizontal: 2,
+    marginTop: 10,
+    minHeight: 24,
   },
   indicatorTrack: {
     alignItems: 'center',
     flexDirection: 'row',
-    gap: 4,
+    gap: 6,
   },
   indicatorSlot: {
     alignItems: 'center',
-    height: 18,
+    height: 44,
     justifyContent: 'center',
-    width: 10,
+    marginVertical: -10,
+    width: 12,
   },
-  indicatorVisual: {
-    alignItems: 'center',
-    height: 6,
-    justifyContent: 'center',
-    width: 10,
+  indicatorSlotActive: {
+    width: 26,
   },
   monthlyIndicatorInactive: {
-    backgroundColor: Colors.red05,
+    backgroundColor: Colors.red04,
     borderRadius: 3,
     height: 6,
     width: 6,
   },
-  monthlyIndicatorActive: {
-    backgroundColor: Colors.red09,
-    borderRadius: 3,
-    height: 6,
-    position: 'absolute',
-    width: 12,
-  },
+  // Also used by the login onboarding pagination.
   indicatorDot: {
-    backgroundColor: Colors.red10,
-    borderRadius: 4,
+    borderRadius: 3,
     height: 6,
     width: 6,
   },
   indicatorActive: {
     backgroundColor: Colors.red10,
-    width: 19,
+    width: 20,
   },
   indicatorInactive: {
-    backgroundColor: Colors.red05,
+    backgroundColor: Colors.red04,
+  },
+  monthlyIndicatorActive: {
+    borderRadius: 3,
+    height: 6,
+    overflow: 'hidden',
+    width: 20,
+  },
+  indicatorGradient: {
+    height: 6,
+    width: 20,
   },
   indicatorCount: {
-    color: Colors.maroon08,
-    fontSize: FontSizes.extraSmall,
+    color: Colors.maroon09,
+    fontSize: 13,
     fontVariant: ['tabular-nums'],
-    lineHeight: 14,
-    minWidth: 40,
+    lineHeight: 18,
     textAlign: 'right',
-  },
-  loadingContainer: {
-    alignSelf: 'stretch',
-    gap: 14,
   },
   loadingCard: {
     alignSelf: 'stretch',
-    gap: 10,
-    paddingVertical: 2,
+    backgroundColor: Colors.neutral01,
+    borderColor: Colors.dashboardCardBorder,
+    borderRadius: 24,
+    borderWidth: 1,
+    gap: 20,
+    minHeight: 258,
+    padding: 20,
   },
-  loadingIndicatorRow: {
-    alignItems: 'center',
+  loadingHeadingRow: {
+    alignItems: 'flex-start',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    minHeight: 20,
-    paddingHorizontal: 2,
   },
-  loadingIndicatorDots: {
-    alignItems: 'center',
-    flexDirection: 'row',
-    gap: 4,
+  loadingHeadingColumn: {
+    gap: 10,
   },
-  emptyContainer: {
+  loadingAmountColumn: {
+    gap: 12,
+  },
+  emptyCard: {
     alignItems: 'center',
     alignSelf: 'stretch',
+    backgroundColor: Colors.neutral01,
+    borderColor: Colors.dashboardCardBorder,
+    borderRadius: 24,
+    borderWidth: 1,
+    gap: 16,
+    paddingHorizontal: 20,
+    paddingTop: 28,
+    paddingBottom: 20,
+  },
+  emptyIcon: {
+    alignItems: 'center',
+    borderRadius: 16,
+    height: 52,
     justifyContent: 'center',
-    paddingVertical: 12,
+    width: 52,
+  },
+  emptyCopy: {
+    alignItems: 'center',
+    gap: 6,
   },
   emptyTitle: {
-    color: Colors.maroon10,
-    lineHeight: 18,
-    marginTop: 6,
+    color: Colors.maroon11,
+    fontSize: 18,
+    lineHeight: 26,
     textAlign: 'center',
   },
   emptySubtitle: {
-    color: Colors.neutral07,
-    fontSize: FontSizes.small,
-    lineHeight: 20,
-    marginTop: 4,
+    color: Colors.maroon09,
+    fontSize: 14,
+    lineHeight: 21,
     maxWidth: 280,
     textAlign: 'center',
+  },
+  emptyButton: {
+    borderRadius: 14,
+    height: 48,
+    overflow: 'hidden',
+    width: '100%',
+  },
+  emptyButtonPressed: {
+    opacity: 0.93,
+  },
+  emptyButtonGradient: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    gap: 8,
+    height: 48,
+    justifyContent: 'center',
+    width: '100%',
+  },
+  emptyButtonText: {
+    color: Colors.neutral01,
+    fontSize: 15,
+    lineHeight: 22,
   },
 });

@@ -7,6 +7,7 @@ import Bills from '@/app/(app)/bills';
 const mockUseGetEnrollmentsQuery = jest.fn();
 const mockUseGetBillsQuery = jest.fn();
 
+jest.mock('@expo/vector-icons', () => ({ Feather: () => null }));
 jest.mock('@/redux/features/enrollments/enrollmentApi', () => ({
   useGetEnrollmentsQuery: (...args: any[]) => mockUseGetEnrollmentsQuery(...args),
 }));
@@ -60,31 +61,32 @@ describe('Bills dashboard', () => {
 
   it('shows the enroll card when there is no active enrollment and opens the enroll flow', () => {
     render(<Bills />);
-    expect(screen.getByText('Never miss a bill')).toBeTruthy();
-    expect(screen.queryByText('Manage AutoPay')).toBeNull();
+    expect(screen.getByText('No active enrollments')).toBeTruthy();
+    expect(screen.getByText('Not enrolled')).toBeTruthy();
 
-    fireEvent.press(screen.getByText('Never miss a bill'));
+    fireEvent.press(screen.getByRole('button', { name: 'View Auto Debit' }));
     expect(router.push).toHaveBeenCalledWith('/bills/enrollments');
   });
 
-  it('shows the AutoPay status with a Manage action when there is an active enrollment', () => {
+  it('shows the Auto Debit status and opens the enrolled list when there is an active enrollment', () => {
     mockUseGetEnrollmentsQuery.mockReturnValue({
       data: { items: [{ status: 'active', referenceId: 'E1' }, { status: 'cancelled' }] },
       isLoading: false,
     });
     render(<Bills />);
 
-    expect(screen.getByText('View Auto Debit')).toBeTruthy();
     expect(screen.getByText('1 active enrollment')).toBeTruthy();
-    expect(screen.queryByText('Never miss a bill')).toBeNull();
+    expect(screen.getByText('Active')).toBeTruthy();
+    expect(screen.queryByText('No active enrollments')).toBeNull();
 
-    fireEvent.press(screen.getByText('View Auto Debit'));
+    fireEvent.press(screen.getByRole('button', { name: 'View Auto Debit' }));
     expect(router.push).toHaveBeenCalledWith('/(app)/bills/enrollments/enrolled');
   });
 
   it('shows a loading placeholder for the AutoPay section while enrollments load', () => {
     mockUseGetEnrollmentsQuery.mockReturnValue({ data: undefined, isLoading: true });
     render(<Bills />);
-    expect(screen.getByTestId('autopay-loading')).toBeTruthy();
+    expect(screen.getByTestId('auto-debit-loading')).toBeTruthy();
+    expect(screen.queryByText('No active enrollments')).toBeNull();
   });
 });

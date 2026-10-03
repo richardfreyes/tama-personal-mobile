@@ -1,3 +1,4 @@
+import { Colors } from '@/styles/common/colors';
 import type { EnrollmentCallbackOutcome } from '@/types/enrollment';
 
 export const ERRORS = {
@@ -76,3 +77,31 @@ export const ENROLLMENT_CALLBACK_MESSAGES: Record<EnrollmentCallbackOutcome, str
 };
 
 export const MAX_CALLBACK_MESSAGE_LENGTH = 240;
+
+// Monthly payment card on the enrollment details screen. Stops at red (no orange) so the white text
+// on the translucent tiles keeps its contrast across the whole card.
+export const ENROLLMENT_SUMMARY_GRADIENT_COLORS = [Colors.maroon10, Colors.brandGradientDeep, Colors.red09] as const;
+export const ENROLLMENT_SUMMARY_GRADIENT_LOCATIONS = [0, 0.5, 1] as const;
+export const ENROLLMENT_SUMMARY_GRADIENT_START = { x: 0, y: 0 } as const;
+export const ENROLLMENT_SUMMARY_GRADIENT_END = { x: 1, y: 1 } as const;
+
+// Width from which the enrollment details cards sit side by side.
+export const ENROLLMENT_DETAILS_WIDE_BREAKPOINT = 760;
+
+export const ENROLLMENT_DETAILS_COPY = {
+  summary: 'Review your payment schedule, enrolled card, and account information.',
+  progressUnavailable: 'Payment progress is not available for this enrollment.',
+  paymentMethodDescription: 'Card enrolled for automatic payments',
+  paymentMethodUnavailable: 'No payment method is available for this enrollment.',
+  enrollmentFieldsUnavailable: 'No additional enrollment information is available.',
+  customerDescription: 'Contact details associated with this enrollment',
+  customerFieldsUnavailable: 'Customer information is not available.',
+  importantNotesDescription: 'Keep these reminders in mind for uninterrupted automatic payments',
+} as const;
+
+// The closing reminder names the merchant, so it is built where the merchant is known.
+export const ENROLLMENT_IMPORTANT_NOTES = [
+  'Automatic payments will be charged to your enrolled card based on the payment schedule shown above.',
+  'Keep your card active and ensure sufficient available credit or funds before each scheduled payment.',
+  'The cardholder must be authorized to use this card for the enrolled account.',
+] as const;

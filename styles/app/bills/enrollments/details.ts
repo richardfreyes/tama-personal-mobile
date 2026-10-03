@@ -101,7 +101,6 @@ export const enrollmentDetailsStyles = StyleSheet.create({
     borderWidth: 2,
   },
   paymentSummaryCard: {
-    backgroundColor: Colors.maroon10,
     borderRadius: 18,
     overflow: 'hidden',
     padding: 20,
@@ -121,7 +120,7 @@ export const enrollmentDetailsStyles = StyleSheet.create({
   estimatedTotalPill: {
     alignItems: 'center',
     alignSelf: 'flex-start',
-    backgroundColor: Colors.maroon09,
+    backgroundColor: 'rgba(255,255,255,0.16)',
     borderRadius: 999,
     flexDirection: 'row',
     gap: 6,
@@ -130,7 +129,7 @@ export const enrollmentDetailsStyles = StyleSheet.create({
     paddingVertical: 6,
   },
   estimatedTotalLabel: {
-    color: Colors.maroon02,
+    color: 'rgba(255,255,255,0.85)',
     lineHeight: 15,
   },
   estimatedTotalValue: {
@@ -144,8 +143,8 @@ export const enrollmentDetailsStyles = StyleSheet.create({
     marginTop: 18,
   },
   summaryMetric: {
-    backgroundColor: Colors.maroon09,
-    borderColor: Colors.maroon08,
+    backgroundColor: 'rgba(255,255,255,0.14)',
+    borderColor: 'rgba(255,255,255,0.2)',
     borderRadius: 10,
     borderWidth: 1,
     flexBasis: '47%',
@@ -158,7 +157,7 @@ export const enrollmentDetailsStyles = StyleSheet.create({
     flexBasis: '22%',
   },
   summaryMetricLabel: {
-    color: Colors.maroon03,
+    color: 'rgba(255,255,255,0.8)',
     lineHeight: 15,
   },
   summaryMetricValue: {

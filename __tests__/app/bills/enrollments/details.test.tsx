@@ -5,6 +5,7 @@ import { fireEvent, screen, waitFor } from '@testing-library/react-native';
 import * as Clipboard from 'expo-clipboard';
 import { useLocalSearchParams } from 'expo-router';
 import React from 'react';
+import { Linking } from 'react-native';
 import EnrollmentDetailsScreen from '../../../../app/(app)/bills/enrollments/details';
 import enrollmentSelectionReducer, {
   setSelectedEnrollment,
@@ -176,6 +177,50 @@ describe('EnrollmentDetailsScreen', () => {
     await waitFor(() => {
       expect(Clipboard.setStringAsync).toHaveBeenCalledWith('QW-E-F4LKN66E');
     });
+  });
+
+  it('names the merchant in the contact reminders', () => {
+    const store = createStore();
+    store.dispatch(setSelectedEnrollment(sampleEnrollment));
+
+    renderWithProviders(<EnrollmentDetailsScreen />, { store });
+
+    expect(screen.getByText('Contact Camella Homes or Tama Support before your next payment if your card or enrollment details need to change.')).toBeTruthy();
+    expect(screen.getByText('Contact Camella Homes or Tama Support and share your enrollment reference.')).toBeTruthy();
+  });
+
+  it('refers to "the merchant" when the enrollment has no merchant name', () => {
+    const store = createStore();
+    store.dispatch(setSelectedEnrollment({ referenceId: 'QW-E-NO-MERCHANT', status: 'ONGOING' }));
+
+    renderWithProviders(<EnrollmentDetailsScreen />, { store });
+
+    expect(screen.getByText('Contact the merchant or Tama Support before your next payment if your card or enrollment details need to change.')).toBeTruthy();
+    expect(screen.getByText('Contact the merchant or Tama Support and share your enrollment reference.')).toBeTruthy();
+  });
+
+  it('says what is missing when the enrollment has no progress, card or contact details', () => {
+    const store = createStore();
+    store.dispatch(setSelectedEnrollment({ merchantName: 'Camella Homes', status: 'ONGOING' }));
+
+    renderWithProviders(<EnrollmentDetailsScreen />, { store });
+
+    expect(screen.getByText('Payment progress is not available for this enrollment.')).toBeTruthy();
+    expect(screen.getByText('No payment method is available for this enrollment.')).toBeTruthy();
+    expect(screen.getByText('No additional enrollment information is available.')).toBeTruthy();
+    expect(screen.getByText('Customer information is not available.')).toBeTruthy();
+  });
+
+  it('opens an email to support from the help card', () => {
+    const openURL = jest.spyOn(Linking, 'openURL').mockResolvedValue(true);
+    const store = createStore();
+    store.dispatch(setSelectedEnrollment(sampleEnrollment));
+
+    renderWithProviders(<EnrollmentDetailsScreen />, { store });
+    fireEvent.press(screen.getByRole('link', { name: 'Email Tama Support at support@aqwire.io' }));
+
+    expect(openURL).toHaveBeenCalledWith('mailto:support@aqwire.io');
+    openURL.mockRestore();
   });
 
   it('shows a structured loading state while recovering a deep link', () => {

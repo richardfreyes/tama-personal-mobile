@@ -1,7 +1,9 @@
 import { afterEach, beforeEach, describe, expect, it, jest } from '@jest/globals';
 import { act, fireEvent, render, screen } from '@testing-library/react-native';
 import React from 'react';
+import { StyleSheet } from 'react-native';
 import TransactionHistoryComponent from '../../../components/transactions/TransactionHistoryComponent';
+import { TRANSACTION_STATUS_TONE_COLORS } from '../../../constants/transaction';
 
 // --- expo-router: provide router + useFocusEffect (not in the global mock) ---
 const mockRouterPush = jest.fn();
@@ -279,6 +281,31 @@ describe('TransactionHistoryComponent', () => {
     expect(screen.getByText(/Pending/)).toBeTruthy();
     expect(screen.getByText(/Failed/)).toBeTruthy();
     expect(screen.queryByText(/Paid/)).toBeNull();
+  });
+
+  it('colours each status from the shared transaction palette', () => {
+    mockUseGetTransactionsQuery.mockReturnValue({
+      data: {
+        items: [
+          makeTx({ externalTransactionId: 'ext-paid', invoiceReferenceId: 'invoice-paid', status: 'captured' }),
+          makeTx({ externalTransactionId: 'ext-pending', invoiceReferenceId: 'invoice-pending', status: 'pending' }),
+          makeTx({ externalTransactionId: 'ext-failed', invoiceReferenceId: 'invoice-failed', status: 'failed' }),
+          makeTx({ externalTransactionId: 'ext-refunded', invoiceReferenceId: 'invoice-refunded', status: 'refunded' }),
+        ],
+      },
+      isLoading: false,
+      isFetching: false,
+      isError: false,
+      refetch: mockRefetchOneTimePayments,
+    });
+
+    render(<TransactionHistoryComponent {...defaultProps} />);
+
+    const textColor = (label: RegExp) => StyleSheet.flatten(screen.getByText(label).props.style).color;
+    expect(textColor(/Paid/)).toBe(TRANSACTION_STATUS_TONE_COLORS.success.textColor);
+    expect(textColor(/Pending/)).toBe(TRANSACTION_STATUS_TONE_COLORS.pending.textColor);
+    expect(textColor(/Failed/)).toBe(TRANSACTION_STATUS_TONE_COLORS.failed.textColor);
+    expect(textColor(/Refunded/)).toBe(TRANSACTION_STATUS_TONE_COLORS.neutral.textColor);
   });
 
   // ---- Search bar (filter visibility) ----
@@ -677,5 +704,204 @@ describe('TransactionHistoryComponent', () => {
     expect(mockUseGetEnrollmentTransactionHistoryQuery.mock.calls.some(
       (call) => (call[0] as any)?.page === 10,
     )).toBe(true);
+  });
+});
+
+describe('TransactionHistoryComponent recent preview', () => {
+  const previewProps = {
+    limit: 3,
+    sectionHeader: { title: 'Recent Transactions', linkText: 'View All' },
+  };
+
+  const oneTimeResult = (items: ReturnType<typeof makeTx>[] = []) => ({
+    data: { items },
+    isLoading: false,
+    isFetching: false,
+    isError: false,
+    refetch: mockRefetchOneTimePayments,
+  });
+
+  const enrollmentResult = (transactions: ReturnType<typeof makeEnrollmentTx>[] = []) => ({
+    data: { transactions, pagination: { offset: 0, limit: 3, total: transactions.length } },
+    isLoading: false,
+    isFetching: false,
+    isError: false,
+    refetch: mockRefetchEnrollments,
+  });
+
+  const oneTime = (suffix: string, overrides: Record<string, any> = {}) => makeTx({
+    externalTransactionId: `ONE-${suffix}`,
+    invoiceReferenceId: `INV-${suffix}`,
+    merchantName: 'Electric Corp',
+    baseAmount: 1500,
+    status: 'captured',
+    createdAt: '2026-09-20T10:00:00Z',
+    ...overrides,
+  });
+
+  const autoDebit = (id: number, overrides: Record<string, any> = {}) => makeEnrollmentTx({
+    enrollmentTransactionId: id,
+    externalTransactionId: `AUTO-${id}`,
+    enrollmentReferenceId: `ENR-${id}`,
+    merchantName: 'Housing Co',
+    baseAmount: 35000,
+    paymentStatus: 'paid',
+    paymentStatusName: 'Paid',
+    createdAt: '2026-09-28T10:00:00Z',
+    ...overrides,
+  });
+
+  beforeEach(() => {
+    jest.clearAllMocks();
+    mockUseGetTransactionsQuery.mockReturnValue(oneTimeResult());
+    mockUseGetEnrollmentTransactionHistoryQuery.mockReturnValue(enrollmentResult());
+  });
+
+  it('merges both sources, shows only the newest few, and opens each detail route', () => {
+    mockUseGetTransactionsQuery.mockReturnValue(oneTimeResult([
+      oneTime('NEW', { merchantName: 'Telecom', status: 'pending', createdAt: '2026-10-01T10:00:00Z' }),
+      oneTime('OLD'),
+    ]));
+    mockUseGetEnrollmentTransactionHistoryQuery.mockReturnValue(enrollmentResult([
+      autoDebit(201, { paymentStatus: 'declined', paymentStatusName: 'Declined' }),
+      autoDebit(202, { merchantName: 'Old Housing', createdAt: '2026-08-01T10:00:00Z' }),
+    ]));
+
+    render(<TransactionHistoryComponent {...previewProps} />);
+
+    expect(mockUseGetTransactionsQuery).toHaveBeenCalledWith({ page: 1, count: 3, searchQuery: '' });
+    expect(mockUseGetEnrollmentTransactionHistoryQuery).toHaveBeenCalledWith({ page: 0, count: 3, searchQuery: '' });
+    expect(screen.getAllByTestId(/^recent-transaction-/).map((row) => row.props.testID)).toEqual([
+      'recent-transaction-oneTimePayment:ONE-NEW',
+      'recent-transaction-enrollment:201',
+      'recent-transaction-oneTimePayment:ONE-OLD',
+    ]);
+    expect(screen.getByText('Oct 1 • One Time Payment')).toBeTruthy();
+    expect(screen.getByText('Sep 28 • Auto Debit')).toBeTruthy();
+    expect(screen.getAllByText('−₱ 1,500.00')).toHaveLength(2);
+    expect(screen.getByText('−₱ 35,000.00')).toBeTruthy();
+    expect(screen.getByText('Pending')).toBeTruthy();
+    expect(screen.getByText('Failed')).toBeTruthy();
+    expect(screen.queryByText('Paid')).toBeNull();
+    expect(screen.queryByText('Old Housing')).toBeNull();
+
+    fireEvent.press(screen.getByTestId('recent-transaction-oneTimePayment:ONE-NEW'));
+    expect(mockRouterPush).toHaveBeenLastCalledWith({
+      pathname: '/transactions/[invoiceReferenceId]',
+      params: { invoiceReferenceId: 'INV-NEW', isAutoPay: 'One Time Payment' },
+    });
+
+    fireEvent.press(screen.getByTestId('recent-transaction-enrollment:201'));
+    expect(mockRouterPush).toHaveBeenLastCalledWith({
+      pathname: '/transactions/[invoiceReferenceId]',
+      params: { invoiceReferenceId: 'ENR-201', transactionId: 'AUTO-201', transactionType: 'enrollment' },
+    });
+
+    fireEvent.press(screen.getByRole('button', { name: 'View All Recent Transactions' }));
+    expect(mockRouterPush).toHaveBeenLastCalledWith('/transactions');
+  });
+
+  it('is a plain preview: no search, filters, date groups or end-of-list message', () => {
+    mockUseGetTransactionsQuery.mockReturnValue(oneTimeResult([oneTime('1')]));
+
+    render(<TransactionHistoryComponent {...previewProps} isFilterVisible />);
+
+    expect(screen.getByTestId('recent-transaction-oneTimePayment:ONE-1')).toBeTruthy();
+    expect(screen.queryByTestId('transaction-search-input')).toBeNull();
+    expect(screen.queryByTestId('transaction-filter-button')).toBeNull();
+    expect(screen.queryByText('September 2026')).toBeNull();
+    expect(screen.queryByText(/reached the bottom/)).toBeNull();
+  });
+
+  it('shows the empty state, without View All, when both sources have no transactions', () => {
+    render(<TransactionHistoryComponent {...previewProps} />);
+
+    expect(screen.getByText('No transactions yet')).toBeTruthy();
+    expect(screen.getByText('Your bill payments will appear here.')).toBeTruthy();
+    expect(screen.queryAllByTestId(/^recent-transaction-/)).toHaveLength(0);
+    expect(screen.queryByText('View All')).toBeNull();
+  });
+
+  it('keeps loaded transactions visible during a background refresh', () => {
+    mockUseGetTransactionsQuery.mockReturnValue({ ...oneTimeResult([oneTime('1')]), isFetching: true });
+
+    render(<TransactionHistoryComponent {...previewProps} />);
+
+    expect(screen.getByTestId('recent-transaction-oneTimePayment:ONE-1')).toBeTruthy();
+    expect(screen.queryByTestId('recent-transactions-loading')).toBeNull();
+  });
+
+  it('shows the section skeleton while either source is loading', () => {
+    mockUseGetEnrollmentTransactionHistoryQuery.mockReturnValue({
+      ...enrollmentResult(),
+      data: undefined,
+      isLoading: true,
+      isFetching: true,
+    });
+
+    render(<TransactionHistoryComponent {...previewProps} />);
+
+    expect(screen.getByTestId('recent-transactions-loading')).toBeTruthy();
+    expect(screen.getByLabelText('Loading recent transactions')).toBeTruthy();
+    expect(screen.queryByText('No transactions yet')).toBeNull();
+  });
+
+  it('shows a section error and retries both transaction sources', () => {
+    mockUseGetTransactionsQuery.mockReturnValue({ ...oneTimeResult(), data: undefined, isError: true });
+    mockUseGetEnrollmentTransactionHistoryQuery.mockReturnValue({ ...enrollmentResult(), data: undefined, isError: true });
+
+    render(<TransactionHistoryComponent {...previewProps} />);
+
+    expect(screen.getByText('Unable to load recent transactions.')).toBeTruthy();
+    fireEvent.press(screen.getByRole('button', { name: 'Try loading recent transactions again' }));
+    expect(mockRefetchOneTimePayments).toHaveBeenCalledTimes(1);
+    expect(mockRefetchEnrollments).toHaveBeenCalledTimes(1);
+  });
+
+  it('shows the skeleton again while failed sources are being retried', () => {
+    mockUseGetTransactionsQuery.mockReturnValue({ ...oneTimeResult(), data: undefined, isError: true, isFetching: true });
+    mockUseGetEnrollmentTransactionHistoryQuery.mockReturnValue({ ...enrollmentResult(), data: undefined, isError: true, isFetching: true });
+
+    render(<TransactionHistoryComponent {...previewProps} />);
+
+    expect(screen.getByTestId('recent-transactions-loading')).toBeTruthy();
+    expect(screen.queryByText('Unable to load recent transactions.')).toBeNull();
+  });
+
+  it('keeps transactions visible when only one source fails, with a retry for that source', () => {
+    mockUseGetTransactionsQuery.mockReturnValue(oneTimeResult([oneTime('1')]));
+    mockUseGetEnrollmentTransactionHistoryQuery.mockReturnValue({ ...enrollmentResult(), data: undefined, isError: true });
+
+    render(<TransactionHistoryComponent {...previewProps} />);
+
+    expect(screen.getByTestId('recent-transaction-oneTimePayment:ONE-1')).toBeTruthy();
+    expect(screen.getByText("Enrollment transactions couldn't be loaded.")).toBeTruthy();
+    expect(screen.queryByText('Unable to load recent transactions.')).toBeNull();
+
+    fireEvent.press(screen.getByRole('button', { name: "Retry Enrollment transactions couldn't be loaded." }));
+    expect(mockRefetchEnrollments).toHaveBeenCalledTimes(1);
+    expect(mockRefetchOneTimePayments).not.toHaveBeenCalled();
+  });
+
+  it('labels a status it does not recognise instead of calling it Pending', () => {
+    mockUseGetTransactionsQuery.mockReturnValue(oneTimeResult([oneTime('1', { status: 'partially_refunded' })]));
+
+    render(<TransactionHistoryComponent {...previewProps} />);
+
+    expect(screen.getByText('Partially Refunded')).toBeTruthy();
+    expect(screen.queryByText('Pending')).toBeNull();
+  });
+
+  it('colours Pending and Failed from the palette shared with the full history', () => {
+    mockUseGetTransactionsQuery.mockReturnValue(oneTimeResult([oneTime('1', { status: 'pending' })]));
+    mockUseGetEnrollmentTransactionHistoryQuery.mockReturnValue(enrollmentResult([
+      autoDebit(201, { paymentStatus: 'declined', paymentStatusName: 'Declined' }),
+    ]));
+
+    render(<TransactionHistoryComponent {...previewProps} />);
+
+    const textColor = (label: string) => StyleSheet.flatten(screen.getByText(label).props.style).color;
+    expect(textColor('Pending')).toBe(TRANSACTION_STATUS_TONE_COLORS.pending.textColor);
+    expect(textColor('Failed')).toBe(TRANSACTION_STATUS_TONE_COLORS.failed.textColor);
   });
 });

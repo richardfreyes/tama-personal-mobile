@@ -1,3 +1,4 @@
+import type { ReactNode } from 'react';
 import { StyleProp, ViewStyle } from 'react-native';
 
 export type NativeLoadingIndicatorProps = {
@@ -14,6 +15,13 @@ export type SkeletonBlockProps = {
   borderRadius?: number;
   style?: StyleProp<ViewStyle>;
   testID?: string;
+};
+
+export type SkeletonGroupProps = {
+  label: string;
+  style?: StyleProp<ViewStyle>;
+  testID?: string;
+  children: ReactNode;
 };
 
 export type SkeletonListProps = {

@@ -1,14 +1,18 @@
 import type { Bill } from "@/redux/features/bills/billsTypes";
+import type { PaymentMethod } from "@/redux/features/paymentMethods/paymentMethodTypes";
 import { Colors } from "@/styles/common/colors";
 import { FontSizes } from "@/styles/common/typography";
 import type { PoppinsWeight } from "@/utils/fonts";
+import type { Feather } from "@expo/vector-icons";
 import type { Route } from "expo-router";
 import type React from "react";
 import type { ScrollViewProps, StyleProp, TextInputProps, TextProps, TextStyle, TouchableOpacityProps, ViewStyle } from "react-native";
+import type { UpcomingEnrollmentBill } from "./bill";
 import type { Enrollment, EnrollmentDisplayField } from "./enrollment";
 import { FormField } from "./form";
 import type { SettingRoute } from "./navigation";
 import type { AppliedFilters } from "./payment";
+import type { UnifiedTransaction } from "./transaction";
 
 export type ButtonVariant = 'primary' | 'secondary' | 'tertiary' | 'quaternary' | 'danger';
 
@@ -62,6 +66,10 @@ export interface ComponentsProps {
   sectionFooter?: {
     button?: boolean;
   };
+  // Shows only this many of the newest transactions as a compact preview, without search or paging.
+  limit?: number;
+  // Payment methods can be pulled to refresh; embedded in a scrolling screen it opts out.
+  isRefreshable?: boolean;
   isFilterVisible?: boolean;
   onOpenFilterSheet?: () => void;
   route?: Route;
@@ -301,6 +309,9 @@ export type AutoDebitCardProps = {
   onPress: () => void;
   showViewAll?: boolean;
   activeCount?: number;
+  isLoading?: boolean;
+  isError?: boolean;
+  onRetry?: () => void;
 };
 
 export type AutoPayStatusCardProps = {
@@ -332,8 +343,13 @@ export interface EnrollmentDetailsLookupProps {
 
 export interface EmptyStateCardProps {
   variant?: 'empty' | 'error';
+  // With an icon an empty state becomes a card with a title and description.
+  icon?: React.ComponentProps<typeof Feather>['name'];
   title?: string;
   message: string;
+  // With onRetry an error state becomes a card with a Try Again button.
+  onRetry?: () => void;
+  retryLabel?: string;
   containerStyle?: ViewStyle;
   messageStyle?: TextStyle;
 }
@@ -397,4 +413,31 @@ export interface DirectDebitBankOptionProps {
   icon: React.ComponentType<{ width?: number; height?: number; style?: StyleProp<ViewStyle> }>;
   onPress: () => void;
   disabled?: boolean;
+}
+
+export interface BillerCardProps {
+  bill: Bill;
+  logoUrl?: string;
+}
+
+export interface PaymentMethodRowProps {
+  method: PaymentMethod;
+  route?: Route;
+}
+
+export interface RecentTransactionRowProps {
+  transaction: UnifiedTransaction;
+}
+
+export interface MerchantLogoProps {
+  initials: string;
+  logoUrl?: string | null;
+}
+
+export interface UpcomingBillCardProps {
+  bill: UpcomingEnrollmentBill;
+  index: number;
+  onPress: (bill: UpcomingEnrollmentBill) => void;
+  onEnroll: () => void;
+  pageWidth: number;
 }

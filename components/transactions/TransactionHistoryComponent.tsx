@@ -2,67 +2,36 @@ import AutoIcon from '@/assets/icons/auto.svg';
 import CheckIcon from '@/assets/icons/check.svg';
 import FilterIcon from '@/assets/icons/filter.svg';
 import SearchInput from '@/components/common/SearchInput';
-import { TRANSACTION_HISTORY_PAGE_SIZE, TRANSACTION_STATUS_GROUPS } from '@/constants/transaction';
+import { TRANSACTION_HISTORY_PAGE_SIZE, TRANSACTION_STATUS_GROUPS, TRANSACTION_STATUS_TONE_COLORS } from '@/constants/transaction';
 import { useGetEnrollmentTransactionHistoryQuery } from '@/redux/features/enrollmentTransactionHistory/enrollmentTransactionHistoryApi';
 import { useGetTransactionsQuery } from '@/redux/features/transactions/transactionApi';
-import { Colors } from '@/styles/common/colors';
 import { globalStyle } from '@/styles/common/globals';
 import { transactionHistoryComponentStyles as styles } from '@/styles/components/transactions/TransactionHistoryComponent';
-import { ComponentsProps, TransactionHistoryRef, TransactionItemProps, UnifiedTransaction } from '@/types';
+import { ComponentsProps, RecentTransactionRowProps, TransactionHistoryRef, TransactionItemProps, TransactionStatusTone, UnifiedTransaction } from '@/types';
 import { formatApiDate, getStartOfDay } from '@/utils/date';
 import { formatMoney } from '@/utils/format';
-import { mergeTransactions, normalizeEnrollmentTransaction, normalizeOneTimePaymentTransaction, sortTransactionsNewestFirst, transactionMatchesSearch } from '@/utils/transactionHistory';
+import { formatTransactionDebitAmount, formatTransactionStatus, getTransactionStatusBadge, getTransactionStatusTone, mergeTransactions, normalizeEnrollmentTransaction, normalizeOneTimePaymentTransaction, sortTransactionsNewestFirst, transactionMatchesSearch } from '@/utils/transactionHistory';
 import { router, useFocusEffect } from 'expo-router';
 import React, { forwardRef, useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
-import { Image, KeyboardAvoidingView, Platform, View } from 'react-native';
+import { Image, KeyboardAvoidingView, Platform, Pressable, View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { AppText } from '../common/AppText';
 import EmptyStateCard from '../common/EmptyStateCard';
-import { InlineLoadingIndicator, TransactionHistorySkeleton } from '../common/Loading';
+import { InlineLoadingIndicator, SkeletonBlock, SkeletonGroup, TransactionHistorySkeleton } from '../common/Loading';
+import MerchantLogo from '../common/MerchantLogo';
 import { SectionHeaderComponent } from '../common/SectionHeaderComponent';
 import { SpacerComponent } from '../common/SpacerComponent';
 
-const formatBackendStatus = (status: string): string => (
-  status
-    .trim()
-    .replace(/[_-]+/g, ' ')
-    .replace(/\b\w/g, (character) => character.toUpperCase())
-);
+const getStatusText = (item: UnifiedTransaction, tone: TransactionStatusTone): string => {
+  if (item.source === 'enrollment') return item.statusLabel;
+  if (tone === 'success') return 'Paid';
+  if (item.status?.toLowerCase() === 'uncaptured') return 'Pending';
+  return formatTransactionStatus(item.statusLabel || item.status || 'Unknown');
+};
 
 const getStatusDisplay = (item: UnifiedTransaction) => {
-  const statusLower = item.status?.toLowerCase() || '';
-
-  if (item.source === 'oneTimePayment') {
-    if (TRANSACTION_STATUS_GROUPS.INCOMPLETE.has(statusLower)) {
-      const pendingLabel = statusLower === 'uncaptured'
-        ? 'Pending'
-        : formatBackendStatus(item.statusLabel || item.status);
-      return { color: Colors.amber10, bg: Colors.amber01, text: pendingLabel };
-    }
-    if (TRANSACTION_STATUS_GROUPS.FAILED.has(statusLower)) {
-      return {
-        color: Colors.error06,
-        bg: Colors.error01,
-        text: formatBackendStatus(item.statusLabel || item.status),
-      };
-    }
-    if (TRANSACTION_STATUS_GROUPS.SUCCESSFUL.has(statusLower)) {
-      return { color: Colors.success09, bg: Colors.success01, text: 'Paid' };
-    }
-    return {
-      color: Colors.maroon10,
-      bg: Colors.maroon01,
-      text: formatBackendStatus(item.statusLabel || item.status || 'Unknown'),
-    };
-  }
-
-  if (['pending', 'incomplete', 'uncaptured', 'submitted', 'processing'].includes(statusLower)) {
-    return { color: Colors.amber10, bg: Colors.amber01, text: item.statusLabel };
-  }
-  if (TRANSACTION_STATUS_GROUPS.FAILED.has(statusLower)) {
-    return { color: Colors.error06, bg: Colors.error01, text: item.statusLabel };
-  }
-  return { color: Colors.success09, bg: Colors.success01, text: item.statusLabel };
+  const tone = getTransactionStatusTone(item);
+  return { ...TRANSACTION_STATUS_TONE_COLORS[tone], text: getStatusText(item, tone) };
 };
 
 const groupTransactionsByDate = (transactions: UnifiedTransaction[] = []) => {
@@ -85,6 +54,22 @@ const groupTransactionsByDate = (transactions: UnifiedTransaction[] = []) => {
   return grouped;
 };
 
+const openTransaction = (item: UnifiedTransaction) => {
+  router.push({
+    pathname: '/transactions/[invoiceReferenceId]',
+    params: item.source === 'enrollment'
+      ? {
+          invoiceReferenceId: item.detailReferenceId,
+          transactionId: item.transactionId,
+          transactionType: item.source,
+        }
+      : {
+          invoiceReferenceId: item.detailReferenceId,
+          isAutoPay: 'One Time Payment',
+        },
+  });
+};
+
 const DateSeparator = ({ date }: { date: string }) => (
   <AppText weight="bold" variant="bodyMedium" style={styles.dateSeparatorText}>{date}</AppText>
 );
@@ -95,28 +80,12 @@ const TransactionItem = ({ item }: TransactionItemProps) => {
   const formattedDate = formatApiDate(item.createdAt, 'MM/dd/yy - h:mmaaaa');
   const isEnrollment = item.source === 'enrollment';
 
-  const handlePress = () => {
-    router.push({
-      pathname: '/transactions/[invoiceReferenceId]',
-      params: isEnrollment
-        ? {
-            invoiceReferenceId: item.detailReferenceId,
-            transactionId: item.transactionId,
-            transactionType: item.source,
-          }
-        : {
-            invoiceReferenceId: item.detailReferenceId,
-            isAutoPay: 'One Time Payment',
-          },
-    });
-  };
-
   return (
     <TouchableOpacity
       accessibilityHint={`Opens ${item.typeLabel.toLowerCase()} transaction details`}
       accessibilityLabel={`${item.merchantName}, ${item.typeLabel}, ${formattedAmount}`}
       accessibilityRole="button"
-      onPress={handlePress}
+      onPress={() => openTransaction(item)}
       style={styles.itemContainer}
       testID={`transaction-item-${item.key}`}
     >
@@ -145,9 +114,9 @@ const TransactionItem = ({ item }: TransactionItemProps) => {
         </View>
       </View>
       <View style={styles.colRight}>
-        <View style={[styles.statusDisplay, { backgroundColor: statusDisplay.bg }]}>
-          <View style={[styles.dot, { backgroundColor: statusDisplay.color }]} />
-          <AppText style={[styles.dateText, { color: statusDisplay.color }]} size="extraSmall">
+        <View style={[styles.statusDisplay, { backgroundColor: statusDisplay.backgroundColor }]}>
+          <View style={[styles.dot, { backgroundColor: statusDisplay.dotColor }]} />
+          <AppText style={[styles.dateText, { color: statusDisplay.textColor }]} size="extraSmall">
             {statusDisplay.text}{' '}
           </AppText>
           <View
@@ -176,6 +145,64 @@ const TransactionItem = ({ item }: TransactionItemProps) => {
     </TouchableOpacity>
   );
 };
+
+// The compact row used by the recent transactions preview.
+const RecentTransactionRow = ({ transaction }: RecentTransactionRowProps) => {
+  const badge = getTransactionStatusBadge(transaction);
+  const amount = formatTransactionDebitAmount(transaction);
+  const date = formatApiDate(transaction.createdAt, 'MMM d');
+  const type = transaction.source === 'enrollment' ? 'Auto Debit' : 'One Time Payment';
+  const meta = [date, type].filter(Boolean).join(' • ');
+  const initials = transaction.merchantName.trim().slice(0, 2).toUpperCase() || '?';
+
+  return (
+    <Pressable
+      accessibilityHint="Opens transaction details"
+      accessibilityLabel={`${transaction.merchantName}, ${meta}, ${amount}${badge ? `, ${badge.label}` : ''}`}
+      accessibilityRole="button"
+      onPress={() => openTransaction(transaction)}
+      style={styles.recentRow}
+      testID={`recent-transaction-${transaction.key}`}
+    >
+      <MerchantLogo initials={initials} logoUrl={transaction.merchantLogoUrl} />
+      <View style={styles.recentDetails}>
+        <AppText numberOfLines={1} weight="500" style={styles.recentMerchant}>
+          {transaction.merchantName}
+        </AppText>
+        <AppText numberOfLines={1} style={styles.recentMeta}>{meta}</AppText>
+      </View>
+      <View style={styles.recentAmountColumn}>
+        <AppText numberOfLines={1} weight="600" style={styles.recentAmount}>{amount}</AppText>
+        {badge ? (
+          <View style={[styles.recentBadge, { backgroundColor: badge.backgroundColor }]}>
+            <View style={[styles.recentBadgeDot, { backgroundColor: badge.dotColor }]} />
+            <AppText numberOfLines={1} weight="500" style={[styles.recentBadgeText, { color: badge.textColor }]}>
+              {badge.label}
+            </AppText>
+          </View>
+        ) : null}
+      </View>
+    </Pressable>
+  );
+};
+
+const RecentTransactionsSkeleton = ({ count }: { count: number }) => (
+  <SkeletonGroup label="Loading recent transactions" style={globalStyle.listCard} testID="recent-transactions-loading">
+    {Array.from({ length: count }, (_, index) => (
+      <React.Fragment key={index}>
+        {index > 0 ? <View style={styles.recentDivider} /> : null}
+        <View style={styles.recentRow}>
+          <SkeletonBlock borderRadius={12} height={40} style={globalStyle.skeletonOnCard} width={40} />
+          <View style={styles.recentSkeletonDetails}>
+            <SkeletonBlock height={12} style={globalStyle.skeletonOnCard} width="60%" />
+            <SkeletonBlock height={10} style={globalStyle.skeletonOnCard} width="40%" />
+          </View>
+          <SkeletonBlock height={12} style={globalStyle.skeletonOnCard} width={76} />
+        </View>
+      </React.Fragment>
+    ))}
+  </SkeletonGroup>
+);
 
 const SourceErrorNotice = ({ message, onRetry }: { message: string; onRetry: () => void; }) => (
   <View accessibilityRole="alert" style={styles.sourceErrorNotice}>
@@ -212,7 +239,8 @@ const statusMatchesFilter = (transaction: UnifiedTransaction, selectedStatus: st
 };
 
 const TransactionHistoryComponent = forwardRef<TransactionHistoryRef, ComponentsProps>(
-  ({ sectionHeader, onOpenFilterSheet, isFilterVisible, activeFilters }, ref) => {
+  ({ sectionHeader, onOpenFilterSheet, isFilterVisible, activeFilters, limit }, ref) => {
+    const pageSize = limit ?? TRANSACTION_HISTORY_PAGE_SIZE;
     const [searchQuery, setSearchQuery] = useState('');
     const [debouncedSearch, setDebouncedSearch] = useState('');
     const [oneTimePaymentHasMore, setOneTimePaymentHasMore] = useState(true);
@@ -231,7 +259,7 @@ const TransactionHistoryComponent = forwardRef<TransactionHistoryRef, Components
       refetch: refetchOneTimePayments,
     } = useGetTransactionsQuery({
       page: oneTimePaymentPage,
-      count: TRANSACTION_HISTORY_PAGE_SIZE,
+      count: pageSize,
       searchQuery: debouncedSearch,
     });
 
@@ -243,7 +271,7 @@ const TransactionHistoryComponent = forwardRef<TransactionHistoryRef, Components
       refetch: refetchEnrollments,
     } = useGetEnrollmentTransactionHistoryQuery({
       page: enrollmentOffset,
-      count: TRANSACTION_HISTORY_PAGE_SIZE,
+      count: pageSize,
       searchQuery: debouncedSearch,
     });
 
@@ -415,6 +443,11 @@ const TransactionHistoryComponent = forwardRef<TransactionHistoryRef, Components
       return filteredByActiveFilters.filter((item) => transactionMatchesSearch(item, searchQuery));
     }, [activeFilters, allItems, filterTransactions, searchQuery]);
 
+    const recentTransactions = useMemo(
+      () => (limit === undefined ? [] : filteredItems.slice(0, limit)),
+      [filteredItems, limit],
+    );
+
     const isTransactionHistoryEmpty = filteredItems.length === 0;
     const groupedTransactions = groupTransactionsByDate(filteredItems);
     const sortedKeys = Object.keys(groupedTransactions);
@@ -439,6 +472,28 @@ const TransactionHistoryComponent = forwardRef<TransactionHistoryRef, Components
     const isFetching = isOneTimePaymentFetching || isEnrollmentFetching;
     const hasMore = oneTimePaymentHasMore || enrollmentHasMore;
 
+    const retryFailedSources = () => {
+      if (isOneTimePaymentError) void refetchOneTimePayments();
+      if (isEnrollmentError) void refetchEnrollments();
+    };
+
+    const sourceErrorNotices = (
+      <>
+        {isOneTimePaymentError && !bothSourcesFailed ? (
+          <SourceErrorNotice
+            message="One-time payment transactions couldn't be loaded."
+            onRetry={() => { void refetchOneTimePayments(); }}
+          />
+        ) : null}
+        {isEnrollmentError && !bothSourcesFailed ? (
+          <SourceErrorNotice
+            message="Enrollment transactions couldn't be loaded."
+            onRetry={() => { void refetchEnrollments(); }}
+          />
+        ) : null}
+      </>
+    );
+
     const isSearchResolving = searchQuery.trim() !== debouncedSearch.trim() || isFetching;
     const showSearchResultsSkeleton = (
       isTransactionHistoryEmpty
@@ -446,12 +501,54 @@ const TransactionHistoryComponent = forwardRef<TransactionHistoryRef, Components
       && isSearchResolving
     );
 
+    if (limit !== undefined) {
+      // A retry that is still fetching shows the placeholder again rather than the stale error.
+      const isRetrying = (isOneTimePaymentError || isEnrollmentError) && isFetching && allItems.length === 0;
+
+      return (
+        <View style={globalStyle.sectionPanel} testID="recent-transactions">
+          <SectionHeaderComponent
+            title={sectionHeader?.title}
+            linkText={recentTransactions.length === 0 ? null : sectionHeader?.linkText}
+            onViewAllPress={handleViewAll}
+          />
+          {sourceErrorNotices}
+          {showInitialLoader || isRetrying ? (
+            <RecentTransactionsSkeleton count={limit} />
+          ) : bothSourcesFailed ? (
+            <EmptyStateCard
+              message="Unable to load recent transactions."
+              onRetry={retryFailedSources}
+              retryLabel="Try loading recent transactions again"
+              variant="error"
+            />
+          ) : recentTransactions.length === 0 ? (
+            <EmptyStateCard
+              icon="clock"
+              message="Your bill payments will appear here."
+              title="No transactions yet"
+              variant="empty"
+            />
+          ) : (
+            <View style={globalStyle.listCard}>
+              {recentTransactions.map((transaction, index) => (
+                <React.Fragment key={transaction.key}>
+                  {index > 0 ? <View style={styles.recentDivider} /> : null}
+                  <RecentTransactionRow transaction={transaction} />
+                </React.Fragment>
+              ))}
+            </View>
+          )}
+        </View>
+      );
+    }
+
     return (
       <KeyboardAvoidingView
         style={{ flex: 1 }}
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       >
-        <View style={globalStyle.outerContainer}>
+        <View style={globalStyle.sectionPanel}>
           <SectionHeaderComponent
             title={sectionHeader?.title}
             linkText={isTransactionHistoryEmpty ? null : sectionHeader?.linkText}
@@ -485,18 +582,7 @@ const TransactionHistoryComponent = forwardRef<TransactionHistoryRef, Components
             ) : null}
             <SpacerComponent height={12} />
 
-            {isOneTimePaymentError && !bothSourcesFailed ? (
-              <SourceErrorNotice
-                message="One-time payment transactions couldn't be loaded."
-                onRetry={() => { void refetchOneTimePayments(); }}
-              />
-            ) : null}
-            {isEnrollmentError && !bothSourcesFailed ? (
-              <SourceErrorNotice
-                message="Enrollment transactions couldn't be loaded."
-                onRetry={() => { void refetchEnrollments(); }}
-              />
-            ) : null}
+            {sourceErrorNotices}
 
             {showInitialLoader ? (
               <TransactionHistorySkeleton rows={5} label="Loading transactions" />

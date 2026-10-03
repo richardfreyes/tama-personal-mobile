@@ -41,7 +41,7 @@ describe('getUpcomingBillsForMonth', () => {
     expect(bills.map((bill) => bill.status)).toEqual(['Due Soon', 'Upcoming']);
     expect(bills[0].title).toBe('Due Soon Project');
     expect(bills[0].merchantName).toBe('Due Soon Merchant');
-    expect(bills[0].daysRemainingLabel).toBe('2 days remaining');
+    expect(bills[0].daysRemainingLabel).toBe('2 days left');
     expect(bills[0].isNearestUpcoming).toBe(false);
   });
 
@@ -108,7 +108,7 @@ describe('getUpcomingBillsForMonth', () => {
       'same-date',
     ]);
     expect(bills.map((bill) => bill.dueDateLabel)).toEqual([
-      'Aug 01, 2026',
+      'Aug 1, 2026',
       'Aug 27, 2026',
       'Aug 27, 2026',
     ]);

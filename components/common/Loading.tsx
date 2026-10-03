@@ -1,6 +1,6 @@
 import { Colors } from '@/styles/common/colors';
 import { loadingStyles as styles } from '@/styles/components/common/Loading';
-import { DetailsSkeletonProps, FormSkeletonProps, HorizontalCardSkeletonProps, NativeLoadingIndicatorProps, NativeProgressBarProps, PaymentInfoSkeletonProps, SkeletonBlockProps, SkeletonListProps } from '@/types/loading';
+import { DetailsSkeletonProps, FormSkeletonProps, HorizontalCardSkeletonProps, NativeLoadingIndicatorProps, NativeProgressBarProps, PaymentInfoSkeletonProps, SkeletonBlockProps, SkeletonGroupProps, SkeletonListProps } from '@/types/loading';
 import React, { useEffect, useRef, useState } from 'react';
 import { AccessibilityInfo, ActivityIndicator, Animated, Easing, Platform, View } from 'react-native';
 import { AppText } from './AppText';
@@ -132,6 +132,20 @@ export const SkeletonBlock = ({
     />
   );
 };
+
+// Wraps placeholder blocks so screen readers announce them as busy content.
+export const SkeletonGroup = ({ label, style, testID, children }: SkeletonGroupProps) => (
+  <View
+    accessibilityLabel={label}
+    accessibilityLiveRegion="polite"
+    accessibilityRole="progressbar"
+    accessibilityState={{ busy: true }}
+    style={style}
+    testID={testID}
+  >
+    {children}
+  </View>
+);
 
 export const SkeletonList = ({
   rows = 5,

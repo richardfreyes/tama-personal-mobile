@@ -1,5 +1,6 @@
 import type { EnrollmentTransactionHistory, Transaction } from '@/types';
-import { mergeCompletedTransactionIntoPage, mergeTransactions, normalizeEnrollmentTransaction, normalizeOneTimePaymentTransaction, sortTransactionsNewestFirst, transactionDetailToListTransaction, transactionMatchesSearch } from '@/utils/transactionHistory';
+import { TRANSACTION_STATUS_TONE_COLORS } from '@/constants/transaction';
+import { formatTransactionDebitAmount, formatTransactionStatus, getTransactionStatusBadge, getTransactionStatusTone, mergeCompletedTransactionIntoPage, mergeTransactions, normalizeEnrollmentTransaction, normalizeOneTimePaymentTransaction, sortTransactionsNewestFirst, transactionDetailToListTransaction, transactionMatchesSearch } from '@/utils/transactionHistory';
 import { describe, expect, it } from '@jest/globals';
 
 const oneTimePayment: Transaction = {
@@ -222,5 +223,94 @@ describe('transaction history normalization', () => {
       status: 'failed',
     });
     expect(mergedPage.totalCount).toBe(1);
+  });
+});
+
+describe('getTransactionStatusTone', () => {
+  it('classifies one-time payment statuses', () => {
+    expect(getTransactionStatusTone({ source: 'oneTimePayment', status: 'captured' })).toBe('success');
+    expect(getTransactionStatusTone({ source: 'oneTimePayment', status: 'PAID' })).toBe('success');
+    expect(getTransactionStatusTone({ source: 'oneTimePayment', status: 'uncaptured' })).toBe('pending');
+    expect(getTransactionStatusTone({ source: 'oneTimePayment', status: 'processing' })).toBe('pending');
+    expect(getTransactionStatusTone({ source: 'oneTimePayment', status: 'declined' })).toBe('failed');
+    expect(getTransactionStatusTone({ source: 'oneTimePayment', status: 'Canceled' })).toBe('failed');
+  });
+
+  it('keeps a status it does not recognise neutral instead of guessing', () => {
+    expect(getTransactionStatusTone({ source: 'oneTimePayment', status: 'refunded' })).toBe('neutral');
+    expect(getTransactionStatusTone({ source: 'oneTimePayment', status: '' })).toBe('neutral');
+  });
+
+  it('treats an enrollment transaction as settled unless it failed or is in flight', () => {
+    expect(getTransactionStatusTone({ source: 'enrollment', status: 'PAID' })).toBe('success');
+    expect(getTransactionStatusTone({ source: 'enrollment', status: 'scheduled' })).toBe('success');
+    expect(getTransactionStatusTone({ source: 'enrollment', status: 'submitted' })).toBe('pending');
+    expect(getTransactionStatusTone({ source: 'enrollment', status: 'FAILED' })).toBe('failed');
+  });
+});
+
+describe('formatTransactionStatus', () => {
+  it('turns backend status codes into readable words', () => {
+    expect(formatTransactionStatus('partially_refunded')).toBe('Partially Refunded');
+    expect(formatTransactionStatus('  pending-review ')).toBe('Pending Review');
+    expect(formatTransactionStatus('paid')).toBe('Paid');
+  });
+});
+
+describe('getTransactionStatusBadge', () => {
+  const transaction = (overrides: Record<string, unknown> = {}) => ({
+    ...normalizeOneTimePaymentTransaction(oneTimePayment),
+    ...overrides,
+  } as ReturnType<typeof normalizeOneTimePaymentTransaction>);
+
+  it('shows no badge once a payment has settled', () => {
+    expect(getTransactionStatusBadge(transaction({ status: 'captured' }))).toBeNull();
+    expect(getTransactionStatusBadge(transaction({ source: 'enrollment', status: 'PAID' }))).toBeNull();
+    expect(getTransactionStatusBadge(transaction({ source: 'enrollment', status: 'anything-else' }))).toBeNull();
+  });
+
+  it('flags failed payments with the shared failed colours', () => {
+    expect(getTransactionStatusBadge(transaction({ status: 'declined' }))).toEqual({
+      ...TRANSACTION_STATUS_TONE_COLORS.failed,
+      label: 'Failed',
+    });
+  });
+
+  it('uses the shared amber for payments still in flight', () => {
+    expect(getTransactionStatusBadge(transaction({ status: 'pending' }))).toEqual({
+      ...TRANSACTION_STATUS_TONE_COLORS.pending,
+      label: 'Pending',
+    });
+    expect(getTransactionStatusBadge(transaction({ source: 'enrollment', status: 'processing' }))?.label).toBe('Pending');
+  });
+
+  it('shows the real status instead of Pending when it is not recognised', () => {
+    expect(getTransactionStatusBadge(transaction({ status: 'refunded', statusLabel: 'refunded' }))).toEqual({
+      ...TRANSACTION_STATUS_TONE_COLORS.neutral,
+      label: 'Refunded',
+    });
+    expect(getTransactionStatusBadge(transaction({ status: 'partially_refunded', statusLabel: 'partially_refunded' }))?.label)
+      .toBe('Partially Refunded');
+  });
+});
+
+describe('formatTransactionDebitAmount', () => {
+  const transaction = (overrides: Record<string, unknown> = {}) => ({
+    ...normalizeOneTimePaymentTransaction(oneTimePayment),
+    ...overrides,
+  } as ReturnType<typeof normalizeOneTimePaymentTransaction>);
+
+  it('prefixes pesos with a minus sign and groups them for the Philippines', () => {
+    expect(formatTransactionDebitAmount(transaction({ amount: 1500 }))).toBe('−₱ 1,500.00');
+    expect(formatTransactionDebitAmount(transaction({ currency: 'php', amount: 35000 }))).toBe('−₱ 35,000.00');
+  });
+
+  it('always shows the magnitude of the debit', () => {
+    expect(formatTransactionDebitAmount(transaction({ amount: -500 }))).toBe('−₱ 500.00');
+    expect(formatTransactionDebitAmount(transaction({ amount: Number.NaN }))).toBe('−₱ 0.00');
+  });
+
+  it('keeps other currencies explicit', () => {
+    expect(formatTransactionDebitAmount(transaction({ currency: 'USD', amount: 12 }))).toBe('−USD 12.00');
   });
 });

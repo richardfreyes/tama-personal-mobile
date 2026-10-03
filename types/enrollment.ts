@@ -233,6 +233,8 @@ export interface EnrollmentPaymentMethodDetails {
 
 export interface EnrollmentDetailsViewModel {
   merchantName: string;
+  // Reads naturally in a sentence ("Contact {name} …") when the enrollment has no merchant name.
+  merchantContactName: string;
   paymentType: string;
   referenceId: string | null;
   statusLabel: string;
@@ -247,7 +249,9 @@ export interface EnrollmentDetailsViewModel {
   totalPayments: number | null;
   progress: number | null;
   nextPaymentDate: string | null;
+  summaryMetrics: EnrollmentDisplayField[];
   paymentMethod: EnrollmentPaymentMethodDetails | null;
+  paymentMethodFields: EnrollmentDisplayField[];
   enrollmentFields: EnrollmentDisplayField[];
   customerFields: EnrollmentDisplayField[];
   clientNotes: string | null;

@@ -48,15 +48,10 @@ describe('authentication route layouts', () => {
     expect(screen.getByText('Redirect:/dashboard')).toBeTruthy();
   });
 
-  it('redirects dashboard guests to login after retrieving the persisted token', async () => {
-    render(<DashboardLayout />);
-    expect(screen.getByText('Redirect:/(auth)/login')).toBeTruthy();
-    await waitFor(() => expect(mockDispatch).toHaveBeenCalledWith({ type: 'login/retrieveToken' }));
-  });
-
-  it('renders the protected stack for an authenticated dashboard user', () => {
-    mockLoginState.token = 'token';
+  it('renders the dashboard stack without re-checking authentication', () => {
     render(<DashboardLayout />);
     expect(screen.getByTestId('stack')).toBeTruthy();
+    expect(screen.queryByText(/^Redirect:/)).toBeNull();
+    expect(mockDispatch).not.toHaveBeenCalled();
   });
 });
