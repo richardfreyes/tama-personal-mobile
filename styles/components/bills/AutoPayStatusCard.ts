@@ -15,6 +15,7 @@ export const autoPayStatusCardStyles = StyleSheet.create({
   },
   iconTile: {
     alignItems: 'center',
+    alignSelf: 'center',
     borderRadius: 14,
     height: 44,
     justifyContent: 'center',

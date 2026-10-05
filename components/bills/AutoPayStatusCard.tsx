@@ -4,7 +4,6 @@ import { autoPayStatusCardStyles as styles } from '@/styles/components/bills/Aut
 import { AutoPayStatusCardProps } from '@/types/common';
 import { Feather } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
-import React from 'react';
 import { Pressable, View } from 'react-native';
 import { AppText } from '../common/AppText';
 
