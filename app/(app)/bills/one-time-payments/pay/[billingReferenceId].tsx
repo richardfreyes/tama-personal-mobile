@@ -71,7 +71,7 @@ const PayBillScreen = () => {
   const [touched, setTouched] = useState<Record<string, boolean>>({});
   const [notes, setNotes] = useState('');
   const [resolvedComputation, setResolvedComputation] = useState<{ key: string; response: TransactionComputationResponse } | null>(null);
-  const debounceTimer = useRef<NodeJS.Timeout | number | null>(null);
+  const debounceTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [computationErr, setComputationErr] = useState(false);
   const [cardNeedsReAdd, setCardNeedsReAdd] = useState(false);
   const [paymentOption, setPaymentOption] = useState<'saved' | 'new-card'>('saved');
