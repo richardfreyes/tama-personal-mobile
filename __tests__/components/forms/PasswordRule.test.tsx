@@ -6,14 +6,11 @@ import PasswordRule from '../../../components/forms/PasswordRule';
 import { renderWithProviders } from '../../../utils/test-utils';
 
 describe('PasswordRule', () => {
-  // ---- Rendering ----
 
   it('renders the rule text', () => {
     renderWithProviders(<PasswordRule text="At least 8 characters" valid={false} />);
     expect(screen.getByText('At least 8 characters')).toBeTruthy();
   });
-
-  // ---- Valid / invalid icon colour ----
 
   it('uses the success colour for the icon when valid', () => {
     const { toJSON } = renderWithProviders(

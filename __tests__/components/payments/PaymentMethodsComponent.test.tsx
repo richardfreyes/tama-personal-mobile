@@ -51,8 +51,6 @@ describe('PaymentMethodsComponent', () => {
     mockUseGetPaymentMethodsQuery.mockReturnValue(success);
   });
 
-  // ---- Loading ----
-
   it('shows a loading indicator and no content while loading', () => {
     mockUseGetPaymentMethodsQuery.mockReturnValue({
       data: undefined,
@@ -83,8 +81,6 @@ describe('PaymentMethodsComponent', () => {
     expect(screen.queryByText('Unable to load payment methods.')).toBeNull();
   });
 
-  // ---- Error ----
-
   it('shows the error state and hides the add button on error', () => {
     mockUseGetPaymentMethodsQuery.mockReturnValue({
       data: undefined,
@@ -114,8 +110,6 @@ describe('PaymentMethodsComponent', () => {
     fireEvent.press(screen.getByRole('button', { name: 'Try loading payment methods again' }));
     expect(refetch).toHaveBeenCalledTimes(1);
   });
-
-  // ---- Empty ----
 
   it('shows the empty state when there are no payment methods', () => {
     mockUseGetPaymentMethodsQuery.mockReturnValue({
@@ -153,8 +147,6 @@ describe('PaymentMethodsComponent', () => {
     expect(screen.queryByText('View All')).toBeNull();
     expect(screen.getByText('Add Payment Method')).toBeTruthy();
   });
-
-  // ---- Success ----
 
   it('renders the section header and View All link with data', () => {
     renderWithProviders(<PaymentMethodsComponent {...defaultProps} />);
@@ -244,8 +236,6 @@ describe('PaymentMethodsComponent', () => {
     expect(screen.getByText('Mastercard')).toBeTruthy();
   });
 
-  // ---- Navigation ----
-
   it('never lists direct debit accounts, whatever their casing', () => {
     mockUseGetPaymentMethodsQuery.mockReturnValue({
       ...success,
@@ -311,5 +301,115 @@ describe('PaymentMethodsComponent', () => {
       }),
       { dangerouslySingular: true },
     );
+  });
+
+  describe('as a picker', () => {
+    const pickerProps = (overrides: Record<string, unknown> = {}) => ({
+      onSelectMethod: jest.fn(),
+      selectedMethodId: 'pm-1',
+      onAddPaymentMethod: jest.fn(),
+      ...overrides,
+    });
+
+    it('lists each card as a radio, without the section panel or its header', () => {
+      renderWithProviders(<PaymentMethodsComponent {...defaultProps} {...pickerProps()} />);
+
+      expect(screen.getAllByRole('radio')).toHaveLength(2);
+      expect(screen.getByText('Visa')).toBeTruthy();
+      expect(screen.getByText('•••• 4242')).toBeTruthy();
+      expect(screen.getByText('Mastercard')).toBeTruthy();
+      expect(screen.queryByText('Payment Methods')).toBeNull();
+      expect(screen.queryByText('View All')).toBeNull();
+    });
+
+    it('marks only the chosen card', () => {
+      renderWithProviders(<PaymentMethodsComponent {...defaultProps} {...pickerProps({ selectedMethodId: 'pm-2' })} />);
+
+      expect(screen.getByTestId('payment-method-pm-1').props.accessibilityState).toEqual(expect.objectContaining({ checked: false }));
+      expect(screen.getByTestId('payment-method-pm-2').props.accessibilityState).toEqual(expect.objectContaining({ checked: true }));
+    });
+
+    it('reports the card that was tapped', () => {
+      const props = pickerProps();
+      renderWithProviders(<PaymentMethodsComponent {...defaultProps} {...props} />);
+
+      fireEvent.press(screen.getByTestId('payment-method-pm-2'));
+      expect(props.onSelectMethod).toHaveBeenCalledWith(expect.objectContaining({ referenceId: 'pm-2' }));
+    });
+
+    it('does not open the card details when a card is tapped', () => {
+      renderWithProviders(<PaymentMethodsComponent {...defaultProps} {...pickerProps()} />);
+
+      fireEvent.press(screen.getByTestId('payment-method-pm-2'));
+      expect(router.push).not.toHaveBeenCalled();
+    });
+
+    it('shows the Default pill on the default card only', () => {
+      renderWithProviders(<PaymentMethodsComponent {...defaultProps} {...pickerProps()} />);
+      expect(screen.getAllByText('Default')).toHaveLength(1);
+    });
+
+    it('shows the pill once even when the API flags several cards as the default', () => {
+      mockUseGetPaymentMethodsQuery.mockReturnValue({
+        ...success,
+        data: cards.map((card) => ({ ...card, isPrimary: true })),
+      });
+      renderWithProviders(<PaymentMethodsComponent {...defaultProps} {...pickerProps()} />);
+
+      expect(screen.getAllByText('Default')).toHaveLength(1);
+      expect(screen.getByLabelText(/Visa, •••• 4242, Default/)).toBeTruthy();
+    });
+
+    it('lists a card the API returns twice once', () => {
+      mockUseGetPaymentMethodsQuery.mockReturnValue({ ...success, data: [...cards, cards[0]] });
+      renderWithProviders(<PaymentMethodsComponent {...defaultProps} {...pickerProps()} />);
+
+      expect(screen.getAllByRole('radio')).toHaveLength(2);
+    });
+
+    it('ends the list with an Add Payment Method row that runs the given handler', () => {
+      const props = pickerProps();
+      renderWithProviders(<PaymentMethodsComponent {...defaultProps} {...props} />);
+
+      fireEvent.press(screen.getByRole('button', { name: 'Add Payment Method' }));
+      expect(props.onAddPaymentMethod).toHaveBeenCalledTimes(1);
+    });
+
+    it('opens the add-card screen from the Add Payment Method row when no handler is given', () => {
+      renderWithProviders(<PaymentMethodsComponent {...defaultProps} {...pickerProps({ onAddPaymentMethod: undefined })} />);
+
+      fireEvent.press(screen.getByRole('button', { name: 'Add Payment Method' }));
+      expect(router.push).toHaveBeenCalledWith('/payment-methods/add-card');
+    });
+
+    it('shows the empty state with an Add Payment Method button when there are no cards', () => {
+      mockUseGetPaymentMethodsQuery.mockReturnValue({ ...success, data: [] });
+      const props = pickerProps({ selectedMethodId: undefined });
+      renderWithProviders(<PaymentMethodsComponent {...defaultProps} {...props} />);
+
+      expect(screen.getByText('No payment methods yet')).toBeTruthy();
+      expect(screen.queryByRole('radio')).toBeNull();
+      fireEvent.press(screen.getByRole('button', { name: 'Add Payment Method' }));
+      expect(props.onAddPaymentMethod).toHaveBeenCalledTimes(1);
+    });
+
+    it('shows the skeleton while loading, with no panel header', () => {
+      mockUseGetPaymentMethodsQuery.mockReturnValue({ ...success, data: undefined, isLoading: true, isFetching: true });
+      renderWithProviders(<PaymentMethodsComponent {...defaultProps} {...pickerProps()} />);
+
+      expect(screen.getByTestId('payment-methods-loading')).toBeTruthy();
+      expect(screen.queryByText('Payment Methods')).toBeNull();
+    });
+
+    it('shows a retryable error instead of the list when the request fails', () => {
+      const refetch = jest.fn();
+      mockUseGetPaymentMethodsQuery.mockReturnValue({ ...success, data: undefined, isError: true, refetch });
+      renderWithProviders(<PaymentMethodsComponent {...defaultProps} {...pickerProps()} />);
+
+      expect(screen.getByText('Unable to load payment methods.')).toBeTruthy();
+      expect(screen.queryByRole('button', { name: 'Add Payment Method' })).toBeNull();
+      fireEvent.press(screen.getByRole('button', { name: 'Try loading payment methods again' }));
+      expect(refetch).toHaveBeenCalledTimes(1);
+    });
   });
 });

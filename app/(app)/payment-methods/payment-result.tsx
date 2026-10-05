@@ -5,11 +5,7 @@ import { SpacerComponent } from '@/components/common/SpacerComponent';
 import NavHeaderComponent from '@/components/layout/NavHeaderComponent';
 import { PAYMENT_RESULT_COPY, PAYMENT_RESULT_PROVIDER_LABELS } from '@/constants/paymentResult';
 import { showSnackbar } from '@/redux/features/snackbar/snackbarSlice';
-import {
-  useCancelPayPalMutation,
-  useCapturePayPalMutation,
-  useVerifyQrphMutation,
-} from '@/redux/features/transactions/transactionApi';
+import { useCancelPayPalMutation, useCapturePayPalMutation, useVerifyQrphMutation, } from '@/redux/features/transactions/transactionApi';
 import { useAppDispatch } from '@/redux/hooks';
 import { globalStyle } from '@/styles/common/globals';
 import { PaymentResultProvider, PaymentResultStatus } from '@/types/common';
@@ -18,11 +14,6 @@ import { router, useLocalSearchParams } from 'expo-router';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { ScrollView, View } from 'react-native';
 
-/**
- * Landing screen for the `payment-result` deep link, reached when a PayPal or QR Ph page
- * finished outside the in-app WebView. The redirect outcome is only a hint: the payment is
- * always reconciled with the backend before anything is shown as successful.
- */
 const PaymentResult = () => {
   const dispatch = useAppDispatch();
   const { provider, outcome, transactionReferenceId, invoiceReferenceId } = useLocalSearchParams<{
@@ -38,7 +29,7 @@ const PaymentResult = () => {
   const [verifyQrph] = useVerifyQrphMutation();
   const [status, setStatus] = useState<PaymentResultStatus | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
-  // Expo Router reuses this screen when another return link arrives, so reconcile once per link.
+
   const reconciledLinkRef = useRef<string | null>(null);
 
   const reconcile = useCallback(async () => {
@@ -65,10 +56,9 @@ const PaymentResult = () => {
         return;
       }
       if (outcome === 'cancelled' || outcome === 'failure') {
-        // QR Ph can be provider-paid before its webhook completes. Do not mark
-        // it failed from a callback hint; the pending session expires server-side.
+
         if (paymentProvider === 'paypal') {
-          try { await cancelPayPal(transactionReferenceId).unwrap(); } catch { /* best effort */ }
+          try { await cancelPayPal(transactionReferenceId).unwrap(); } catch {   }
         }
         setStatus(outcome);
         return;

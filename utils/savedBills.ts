@@ -1,10 +1,11 @@
 import { ENV_CONFIG } from '@/constants/env';
 import { MOCK_SAVED_BILLS } from '@/__mocks__/data/mockSavedBills';
-import { AMOUNT_FIELD_PATTERN, AVATAR_COLORS, INACTIVE_STATUS_PATTERN, PAID_STATUS_PATTERN, SAVED_BILL_NO_AMOUNT_LABEL } from '@/constants/savedBills';
+import { AMOUNT_FIELD_PATTERN, BILLER_SUMMARY_HIDDEN_KEYS, BILLER_SUMMARY_MOBILE_KEYS, BILLER_SUMMARY_PRIMARY_ROWS, BILLER_SUMMARY_SECONDARY_ROWS, INACTIVE_STATUS_PATTERN, INITIALS_IGNORED_WORDS, INITIALS_PUNCTUATION, PAID_STATUS_PATTERN, SAVED_BILL_CONTRACT_KEYS, SAVED_BILL_DATE_FORMAT, SAVED_BILL_NEVER_PAID_LABEL, SAVED_BILL_NO_AMOUNT_LABEL, SAVED_BILL_STATUS_ORDER } from '@/constants/savedBills';
 import type { Biller } from '@/redux/features/biller/billerTypes';
 import type { Bill } from '@/redux/features/bills/billsTypes';
-import { formatMonetaryDisplayValue, formatPesoAmount, removeCurrencySeparators } from '@/utils/format';
-import { format, isValid, startOfDay } from 'date-fns';
+import type { BillerDueSummary, BillerStatus, BillerSummaryRow, BillerSummaryRows, CustomFields, SavedBillStatusSource, SavedBillSummarySource } from '@/types/bill';
+import { formatMobileNumber, formatMonetaryDisplayValue, formatPesoAmount, removeCurrencySeparators } from '@/utils/format';
+import { differenceInCalendarDays, format, isValid } from 'date-fns';
 
 export const getBillerLogoMap = (billers?: Biller[] | null): Map<number, string> => new Map<number, string>(
   (billers ?? [])
@@ -12,7 +13,7 @@ export const getBillerLogoMap = (billers?: Biller[] | null): Map<number, string>
     .map((biller) => [biller.merchant_id, biller.merchant_logo_url]),
 );
 
-const getCustomFieldValue = (bill: Bill, keys: string[]): any => {
+const getCustomFieldValue = (bill: Pick<Bill, 'custom_fields'>, keys: readonly string[]): unknown => {
   for (const key of keys) {
     const field = bill.custom_fields?.[key];
     if (field?.value !== undefined && field?.value !== null && String(field.value).trim()) {
@@ -62,7 +63,11 @@ export const getSavedBillsForDisplay = (bills?: Bill[] | null): Bill[] => {
   return bills ?? [];
 };
 
-export const getSavedBillStatus = (bill: Bill): string => {
+export const getSavedMerchantIds = (bills?: Bill[] | null): Set<number> => new Set(
+  getUniqueSavedBills(getSavedBillsForDisplay(bills)).map((bill) => bill.merchant_id),
+);
+
+export const getSavedBillStatus = (bill: SavedBillStatusSource): string => {
   const customStatus = getCustomFieldValue(bill, [
     'paymentStatus',
     'payment_status',
@@ -80,11 +85,11 @@ export const getSavedBillStatus = (bill: Bill): string => {
   ).trim();
 };
 
-export const isPaidSavedBill = (bill: Bill): boolean => (
+export const isPaidSavedBill = (bill: SavedBillStatusSource): boolean => (
   Boolean(bill.date_paid || bill.paid_at) || PAID_STATUS_PATTERN.test(getSavedBillStatus(bill))
 );
 
-export const isActiveSavedBill = (bill: Bill): boolean => {
+export const isActiveSavedBill = (bill: SavedBillStatusSource): boolean => {
   if (bill.is_active === false || isPaidSavedBill(bill)) {
     return false;
   }
@@ -97,29 +102,25 @@ export const getActiveSavedBillCount = (bills?: Bill[] | null): number => (
 );
 
 export const getSavedBillInitials = (name: string): string => {
-  const words = name.trim().split(/\s+/).filter(Boolean);
+  const words = name
+    .replace(INITIALS_PUNCTUATION, ' ')
+    .split(/\s+/)
+    .filter((word) => word && !INITIALS_IGNORED_WORDS.test(word));
+
   if (words.length === 0) {
     return 'SB';
   }
 
   if (words.length === 1) {
-    return words[0].slice(0, 2).toUpperCase();
+    const [word] = words;
+    const digitsThenLetters = word.match(/^\d+([A-Za-z])/);
+    return (digitsThenLetters ? `${word[0]}${digitsThenLetters[1]}` : word.slice(0, 2)).toUpperCase();
   }
 
   return `${words[0][0]}${words[1][0]}`.toUpperCase();
 };
 
-export const getSavedBillAvatarColor = (bill: Bill): string => {
-  const seed = `${bill.billing_name || ''}${bill.merchant_name || ''}`;
-  const hash = Array.from(seed).reduce(
-    (value, character) => ((value * 31) + character.charCodeAt(0)) >>> 0,
-    0,
-  );
-
-  return AVATAR_COLORS[hash % AVATAR_COLORS.length];
-};
-
-export const getSavedBillAmount = (bill: Bill): string => {
+export const getSavedBillAmount = (bill: Pick<Bill, 'custom_fields'>): string => {
   const explicitAmount = getCustomFieldValue(bill, ['amount', 'amountDue', 'amount_due', 'balance']);
   if (explicitAmount !== undefined) {
     const matchingField = Object.values(bill.custom_fields ?? {}).find(
@@ -137,61 +138,86 @@ export const getSavedBillAmount = (bill: Bill): string => {
     : '—';
 };
 
-// Peso amounts are shown to two decimals; other currencies and missing amounts are left as the bill has them.
-export const formatSavedBillAmount = (bill: Bill): string => {
+const parsePesoAmount = (amount: string): number | null => {
+  const isPesoAmount = /^(?:₱|PHP\s*)/i.test(amount);
+  const isUnprefixedAmount = /^[\d,]+(?:\.\d+)?$/.test(amount);
+  if (!isPesoAmount && !isUnprefixedAmount) {
+    return null;
+  }
+
+  const value = Number(removeCurrencySeparators(amount.replace(/^(?:₱|PHP)\s*/i, '')));
+  return Number.isFinite(value) ? value : null;
+};
+
+export const getSavedBillAmountValue = (bill: Pick<Bill, 'custom_fields'>): number | null => {
+  const amount = getSavedBillAmount(bill).trim();
+  return !amount || amount === '—' ? null : parsePesoAmount(amount);
+};
+
+export const getSavedBillAmountInput = (bill: Pick<Bill, 'custom_fields'>): string => {
+  const value = getSavedBillAmountValue(bill);
+  return value !== null && value > 0 ? value.toFixed(2) : '';
+};
+
+export const formatSavedBillAmount = (bill: Pick<Bill, 'custom_fields'>): string => {
   const amount = getSavedBillAmount(bill).trim();
   if (!amount || amount === '—') {
     return SAVED_BILL_NO_AMOUNT_LABEL;
   }
 
-  const isPesoAmount = /^(?:₱|PHP\s*)/i.test(amount);
-  const isUnprefixedAmount = /^[\d,]+(?:\.\d+)?$/.test(amount);
-  if (!isPesoAmount && !isUnprefixedAmount) {
-    return amount;
-  }
-
-  const value = Number(removeCurrencySeparators(amount.replace(/^(?:₱|PHP)\s*/i, '')));
-  return Number.isFinite(value) ? formatPesoAmount(value) : amount;
+  const value = parsePesoAmount(amount);
+  return value === null ? amount : formatPesoAmount(value);
 };
 
-const getSavedBillDueDate = (bill: Bill): Date | null => {
-  const dueDateValue = bill.due_date ?? getCustomFieldValue(
-    bill,
-    ['dueDate', 'due_date', 'paymentDueDate', 'payment_due_date'],
-  );
-
-  if (!dueDateValue) {
+const parseBillDate = (value?: unknown): Date | null => {
+  if (value === undefined || value === null || value === '') {
     return null;
   }
 
-  const date = new Date(String(dueDateValue));
+  const date = new Date(String(value));
   return isValid(date) ? date : null;
 };
 
-export const getSavedBillCaption = (bill: Bill, now = new Date()): string => {
-  const paidDateValue = bill.date_paid || bill.paid_at;
-  if (isPaidSavedBill(bill)) {
-    if (paidDateValue) {
-      const paidDate = new Date(paidDateValue);
-      if (isValid(paidDate)) {
-        return `Paid ${format(paidDate, 'MMM d')}`;
-      }
-    }
+export const getSavedBillDueDate = (bill: SavedBillStatusSource): Date | null => (
+  parseBillDate(bill.due_date ?? getCustomFieldValue(
+    bill,
+    ['dueDate', 'due_date', 'paymentDueDate', 'payment_due_date'],
+  ))
+);
 
-    return getSavedBillStatus(bill) || 'Paid';
+const getSavedBillPaidDate = (bill: SavedBillStatusSource): Date | null => (
+  parseBillDate(bill.date_paid || bill.paid_at)
+);
+
+export const getBillerStatus = (bill: SavedBillStatusSource, now = new Date()): BillerStatus | null => {
+  if (isPaidSavedBill(bill)) {
+    const paidDate = getSavedBillPaidDate(bill);
+    return { tone: 'paid', label: paidDate ? `Paid ${format(paidDate, SAVED_BILL_DATE_FORMAT)}` : 'Paid' };
   }
 
   const dueDate = getSavedBillDueDate(bill);
   if (dueDate) {
-    const today = startOfDay(now);
-    const dueDay = startOfDay(dueDate);
-    const daysUntilDue = Math.round((dueDay.getTime() - today.getTime()) / 86_400_000);
+    const daysOverdue = -differenceInCalendarDays(dueDate, now);
+    return daysOverdue > 0
+      ? { tone: 'overdue', label: `Overdue ${daysOverdue} ${daysOverdue === 1 ? 'day' : 'days'}`, dueDate }
+      : { tone: 'due', label: `Due ${format(dueDate, SAVED_BILL_DATE_FORMAT)}`, dueDate };
+  }
 
-    if (daysUntilDue < 0) {
-      const daysOverdue = Math.abs(daysUntilDue);
-      return `Overdue ${daysOverdue} ${daysOverdue === 1 ? 'day' : 'days'}`;
-    }
+  if (bill.date_paid === null || bill.paid_at === null) {
+    return { tone: 'none', label: SAVED_BILL_NEVER_PAID_LABEL };
+  }
 
+  return null;
+};
+
+export const getSavedBillCaption = (bill: SavedBillStatusSource, now = new Date()): string => {
+  const status = getBillerStatus(bill, now);
+  if (status?.tone === 'paid' || status?.tone === 'overdue' || status?.tone === 'none') {
+    return status.label;
+  }
+
+  if (status?.dueDate) {
+    const daysUntilDue = differenceInCalendarDays(status.dueDate, now);
     if (daysUntilDue === 0) {
       return 'Due today';
     }
@@ -204,4 +230,105 @@ export const getSavedBillCaption = (bill: Bill, now = new Date()): string => {
   }
 
   return getSavedBillStatus(bill) || 'Ready to pay';
+};
+
+export const sortSavedBillsByUrgency = (bills: Bill[], now = new Date()): Bill[] => bills
+  .map((bill, index) => ({ bill, index, status: getBillerStatus(bill, now) }))
+  .sort((a, b) => (
+    SAVED_BILL_STATUS_ORDER[a.status?.tone ?? 'none'] - SAVED_BILL_STATUS_ORDER[b.status?.tone ?? 'none']
+    || (a.status?.dueDate?.getTime() ?? 0) - (b.status?.dueDate?.getTime() ?? 0)
+    || a.index - b.index
+  ))
+  .map(({ bill }) => bill);
+
+export const getSavedBillNickname = (bill: Pick<Bill, 'billing_name' | 'merchant_name'>): string => (
+  bill.billing_name || bill.merchant_name
+);
+
+export const getBillerDueSummary = (bills: Bill[], now = new Date()): BillerDueSummary | null => {
+  const urgent = sortSavedBillsByUrgency(bills, now)
+    .map((bill) => ({ bill, status: getBillerStatus(bill, now) }))
+    .filter(({ status }) => status?.tone === 'overdue' || status?.tone === 'due');
+
+  if (urgent.length === 0) {
+    return null;
+  }
+
+  const nextBill = urgent.find(({ status }) => status?.tone === 'due') ?? urgent[0];
+  const nextDueDate = nextBill.status?.dueDate;
+  const amounts = urgent.map(({ bill }) => getSavedBillAmountValue(bill));
+
+  return {
+    billCount: urgent.length,
+    overdueCount: urgent.filter(({ status }) => status?.tone === 'overdue').length,
+    total: amounts.reduce((sum: number, amount) => sum + (amount ?? 0), 0),
+    knownAmountCount: amounts.filter((amount) => amount !== null).length,
+    hasUnknownAmounts: amounts.some((amount) => amount === null),
+    next: nextDueDate
+      ? { nickname: getSavedBillNickname(nextBill.bill), dueDateLabel: format(nextDueDate, SAVED_BILL_DATE_FORMAT) }
+      : null,
+  };
+};
+
+const readFieldValue = (fields: CustomFields, key: string): string => String(fields?.[key]?.value ?? '').trim();
+
+const getFieldValue = (fields: CustomFields, keys: readonly string[]): { key: string; value: string } | null => {
+  const present = keys.filter((key) => fields?.[key] !== undefined && fields?.[key] !== null);
+  const key = present.find((candidate) => readFieldValue(fields, candidate)) ?? present[0];
+  return key === undefined ? null : { key, value: readFieldValue(fields, key) };
+};
+
+export const getSavedBillContractNumber = (bill: Pick<Bill, 'custom_fields'>): string => {
+  const value = getCustomFieldValue(bill, SAVED_BILL_CONTRACT_KEYS);
+  return value == null ? '' : String(value).trim();
+};
+
+export const getSavedBillSubtitle = (bill: SavedBillSummarySource): string => {
+  const contractTail = getSavedBillContractNumber(bill).replace(/\W/g, '').slice(-4);
+  return [bill.merchant_name, contractTail ? `Contract •••• ${contractTail}` : '']
+    .filter(Boolean)
+    .join(' · ');
+};
+
+export const getBillerSummaryRows = (bill: SavedBillSummarySource): BillerSummaryRows => {
+  const fields = bill.custom_fields ?? {};
+  const used = new Set<string>(BILLER_SUMMARY_HIDDEN_KEYS);
+  const clientNotes = bill.client_notes?.trim() || getFieldValue(fields, ['clientNotes'])?.value || '';
+  used.add('clientNotes');
+
+  const fromFields = ({ id, label, keys }: { id: string; label: string; keys: readonly string[] }): BillerSummaryRow => {
+    const hit = getFieldValue(fields, keys);
+    keys.forEach((key) => used.add(key));
+    return { id, label, value: hit?.value ?? '' };
+  };
+
+  const mobile = (() => {
+    const [numberKey, codeKey, ownerKey] = BILLER_SUMMARY_MOBILE_KEYS;
+    const number = getFieldValue(fields, [numberKey, ownerKey]);
+    BILLER_SUMMARY_MOBILE_KEYS.forEach((key) => used.add(key));
+    return number ? formatMobileNumber(number.value, getFieldValue(fields, [codeKey])?.value) : null;
+  })();
+
+  const primary = BILLER_SUMMARY_PRIMARY_ROWS.map(fromFields);
+  const secondary = BILLER_SUMMARY_SECONDARY_ROWS.map((row): BillerSummaryRow => {
+    switch (row.id) {
+      case 'billName':
+        return { id: row.id, label: row.label, value: bill.billing_name || getFieldValue(fields, ['billName'])?.value || '' };
+      case 'payee':
+        return { id: row.id, label: row.label, value: bill.merchant_name };
+      case 'mobile':
+        return { id: row.id, label: row.label, value: mobile ?? '' };
+      case 'clientNotes':
+        return { id: row.id, label: row.label, value: clientNotes };
+      default:
+        return fromFields({ id: row.id, label: row.label, keys: 'keys' in row ? row.keys : [] });
+    }
+  });
+  used.add('billName');
+
+  const extras = Object.entries(fields)
+    .filter(([key, field]) => !used.has(key) && String(field?.value ?? '').trim())
+    .map(([key, field]): BillerSummaryRow => ({ id: key, label: field.text || key, value: String(field.value).trim() }));
+
+  return { primary, secondary: [...secondary, ...extras] };
 };

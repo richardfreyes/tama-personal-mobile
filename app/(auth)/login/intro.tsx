@@ -4,8 +4,9 @@ import { COMMON } from '@/constants/common';
 import { introStyle as styles } from '@/styles/auth/login/intro';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { router } from 'expo-router';
+import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { ImageBackground, StatusBar, View } from 'react-native';
+import { ImageBackground, View } from 'react-native';
 
 const IntroScreen: React.FC = () => {
   const handleGetStarted = async () => {
@@ -29,19 +30,17 @@ const IntroScreen: React.FC = () => {
       resizeMode="cover"
       imageStyle={styles.imageStyleFix}
     >
-      <StatusBar barStyle="light-content" backgroundColor="transparent" translucent />
+      <StatusBar style="light" />
       <View style={styles.overlay} />
       <View style={styles.contentContainer}>
         <View style={styles.logoContainer}>
           <BrandLogoWhite style={styles.logo} width={300} height={99} />
         </View>
         <View style={styles.buttonContainer}>
-          {/* TODO: Phase 2 */}
-          {/* <AppButton
-            title="Get Started"
-            onPress={handleGetStarted}
-            variant="primary"
-          /> */}
+          { }
+          {
+
+}
           <AppButton
             title="Login"
             onPress={handleLogin}

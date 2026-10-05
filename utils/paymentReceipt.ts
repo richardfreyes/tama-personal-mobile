@@ -1,4 +1,5 @@
 import type { MerchantTransactionDetailResponse, MerchantTransactionPaymentCkoResponse } from '@/redux/features/merchants/merchantTypes';
+import { RECEIPT_FALLBACK } from '@/constants/paymentReceipt';
 import type { BillingDetailItem, TransactionDetail } from '@/redux/features/transactionDetail/transactionDetailTypes';
 import type { TransactionComputationResponse } from '@/redux/features/transactions/transactionTypes';
 import type { ReceiptAccessPayload } from '../types';
@@ -98,8 +99,6 @@ export const extractReceiptAccessPayload = (
     receiptAccessType,
   };
 };
-
-const RECEIPT_FALLBACK = '—';
 
 export const parseComputationResponse = (value: string): TransactionComputationResponse | null => {
   if (!value) return null;

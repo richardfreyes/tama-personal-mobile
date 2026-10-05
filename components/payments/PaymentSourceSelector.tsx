@@ -1,36 +1,37 @@
 import { paymentSourceSelectorStyles as styles } from '@/styles/components/payments/PaymentSourceSelector';
 import { PaymentSourceSelectorProps } from '@/types';
 import React from 'react';
-import { TouchableOpacity, View } from 'react-native';
+import { Pressable, View } from 'react-native';
 import { AppText } from '../common/AppText';
 
 const PaymentSourceSelector: React.FC<PaymentSourceSelectorProps> = ({ options, selectedValue, onSelect }) => {
+  const selectedOption = options.find((option) => option.value === selectedValue);
+
   return (
     <View style={styles.container}>
-      {options.map((option) => {
-        const isSelected = option.value === selectedValue;
+      <View accessibilityRole="tablist" style={styles.segments}>
+        {options.map((option) => {
+          const isSelected = option.value === selectedValue;
 
-        return (
-          <TouchableOpacity
-            key={option.value}
-            style={[styles.option, isSelected && styles.optionSelected]}
-            onPress={() => onSelect(option.value)}
-            accessibilityRole="radio"
-            accessibilityState={{ selected: isSelected }}
-            activeOpacity={0.7}
-          >
-            <View style={[styles.radioOuter, isSelected && styles.radioOuterSelected]}>
-              {isSelected ? <View style={styles.radioInner} /> : null}
-            </View>
-            <View style={styles.optionTextContainer}>
-              <AppText weight="600">{option.label}</AppText>
-              {option.description ? (
-                <AppText size="small" style={styles.optionDescription}>{option.description}</AppText>
-              ) : null}
-            </View>
-          </TouchableOpacity>
-        );
-      })}
+          return (
+            <Pressable
+              accessibilityRole="tab"
+              accessibilityState={{ selected: isSelected }}
+              hitSlop={{ bottom: 2, top: 2 }}
+              key={option.value}
+              onPress={() => onSelect(option.value)}
+              style={[styles.segment, isSelected && styles.segmentSelected]}
+            >
+              <AppText weight={isSelected ? '600' : '500'} style={[styles.segmentText, isSelected && styles.segmentTextSelected]}>
+                {option.label}
+              </AppText>
+            </Pressable>
+          );
+        })}
+      </View>
+      {selectedOption?.description ? (
+        <AppText style={styles.hint}>{selectedOption.description}</AppText>
+      ) : null}
     </View>
   );
 };

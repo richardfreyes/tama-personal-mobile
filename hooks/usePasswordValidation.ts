@@ -30,7 +30,7 @@ const usePasswordValidation = (password: string): PasswordRuleProps[] => {
         valid: hasSpecialChar 
       },
     ].filter(rule => rule.text);
-    
+
   }, [password]);
 
   return passwordValidationRules;

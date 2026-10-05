@@ -116,13 +116,7 @@ export const buildPaymentDetails = ( transaction: ConfirmPaymentDisplayTransacti
         maximumFractionDigits: 2,
       }),
     },
-    // {
-    //   label: 'Convenience Fee',
-    //   value: formatAmount(feeCurrency, feeAmount, {
-    //     minimumFractionDigits: 2,
-    //     maximumFractionDigits: 2,
-    //   }),
-    // },
+
     {
       label: 'Total Amount',
       value: formatAmount(totalCurrency, totalAmount, {

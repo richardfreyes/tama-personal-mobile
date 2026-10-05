@@ -1,4 +1,5 @@
-import { getIndicatorSlots, getNearestBillIndexForSlot, MAX_VISIBLE_INDICATORS } from '@/utils/monthlyBillIndicators';
+import { MAX_VISIBLE_INDICATORS } from '@/constants/monthlyBills';
+import { getIndicatorSlots, getNearestBillIndexForSlot } from '@/utils/monthlyBillIndicators';
 import { describe, expect, it } from '@jest/globals';
 
 describe('monthlyBillIndicators', () => {

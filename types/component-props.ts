@@ -2,19 +2,20 @@ import type { Bill } from "@/redux/features/bills/billsTypes";
 import type { PaymentMethod } from "@/redux/features/paymentMethods/paymentMethodTypes";
 import { Colors } from "@/styles/common/colors";
 import { FontSizes } from "@/styles/common/typography";
-import type { PoppinsWeight } from "@/utils/fonts";
+import type { PoppinsWeight } from '@/types/typography';
 import type { Feather } from "@expo/vector-icons";
-import type { Route } from "expo-router";
+import type { Href } from 'expo-router';
 import type React from "react";
+import type { SharedValue } from "react-native-reanimated";
 import type { ScrollViewProps, StyleProp, TextInputProps, TextProps, TextStyle, TouchableOpacityProps, ViewStyle } from "react-native";
-import type { UpcomingEnrollmentBill } from "./bill";
+import type { BillerDueSummary, BillerStatus, SavedBillSummarySource, UpcomingEnrollmentBill } from "./bill";
 import type { Enrollment, EnrollmentDisplayField } from "./enrollment";
 import { FormField } from "./form";
-import type { SettingRoute } from "./navigation";
-import type { AppliedFilters } from "./payment";
+import type { NavigationRoute, SettingRoute } from './navigation';
+import type { AppliedFilters, OneTimePaymentMethodId } from "./payment";
 import type { UnifiedTransaction } from "./transaction";
 
-export type ButtonVariant = 'primary' | 'secondary' | 'tertiary' | 'quaternary' | 'danger';
+export type ButtonVariant = 'primary' | 'secondary' | 'tertiary' | 'quaternary' | 'danger' | 'gradient';
 
 export type FontSizeKey = keyof typeof FontSizes;
 export type ColorKey = keyof typeof Colors;
@@ -32,6 +33,14 @@ export interface SpacerProps {
   width?: number;
 }
 
+export interface CountryCodePickerProps {
+  show: boolean;
+  lang: string;
+  style?: { modal?: ViewStyle };
+  pickerButtonOnPress: (country: { dial_code: string; code: string; flag: string }) => void;
+  onBackdropPress?: () => void;
+}
+
 export interface PaymentSourceOption {
   value: string;
   label: string;
@@ -46,6 +55,8 @@ export interface PaymentSourceSelectorProps {
 
 export interface SectionHeaderProps {
   title?: string;
+
+  count?: number;
   linkText?: string | null;
   onViewAllPress?: () => void;
   titleStyle?: TextStyle;
@@ -56,6 +67,10 @@ export interface SectionHeaderProps {
 export interface SearchInputProps extends Omit<TextInputProps, 'style'> {
   containerStyle?: StyleProp<ViewStyle>;
   inputStyle?: StyleProp<TextStyle>;
+
+  variant?: 'outlined' | 'filled';
+
+  onClear?: () => void;
 }
 
 export interface ComponentsProps {
@@ -66,18 +81,21 @@ export interface ComponentsProps {
   sectionFooter?: {
     button?: boolean;
   };
-  // Shows only this many of the newest transactions as a compact preview, without search or paging.
+
   limit?: number;
-  // Payment methods can be pulled to refresh; embedded in a scrolling screen it opts out.
+
   isRefreshable?: boolean;
   isFilterVisible?: boolean;
   onOpenFilterSheet?: () => void;
-  route?: Route;
+  route?: NavigationRoute;
   activeFilters?: AppliedFilters;
   onViewAllPress?: () => void;
   onAddBillerPress?: () => void;
   onPayNowPress?: () => void;
   onAddPaymentMethod?: () => void;
+
+  selectedMethodId?: string;
+  onSelectMethod?: (method: PaymentMethod) => void;
 }
 
 export interface BillerCategory {
@@ -110,6 +128,10 @@ export interface InfoFieldProps {
   valueStyle?: TextStyle;
   weight?: PoppinsWeight;
   copy?: boolean;
+
+  variant?: 'default' | 'summary';
+
+  emptyText?: string;
 }
 
 export interface ModalButtonConfig {
@@ -236,13 +258,40 @@ export interface NativePickerProps {
 export interface SearchMerchantsProps {
   data: any[];
   searchProperty: string;
-  onSelect: (item: any) => void;
+  onSelect?: (item: any) => void;
   sectionTitle?: string;
   isError?: boolean;
   isLoading?: boolean;
   activeCategoryId?: number | null;
   onCategoryChange?: (id: number | undefined) => void;
   apiEnv?: 'enrollments' | 'wiremo';
+
+  layout?: 'filters' | 'directory';
+
+  header?: React.ReactNode;
+
+  savedMerchantIds?: ReadonlySet<number>;
+  onRetry?: () => void;
+}
+
+export interface StatusBadgeProps {
+  label: string;
+  colors: { text: string; dot: string; background?: string };
+
+  appearance?: 'plain' | 'badge';
+  variant?: 'default' | 'summaryCard';
+  style?: StyleProp<ViewStyle>;
+  testID?: string;
+}
+
+export interface MerchantListRowProps {
+  name: string;
+  logoUrl?: string | null;
+  initials?: string;
+  badge?: string;
+  onPress?: () => void;
+  testID?: string;
+  accessibilityLabel?: string;
 }
 
 export interface ModalContentProps {
@@ -258,7 +307,7 @@ export interface ModalContentProps {
 export interface AppButtonProps extends TouchableOpacityProps {
   title?: string;
   variant?: ButtonVariant;
-  route?: Route;
+  route?: Href;
   buttonStyle?: ViewStyle;
   textStyle?: TextStyle;
   onPress?: () => void;
@@ -324,9 +373,13 @@ export type OneTimePaymentCardProps = {
 };
 
 export type SavedBillCardProps = {
-  bill: Bill;
-  logoUrl?: string;
-  onPress: (bill: Bill) => void;
+  bill: Bill | SavedBillSummarySource;
+  logoUrl?: string | null;
+  onPress?: (bill: Bill) => void;
+
+  variant?: 'row' | 'card' | 'hero';
+
+  status?: BillerStatus | null;
 };
 
 export interface DetailRowsProps {
@@ -343,15 +396,20 @@ export interface EnrollmentDetailsLookupProps {
 
 export interface EmptyStateCardProps {
   variant?: 'empty' | 'error';
-  // With an icon an empty state becomes a card with a title and description.
+
   icon?: React.ComponentProps<typeof Feather>['name'];
   title?: string;
   message: string;
-  // With onRetry an error state becomes a card with a Try Again button.
+
   onRetry?: () => void;
   retryLabel?: string;
   containerStyle?: ViewStyle;
   messageStyle?: TextStyle;
+
+  appearance?: 'card' | 'dashed' | 'centered';
+
+  actionLabel?: string;
+  onAction?: () => void;
 }
 
 export type HandleFieldChange = (
@@ -415,14 +473,9 @@ export interface DirectDebitBankOptionProps {
   disabled?: boolean;
 }
 
-export interface BillerCardProps {
-  bill: Bill;
-  logoUrl?: string;
-}
-
 export interface PaymentMethodRowProps {
   method: PaymentMethod;
-  route?: Route;
+  route?: NavigationRoute;
 }
 
 export interface RecentTransactionRowProps {
@@ -432,6 +485,10 @@ export interface RecentTransactionRowProps {
 export interface MerchantLogoProps {
   initials: string;
   logoUrl?: string | null;
+
+  variant?: 'tile' | 'circle' | 'ring';
+
+  size?: number;
 }
 
 export interface UpcomingBillCardProps {
@@ -440,4 +497,74 @@ export interface UpcomingBillCardProps {
   onPress: (bill: UpcomingEnrollmentBill) => void;
   onEnroll: () => void;
   pageWidth: number;
+}
+
+export interface PaymentOptionRowProps {
+
+  leading: React.ReactNode;
+  title: string;
+  subtitle?: string;
+
+  isSubtitleNumeric?: boolean;
+
+  badge?: string;
+  selected: boolean;
+
+  size?: 'standard' | 'tall';
+
+  isLast?: boolean;
+  onPress: () => void;
+  testID?: string;
+}
+
+export interface OneTimeMethodListProps {
+  selectedMethod: OneTimePaymentMethodId | null;
+  onSelectMethod: (method: OneTimePaymentMethodId) => void;
+}
+
+export interface DueSummaryStripProps {
+  summary: BillerDueSummary;
+}
+
+export interface AlphabetIndexProps {
+  letters: readonly string[];
+  activeLetter: string;
+
+  letterHeight?: number;
+
+  onSelect: (letter: string) => void;
+
+  onScrub?: (letter: string) => void;
+  style?: StyleProp<ViewStyle>;
+}
+
+export interface AlphabetIndexLetterProps {
+  letter: string;
+  index: number;
+  isActive: boolean;
+  letterHeight: number;
+  touchY: SharedValue<number>;
+  magnify: SharedValue<number>;
+  onPress: () => void;
+}
+
+export interface FeeNoticeProps {
+  isCalculating: boolean;
+  hasError: boolean;
+
+  needsCardReplacement: boolean;
+
+  fee?: string;
+  onReplaceCard: () => void;
+  isReplacingCard: boolean;
+}
+
+export interface PaymentFooterProps {
+
+  label: string;
+  isLabelError?: boolean;
+  total: string;
+  isConfirmDisabled: boolean;
+  isConfirming: boolean;
+  onConfirm: () => void;
 }

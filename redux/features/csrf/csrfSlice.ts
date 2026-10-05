@@ -1,9 +1,6 @@
-import { RootState } from '@/redux/store';
+import type { RootState } from '@/redux/storeTypes';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-
-interface CsrfState {
-  xsrfToken: string | null;
-}
+import type { CsrfState } from './csrfTypes';
 
 const initialState: CsrfState = {
   xsrfToken: null,

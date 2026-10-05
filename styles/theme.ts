@@ -46,7 +46,7 @@ export const customTheme = {
     bodyMedium: { ...Poppins.regular, fontSize: 14 },
     bodySmall: { ...Poppins.regular, fontSize: 14 },
   },
-  
+
   colors: {
     ...DefaultTheme.colors,
     primary: Colors.red10,

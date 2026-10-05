@@ -40,11 +40,9 @@ describe('DateFieldRenderer', () => {
     jest.clearAllMocks();
   });
 
-  // ---- Rendering ----
-
   it('renders the field label', () => {
     renderRenderer();
-    // react-native-paper renders the label in more than one node
+
     expect(screen.getAllByText('Birth Date').length).toBeGreaterThanOrEqual(1);
   });
 
@@ -63,16 +61,12 @@ describe('DateFieldRenderer', () => {
     expect(screen.getByPlaceholderText('Select birth date')).toBeTruthy();
   });
 
-  // ---- Interaction ----
-
   it('opens the date picker when the field is pressed', () => {
     const openDatePicker = jest.fn();
     renderRenderer({ openDatePicker });
     fireEvent.press(screen.UNSAFE_getAllByType(TouchableOpacity)[0]);
     expect(openDatePicker).toHaveBeenCalledWith('birthDate');
   });
-
-  // ---- Error state ----
 
   it('shows the error text when touched and an error exists', () => {
     renderRenderer({

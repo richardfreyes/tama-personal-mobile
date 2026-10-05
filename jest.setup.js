@@ -1,4 +1,3 @@
-/* global jest */
 
 jest.mock('@react-native-async-storage/async-storage', () => ({
   __esModule: true,
@@ -65,8 +64,28 @@ jest.mock('expo-router', () => ({
 }));
 
 jest.mock('react-native-gesture-handler', () => {
+  const React = require('react');
   const View = require('react-native/Libraries/Components/View/View');
+
+  const makeGesture = () => {
+    const gesture = { handlers: {} };
+    ['onStart', 'onUpdate', 'onEnd', 'onFinalize'].forEach((name) => {
+      gesture[name] = (handler) => {
+        gesture.handlers[name] = handler;
+        return gesture;
+      };
+    });
+    ['activateAfterLongPress', 'minDistance', 'enabled'].forEach((name) => {
+      gesture[name] = () => gesture;
+    });
+    return gesture;
+  };
+
   return {
+    Gesture: { Pan: makeGesture, Tap: makeGesture },
+    GestureDetector: function GestureDetector({ children, gesture }) {
+      return React.cloneElement(React.Children.only(children), { gesture });
+    },
     GestureHandlerRootView: View,
     Swipeable: View,
     DrawerLayout: View,
@@ -97,9 +116,23 @@ jest.mock('react-native-gesture-handler', () => {
   };
 });
 
+jest.mock('expo-haptics', () => ({
+  selectionAsync: jest.fn(() => Promise.resolve()),
+  impactAsync: jest.fn(() => Promise.resolve()),
+  notificationAsync: jest.fn(() => Promise.resolve()),
+  ImpactFeedbackStyle: { Light: 'light', Medium: 'medium', Heavy: 'heavy' },
+  NotificationFeedbackType: { Success: 'success', Warning: 'warning', Error: 'error' },
+}));
+
+const ExpoConstants = require('expo-constants').default;
+ExpoConstants.linkingUri = 'personaldashboardmob://';
+
 jest.mock('react-native-reanimated', () => {
   const Reanimated = require('react-native-reanimated/mock');
   Reanimated.default.call = () => {};
+
+  const createSharedValue = Reanimated.useSharedValue;
+  Reanimated.useSharedValue = (initial) => require('react').useRef(createSharedValue(initial)).current;
   Reanimated.useAnimatedRef = jest.fn(() => {
     const ref = (node) => {
       ref.current = node;

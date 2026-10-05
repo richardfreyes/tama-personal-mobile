@@ -3,7 +3,7 @@ import { StyleSheet } from "react-native";
 import { Colors } from "../../common/colors";
 
 export const billsComponentStyles = StyleSheet.create({
-  // The carousel bleeds to the panel's edges; its content is inset to line up with the header.
+
   carouselViewport: {
     marginHorizontal: -16,
   },
@@ -12,47 +12,6 @@ export const billsComponentStyles = StyleSheet.create({
     gap: SAVED_BILL_CARD_GAP,
     paddingBottom: 2,
     paddingHorizontal: 16,
-  },
-  billerCard: {
-    backgroundColor: Colors.neutral01,
-    borderColor: Colors.dashboardCardBorder,
-    borderRadius: 18,
-    borderWidth: 1,
-    gap: 12,
-    minHeight: 158,
-    padding: 14,
-    width: SAVED_BILL_CARD_WIDTH,
-  },
-  cardPressed: {
-    backgroundColor: Colors.red01,
-  },
-  billerDetails: {
-    gap: 2,
-    minHeight: 56,
-  },
-  nickname: {
-    color: Colors.maroon11,
-    fontSize: 14,
-    lineHeight: 20,
-  },
-  merchantName: {
-    color: Colors.maroon09,
-    fontSize: 12,
-    lineHeight: 17,
-    minHeight: 34,
-  },
-  amount: {
-    color: Colors.maroon11,
-    fontSize: 16,
-    fontVariant: ['tabular-nums'],
-    lineHeight: 22,
-    marginTop: 'auto',
-  },
-  noAmount: {
-    color: Colors.maroon08,
-    fontSize: 13,
-    lineHeight: 22,
-    marginTop: 'auto',
   },
   actionRow: {
     flexDirection: 'row',
@@ -102,10 +61,10 @@ export const billsComponentStyles = StyleSheet.create({
   skeletonCard: {
     backgroundColor: Colors.neutral01,
     borderColor: Colors.dashboardCardBorder,
-    borderRadius: 18,
+    borderRadius: 20,
     borderWidth: 1,
     gap: 12,
-    height: 158,
+    height: 128,
     padding: 14,
     width: SAVED_BILL_CARD_WIDTH,
   },
@@ -114,5 +73,28 @@ export const billsComponentStyles = StyleSheet.create({
   },
   skeletonAmount: {
     marginTop: 'auto',
+  },
+
+  plainSection: {
+    gap: 14,
+    paddingBottom: 4,
+    paddingHorizontal: 20,
+    paddingTop: 8,
+  },
+  plainHeader: {
+    marginBottom: 0,
+  },
+  plainBody: {
+    gap: 12,
+  },
+  plainCarouselViewport: {
+    marginHorizontal: -20,
+  },
+  plainCarouselContent: {
+    flexDirection: 'row',
+    gap: SAVED_BILL_CARD_GAP,
+    paddingBottom: 6,
+    paddingHorizontal: 20,
+    paddingTop: 2,
   },
 });

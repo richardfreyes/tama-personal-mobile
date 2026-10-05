@@ -1,4 +1,4 @@
-export const PoppinsFontNames = {
+export const POPPINS_FONT_NAMES = {
   '100': 'PoppinsThin',
   '200': 'PoppinsExtraLight',
   '300': 'PoppinsLight',
@@ -8,11 +8,8 @@ export const PoppinsFontNames = {
   '700': 'PoppinsBold',
   '800': 'PoppinsExtraBold',
   '900': 'PoppinsBlack',
-
   light: 'PoppinsLight',
   regular: 'PoppinsRegular',
   medium: 'PoppinsMedium',
   bold: 'PoppinsBold',
 } as const;
-
-export type PoppinsWeight = keyof typeof PoppinsFontNames;

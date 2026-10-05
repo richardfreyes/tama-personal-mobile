@@ -1,15 +1,5 @@
 import { describe, expect, it } from '@jest/globals';
-import {
-  buildCustomerDetails,
-  buildReceiptDetails,
-  extractReceiptAccessPayload,
-  formatCurrencyAmount,
-  getFirstString,
-  getPaymentRedirectUrl,
-  getReceiptReferenceId,
-  getReferenceIdFromUrl,
-  parseComputationResponse,
-} from '@/utils/paymentReceipt';
+import { buildCustomerDetails, buildReceiptDetails, extractReceiptAccessPayload, formatCurrencyAmount, getFirstString, getPaymentRedirectUrl, getReceiptReferenceId, getReferenceIdFromUrl, parseComputationResponse, } from '@/utils/paymentReceipt';
 
 describe('paymentReceipt', () => {
   it('returns the first nonblank string', () => {

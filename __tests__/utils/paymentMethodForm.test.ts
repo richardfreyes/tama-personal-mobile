@@ -1,15 +1,5 @@
 import { describe, expect, it } from '@jest/globals';
-import {
-  buildAddCardRequestPayload,
-  buildAddressPayload,
-  buildEnrollmentCardPayload,
-  formatPaymentMethodFieldValue,
-  getNormalizedCardNumber,
-  getPaymentOptionByTitle,
-  getSavedBillingAddressFormValues,
-  validatePaymentMethodForm,
-  validatePaymentMethodInput,
-} from '@/utils/paymentMethodForm';
+import { buildAddCardRequestPayload, buildAddressPayload, buildEnrollmentCardPayload, formatPaymentMethodFieldValue, getNormalizedCardNumber, getPaymentOptionByTitle, getSavedBillingAddressFormValues, validatePaymentMethodForm, validatePaymentMethodInput, } from '@/utils/paymentMethodForm';
 
 const validForm = {
   fullName: 'Ada Lovelace',

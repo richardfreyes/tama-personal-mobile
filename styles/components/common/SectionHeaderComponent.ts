@@ -9,13 +9,34 @@ export const sectionHeaderComponentStyles = StyleSheet.create({
     justifyContent: 'space-between',
     marginBottom: 12,
   },
+
+  titleGroup: {
+    alignItems: 'center',
+    flex: 1,
+    flexDirection: 'row',
+    gap: 8,
+  },
   title: {
     color: Colors.maroon11,
-    flex: 1,
+    flexShrink: 1,
     fontSize: 16,
     lineHeight: 24,
   },
-  // A 44pt touch target that doesn't add height to the row.
+  countBadge: {
+    alignItems: 'center',
+    backgroundColor: Colors.neutral03,
+    borderRadius: 999,
+    height: 22,
+    justifyContent: 'center',
+    minWidth: 22,
+    paddingHorizontal: 7,
+  },
+  countText: {
+    color: Colors.maroon10,
+    fontSize: 12,
+    lineHeight: 18,
+  },
+
   link: {
     alignItems: 'center',
     flexDirection: 'row',

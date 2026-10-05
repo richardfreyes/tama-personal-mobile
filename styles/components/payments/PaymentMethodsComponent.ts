@@ -72,4 +72,33 @@ export const paymentMethodsComponentStyles = StyleSheet.create({
   addButton: {
     marginTop: 12,
   },
+
+  picker: {
+    gap: 12,
+  },
+
+  pickerCard: {
+    paddingVertical: 0,
+  },
+  addRow: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    gap: 12,
+    height: 56,
+  },
+  addTile: {
+    alignItems: 'center',
+    borderColor: Colors.outlineMuted,
+    borderRadius: 6,
+    borderStyle: 'dashed',
+    borderWidth: 1.5,
+    height: 30,
+    justifyContent: 'center',
+    width: 44,
+  },
+  addRowText: {
+    color: Colors.red09,
+    fontSize: 14,
+    lineHeight: 20,
+  },
 });

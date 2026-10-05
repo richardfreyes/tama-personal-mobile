@@ -1,6 +1,5 @@
 import { format, parseISO } from 'date-fns';
 
-
 export const formatApiDate = (
   isoDateString: string | undefined | null, 
   formatString: string
@@ -8,10 +7,10 @@ export const formatApiDate = (
   if (!isoDateString) {
     return '';
   }
-  
+
   try {
     const date = parseISO(isoDateString);
-    
+
     return format(date, formatString);
   } catch (error) {
     console.error('Error formatting date:', error);

@@ -29,7 +29,7 @@ const SignupScreen = () => {
     confirmPassword: '',
     agreedToTerms: false,
   });
-  
+
   const [errors, setErrors] = useState<Partial<Record<keyof typeof formData, string | undefined>>>({});
   const [touched, setTouched] = useState<Partial<Record<keyof typeof formData, boolean>>>({});
   const [password, setPassword] = useState('');
@@ -74,7 +74,7 @@ const SignupScreen = () => {
       if (field === 'confirmPassword') {
         extraData.passwordToMatch = formData.signupPassword;
       }
-      
+
       const error = validateField(field, value, extraData);
       setErrors(prev => ({ ...prev, [field]: error || undefined }));
       if (field === 'signupPassword' && touched.confirmPassword) {
@@ -87,17 +87,17 @@ const SignupScreen = () => {
       }
     }
   };
- 
+
   const handleSignup = async () => {
     const newTouchedState = REQUIRED_STRING_FIELDS.reduce((acc, field) => {
       acc[field] = true;
       return acc;
     }, {} as Partial<Record<keyof typeof formData, boolean>>);
-    
+
     setTouched(prev => ({ ...prev, ...newTouchedState }));
 
     const validationErrors: Partial<Record<keyof typeof formData, string>> = {};
-    
+
     REQUIRED_STRING_FIELDS.forEach((field) => {
       const value = formData[field] as string;
       const extraData: { passwordToMatch?: string } = {};

@@ -58,7 +58,7 @@ const VerificationScreen = () => {
   };
 
   const handleResendCode = () => {
-    // 1. Logic to call your API endpoint to resend the OTP code (via email or SMS)
+
     return;
   };
 

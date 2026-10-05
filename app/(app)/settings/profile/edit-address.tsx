@@ -78,7 +78,7 @@ export default function EditAddress() {
     if (countryCode) {
       const countryStates = State.getStatesOfCountry(countryCode);
       setStates(countryStates);
-      
+
       if (stateValue) {
         const stateCities = City.getCitiesOfState(countryCode, stateValue);
         setCities(stateCities);
@@ -145,7 +145,7 @@ export default function EditAddress() {
       newTouched[field] = true;
       const value = formData[field];
       const errorMessage = validateField(field, value || '');
-      
+
       if (errorMessage) {
         newErrors[field] = errorMessage;
         isValid = false;
@@ -174,7 +174,6 @@ export default function EditAddress() {
           variant: 'success'
         }));
         router.back();
-        // router.push('/(app)/settings');
 
       } catch (err: any) {
         dispatch(showSnackbar({

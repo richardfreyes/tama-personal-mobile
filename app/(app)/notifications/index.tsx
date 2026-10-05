@@ -29,11 +29,11 @@ const NotificationsScreen = () => {
   const orderedSections = ['Today', 'Yesterday', 'Older'].filter(key => sections[key]);
 
   const handleNotificationPress = (id: string) => {
-    // 1. Mark notification as read
+
     setNotifications(prev =>
       prev.map(n => (n.id === id ? { ...n, isRead: true } : n))
     );
-    // 2. TODO: Add navigation logic here (e.g., router.push(`/transactions/${id}`))
+
   };
 
   const renderSection = (category: string, list: typeof COMMON.MOCK_DATA.NOTIFICATIONS, index: number) => (
@@ -73,7 +73,7 @@ const NotificationsScreen = () => {
             {orderedSections.length > 0 ? (
               orderedSections.map((category, index) => renderSection(category, sections[category], index))
             ) : (
-              // TODO: EmptyStateCard component
+
               <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', paddingTop: 100 }}>
                 <AppText color='neutral08'>You have no notifications.</AppText>
               </View>

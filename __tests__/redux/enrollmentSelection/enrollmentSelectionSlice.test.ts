@@ -1,8 +1,5 @@
 import { describe, expect, it } from '@jest/globals';
-import reducer, {
-  clearSelectedEnrollment,
-  setSelectedEnrollment,
-} from '../../../redux/features/enrollmentSelection/enrollmentSelectionSlice';
+import reducer, { clearSelectedEnrollment, setSelectedEnrollment, } from '../../../redux/features/enrollmentSelection/enrollmentSelectionSlice';
 
 describe('enrollmentSelectionSlice', () => {
   it('selects and clears an enrollment without modifying its data', () => {

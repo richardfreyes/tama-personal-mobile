@@ -142,7 +142,7 @@ describe('one-time card payment (form-details)', () => {
   it('shows the no-save notice and charges without saving (never offering to save)', async () => {
     render(<FormDetails />);
     expect(screen.getByText(/only for this payment/)).toBeTruthy();
-    // this entry point never offers to save the card
+
     expect(screen.queryByRole('checkbox')).toBeNull();
 
     fireEvent.press(screen.getByRole('button', { name: 'Pay Now' }));
@@ -177,13 +177,11 @@ describe('one-time card payment (form-details)', () => {
 
     fireEvent.press(screen.getByRole('button', { name: 'Pay Now' }));
 
-    // the provider-hosted 3DS challenge is shown; success is not declared yet
     await waitFor(() => expect(screen.getByText('3DS Success')).toBeTruthy());
     expect(mockRouter.replace).not.toHaveBeenCalled();
 
     fireEvent.press(screen.getByText('3DS Success'));
 
-    // a card verification only authenticates the card, so the charge runs after 3DS
     await waitFor(() => expect(mockPayTransaction).toHaveBeenCalledWith(expect.objectContaining({ transactionId: 'txn-1' })));
     expect(mockRouter.replace).toHaveBeenCalledWith(expect.objectContaining({
       pathname: '/bills/one-time-payments/pay/payment-success',
@@ -249,7 +247,7 @@ describe('one-time card payment (form-details)', () => {
     await waitFor(() => expect(mockDispatch).toHaveBeenCalledWith(expect.objectContaining({
       payload: expect.objectContaining({ message: 'Card declined', variant: 'error' }),
     })));
-    // form is preserved (not reset/navigated away) so the user can retry
+
     expect(mockRouter.replace).not.toHaveBeenCalled();
     expect(screen.getByText(/only for this payment/)).toBeTruthy();
   });

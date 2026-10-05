@@ -2,8 +2,6 @@ import { StyleSheet } from 'react-native';
 import { Colors } from './colors';
 import { FontSizes } from './typography';
 
-// Focus colour for text inputs: a soft charcoal rather than pure black.
-// Deliberately not red or amber so a focused field never reads as an error or a warning.
 export const inputFocusColor = Colors.neutral08;
 
 export const globalStyle = StyleSheet.create({
@@ -31,7 +29,7 @@ export const globalStyle = StyleSheet.create({
     padding: 12,
     borderRadius: 8
   },
-  // Flat container for a section header and its content; white cards sit inside it.
+
   sectionPanel: {
     backgroundColor: Colors.dashboardPanel,
     borderColor: Colors.dashboardPanelBorder,
@@ -40,7 +38,7 @@ export const globalStyle = StyleSheet.create({
     overflow: 'hidden',
     padding: 16,
   },
-  // White card inside a section panel; rows sit in it, separated by dividers.
+
   listCard: {
     backgroundColor: Colors.neutral01,
     borderColor: Colors.dashboardCardBorder,
@@ -49,7 +47,7 @@ export const globalStyle = StyleSheet.create({
     paddingHorizontal: 16,
     paddingVertical: 2,
   },
-  // Placeholder bars on white cards; the shared SkeletonBlock defaults to a darker grey.
+
   skeletonOnCard: {
     backgroundColor: Colors.dashboardSkeleton,
   },

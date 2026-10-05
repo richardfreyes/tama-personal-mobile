@@ -10,7 +10,7 @@ jest.mock('react-native-safe-area-context', () => ({
 }));
 
 jest.mock('react-native-webview', () => {
-  // eslint-disable-next-line @typescript-eslint/no-require-imports
+
   const { View } = require('react-native');
   const MockWebView = (props: any) => <View testID="webview" {...props} />;
   return { WebView: MockWebView };
@@ -34,8 +34,6 @@ describe('OtpWebView', () => {
     jest.useRealTimers();
     jest.restoreAllMocks();
   });
-
-  // ---- Rendering ----
 
   it('renders the default header title', () => {
     renderWithProviders(<OtpWebView {...baseProps} />);
@@ -167,8 +165,6 @@ describe('OtpWebView', () => {
     expect(screen.queryByText('Done')).toBeNull();
   });
 
-  // ---- Dismiss ----
-
   it('calls onComplete when Done is pressed', () => {
     const onComplete = jest.fn();
     renderWithProviders(<OtpWebView {...baseProps} onComplete={onComplete} />);
@@ -184,8 +180,6 @@ describe('OtpWebView', () => {
     fireEvent.press(done);
     expect(onComplete).toHaveBeenCalledTimes(1);
   });
-
-  // ---- Navigation-based success detection ----
 
   it('calls onSuccess and onComplete when navigating to a success url', () => {
     const onSuccess = jest.fn();
@@ -325,8 +319,6 @@ describe('OtpWebView', () => {
     expect(onComplete).not.toHaveBeenCalled();
   });
 
-  // ---- Declined / failed card verification ----
-
   it('arms on the failed callback and reports a decline on the follow-up web redirect', () => {
     const failedCallbackUrl = 'http://localhost:8810/gateway/maya/vault/instrument_123/failed';
     const onFailure = jest.fn();
@@ -344,13 +336,11 @@ describe('OtpWebView', () => {
       />,
     );
 
-    // The failed callback loads so the backend can clean up the pending card...
     expect(getWebView().props.onShouldStartLoadWithRequest({
       url: failedCallbackUrl,
       isTopFrame: true,
     })).toBe(true);
 
-    // ...then the redirect to the web dashboard is blocked and reported as a decline.
     expect(getWebView().props.onShouldStartLoadWithRequest({
       url: 'https://app.example.com/dashboard/payment-methods',
       isTopFrame: true,
@@ -490,8 +480,6 @@ describe('OtpWebView', () => {
     expect(onSuccess).not.toHaveBeenCalled();
   });
 
-  // ---- URL scheme guarding ----
-
   it('allows https navigation requests', () => {
     renderWithProviders(<OtpWebView {...baseProps} />);
     expect(
@@ -618,8 +606,6 @@ describe('OtpWebView', () => {
       getWebView().props.onShouldStartLoadWithRequest({ url: 'tel:12345' }),
     ).toBe(false);
   });
-
-  // ---- Error handling ----
 
   it('calls onError with a friendly message when the WebView errors', () => {
     const onError = jest.fn();

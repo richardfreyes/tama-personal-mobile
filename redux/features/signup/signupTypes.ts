@@ -3,7 +3,7 @@ export interface SignupRequest {
   lastName: string;
   emailAddress: string;
   rawPassword: string;
-  turnstileToken: string; // TODO: implement functionality
+  turnstileToken: string;  
 }
 
 export interface SignupResponse {

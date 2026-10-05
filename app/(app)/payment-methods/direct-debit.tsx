@@ -55,7 +55,6 @@ const DirectDebit = () => {
   const handleSuccess = useCallback(async () => {
     outcomeRef.current = 'success';
 
-    // Bank is linked — proceed to charge the bill (this is a one-time-payment method).
     if (!linkedReferenceRef.current || !billingReferenceId) {
       setWebviewUrl(null);
       goToResult('success');
@@ -116,7 +115,7 @@ const DirectDebit = () => {
     if (outcomeRef.current) return;
 
     setWebviewUrl(null);
-    // Dismissed before an outcome resolved — leave the user on the bank picker.
+
   }, []);
 
   const handleError = useCallback((message: string) => {

@@ -99,7 +99,7 @@ const PayPalPayment = () => {
     try {
       await runBounded(cancelPayPal(session.transactionReferenceId), PAYMENT_CANCEL_TIMEOUT_MS);
     } catch {
-      // Best effort: an abandoned order cannot be captured without approval.
+
     }
   }, [cancelPayPal, runBounded, session?.transactionReferenceId]);
 

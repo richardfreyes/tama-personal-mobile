@@ -73,8 +73,7 @@ export const paymentMethodApi = appApi.injectEndpoints({
         method: 'POST',
         body: { isPrimary },
       }),
-      // Direct debit is a one-time-payment method, hidden from the saved list, so there
-      // is nothing to invalidate here — the charge flow follows the successful callback.
+
     }),
     chargeDirectDebit: builder.mutation<ChargeDirectDebitResponse, ChargeDirectDebitIntent>({
       query: ({ payload, idempotencyKey }) => ({

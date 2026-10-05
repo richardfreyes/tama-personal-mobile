@@ -2,14 +2,17 @@ import { beforeEach, describe, expect, it, jest } from '@jest/globals';
 import { fireEvent, screen } from '@testing-library/react-native';
 import { router } from 'expo-router';
 import React from 'react';
-import { Image } from 'react-native';
+import { Image, StyleSheet } from 'react-native';
 import BillsComponent from '../../../components/one-time-payments/BillsComponent';
 import { renderWithProviders } from '../../../utils/test-utils';
 
-// --- Mock RTK Query hooks ---
-
 const mockUseGetBillersQuery = jest.fn();
-const mockUseGetBillsQuery = jest.fn();
+const mockUseGetBillsQuery = jest.fn<(...args: any[]) => any>();
+const mockUseAllSavedBills = jest.fn<(...args: any[]) => any>();
+
+jest.mock('@/hooks/useAllSavedBills', () => ({
+  useAllSavedBills: (options: unknown) => mockUseAllSavedBills(options),
+}));
 
 jest.mock('@/redux/features/biller/billerApi', () => ({
   useGetBillersQuery: (...args: any[]) => mockUseGetBillersQuery(...args),
@@ -18,8 +21,6 @@ jest.mock('@/redux/features/biller/billerApi', () => ({
 jest.mock('@/redux/features/bills/billsApi', () => ({
   useGetBillsQuery: (...args: any[]) => mockUseGetBillsQuery(...args),
 }));
-
-// --- Test data ---
 
 const mockBillers = [
   {
@@ -109,9 +110,21 @@ describe('BillsComponent', () => {
     jest.clearAllMocks();
     mockUseGetBillersQuery.mockReturnValue(successBillers);
     mockUseGetBillsQuery.mockReturnValue(successBills);
-  });
+    mockUseAllSavedBills.mockImplementation(({ skip }: { skip: boolean }) => {
+      if (skip) {
+        return { bills: [], isLoading: false, isFetching: false, isError: false, refetch: jest.fn() };
+      }
 
-  // ---- Loading states ----
+      const query = mockUseGetBillsQuery({ page: 0 });
+      return {
+        bills: query.data ?? [],
+        isLoading: query.isLoading,
+        isFetching: query.isFetching,
+        isError: query.isError,
+        refetch: query.refetch ?? jest.fn(),
+      };
+    });
+  });
 
   it('shows loading indicator when billers are loading', () => {
     mockUseGetBillersQuery.mockReturnValue({
@@ -157,8 +170,6 @@ describe('BillsComponent', () => {
     expect(screen.getByTestId('bills-loading')).toBeTruthy();
   });
 
-  // ---- Error state ----
-
   it('shows error message when billers query fails', () => {
     mockUseGetBillersQuery.mockReturnValue({
       data: undefined,
@@ -192,8 +203,6 @@ describe('BillsComponent', () => {
     renderWithProviders(<BillsComponent {...defaultProps} />);
     expect(screen.queryByText('Pay Now')).toBeNull();
   });
-
-  // ---- Empty states ----
 
   it('shows empty state when bills data is an empty array', () => {
     mockUseGetBillsQuery.mockReturnValue({
@@ -276,8 +285,6 @@ describe('BillsComponent', () => {
     expect(screen.queryByText('Unable to load your billers.')).toBeNull();
   });
 
-  // ---- Success state rendering ----
-
   it('renders bill cards with billing names', () => {
     renderWithProviders(<BillsComponent {...defaultProps} />);
     expect(screen.getByText('My Electric Bill')).toBeTruthy();
@@ -325,7 +332,7 @@ describe('BillsComponent', () => {
 
     expect(screen.getByText('₱ 1,750.00')).toBeTruthy();
     expect(screen.getByText('USD 25.5')).toBeTruthy();
-    expect(screen.getByText('No amount set')).toBeTruthy();
+    expect(screen.getByText('Enter amount')).toBeTruthy();
   });
 
   it('renders bill card without crashing when biller has no matching logo', () => {
@@ -353,8 +360,6 @@ describe('BillsComponent', () => {
     expect(screen.getByText('WU')).toBeTruthy();
   });
 
-  // ---- Section header ----
-
   it('renders section header title', () => {
     renderWithProviders(<BillsComponent {...defaultProps} />);
     expect(screen.getByText('My Bills')).toBeTruthy();
@@ -375,8 +380,6 @@ describe('BillsComponent', () => {
     renderWithProviders(<BillsComponent {...defaultProps} />);
     expect(screen.queryByText('View All')).toBeNull();
   });
-
-  // ---- Footer buttons ----
 
   it('shows Pay Now button when sectionFooter.button is true', () => {
     renderWithProviders(<BillsComponent {...defaultProps} />);
@@ -416,8 +419,6 @@ describe('BillsComponent', () => {
     );
     expect(screen.queryByText('Pay Now')).toBeNull();
   });
-
-  // ---- User interactions ----
 
   it('navigates to bill payment screen on bill card press', () => {
     renderWithProviders(<BillsComponent {...defaultProps} />);
@@ -497,8 +498,6 @@ describe('BillsComponent', () => {
     expect(onPayNowPress).toHaveBeenCalledTimes(1);
   });
 
-  // ---- Query invocation ----
-
   it('calls useGetBillersQuery with empty params', () => {
     renderWithProviders(<BillsComponent {...defaultProps} />);
     expect(mockUseGetBillersQuery).toHaveBeenCalledWith({});
@@ -506,6 +505,167 @@ describe('BillsComponent', () => {
 
   it('calls useGetBillsQuery with page 0', () => {
     renderWithProviders(<BillsComponent {...defaultProps} />);
-    expect(mockUseGetBillsQuery).toHaveBeenCalledWith({ page: 0 });
+    expect(mockUseGetBillsQuery).toHaveBeenCalledWith({ page: 0 }, { skip: false });
+  });
+
+  describe('plain variant', () => {
+    const daysFromNow = (days: number) => new Date(Date.now() + days * 86_400_000).toISOString();
+    const plainProps = {
+      sectionHeader: { title: 'Saved billers', linkText: 'Manage' },
+      variant: 'plain' as const,
+    };
+    const billWith = (index: number, overrides: Record<string, unknown> = {}) => ({
+      ...mockBills[0],
+      billing_id: 200 + index,
+      billing_reference_id: `ref-plain-${index}`,
+      billing_name: `Bill ${index}`,
+      ...overrides,
+    });
+
+    it('shows how many billers are saved beside the title, with a Manage link', () => {
+      renderWithProviders(<BillsComponent {...plainProps} />);
+
+      expect(screen.getByText('Saved billers')).toBeTruthy();
+      expect(screen.getByTestId('section-header-count')).toBeTruthy();
+      expect(screen.getByText('2')).toBeTruthy();
+      expect(screen.getByRole('button', { name: 'Manage Saved billers' })).toBeTruthy();
+    });
+
+    it('includes saved billers beyond the first page in the count and carousel', () => {
+      mockUseAllSavedBills.mockReturnValue({
+        bills: [...mockBills, billWith(3)],
+        isLoading: false,
+        isFetching: false,
+        isError: false,
+        refetch: jest.fn(),
+      });
+      renderWithProviders(<BillsComponent {...plainProps} />);
+
+      expect(screen.getByText('3')).toBeTruthy();
+      expect(screen.getAllByTestId(/^biller-card-/)).toHaveLength(3);
+    });
+
+    it('sits flat on the page rather than in a section panel', () => {
+      renderWithProviders(<BillsComponent {...plainProps} />);
+
+      const section = StyleSheet.flatten(screen.getByTestId('bills-section').props.style);
+      expect(section.backgroundColor).toBeUndefined();
+      expect(section).toEqual(expect.objectContaining({ paddingHorizontal: 20, paddingTop: 8 }));
+    });
+
+    it('keeps the panel around the panel layout', () => {
+      renderWithProviders(<BillsComponent {...defaultProps} />);
+
+      expect(StyleSheet.flatten(screen.getByTestId('bills-section').props.style)).toEqual(
+        expect.objectContaining({ backgroundColor: '#FCFBFB', borderRadius: 24 }),
+      );
+    });
+
+    it('opens the saved bills from Manage', () => {
+      const onViewAllPress = jest.fn();
+      renderWithProviders(<BillsComponent {...plainProps} onViewAllPress={onViewAllPress} />);
+
+      fireEvent.press(screen.getByText('Manage'));
+      expect(onViewAllPress).toHaveBeenCalledTimes(1);
+    });
+
+    it('leaves out the due summary and the status when the API reports neither', () => {
+      renderWithProviders(<BillsComponent {...plainProps} />);
+
+      expect(screen.queryByTestId('due-summary-strip')).toBeNull();
+      expect(screen.queryByTestId('biller-status-due')).toBeNull();
+      expect(screen.queryByTestId('biller-status-overdue')).toBeNull();
+    });
+
+    it('keeps saved cards visible when biller logos cannot be loaded', () => {
+      mockUseGetBillersQuery.mockReturnValue({ data: undefined, isLoading: false, isError: true, isFetching: false });
+      renderWithProviders(<BillsComponent {...plainProps} />);
+
+      expect(screen.getAllByTestId(/^biller-card-/)).toHaveLength(2);
+      expect(screen.queryByText('Unable to load your billers.')).toBeNull();
+    });
+
+    it('summarises what is due and lists the most urgent biller first', () => {
+      mockUseGetBillsQuery.mockReturnValue({
+        ...successBills,
+        data: [
+          billWith(1, { custom_fields: { amount: { text: 'Amount', value: '₱8,450' } }, date_paid: daysFromNow(-5) }),
+          billWith(2, { custom_fields: { amount: { text: 'Amount', value: '₱10,000' } }, due_date: daysFromNow(2) }),
+          billWith(3, { custom_fields: { amount: { text: 'Amount', value: '₱32,321' } }, due_date: daysFromNow(-3) }),
+        ],
+      });
+      renderWithProviders(<BillsComponent {...plainProps} />);
+
+      expect(screen.getByText('2 bills to pay · 1 overdue')).toBeTruthy();
+      expect(screen.getByText('₱ 42,321.00')).toBeTruthy();
+      expect(screen.getByText('Next: Bill 2', { exact: false })).toBeTruthy();
+      const order = screen.getAllByTestId(/^biller-card-/).map((card) => card.props.testID);
+      expect(order).toEqual(['biller-card-ref-plain-3', 'biller-card-ref-plain-2', 'biller-card-ref-plain-1']);
+      expect(screen.getByText('Overdue 3 days')).toBeTruthy();
+      expect(screen.getByText(/^Paid /)).toBeTruthy();
+    });
+
+    it('keeps the order of the API for the panel layout', () => {
+      mockUseGetBillsQuery.mockReturnValue({
+        ...successBills,
+        data: [billWith(1, { date_paid: daysFromNow(-5) }), billWith(2, { due_date: daysFromNow(-3) })],
+      });
+      renderWithProviders(<BillsComponent {...defaultProps} />);
+
+      const order = screen.getAllByTestId(/^biller-card-/).map((card) => card.props.testID);
+      expect(order).toEqual(['biller-card-ref-plain-1', 'biller-card-ref-plain-2']);
+    });
+
+    it('invites the user to save a biller when there are none, without a count or Manage', () => {
+      mockUseGetBillsQuery.mockReturnValue({ data: [], isLoading: false, isError: false, error: null });
+      renderWithProviders(<BillsComponent {...plainProps} />);
+
+      expect(screen.getByText('No saved billers yet')).toBeTruthy();
+      expect(screen.getByText('Billers you save will appear here for one-tap payments.')).toBeTruthy();
+      expect(screen.queryByTestId('section-header-count')).toBeNull();
+      expect(screen.queryByText('Manage')).toBeNull();
+      expect(screen.queryByTestId('due-summary-strip')).toBeNull();
+    });
+
+    it('shows the skeleton while loading', () => {
+      mockUseGetBillsQuery.mockReturnValue({ data: undefined, isLoading: true, isError: false, error: null });
+      renderWithProviders(<BillsComponent {...plainProps} />);
+
+      expect(screen.getByTestId('bills-loading')).toBeTruthy();
+      expect(screen.queryByText('Manage')).toBeNull();
+    });
+
+    it('offers to retry when the billers cannot be loaded', () => {
+      const billsRefetch = jest.fn(() => Promise.resolve());
+      const billersRefetch = jest.fn(() => Promise.resolve());
+      mockUseGetBillsQuery.mockReturnValue({
+        data: undefined, isLoading: false, isFetching: false, isError: true, error: { status: 500 }, refetch: billsRefetch,
+      });
+      mockUseGetBillersQuery.mockReturnValue({ ...successBillers, refetch: billersRefetch });
+      renderWithProviders(<BillsComponent {...plainProps} />);
+
+      expect(screen.getByText('Unable to load your billers.')).toBeTruthy();
+      expect(screen.queryByTestId('section-header-count')).toBeNull();
+      fireEvent.press(screen.getByRole('button', { name: 'Try loading your billers again' }));
+      expect(billsRefetch).toHaveBeenCalledTimes(1);
+      expect(billersRefetch).not.toHaveBeenCalled();
+    });
+
+    it('has no Add Biller or Pay Now buttons', () => {
+      renderWithProviders(<BillsComponent {...plainProps} sectionFooter={{ button: true }} />);
+
+      expect(screen.queryByText('Add Biller')).toBeNull();
+      expect(screen.queryByText('Pay Now')).toBeNull();
+    });
+
+    it('opens a biller to pay when its card is pressed', () => {
+      renderWithProviders(<BillsComponent {...plainProps} />);
+
+      fireEvent.press(screen.getByText('My Water Bill'));
+      expect(router.push).toHaveBeenCalledWith({
+        pathname: '/bills/one-time-payments/pay/[billingReferenceId]',
+        params: { billingReferenceId: 'ref-002', merchantName: 'Water Utils' },
+      });
+    });
   });
 });

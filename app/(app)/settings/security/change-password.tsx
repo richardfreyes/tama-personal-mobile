@@ -51,7 +51,7 @@ export default function ChangePassword() {
     if (field === 'confirmNewPassword' || field === 'newPassword') {
       const passwordToMatch = field === 'confirmNewPassword' ? currentFormData.newPassword : value;
       const passwordToCheck = field === 'confirmNewPassword' ? value : currentFormData.confirmNewPassword;
-      
+
       if (field === 'confirmNewPassword') {
          if (value !== currentFormData.newPassword) {
            error = 'Passwords do not match.';
@@ -64,7 +64,7 @@ export default function ChangePassword() {
   const handleTextChange = (field: keyof PasswordUpdateInputs, value: string) => {
     setFormData(prev => {
       const updated = { ...prev, [field]: value };
-      
+
       if (touched[field]) {
         const error = validateInput(field, value, updated);
         setErrors(prevErrors => ({ ...prevErrors, [field]: error }));
@@ -74,7 +74,7 @@ export default function ChangePassword() {
           setErrors(prevErrors => ({ ...prevErrors, confirmNewPassword: confirmError }));
         }
       }
-      
+
       return updated;
     });
   };
@@ -102,7 +102,7 @@ export default function ChangePassword() {
       newErrors.confirmNewPassword = 'Passwords do not match.';
       isValid = false;
     }
-    
+
     setErrors(newErrors);
 
     if (!isValid) {
@@ -138,7 +138,7 @@ export default function ChangePassword() {
         await dispatch(clearSession());
         router.replace('/login');
       }, 2000);
-      
+
     } catch (err: any) {
       dispatch(showSnackbar({
         message: err.data?.message || 'Failed to update password. Please try again.',
@@ -156,7 +156,7 @@ export default function ChangePassword() {
             <View style={styles.wrapper}>
               <AppText style={styles.mainTitle} weight='600'>Update Your Password</AppText>
               <AppText style={[styles.descriptionText, { marginBottom: 24 }]}>
-                Update the password you'll be using to login with this account.
+                {"Update the password you'll be using to login with this account."}
               </AppText>
               <View style={styles.inputFieldContainer}>
                 <InputValidationComponent

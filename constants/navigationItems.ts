@@ -31,17 +31,19 @@ export const ONBOARDING_IMGS = [
 export const BILLER_CATEGORIES = [
   { id: 'all', name: 'All Billers', categoryId: undefined, icon: DoubleCheckCircle, iconProps: { width: 16, height: 16 } },
   { id: 'real_estate', name: 'Real Estate', categoryId: 2, icon: HouseIcon, iconProps: { width: 16, height: 16 } },
-  // { id: 'education', name: 'Education', categoryId: 3, icon: HatIcon, iconProps: { width: 16, height: 16 } },
+
 ] as BillerCategory[];
 
-// Bottom bar tabs in display order. `name` is the Expo Router tab route; `href` is where a second
-// tap on the active tab returns to.
 export const FLOATING_NAV_TABS = [
   { name: 'dashboard', label: 'Home', href: '/dashboard', icon: HomeOutlineIcon },
   { name: 'bills/index', label: 'Bills', href: '/bills', icon: ReceiptIcon },
   { name: 'transactions/index', label: 'History', href: '/transactions', icon: HistoryIcon },
   { name: 'payment-methods/index', label: 'Wallet', href: '/payment-methods', icon: WalletIcon },
 ] as const;
+
+export const FLOATING_NAV_HIDDEN_ROUTES: readonly string[] = [
+  'bills/one-time-payments/pay/[billingReferenceId]',
+];
 
 export const SETTINGS = [
   { id: 'profile', title: 'Profile', icon: UserIcon, route: '/settings/profile' },

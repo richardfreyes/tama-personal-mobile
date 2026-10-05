@@ -9,7 +9,7 @@ const useResendCountdown = (initialCountdownSeconds: number = 30) => {
     if (intervalRef.current) {
       clearInterval(intervalRef.current);
     }
-    
+
     setCountdown(initialCountdownSeconds);
     setIsActive(true);
     intervalRef.current = setInterval(() => {

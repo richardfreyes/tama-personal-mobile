@@ -1,4 +1,5 @@
 import { CheckboxFieldRenderer } from '@/components/forms/dynamic-field-renderers/CheckboxFieldRenderer';
+import CountryCodePicker from '@/components/forms/CountryCodePicker';
 import { DateFieldRenderer } from '@/components/forms/dynamic-field-renderers/DateFieldRenderer';
 import { LookupFieldRenderer } from '@/components/forms/dynamic-field-renderers/LookupFieldRenderer';
 import { PhoneFieldRenderer } from '@/components/forms/dynamic-field-renderers/PhoneFieldRenderer';
@@ -8,7 +9,6 @@ import { formatDateForStorage, parseDateValue } from '@/utils/date';
 import { sortFieldsByDisplayOrder } from '@/utils/fieldVisibility';
 import React, { useMemo, useState } from 'react';
 import { View } from 'react-native';
-import { CountryPicker } from "react-native-country-codes-picker";
 import { DatePickerModal } from 'react-native-paper-dates';
 import { AppText } from '../common/AppText';
 
@@ -59,15 +59,12 @@ const DynamicFormComponent = ({
 
   const handleFieldChange = (fieldKey: string, value: any, extraData?: Record<string, any>) => {
     onFormChange(fieldKey, value, extraData);
-    // setTouched(prev => ({ ...prev, [fieldKey]: true }));
 
-    // const error = validateField(fieldKey, value);
-    // setErrors(prev => ({ ...prev, [fieldKey]: error }));
     if (touched[fieldKey]) {
       const error = validateField(fieldKey, value);
       setErrors(prev => ({ ...prev, [fieldKey]: error }));
     } else {
-      // Optional: clear error if you want typing to hide the error immediately
+
       setErrors(prev => ({ ...prev, [fieldKey]: undefined }));
     }
   };
@@ -224,7 +221,7 @@ const DynamicFormComponent = ({
             </View>
           </View>
         );
-      
+
       default:
         return null;
     }
@@ -244,7 +241,7 @@ const DynamicFormComponent = ({
         </React.Fragment>
       ))}
 
-      <CountryPicker
+      <CountryCodePicker
         show={showCountryPicker}
         lang="en"
         style={{ modal: { height: 500 }}}

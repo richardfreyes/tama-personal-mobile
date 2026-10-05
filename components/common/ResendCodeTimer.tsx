@@ -27,7 +27,7 @@ const ResendCodeTimer: React.FC<ResendCodeTimerProps> = ({initialTime = 30, onRe
         </AppText>
       ) : (
         <AppText style={styles.resendLink}>
-          <AppText>Didn't receive the code? </AppText>
+          <AppText>{"Didn't receive the code? "}</AppText>
           <AppText onPress={handleResend} style={styles.resendText}>Resend Code</AppText>
         </AppText>
       )}

@@ -70,7 +70,7 @@ wiremo-personal-mob/
 
 - Pure helper functions belong in `utils/`; only side-effectful integrations (storage, navigation dispatch) belong in `services/`. React hooks belong in `hooks/`.
 - New components should not use a `Component` suffix in their name (prefer `InvoiceItem.tsx` over `InvoiceItemComponent.tsx`). Existing suffixed components are renamed opportunistically.
-- New component prop types are declared in (and exported from) the component file itself; `types/common.ts` holds shared domain types and re-exports already co-located prop types for backward compatibility.
+- Component prop types live in `types/component-props.ts` and are imported through the `@/types/common` barrel, matching `AGENTS.md` and the existing shared type organization.
 
 ---
 
@@ -112,7 +112,7 @@ Contains all protected application screens accessible only to authenticated user
 **Available Screens:**
 
 - **`dashboard`** - Main landing page with overview widgets
-- **`bills/one-time-payments`** - List, add, search, and pay saved bills
+- **`bills/one-time-payments`** - Saved billers, an A–Z biller directory with search, and Biller Details (`pay/[billingReferenceId]`) to pay a saved biller by saved card or another method. Adding a biller from the directory list is not offered yet; Home and Monthly Bills still open the add-biller picker via `view=add`
 - **`bills/enrollments`** - Enrollments merchant biller search and auto-debit enrollment flow
 - **`payment-methods`** - Manage payment cards and methods
 - **`transactions`** - Transaction history and transaction detail screens

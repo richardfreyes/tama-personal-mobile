@@ -1,20 +1,25 @@
 import SearchIcon from '@/assets/icons/search.svg';
 import { Colors } from '@/styles/common/colors';
 import { globalStyle } from '@/styles/common/globals';
+import { searchInputStyles as styles } from '@/styles/components/common/SearchInput';
 import type { SearchInputProps } from '@/types/component-props';
+import { Feather } from '@expo/vector-icons';
+import Ionicons from '@expo/vector-icons/Ionicons';
 import React, { forwardRef, useState } from 'react';
-import { TextInput, type TextInputProps, View } from 'react-native';
+import { Pressable, TextInput, type TextInputProps, View } from 'react-native';
 
-const SearchInput = forwardRef<TextInput, SearchInputProps>(({ 
+const SearchInput = forwardRef<TextInput, SearchInputProps>(function SearchInput({
   containerStyle,
   editable = true,
   inputStyle,
   onBlur,
+  onClear,
   onFocus,
-  placeholderTextColor = Colors.neutral07,
+  placeholderTextColor,
   testID,
+  variant = 'outlined',
   ...props
-}, ref) => {
+}, ref) {
   const [isFocused, setIsFocused] = useState(false);
 
   const handleFocus: NonNullable<TextInputProps['onFocus']> = (event) => {
@@ -27,6 +32,39 @@ const SearchInput = forwardRef<TextInput, SearchInputProps>(({
     onBlur?.(event);
   };
 
+  if (variant === 'filled') {
+    return (
+      <View
+        style={[styles.filledContainer, containerStyle]}
+        testID={testID ? `${testID}-container` : undefined}
+      >
+        <Feather color={Colors.maroon09} name="search" size={20} style={styles.filledIcon} />
+        <TextInput
+          {...props}
+          editable={editable}
+          onBlur={handleBlur}
+          onFocus={handleFocus}
+          placeholderTextColor={placeholderTextColor ?? Colors.maroon06}
+          ref={ref}
+          style={[styles.filledInput, inputStyle]}
+          testID={testID}
+        />
+        {props.value && onClear ? (
+          <Pressable
+            accessibilityLabel="Clear search"
+            accessibilityRole="button"
+            hitSlop={4}
+            onPress={onClear}
+            style={styles.clearButton}
+            testID={testID ? `${testID}-clear` : undefined}
+          >
+            <Ionicons color={Colors.maroon07} name="close-circle" size={18} />
+          </Pressable>
+        ) : null}
+      </View>
+    );
+  }
+
   return (
     <View
       style={[globalStyle.searchBarContainer, containerStyle]}
@@ -37,7 +75,7 @@ const SearchInput = forwardRef<TextInput, SearchInputProps>(({
         editable={editable}
         onBlur={handleBlur}
         onFocus={handleFocus}
-        placeholderTextColor={placeholderTextColor}
+        placeholderTextColor={placeholderTextColor ?? Colors.neutral07}
         ref={ref}
         style={[
           globalStyle.inputBase,

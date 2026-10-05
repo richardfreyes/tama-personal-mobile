@@ -5,8 +5,6 @@ import { PaperProvider } from 'react-native-paper';
 import FullScreenModal from '../../../components/layout/FullScreenModal';
 import { renderWithProviders } from '../../../utils/test-utils';
 
-// NOTE: 3 FAIL NEED TO REVISIT 17 PASSED 3 FAILED
-
 const SafeAreaContext = React.createContext({
   top: 44,
   bottom: 34,
@@ -60,8 +58,6 @@ describe('FullScreenModal', () => {
     jest.restoreAllMocks();
   });
 
-  // ---- Rendering when visible ----
-
   it('renders the title text', () => {
     renderModal();
     expect(screen.getByText('Cancel Autopay')).toBeTruthy();
@@ -98,11 +94,9 @@ describe('FullScreenModal', () => {
 
   it('renders the Reason for Cancellation text input', () => {
     renderModal();
-    // react-native-paper TextInput renders the label in multiple nodes
+
     expect(screen.getAllByText('Reason for Cancellation').length).toBeGreaterThanOrEqual(1);
   });
-
-  // ---- Visibility ----
 
   it('renders content when isVisible is true', () => {
     renderModal({ isVisible: true });
@@ -113,8 +107,6 @@ describe('FullScreenModal', () => {
     renderModal({ isVisible: false });
     expect(screen.queryByText('Cancel Autopay')).toBeNull();
   });
-
-  // ---- Callbacks ----
 
   it('calls onClose when the Back button is pressed', () => {
     renderModal();
@@ -127,13 +119,11 @@ describe('FullScreenModal', () => {
     const overlays = screen.UNSAFE_getAllByType(
       require('react-native').TouchableOpacity,
     );
-    // The first TouchableOpacity is the full-screen overlay with onPressOut
+
     const overlay = overlays[0];
     fireEvent(overlay, 'pressOut');
     expect(DEFAULT_PROPS.onClose).toHaveBeenCalledTimes(1);
   });
-
-  // ---- Type-based icon ----
 
   it('renders an icon for cancelAutopay type', () => {
     const { toJSON } = renderModal({ type: 'cancelAutopay' });
@@ -147,8 +137,6 @@ describe('FullScreenModal', () => {
     expect(tree).toContain('SvgMock');
   });
 
-  // ---- Title variations ----
-
   it('renders a custom title', () => {
     renderModal({ title: 'Cancel Enrollment' });
     expect(screen.getByText('Cancel Enrollment')).toBeTruthy();
@@ -159,8 +147,6 @@ describe('FullScreenModal', () => {
     expect(toJSON()).toBeTruthy();
   });
 
-  // ---- Optional props ----
-
   it('renders without onAction prop without crashing', () => {
     const { toJSON } = renderModal({ onAction: undefined });
     expect(toJSON()).toBeTruthy();
@@ -170,8 +156,6 @@ describe('FullScreenModal', () => {
     const { toJSON } = renderModal({ headerActionText: undefined });
     expect(toJSON()).toBeTruthy();
   });
-
-  // ---- Edge cases ----
 
   it('renders without crashing with all required props', () => {
     const { toJSON } = renderModal();

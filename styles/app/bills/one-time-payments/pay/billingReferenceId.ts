@@ -2,33 +2,32 @@ import { Colors } from "@/styles/common/colors";
 import { StyleSheet } from "react-native";
 
 export const billingReferenceIdStyles = StyleSheet.create({
-  wrapper: {
-    paddingHorizontal: 12,
-    paddingVertical: 12,
-    width: '100%',
+  screen: {
+    backgroundColor: Colors.neutral01,
     flex: 1,
   },
-  amountInputContainer: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    flexDirection: 'row',
+
+  content: {
+    flexGrow: 1,
+    paddingBottom: 156,
   },
-  amountInput: {
-    width: '70%',
+  body: {
+    gap: 24,
+    paddingHorizontal: 20,
+    paddingTop: 8,
   },
-  computationWrapper: {
-    width: '100%',
+  amountSection: {
+    gap: 18,
   },
-  label: {
-    textAlign: 'center',
+  amountField: {
+    gap: 8,
   },
-  replaceCardButton: {
-    marginTop: 8,
+  paySection: {
+    gap: 12,
   },
-  newCardNotice: {
-    backgroundColor: Colors.red01,
-    borderRadius: 8,
-    padding: 12,
+  sectionTitle: {
+    color: Colors.maroon11,
+    fontSize: 16,
+    lineHeight: 24,
   },
 });

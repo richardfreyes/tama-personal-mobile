@@ -15,7 +15,7 @@ describe('resolveInternalReturnPath', () => {
     expect(resolveInternalReturnPath('//evil.example.com', fallback)).toBe(fallback);
     expect(resolveInternalReturnPath('javascript:alert(1)', fallback)).toBe(fallback);
     expect(resolveInternalReturnPath('http://internal/../evil', fallback)).toBe(fallback);
-    expect(resolveInternalReturnPath('bills/one-time-payments', fallback)).toBe(fallback); // not app-absolute
+    expect(resolveInternalReturnPath('bills/one-time-payments', fallback)).toBe(fallback);  
     expect(resolveInternalReturnPath('/path with space', fallback)).toBe(fallback);
     expect(resolveInternalReturnPath('/back\\slash', fallback)).toBe(fallback);
   });

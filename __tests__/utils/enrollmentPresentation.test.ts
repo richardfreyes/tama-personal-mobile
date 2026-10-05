@@ -1,20 +1,6 @@
 import { describe, expect, it } from '@jest/globals';
 import type { Enrollment } from '../../types/enrollment';
-import {
-  buildEnrollmentDetailsViewModel,
-  buildEnrollmentDetailSections,
-  countActiveEnrollments,
-  formatEnrollmentCurrency,
-  formatEnrollmentPhone,
-  getEnrollmentMonthlyAmount,
-  getEnrollmentMerchantCode,
-  getEnrollmentNextDebitDate,
-  getEnrollmentPaymentMethod,
-  getEnrollmentReferenceId,
-  getEnrollmentStatusLabel,
-  getEnrollmentTitle,
-  isActiveEnrollment,
-} from '../../utils/enrollmentPresentation';
+import { buildEnrollmentDetailsViewModel, buildEnrollmentDetailSections, countActiveEnrollments, formatEnrollmentCurrency, formatEnrollmentPhone, getEnrollmentMonthlyAmount, getEnrollmentMerchantCode, getEnrollmentNextDebitDate, getEnrollmentPaymentMethod, getEnrollmentReferenceId, getEnrollmentStatusLabel, getEnrollmentTitle, isActiveEnrollment, } from '../../utils/enrollmentPresentation';
 
 describe('enrollment presentation', () => {
   const enrollment: Enrollment = {
@@ -192,9 +178,7 @@ describe('enrollment presentation', () => {
   });
 
   it('does not report progress when the backend omits the completedPayments field', () => {
-    // The progress bar has a hard dependency on the backend completedPayments
-    // count (GET /enrollments). If the backend does not surface it, the bar must
-    // not fabricate progress from an existing last-payment date alone.
+
     const details = buildEnrollmentDetailsViewModel({
       enrollmentLastPaymentDate: '2026-07-27T14:00:00+08:00',
       enrollmentMonths: 12,

@@ -11,7 +11,6 @@ const rows = [
 ];
 
 describe('PaymentInfoSection', () => {
-  // ---- Rendering ----
 
   it('renders the section title', () => {
     renderWithProviders(<PaymentInfoSection title="Payment Details" rows={rows} />);
@@ -31,8 +30,6 @@ describe('PaymentInfoSection', () => {
     expect(screen.getByText('QW-I-12345')).toBeTruthy();
     expect(screen.getByText('October 23, 2025')).toBeTruthy();
   });
-
-  // ---- Empty / edge cases ----
 
   it('renders the title with no rows', () => {
     renderWithProviders(<PaymentInfoSection title="Empty Section" rows={[]} />);

@@ -148,7 +148,6 @@ Tama reserves the right to change this Policy at any time to comply with applica
 15. Contact Information
 You agree that the Corporation may contact you about your account, transaction, and the Platform. You can contact us by sending correspondence via email at support@aqwire.co.`;
 
-
 export const PRIVACY_POLICY_CONTENT = String.raw`Current as of 01 August 2024
 Privacy Policy
 Your privacy is important to us at Tama. We respect your privacy regarding any information we may collect from you across our website.

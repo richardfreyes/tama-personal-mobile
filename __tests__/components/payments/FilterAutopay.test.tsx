@@ -43,8 +43,6 @@ describe('FilterAutopay', () => {
     jest.restoreAllMocks();
   });
 
-  // ---- Rendering ----
-
   it('renders the Filter header title', () => {
     renderFilter();
     expect(screen.getByText('Filter')).toBeTruthy();
@@ -80,8 +78,6 @@ describe('FilterAutopay', () => {
     renderFilter();
     expect(screen.getByText('Apply')).toBeTruthy();
   });
-
-  // ---- Status filter toggling ----
 
   it('includes a toggled-on status in the applied filters', () => {
     renderFilter();
@@ -131,8 +127,6 @@ describe('FilterAutopay', () => {
     );
   });
 
-  // ---- Transaction type filter toggling ----
-
   it('applies the one-time payment transaction type filter', () => {
     renderFilter();
     fireEvent.press(screen.getByTestId('filter-transaction-type-oneTimePayment'));
@@ -169,11 +163,11 @@ describe('FilterAutopay', () => {
   it('deselects only the targeted status without affecting others', () => {
     renderFilter();
     const checkboxes = screen.getAllByRole('checkbox');
-    // Select first three
+
     fireEvent.press(checkboxes[0]);
     fireEvent.press(checkboxes[1]);
     fireEvent.press(checkboxes[2]);
-    // Deselect the middle one
+
     fireEvent.press(checkboxes[1]);
     fireEvent.press(screen.getByText('Apply'));
 
@@ -181,8 +175,6 @@ describe('FilterAutopay', () => {
       expect.objectContaining({ statusFilters: ['successful', 'cancelled'] }),
     );
   });
-
-  // ---- Apply ----
 
   it('calls onApply with the correct default filter shape when nothing is selected', () => {
     renderFilter();
@@ -224,8 +216,6 @@ describe('FilterAutopay', () => {
       endDate: '2025-06-30T00:00:00.000Z',
     });
   });
-
-  // ---- Date range ----
 
   it('does not show the date picker on initial render', () => {
     renderFilter();
@@ -276,8 +266,6 @@ describe('FilterAutopay', () => {
     );
   });
 
-  // ---- Reset ----
-
   it('calls onReset when the bottom Reset button is pressed', () => {
     renderFilter();
     const resetButtons = screen.getAllByText('Reset');
@@ -306,7 +294,6 @@ describe('FilterAutopay', () => {
       });
     });
 
-    // Verify something was selected
     fireEvent.press(screen.getByText('Apply'));
     expect(DEFAULT_PROPS.onApply).toHaveBeenCalledWith(
       expect.objectContaining({
@@ -316,11 +303,9 @@ describe('FilterAutopay', () => {
       }),
     );
 
-    // Now reset
     const resetButtons = screen.getAllByText('Reset');
     fireEvent.press(resetButtons[resetButtons.length - 1]);
 
-    // Apply again to confirm everything is cleared
     fireEvent.press(screen.getByText('Apply'));
     expect(DEFAULT_PROPS.onApply).toHaveBeenLastCalledWith({
       statusFilters: [],
@@ -332,8 +317,6 @@ describe('FilterAutopay', () => {
       endDate: undefined,
     });
   });
-
-  // ---- Edge cases ----
 
   it('renders without crashing', () => {
     const { toJSON } = renderFilter();

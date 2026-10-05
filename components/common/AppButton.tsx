@@ -1,8 +1,10 @@
+import { BRAND_ACTION_GRADIENT_COLORS, BRAND_ACTION_GRADIENT_LOCATIONS, GRADIENT_HORIZONTAL_END, GRADIENT_HORIZONTAL_START, } from '@/constants/gradients';
 import { appButtonStyles as styles } from '@/styles/components/common/AppButton';
 import { AppButtonProps } from '@/types';
+import { LinearGradient } from 'expo-linear-gradient';
 import { router } from 'expo-router';
 import React, { useEffect, useState } from 'react';
-import { TouchableOpacity, View } from 'react-native';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import { AppText } from './AppText';
 import { NativeLoadingIndicator } from './Loading';
 
@@ -55,17 +57,22 @@ export const AppButton: React.FC<AppButtonProps> = ({
   const currentTitle = isCountingDown ? `${title} (${secondsLeft})` : title;
   const loadingLabel = `${title || 'Action'} in progress`;
 
+  const isGradient = variant === 'gradient';
+  const isGreyedOut = Boolean(disabled) || isCountingDown;
+  const showGradient = isGradient && !isGreyedOut;
+
   const stylesArray = [
     styles.base,
     variant === 'primary' ? styles.primary : 
     variant === 'secondary' ? styles.secondary : 
     variant === 'tertiary' ? styles.tertiary :
     variant === 'quaternary' ? styles.quaternary :
-    variant === 'danger' ? styles.danger : styles.primary,
-    currentIsDisabled && styles.disabled,
+    variant === 'danger' ? styles.danger :
+    isGradient ? styles.gradient : styles.primary,
+    showGradient && styles.gradientShadow,
+    isGradient ? isGreyedOut && styles.gradientDisabled : currentIsDisabled && styles.disabled,
     buttonStyle,
   ];
-
 
   const textStylesArray = [
     styles.textBase,
@@ -73,8 +80,9 @@ export const AppButton: React.FC<AppButtonProps> = ({
     variant === 'secondary' ? styles.textSecondary : 
     variant === 'tertiary' ? styles.textTertiary :
     variant === 'quaternary' ? styles.textQuaternary :
-    variant === 'danger' ? styles.textDanger : styles.textPrimary,
-    currentIsDisabled && styles.disabled,
+    variant === 'danger' ? styles.textDanger :
+    isGradient ? styles.textGradient : styles.textPrimary,
+    isGradient ? isGreyedOut && styles.textGradientDisabled : currentIsDisabled && styles.disabled,
     textStyle,
   ];
 
@@ -89,12 +97,12 @@ export const AppButton: React.FC<AppButtonProps> = ({
     }
   };
 
-  const activityIndicatorColor = variant === 'primary' ? 'white' : 'black';
+  const activityIndicatorColor = variant === 'primary' || showGradient ? 'white' : 'black';
 
   return (
     <TouchableOpacity 
       style={stylesArray} 
-      activeOpacity={0.7} 
+      activeOpacity={isGradient ? 0.93 : 0.7}
       {...rest} 
       onPress={handlePress}
       disabled={currentIsDisabled}
@@ -102,6 +110,17 @@ export const AppButton: React.FC<AppButtonProps> = ({
       accessibilityLabel={isLoading ? loadingLabel : title}
       accessibilityState={{ disabled: currentIsDisabled, busy: isLoading }}
     >
+      {showGradient ? (
+        <LinearGradient
+          colors={BRAND_ACTION_GRADIENT_COLORS}
+          end={GRADIENT_HORIZONTAL_END}
+          locations={BRAND_ACTION_GRADIENT_LOCATIONS}
+          pointerEvents="none"
+          start={GRADIENT_HORIZONTAL_START}
+          style={[StyleSheet.absoluteFill, styles.gradientFill]}
+          testID="app-button-gradient"
+        />
+      ) : null}
       <View style={styles.content}>
         <AppText style={[textStylesArray, isLoading && styles.hiddenText]} weight='600'>
           {currentTitle}

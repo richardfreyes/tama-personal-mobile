@@ -46,7 +46,7 @@ export const otpWebViewStyles = StyleSheet.create({
     flex: 1,
   },
   processingOverlay: {
-    ...StyleSheet.absoluteFillObject,
+    ...StyleSheet.absoluteFill,
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: Colors.neutral01,

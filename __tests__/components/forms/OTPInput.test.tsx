@@ -29,8 +29,6 @@ describe('OTPInput', () => {
     jest.clearAllMocks();
   });
 
-  // ---- Rendering ----
-
   it('renders the default number (6) of inputs', () => {
     renderOtp();
     expect(getInputs()).toHaveLength(6);
@@ -40,8 +38,6 @@ describe('OTPInput', () => {
     renderOtp({ length: 4 });
     expect(getInputs()).toHaveLength(4);
   });
-
-  // ---- Typing ----
 
   it('calls onCodeChange with the digit typed in the first box', () => {
     const { onCodeChange } = renderOtp();
@@ -75,8 +71,6 @@ describe('OTPInput', () => {
     renderOtp();
     expect(getInputs()[0].props.keyboardType).toBe('number-pad');
   });
-
-  // ---- Error state ----
 
   it('shows the provided error message', () => {
     renderOtp({ error: 'Code expired' });

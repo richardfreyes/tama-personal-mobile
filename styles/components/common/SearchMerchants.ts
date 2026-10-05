@@ -130,4 +130,44 @@ export const searchMerchantsStyles = StyleSheet.create({
     fontWeight: '500',
     color: '#333',
   },
+  directory: {
+    backgroundColor: Colors.neutral01,
+    flex: 1,
+  },
+  directoryContent: {
+    flexGrow: 1,
+  },
+  hidden: {
+    display: 'none',
+  },
+  searchWrapper: {
+    backgroundColor: Colors.neutral01,
+    paddingBottom: 12,
+    paddingLeft: 20,
+    paddingRight: 44,
+    paddingTop: 12,
+  },
+  directoryList: {
+    paddingBottom: 132,
+    paddingLeft: 20,
+    paddingRight: 44,
+  },
+  matchCount: {
+    color: Colors.maroon09,
+    fontSize: 13,
+    lineHeight: 18,
+    paddingVertical: 4,
+  },
+  letterHeading: {
+    color: Colors.red09,
+    fontSize: 13,
+    lineHeight: 18,
+    paddingBottom: 4,
+    paddingTop: 12,
+  },
+  rail: {
+    position: 'absolute',
+    right: 4,
+    zIndex: 3,
+  },
 });

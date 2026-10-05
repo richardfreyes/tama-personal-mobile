@@ -17,7 +17,6 @@ const optionWithLogos = {
 };
 
 describe('PaymentMethodCardComponent', () => {
-  // ---- Rendering ----
 
   it('renders the option title', () => {
     renderWithProviders(
@@ -79,8 +78,6 @@ describe('PaymentMethodCardComponent', () => {
     expect(screen.queryByTestId('main-logo')).toBeNull();
     expect(screen.getByText('Empty')).toBeTruthy();
   });
-
-  // ---- Interaction ----
 
   it('calls onPress when the card is pressed', () => {
     const onPress = jest.fn();

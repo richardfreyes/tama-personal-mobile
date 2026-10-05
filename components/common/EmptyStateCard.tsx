@@ -1,7 +1,9 @@
+import { BRAND_SOFT_GRADIENT_COLORS, GRADIENT_DIAGONAL_END, GRADIENT_DIAGONAL_START } from '@/constants/gradients';
 import { Colors } from '@/styles/common/colors';
 import { emptyStateCardStyles as styles } from '@/styles/components/common/EmptyStateCard';
 import { EmptyStateCardProps } from '@/types';
 import { Feather } from '@expo/vector-icons';
+import { LinearGradient } from 'expo-linear-gradient';
 import React from 'react';
 import { Pressable, View } from 'react-native';
 import { AppText } from './AppText';
@@ -15,6 +17,9 @@ const EmptyStateCard: React.FC<EmptyStateCardProps> = ({
   retryLabel,
   containerStyle,
   messageStyle,
+  appearance = 'card',
+  actionLabel,
+  onAction,
 }) => {
   if (variant === 'error' && onRetry) {
     return (
@@ -32,6 +37,54 @@ const EmptyStateCard: React.FC<EmptyStateCardProps> = ({
           <Feather color={Colors.red09} name="refresh-cw" size={16} />
           <AppText weight="600" style={styles.retryText}>Try Again</AppText>
         </Pressable>
+      </View>
+    );
+  }
+
+  if (icon && appearance === 'dashed') {
+    return (
+      <View style={[styles.dashedCard, containerStyle]}>
+        <LinearGradient
+          colors={BRAND_SOFT_GRADIENT_COLORS}
+          end={GRADIENT_DIAGONAL_END}
+          start={GRADIENT_DIAGONAL_START}
+          style={styles.dashedIcon}
+        >
+          <Feather color={Colors.red09} name={icon} size={22} />
+        </LinearGradient>
+        <View style={styles.dashedCopy}>
+          {title ? <AppText weight="600" style={styles.dashedTitle}>{title}</AppText> : null}
+          <AppText style={[styles.dashedDescription, messageStyle]}>{message}</AppText>
+        </View>
+      </View>
+    );
+  }
+
+  if (icon && appearance === 'centered') {
+    return (
+      <View style={[styles.centeredCard, containerStyle]}>
+        <LinearGradient
+          colors={BRAND_SOFT_GRADIENT_COLORS}
+          end={GRADIENT_DIAGONAL_END}
+          start={GRADIENT_DIAGONAL_START}
+          style={styles.centeredIcon}
+        >
+          <Feather color={Colors.red09} name={icon} size={24} />
+        </LinearGradient>
+        <View style={styles.centeredCopy}>
+          {title ? <AppText weight="600" style={styles.centeredTitle}>{title}</AppText> : null}
+          <AppText style={[styles.centeredDescription, messageStyle]}>{message}</AppText>
+        </View>
+        {actionLabel && onAction ? (
+          <Pressable
+            accessibilityLabel={actionLabel}
+            accessibilityRole="button"
+            onPress={onAction}
+            style={({ pressed }) => [styles.centeredAction, pressed && styles.centeredActionPressed]}
+          >
+            <AppText weight="600" style={styles.centeredActionText}>{actionLabel}</AppText>
+          </Pressable>
+        ) : null}
       </View>
     );
   }

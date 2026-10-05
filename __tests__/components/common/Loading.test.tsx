@@ -1,23 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, jest } from '@jest/globals';
-import {
-  BillerListSkeleton,
-  BillPaymentSkeleton,
-  DetailsSkeleton,
-  FormSkeleton,
-  HorizontalCardSkeleton,
-  InlineLoadingIndicator,
-  NativeLoadingIndicator,
-  NativeProgressBar,
-  PaymentInfoSkeleton,
-  PaymentMethodListSkeleton,
-  ProfileSkeleton,
-  ReceiptSkeleton,
-  SkeletonBlock,
-  SkeletonGroup,
-  SkeletonList,
-  TransactionDetailSkeleton,
-  TransactionHistorySkeleton,
-} from '@/components/common/Loading';
+import { BillerListSkeleton, BillerDirectorySkeleton, BillPaymentSkeleton, DetailsSkeleton, FormSkeleton, HorizontalCardSkeleton, InlineLoadingIndicator, NativeLoadingIndicator, NativeProgressBar, PaymentInfoSkeleton, PaymentMethodListSkeleton, ProfileSkeleton, ReceiptSkeleton, SavedBillersSkeleton, SkeletonBlock, SkeletonGroup, SkeletonList, TransactionDetailSkeleton, TransactionHistorySkeleton, } from '@/components/common/Loading';
 import { act, render, screen, waitFor } from '@testing-library/react-native';
 import React from 'react';
 import { AccessibilityInfo, Animated } from 'react-native';
@@ -127,7 +109,8 @@ describe('Loading components', () => {
 
     const bill = render(<BillPaymentSkeleton />);
     expect(screen.getByTestId('bill-payment-skeleton')).toBeTruthy();
-    expect(screen.getByTestId('payment-method-list-skeleton')).toBeTruthy();
+
+    expect(screen.getAllByTestId('skeleton-block')).toHaveLength(11);
     bill.unmount();
 
     render(<TransactionDetailSkeleton />);
@@ -176,5 +159,22 @@ describe('Loading components', () => {
       return styles.some((style: any) => style?.width === expectedWidth);
     })).toBe(true);
     unmount();
+  });
+
+  it('lays out the saved billers placeholder like the section: title, summary, two cards and a peek', () => {
+    render(<SavedBillersSkeleton />);
+
+    expect(screen.getByTestId('bills-loading')).toBeTruthy();
+    expect(screen.getByLabelText('Loading saved bills')).toBeTruthy();
+    expect(screen.getAllByTestId('skeleton-block')).toHaveLength(5);
+  });
+
+  it('lays out the biller directory placeholder as the search field and six rows', () => {
+    render(<BillerDirectorySkeleton />);
+
+    expect(screen.getByTestId('biller-directory-loading')).toBeTruthy();
+    expect(screen.getByLabelText('Loading billers')).toBeTruthy();
+
+    expect(screen.getAllByTestId('skeleton-block')).toHaveLength(1 + (6 * 2));
   });
 });

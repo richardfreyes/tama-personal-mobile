@@ -72,8 +72,8 @@ export default function AccountSettingsScreen() {
           <View style={globalStyle.outerContainer}>
             <TouchableOpacity onPress={() => bottomSheetRef.current?.snapToIndex(1)}>
               <View style={styles.infoBlock}>
-                {/* TODO: For phase 2
-                <Image source={{ uri: COMMON.PROFILE_IMAGE_URI }} style={styles.profileImage}/> */}
+                {
+}
                 <View style={styles.profileInitials}>
                   <AppText size='extraLarge'>{initials}</AppText>
                 </View>
@@ -99,23 +99,10 @@ export default function AccountSettingsScreen() {
           </View>
         </View>
       </GlobalScrollView>
-      {/* TODO: for phase 2 */}
-      {/* <SlideUpScreenModal ref={bottomSheetRef}>
-          <View>
-            <AppText style={[globalStyle.textAlignCenter, { marginBottom: 24 }]} size='medium' weight='700'>Upload Profile Photo</AppText>
-            {COMMON.PROFILE.map((item, index) => {
-              const SvgComponent = item.icon;
-              return (
-                <TouchableOpacity style={globalStyle.optionHolder} key={item.id}>
-                  <View style={globalStyle.optionContent}>
-                    <SvgComponent style={globalStyle.optionIcon} width={16} height={16} />
-                    <AppText style={ index === 2 ? { color: Colors.error06 } : null } weight='600'>{item.title}</AppText>
-                  </View>
-                </TouchableOpacity>
-              )
-            })}
-          </View>
-      </SlideUpScreenModal> */}
+      { }
+      {
+
+}
     </View>
   );
 }

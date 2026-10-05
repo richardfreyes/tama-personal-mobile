@@ -5,7 +5,6 @@ import { StyleSheet } from 'react-native';
 import TransactionHistoryComponent from '../../../components/transactions/TransactionHistoryComponent';
 import { TRANSACTION_STATUS_TONE_COLORS } from '../../../constants/transaction';
 
-// --- expo-router: provide router + useFocusEffect (not in the global mock) ---
 const mockRouterPush = jest.fn();
 jest.mock('expo-router', () => {
   const React = require('react');
@@ -15,13 +14,12 @@ jest.mock('expo-router', () => {
       React.useEffect(() => {
         const cleanup = cb();
         return typeof cleanup === 'function' ? cleanup : undefined;
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+
       }, []);
     },
   };
 });
 
-// --- gesture-handler: the global mock omits TouchableOpacity, so provide it ---
 jest.mock('react-native-gesture-handler', () => {
   const RN = require('react-native');
   return {
@@ -30,7 +28,6 @@ jest.mock('react-native-gesture-handler', () => {
   };
 });
 
-// --- RTK Query hook ---
 const mockUseGetTransactionsQuery = jest.fn();
 const mockUseGetEnrollmentTransactionHistoryQuery = jest.fn();
 const mockRefetchOneTimePayments = jest.fn<() => Promise<void>>().mockResolvedValue(undefined);
@@ -124,8 +121,6 @@ describe('TransactionHistoryComponent', () => {
     jest.clearAllMocks();
   });
 
-  // ---- Loading ----
-
   it('shows the initial loader while loading with no items', () => {
     mockUseGetTransactionsQuery.mockReturnValue({
       data: undefined,
@@ -137,8 +132,6 @@ describe('TransactionHistoryComponent', () => {
     render(<TransactionHistoryComponent {...defaultProps} />);
     expect(screen.getByTestId('transaction-history-skeleton')).toBeTruthy();
   });
-
-  // ---- Error ----
 
   it('shows the error state when the query fails', () => {
     mockUseGetTransactionsQuery.mockReturnValue({
@@ -161,8 +154,6 @@ describe('TransactionHistoryComponent', () => {
     ).toBeTruthy();
   });
 
-  // ---- Empty ----
-
   it('shows the default empty message when there are no transactions', () => {
     mockUseGetTransactionsQuery.mockReturnValue({
       data: { items: [] },
@@ -174,8 +165,6 @@ describe('TransactionHistoryComponent', () => {
     render(<TransactionHistoryComponent {...defaultProps} />);
     expect(screen.getByText('No transactions found.')).toBeTruthy();
   });
-
-  // ---- Success rendering ----
 
   it('renders the section title', () => {
     render(<TransactionHistoryComponent {...defaultProps} />);
@@ -308,8 +297,6 @@ describe('TransactionHistoryComponent', () => {
     expect(textColor(/Refunded/)).toBe(TRANSACTION_STATUS_TONE_COLORS.neutral.textColor);
   });
 
-  // ---- Search bar (filter visibility) ----
-
   it('hides the search bar when isFilterVisible is false', () => {
     render(<TransactionHistoryComponent {...defaultProps} isFilterVisible={false} />);
     expect(
@@ -395,7 +382,6 @@ describe('TransactionHistoryComponent', () => {
 
     render(<TransactionHistoryComponent {...defaultProps} isFilterVisible />);
 
-    // "ENR-PAY-101" is the paymentReferenceId surfaced as the detail "Reference ID".
     fireEvent.changeText(screen.getByTestId('transaction-search-input'), 'ENR-PAY-101');
 
     expect(screen.getByText('Avida Land')).toBeTruthy();
@@ -408,8 +394,6 @@ describe('TransactionHistoryComponent', () => {
     try {
       render(<TransactionHistoryComponent {...defaultProps} isFilterVisible />);
 
-      // No loaded item matches; before the debounce fires the client filter is
-      // empty but the server search has not resolved, so it must not flash empty.
       fireEvent.changeText(screen.getByTestId('transaction-search-input'), 'ZZZ-NOMATCH');
 
       expect(screen.getByTestId('transaction-history-skeleton')).toBeTruthy();
@@ -441,7 +425,6 @@ describe('TransactionHistoryComponent', () => {
       render(<TransactionHistoryComponent {...defaultProps} isFilterVisible />);
       fireEvent.changeText(screen.getByTestId('transaction-search-input'), 'ZZZ-NOMATCH');
 
-      // Past the debounce with both sources reporting not-fetching: search settled.
       act(() => {
         jest.advanceTimersByTime(500);
       });
@@ -550,8 +533,6 @@ describe('TransactionHistoryComponent', () => {
     expect(onOpenFilterSheet).toHaveBeenCalledTimes(1);
   });
 
-  // ---- Navigation ----
-
   it('navigates to the transactions list on View All press', () => {
     render(<TransactionHistoryComponent {...defaultProps} />);
     fireEvent.press(screen.getByText('View All'));
@@ -612,17 +593,13 @@ describe('TransactionHistoryComponent', () => {
     expect(mockRefetchOneTimePayments).not.toHaveBeenCalled();
   });
 
-  // ---- Pagination footer ----
-
   it('shows the end-of-list message when there are no more pages', () => {
-    // Fewer than LIMIT (10) items => hasMore becomes false after load.
+
     render(<TransactionHistoryComponent {...defaultProps} />);
     expect(
       screen.getByText("You've reached the bottom of the page"),
     ).toBeTruthy();
   });
-
-  // ---- Imperative ref ----
 
   it('exposes a loadMore method via ref that advances the page', () => {
     const items = Array.from({ length: 10 }, (_, i) =>

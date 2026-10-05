@@ -1,0 +1,25 @@
+
+export const BILLER_DIRECTORY_OTHER_LETTER = '#';
+
+export const BILLER_DIRECTORY_SEARCH_HEIGHT = 72;
+
+export const BILLER_DIRECTORY_JUMP_OFFSET = 72;
+
+export const BILLER_DIRECTORY_ACTIVE_OFFSET = 80;
+
+export const BILLER_INDEX_LETTER_WIDTH = 32;
+export const BILLER_INDEX_LETTER_HEIGHT = 28;
+export const BILLER_INDEX_MIN_LETTER_HEIGHT = 16;
+export const BILLER_INDEX_BADGE_SIZE = 22;
+
+export const BILLER_INDEX_BOTTOM_CLEARANCE = 112;
+
+export const BILLER_INDEX_HOLD_MS = 120;
+
+export const BILLER_INDEX_MAX_SCALE = 2.2;
+export const BILLER_INDEX_MAGNIFY_RADIUS = 2;
+
+export const BILLER_INDEX_MAGNIFY_SHIFT = 12;
+export const BILLER_INDEX_MAGNIFY_MS = 140;
+
+export const BILLER_DIRECTORY_SKELETON_ROW_WIDTHS = ['62%', '48%', '70%', '55%', '66%', '44%'] as const;

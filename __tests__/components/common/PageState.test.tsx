@@ -11,7 +11,6 @@ jest.mock('react-native-safe-area-context', () => ({
 }));
 
 describe('PageState', () => {
-  // ---- Rendering ----
 
   it('renders the title and description', () => {
     renderWithProviders(
@@ -32,8 +31,6 @@ describe('PageState', () => {
     expect(JSON.stringify(toJSON())).toContain('SvgMock');
   });
 
-  // ---- Children ----
-
   it('renders children passed to it', () => {
     renderWithProviders(
       <PageState title="Title" description="Desc">
@@ -51,8 +48,6 @@ describe('PageState', () => {
     );
     expect(toJSON()).toBeTruthy();
   });
-
-  // ---- Edge cases ----
 
   it('renders very long description text', () => {
     const longText = 'word '.repeat(200).trim();

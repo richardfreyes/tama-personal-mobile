@@ -30,7 +30,7 @@ jest.mock('expo-crypto', () => ({
 const loadDefinitions = (modulePath: string) => {
   mockCaptured = {};
   jest.isolateModules(() => {
-    // eslint-disable-next-line @typescript-eslint/no-require-imports
+
     require(modulePath);
   });
   return mockCaptured;
@@ -119,6 +119,34 @@ describe('RTK Query endpoint definitions', () => {
       formConfig: [{ fieldType: 'lookup', key: 'projectName' }],
     }, {}, {}, baseQuery);
     expect(lookup).toEqual({ data: { projectName: ['Option'] } });
+  });
+
+  it('loads every saved-bill page and stops after an empty page', async () => {
+    const definitions = loadDefinitions('@/redux/features/bills/billsApi');
+    const first = { billing_reference_id: 'bill-1' };
+    const second = { billing_reference_id: 'bill-2' };
+    const baseQuery = jest.fn<(...args: any[]) => any>()
+      .mockResolvedValueOnce({ data: { bills: [first] } })
+      .mockResolvedValueOnce({ data: { bills: [second] } })
+      .mockResolvedValueOnce({ data: { bills: [] } });
+
+    expect(await definitions.getAllBills.queryFn(undefined, {}, {}, baseQuery)).toEqual({ data: [first, second] });
+    expect(baseQuery.mock.calls.map(([path]) => path)).toEqual([
+      `${API_PATHS.bills.base}?page=0`,
+      `${API_PATHS.bills.base}?page=1`,
+      `${API_PATHS.bills.base}?page=2`,
+    ]);
+  });
+
+  it('stops saved-bill pagination when the API repeats a page', async () => {
+    const definitions = loadDefinitions('@/redux/features/bills/billsApi');
+    const bill = { billing_reference_id: 'bill-1' };
+    const baseQuery = jest.fn<(...args: any[]) => any>()
+      .mockResolvedValueOnce({ data: { bills: [bill] } })
+      .mockResolvedValueOnce({ data: { bills: [bill] } });
+
+    expect(await definitions.getAllBills.queryFn(undefined, {}, {}, baseQuery)).toEqual({ data: [bill] });
+    expect(baseQuery).toHaveBeenCalledTimes(2);
   });
 
   it('defines enrollment pagination defaults and response transformation', () => {

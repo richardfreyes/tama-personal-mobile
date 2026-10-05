@@ -107,7 +107,7 @@ export const transactionHistoryComponentStyles = StyleSheet.create({
     color: Colors.info10,
   },
   statusText: {
-    // fontSize: FontSizes.small,
+
   },
   centered: {
     flex: 1,
@@ -168,7 +168,7 @@ export const transactionHistoryComponentStyles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
-  // Compact rows of the recent transactions preview.
+
   recentRow: {
     alignItems: 'center',
     flexDirection: 'row',

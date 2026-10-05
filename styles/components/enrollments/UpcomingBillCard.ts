@@ -10,7 +10,7 @@ export const upcomingBillCardStyles = StyleSheet.create({
     borderRadius: 24,
     elevation: 2,
     shadowColor: Colors.maroon10,
-    // Fades out inside the carousel's 16pt vertical padding so the shadow isn't cut off.
+
     shadowOffset: { width: 0, height: 6 },
     shadowOpacity: 0.12,
     shadowRadius: 8,

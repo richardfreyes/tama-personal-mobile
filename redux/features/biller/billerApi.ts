@@ -19,7 +19,7 @@ export const billerApi = appApi.injectEndpoints({
           const searchString = String(searchTerm);
           queryParams.push(`search=${encodeURIComponent(searchString)}`);
         }
-        
+
         const categoryValue = getSingleValue(params.category);
         if (categoryValue !== undefined && categoryValue !== null) {
           const categoryString = String(categoryValue);

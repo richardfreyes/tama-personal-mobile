@@ -21,7 +21,7 @@ export const emptyStateCardStyles = StyleSheet.create({
     height: 50,
     borderRadius: 8,
   },
-  // Error with a retry action.
+
   errorCard: {
     alignItems: 'center',
     alignSelf: 'stretch',
@@ -65,7 +65,7 @@ export const emptyStateCardStyles = StyleSheet.create({
     fontSize: 14,
     lineHeight: 20,
   },
-  // Empty with an icon, title and description.
+
   emptyCard: {
     alignItems: 'center',
     backgroundColor: Colors.neutral01,
@@ -97,5 +97,85 @@ export const emptyStateCardStyles = StyleSheet.create({
     color: Colors.maroon09,
     fontSize: 13,
     lineHeight: 19,
+  },
+
+  dashedCard: {
+    alignItems: 'center',
+    borderColor: Colors.outlineMuted,
+    borderRadius: 20,
+    borderStyle: 'dashed',
+    borderWidth: 1.5,
+    flexDirection: 'row',
+    gap: 14,
+    padding: 18,
+  },
+  dashedIcon: {
+    alignItems: 'center',
+    borderRadius: 24,
+    height: 48,
+    justifyContent: 'center',
+    width: 48,
+  },
+  dashedCopy: {
+    flex: 1,
+    gap: 2,
+    minWidth: 0,
+  },
+  dashedTitle: {
+    color: Colors.maroon11,
+    fontSize: 14,
+    lineHeight: 20,
+  },
+  dashedDescription: {
+    color: Colors.maroon09,
+    fontSize: 12,
+    lineHeight: 17,
+  },
+
+  centeredCard: {
+    alignItems: 'center',
+    gap: 14,
+    paddingHorizontal: 4,
+    paddingTop: 36,
+  },
+  centeredIcon: {
+    alignItems: 'center',
+    borderRadius: 28,
+    height: 56,
+    justifyContent: 'center',
+    width: 56,
+  },
+  centeredCopy: {
+    alignItems: 'center',
+    gap: 6,
+  },
+  centeredTitle: {
+    color: Colors.maroon11,
+    fontSize: 16,
+    lineHeight: 24,
+    textAlign: 'center',
+  },
+  centeredDescription: {
+    color: Colors.maroon09,
+    fontSize: 14,
+    lineHeight: 21,
+    maxWidth: 270,
+    textAlign: 'center',
+  },
+  centeredAction: {
+    alignItems: 'center',
+    backgroundColor: Colors.red01,
+    borderRadius: 12,
+    height: 44,
+    justifyContent: 'center',
+    paddingHorizontal: 18,
+  },
+  centeredActionPressed: {
+    backgroundColor: Colors.red02,
+  },
+  centeredActionText: {
+    color: Colors.red09,
+    fontSize: 14,
+    lineHeight: 20,
   },
 });

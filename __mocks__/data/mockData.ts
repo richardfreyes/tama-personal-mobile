@@ -68,7 +68,6 @@ export const MOCK_DATA = {
       city: "San Francisco",
       postalCode: "94103",
 
-      // Additional state fields
       saveAsDefaultBilling: true,
       useAsPrimaryPayment: true,
       cardProvider: "visa"

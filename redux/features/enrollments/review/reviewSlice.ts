@@ -1,4 +1,4 @@
-import { RootState } from '@/redux/store';
+import type { RootState } from '@/redux/storeTypes';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { initialState, EnrollmentCardPayload, EnrollmentTransactionResponse } from './reviewTypes';
 

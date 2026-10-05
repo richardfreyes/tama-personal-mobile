@@ -1,4 +1,4 @@
-export const MAX_VISIBLE_INDICATORS = 6;
+import { MAX_VISIBLE_INDICATORS } from '@/constants/monthlyBills';
 
 export const getIndicatorSlots = (total: number): number[] => (
   Array.from({ length: Math.min(total, MAX_VISIBLE_INDICATORS) }, (_, index) => index)

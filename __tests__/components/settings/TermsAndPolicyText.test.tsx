@@ -30,14 +30,10 @@ describe('TermsAndConditionsCheckbox', () => {
     jest.clearAllMocks();
   });
 
-  // ---- Extra text ----
-
   it('renders the extra text when provided', () => {
     renderCheckbox({ extraText: 'I confirm that' });
     expect(screen.getByText(/I confirm that/)).toBeTruthy();
   });
-
-  // ---- Checkbox toggle ----
 
   it('calls onToggle when the checkbox is pressed', () => {
     const onToggle = jest.fn();
@@ -45,8 +41,6 @@ describe('TermsAndConditionsCheckbox', () => {
     fireEvent.press(screen.UNSAFE_getByType(TouchableRipple));
     expect(onToggle).toHaveBeenCalledTimes(1);
   });
-
-  // ---- Enrollment branch (custom terms link) ----
 
   it('shows the Terms and Conditions link when onTermsLinkPress is provided', () => {
     renderCheckbox({ onTermsLinkPress: jest.fn() });
@@ -59,8 +53,6 @@ describe('TermsAndConditionsCheckbox', () => {
     fireEvent.press(screen.getByText('Terms and Conditions'));
     expect(onTermsLinkPress).toHaveBeenCalledTimes(1);
   });
-
-  // ---- Default branch (web browser links) ----
 
   it('shows the Terms of Service and Privacy Policy links by default', () => {
     renderCheckbox();

@@ -5,9 +5,10 @@ import { afterEach, describe, expect, it, jest } from '@jest/globals';
 import { configureStore } from '@reduxjs/toolkit';
 import { fireEvent, render, screen } from '@testing-library/react-native';
 import React from 'react';
-import { Linking } from 'react-native';
+import { Linking, StyleSheet } from 'react-native';
 import { Provider } from 'react-redux';
 import ModalComponent from '../../../components/layout/ModalComponent';
+import { Colors } from '../../../styles/common/colors';
 
 jest.spyOn(Linking, 'openURL').mockImplementation(jest.fn<typeof Linking.openURL>());
 
@@ -44,8 +45,6 @@ describe('ModalComponent', () => {
     Object.keys(modalActions).forEach((k) => delete modalActions[k]);
   });
 
-  // ---- Visibility ----
-
   it('returns null when isVisible is false', () => {
     const { toJSON } = renderModal({ ...visibleState(), isVisible: false });
     expect(toJSON()).toBeNull();
@@ -68,8 +67,6 @@ describe('ModalComponent', () => {
     expect(store.getState().modal.isVisible).toBe(true);
   });
 
-  // ---- Header and body ----
-
   it('renders header message', () => {
     renderModal(visibleState({ headerMessage: 'Important' }));
     expect(screen.getByText('Important')).toBeTruthy();
@@ -80,15 +77,11 @@ describe('ModalComponent', () => {
     expect(screen.getByText('Something happened')).toBeTruthy();
   });
 
-  // ---- Account deletion body ----
-
   it('renders account deletion body when bodyType is accountDeletion', () => {
     renderModal(visibleState({ bodyType: 'accountDeletion' }));
     expect(screen.getByText(/permanently delete your account/)).toBeTruthy();
     expect(screen.getByText('support@aqwire.co')).toBeTruthy();
   });
-
-  // ---- Button config: column layout ----
 
   it('renders primary button in column layout', () => {
     const buttonConfig: ModalButtonConfig = { primaryLabel: 'OK' };
@@ -106,8 +99,6 @@ describe('ModalComponent', () => {
     expect(screen.getByText('Confirm')).toBeTruthy();
     expect(screen.getByText('Cancel')).toBeTruthy();
   });
-
-  // ---- Button config: row layout ----
 
   it('renders primary and secondary buttons in row layout', () => {
     const buttonConfig: ModalButtonConfig = {
@@ -129,15 +120,11 @@ describe('ModalComponent', () => {
     expect(screen.getByText('OK')).toBeTruthy();
   });
 
-  // ---- No buttons ----
-
   it('does not render buttons when buttonConfig is undefined', () => {
     renderModal(visibleState());
     expect(screen.queryByText('OK')).toBeNull();
     expect(screen.queryByText('Cancel')).toBeNull();
   });
-
-  // ---- Primary press dispatches hideModal ----
 
   it('dispatches hideModal when primary button is pressed', () => {
     const buttonConfig: ModalButtonConfig = { primaryLabel: 'Got it' };
@@ -145,8 +132,6 @@ describe('ModalComponent', () => {
     fireEvent.press(screen.getByText('Got it'));
     expect(store.getState().modal.isVisible).toBe(false);
   });
-
-  // ---- Secondary press dispatches hideModal ----
 
   it('dispatches hideModal when secondary button is pressed', () => {
     const buttonConfig: ModalButtonConfig = {
@@ -158,8 +143,6 @@ describe('ModalComponent', () => {
     fireEvent.press(screen.getByText('Cancel'));
     expect(store.getState().modal.isVisible).toBe(false);
   });
-
-  // ---- Modal action callback ----
 
   it('calls and removes modal action on primary press when id matches', () => {
     const actionFn = jest.fn();
@@ -180,8 +163,6 @@ describe('ModalComponent', () => {
     expect(actionFn).not.toHaveBeenCalled();
   });
 
-  // ---- Account deletion opens mailto ----
-
   it('opens mailto link on primary press for accountDeletion bodyType', () => {
     const buttonConfig: ModalButtonConfig = { primaryLabel: 'Send Email' };
     renderModal(visibleState({ bodyType: 'accountDeletion', buttonConfig }));
@@ -196,5 +177,87 @@ describe('ModalComponent', () => {
     renderModal(visibleState({ bodyType: undefined, buttonConfig }));
     fireEvent.press(screen.getByText('OK'));
     expect(Linking.openURL).not.toHaveBeenCalled();
+  });
+
+  describe('confirm variant', () => {
+    const confirmState = (overrides: Record<string, any> = {}) => visibleState({
+      variant: 'confirm',
+      iconType: 'delete',
+      headerMessage: 'Remove Filinvest Land?',
+      bodyMessage: 'It will no longer appear in Saved billers. Your payment history stays.',
+      buttonConfig: { primaryLabel: 'Remove Biller', secondaryLabel: 'Cancel', direction: 'column' },
+      id: 'deleteBiller',
+      ...overrides,
+    });
+
+    it('shows the title and message with both actions stacked under them', () => {
+      renderModal(confirmState());
+
+      expect(screen.getByText('Remove Filinvest Land?')).toBeTruthy();
+      expect(screen.getByText('It will no longer appear in Saved billers. Your payment history stays.')).toBeTruthy();
+      expect(screen.getByRole('button', { name: 'Remove Biller' })).toBeTruthy();
+      expect(screen.getByRole('button', { name: 'Cancel' })).toBeTruthy();
+    });
+
+    it('draws a 24pt-radius card over the dark scrim', () => {
+      renderModal(confirmState());
+
+      expect(StyleSheet.flatten(screen.getByTestId('modal-backdrop').props.style)).toEqual(
+        expect.objectContaining({ backgroundColor: Colors.modalScrim, padding: 24 }),
+      );
+    });
+
+    it('runs the registered action and closes when the primary action is pressed', () => {
+      const remove = jest.fn();
+      modalActions.deleteBiller = remove;
+      const { store } = renderModal(confirmState());
+
+      fireEvent.press(screen.getByRole('button', { name: 'Remove Biller' }));
+
+      expect(remove).toHaveBeenCalledTimes(1);
+      expect(store.getState().modal.isVisible).toBe(false);
+    });
+
+    it('closes without running the action on Cancel', () => {
+      const remove = jest.fn();
+      modalActions.deleteBiller = remove;
+      const { store } = renderModal(confirmState());
+
+      fireEvent.press(screen.getByRole('button', { name: 'Cancel' }));
+
+      expect(remove).not.toHaveBeenCalled();
+      expect(store.getState().modal.isVisible).toBe(false);
+    });
+
+    it('cancels when the scrim is tapped', () => {
+      const remove = jest.fn();
+      modalActions.deleteBiller = remove;
+      const { store } = renderModal(confirmState());
+
+      fireEvent(screen.getByTestId('modal-backdrop'), 'pressOut');
+
+      expect(remove).not.toHaveBeenCalled();
+      expect(store.getState().modal.isVisible).toBe(false);
+    });
+
+    it('stays open when the scrim is tapped on a dialog that is not dismissible', () => {
+      const { store } = renderModal(confirmState({ dismissible: false }));
+
+      fireEvent(screen.getByTestId('modal-backdrop'), 'pressOut');
+
+      expect(store.getState().modal.isVisible).toBe(true);
+    });
+
+    it('works without a secondary action or an icon', () => {
+      renderModal(confirmState({ iconType: null, buttonConfig: { primaryLabel: 'Got it' } }));
+
+      expect(screen.getByRole('button', { name: 'Got it' })).toBeTruthy();
+      expect(screen.queryByRole('button', { name: 'Cancel' })).toBeNull();
+    });
+
+    it('keeps the default layout when no variant is set', () => {
+      renderModal(visibleState({ buttonConfig: { primaryLabel: 'OK' } }));
+      expect(StyleSheet.flatten(screen.getByTestId('modal-backdrop').props.style).backgroundColor).toBe('rgba(0, 0, 0, 0.4)');
+    });
   });
 });

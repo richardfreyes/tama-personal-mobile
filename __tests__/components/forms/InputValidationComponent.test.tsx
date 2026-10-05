@@ -23,8 +23,6 @@ describe('InputValidationComponent', () => {
     jest.clearAllMocks();
   });
 
-  // ---- Basic rendering ----
-
   it('renders with placeholder as label when label is not provided', () => {
     const props = defaultProps();
     renderWithProviders(<InputValidationComponent {...props} />);
@@ -51,8 +49,6 @@ describe('InputValidationComponent', () => {
     expect(screen.getByDisplayValue('1,000.50')).toBeTruthy();
   });
 
-  // ---- Validation on text change ----
-
   it('calls setValue and validateField on text change', () => {
     const props = defaultProps();
     props.validateField.mockReturnValue(undefined);
@@ -62,6 +58,21 @@ describe('InputValidationComponent', () => {
 
     expect(props.setValue).toHaveBeenCalledWith('hello');
     expect(props.validateField).toHaveBeenCalledWith('email', 'hello', undefined);
+  });
+
+  it('uses updated validation context and handlers after parent props change', () => {
+    const props = defaultProps();
+    props.field = 'confirmPassword';
+    props.extra = { passwordToMatch: 'old-password' };
+    const updatedSetValue = jest.fn();
+    const updatedExtra = { passwordToMatch: 'new-password' };
+    const { rerender } = renderWithProviders(<InputValidationComponent {...props} />);
+
+    rerender(<InputValidationComponent {...props} setValue={updatedSetValue} extra={updatedExtra} />);
+    fireEvent.changeText(screen.getByPlaceholderText('Enter email'), 'new-password');
+
+    expect(updatedSetValue).toHaveBeenCalledWith('new-password');
+    expect(props.validateField).toHaveBeenCalledWith('confirmPassword', 'new-password', updatedExtra);
   });
 
   it('normalizes currency text changes before storing and validating', () => {
@@ -143,8 +154,6 @@ describe('InputValidationComponent', () => {
     expect(result).toEqual({ email: undefined });
   });
 
-  // ---- Error display ----
-
   it('shows error text when field is touched and has error', () => {
     const props = defaultProps();
     props.touched = { email: true };
@@ -160,8 +169,6 @@ describe('InputValidationComponent', () => {
     renderWithProviders(<InputValidationComponent {...props} />);
     expect(screen.queryByText('Email is required')).toBeNull();
   });
-
-  // ---- Secure text entry / password toggle ----
 
   it('renders eye icon for password fields', () => {
     const props = defaultProps();
@@ -187,8 +194,6 @@ describe('InputValidationComponent', () => {
     });
   });
 
-  // ---- Error icon takes precedence over password toggle ----
-
   it('shows error icon instead of eye icon when field has error', () => {
     const props = defaultProps();
     props.touched = { email: true };
@@ -200,8 +205,6 @@ describe('InputValidationComponent', () => {
     expect(json).not.toContain('"eye"');
     expect(json).not.toContain('"eye-off"');
   });
-
-  // ---- maskOnBlur ----
 
   it('masks value when maskOnBlur is true and input is not focused', () => {
     const props = defaultProps();
@@ -240,8 +243,6 @@ describe('InputValidationComponent', () => {
     expect(screen.getByPlaceholderText('Enter email')).toBeTruthy();
   });
 
-  // ---- Password cross-validation ----
-
   it('cross-validates confirmPassword when signupPassword changes', () => {
     const props = defaultProps();
     props.field = 'signupPassword';
@@ -277,13 +278,85 @@ describe('InputValidationComponent', () => {
     expect(props.validateField).toHaveBeenCalledTimes(1);
   });
 
-  // ---- Editable ----
-
   it('renders as non-editable when editable is false', () => {
     const props = defaultProps();
     props.value = 'readonly';
     renderWithProviders(<InputValidationComponent {...props} editable={false} />);
     const input = screen.getByDisplayValue('readonly');
     expect(input.props.editable).toBe(false);
+  });
+
+  describe('amount variant', () => {
+    const amountProps = () => ({
+      ...defaultProps(),
+      field: 'Amount',
+      label: 'Amount to pay',
+      placeholder: '0.00',
+      prefix: '₱',
+      variant: 'amount' as const,
+      formatAsCurrency: true,
+      keyboardType: 'decimal-pad' as const,
+    });
+
+    it('puts the label above the field, with the currency sign before the figure', () => {
+      renderWithProviders(<InputValidationComponent {...amountProps()} value="10000" />);
+
+      expect(screen.getByText('Amount to pay')).toBeTruthy();
+      expect(screen.getByText('₱')).toBeTruthy();
+      expect(screen.getByLabelText('Amount to pay').props.value).toBe('10,000');
+      expect(screen.getByLabelText('Amount to pay').props.keyboardType).toBe('decimal-pad');
+    });
+
+    it('shows the placeholder when empty', () => {
+      renderWithProviders(<InputValidationComponent {...amountProps()} />);
+      expect(screen.getByPlaceholderText('0.00')).toBeTruthy();
+    });
+
+    it('normalises what is typed, stores it and validates it like the standard field', () => {
+      const props = amountProps();
+      props.validateField.mockReturnValue(undefined);
+      renderWithProviders(<InputValidationComponent {...props} />);
+
+      fireEvent.changeText(screen.getByLabelText('Amount to pay'), '1,2a50.5');
+
+      expect(props.setValue).toHaveBeenCalledWith('1250.5');
+      expect(props.validateField).toHaveBeenCalledWith('Amount', '1250.5', undefined);
+      expect(props.setErrors).toHaveBeenCalled();
+    });
+
+    it('shows the helper text until there is an error', () => {
+      const props = amountProps();
+      const { rerender } = renderWithProviders(
+        <InputValidationComponent {...props} helperText="Prefilled from your saved biller." />,
+      );
+      expect(screen.getByText('Prefilled from your saved biller.')).toBeTruthy();
+
+      rerender(
+        <InputValidationComponent
+          {...props}
+          errors={{ Amount: 'Amount is required.' }}
+          helperText="Prefilled from your saved biller."
+          touched={{ Amount: true }}
+        />,
+      );
+      expect(screen.getByRole('alert')).toBeTruthy();
+      expect(screen.getByText('Amount is required.')).toBeTruthy();
+      expect(screen.queryByText('Prefilled from your saved biller.')).toBeNull();
+    });
+
+    it('keeps an error hidden until the field is touched', () => {
+      renderWithProviders(
+        <InputValidationComponent {...amountProps()} errors={{ Amount: 'Amount is required.' }} helperText="Enter the amount." />,
+      );
+      expect(screen.queryByText('Amount is required.')).toBeNull();
+      expect(screen.getByText('Enter the amount.')).toBeTruthy();
+    });
+
+    it('swaps the helper text when it changes even though the value does not', () => {
+      const props = amountProps();
+      const { rerender } = renderWithProviders(<InputValidationComponent {...props} helperText="First." />);
+      rerender(<InputValidationComponent {...props} helperText="Second." />);
+      expect(screen.getByText('Second.')).toBeTruthy();
+    });
   });
 });

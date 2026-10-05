@@ -60,7 +60,7 @@ const PaymentMethod = () => {
       <View style={{ flex: 1 }}>
         <View style={globalStyle.outerContainer}>
           { COMMON.PAYMENT_OPTIONS.map((option, idx) => {
-            // credit/debit card only
+
             if (idx !== 0) return; 
             const isLast = idx === COMMON.PAYMENT_OPTIONS.length - 1;
             return (
@@ -68,7 +68,7 @@ const PaymentMethod = () => {
                 key={option.id}
                 option={option}
                 onPress={() => handleSelect(option.title)}
-                // style={!isLast ? { marginBottom: 12 } : undefined}
+
               />
             );
           })}

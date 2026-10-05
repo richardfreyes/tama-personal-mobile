@@ -1,11 +1,13 @@
 import { Colors } from '@/styles/common/colors';
 import type { TransactionSource, TransactionStatusTone, TransactionStatusToneColors } from '@/types/transaction';
+import type { FetchTransactionsParams } from '@/redux/features/transactions/transactionTypes';
 
 export const TRANSACTION_HISTORY_PAGE_SIZE = 10;
 export const PAYMENT_REQUEST_TIMEOUT_MS = 30_000;
 export const PAYMENT_CANCEL_TIMEOUT_MS = 10_000;
 export const QRPH_VERIFY_POLL_INTERVAL_MS = 1_000;
 export const QRPH_VERIFY_MAX_ATTEMPTS = 6;
+export const DEFAULT_TRANSACTION_LIST_ARGS: FetchTransactionsParams = { page: 1, count: TRANSACTION_HISTORY_PAGE_SIZE, searchQuery: '' };
 
 export const TRANSACTION_STATUS_GROUPS = {
   SUCCESSFUL: new Set(['successful', 'paid', 'settled', 'captured']),
@@ -18,8 +20,6 @@ export const TRANSACTION_STATUS_BADGE_LABELS = {
   failed: 'Failed',
 } as const;
 
-// One palette for every surface that badges a transaction, so Home and History agree. Pending is the
-// app's amber (as in EnrollmentStatusBadge); its text stays dark to read on the tinted background.
 export const TRANSACTION_STATUS_TONE_COLORS: Record<TransactionStatusTone, TransactionStatusToneColors> = {
   success: {
     backgroundColor: Colors.success01,

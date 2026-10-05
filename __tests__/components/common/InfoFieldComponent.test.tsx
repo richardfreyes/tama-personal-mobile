@@ -20,8 +20,6 @@ describe('InfoFieldComponent', () => {
     jest.clearAllMocks();
   });
 
-  // ---- Basic rendering ----
-
   it('renders label and value', () => {
     renderWithProviders(<InfoFieldComponent label="Name" value="John" />);
     expect(screen.getByText('Name')).toBeTruthy();
@@ -42,8 +40,6 @@ describe('InfoFieldComponent', () => {
     renderWithProviders(<InfoFieldComponent label="Name" value="" />);
     expect(screen.getByText('---')).toBeTruthy();
   });
-
-  // ---- Custom styles ----
 
   it('applies custom containerStyle', () => {
     const customStyle = { backgroundColor: 'red', padding: 10 };
@@ -74,8 +70,6 @@ describe('InfoFieldComponent', () => {
     const flatStyle = StyleSheet.flatten(valueElement.props.style);
     expect(flatStyle).toEqual(expect.objectContaining({ color: 'green', fontSize: 20 }));
   });
-
-  // ---- Copy functionality ----
 
   it('does not show copy icon when copy is false', () => {
     const { toJSON } = renderWithProviders(
@@ -125,16 +119,46 @@ describe('InfoFieldComponent', () => {
       <InfoFieldComponent label="Name" value="" copy={true} />,
     );
 
-    // Copy icon not rendered, so nothing to press
     expect(mockSetStringAsync).not.toHaveBeenCalled();
     expect(mockDispatch).not.toHaveBeenCalled();
   });
-
-  // ---- Default weight ----
 
   it('passes default weight of "400" to value AppText', () => {
     renderWithProviders(<InfoFieldComponent label="Name" value="John" />);
     const valueElement = screen.getByText('John');
     expect(valueElement).toBeTruthy();
+  });
+
+  describe('summary variant', () => {
+    it('shows a custom placeholder in a quieter style when there is no value', () => {
+      renderWithProviders(<InfoFieldComponent label="Client Notes" value="" variant="summary" emptyText="Not provided" />);
+
+      const placeholder = screen.getByText('Not provided');
+      expect(StyleSheet.flatten(placeholder.props.style)).toEqual(expect.objectContaining({
+        color: '#A49897',
+        fontSize: 14,
+      }));
+      expect(screen.queryByText('---')).toBeNull();
+    });
+
+    it('shows the value at 14pt, medium weight, and the label at 13pt', () => {
+      renderWithProviders(<InfoFieldComponent label="Payment Name" value="HDMF Refiling Fee" variant="summary" />);
+
+      expect(StyleSheet.flatten(screen.getByText('HDMF Refiling Fee').props.style)).toEqual(expect.objectContaining({
+        fontFamily: 'PoppinsMedium',
+        fontSize: 14,
+      }));
+      expect(StyleSheet.flatten(screen.getByText('Payment Name').props.style)).toEqual(expect.objectContaining({
+        flexShrink: 0,
+        fontSize: 13,
+      }));
+    });
+
+    it('keeps the dashes for the default variant', () => {
+      renderWithProviders(<InfoFieldComponent label="Name" value="" emptyText="Not provided" />);
+      expect(screen.getByText('Not provided')).toBeTruthy();
+      renderWithProviders(<InfoFieldComponent label="Other" value="" />);
+      expect(screen.getByText('---')).toBeTruthy();
+    });
   });
 });

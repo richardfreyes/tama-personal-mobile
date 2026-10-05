@@ -1,16 +1,9 @@
 import Constants from 'expo-constants';
-
-export type Environment = 'local' | 'device' | 'custom' | 'sandbox' | 'dev' | 'uat' | 'prod';
+import type { EnvConfig, Environment, EnvSource } from '@/types/environment';
 
 const VALID_ENVIRONMENTS: readonly Environment[] = [
-  'local', 'device', 'custom', 'sandbox', 'dev', 'uat', 'prod',
+  'local', 'device', 'custom', 'mock', 'sandbox', 'dev', 'uat', 'prod',
 ];
-
-export interface EnvConfig {
-  base: string;
-  enableLogging: boolean;
-  enableMockMode: boolean;
-}
 
 const BASE = {
   LOCALHOST: 'http://localhost',
@@ -46,6 +39,11 @@ const ENV_CONFIGS: Record<Environment, EnvConfig> = {
     ...SHARED_DEFAULTS,
     base: `${LOCAL_API}`,
   },
+  mock: {
+    ...SHARED_DEFAULTS,
+    base: `${LOCAL_API}`,
+    enableMockMode: true,
+  },
   sandbox: {
     ...SHARED_DEFAULTS,
     base: `${BASE.WIREMO.UAT}/v1`,
@@ -69,8 +67,18 @@ function isValidEnvironment(value: string): value is Environment {
   return VALID_ENVIRONMENTS.includes(value as Environment);
 }
 
-type EnvSource = 'EXPO_PUBLIC_APP_ENV' | 'expoConfig.extra.APP_ENV' | 'default';
 let envSource: EnvSource = 'default';
+
+export const ENVIRONMENT_LABELS: Record<Environment, string> = {
+  local: 'Local',
+  device: 'Device',
+  custom: 'Custom',
+  mock: 'Mock',
+  sandbox: 'Sandbox',
+  dev: 'Development',
+  uat: 'UAT',
+  prod: 'Production',
+};
 
 function resolveEnvironment(): Environment {
   const fromEnv = process.env.EXPO_PUBLIC_APP_ENV;
@@ -105,5 +113,6 @@ console.info(
 export const getEnv = (): Environment => ENV;
 export const getEnvConfig = (env?: Environment): EnvConfig => ENV_CONFIGS[env ?? ENV];
 export const isLocal = (): boolean => ENV === 'local';
+export const isMock = (): boolean => ENV === 'mock';
 export const isDevice = (): boolean => ENV === 'device';
 export const isProduction = (): boolean => ENV === 'prod';

@@ -118,7 +118,7 @@ const LoginScreen = () => {
     }, {} as Partial<Record<keyof LoginFormInputs, string>>);
 
     setErrors(validationErrors);
-    
+
     if (Object.keys(validationErrors).length > 0) {
       dispatch(showSnackbar({
         message: 'Validation error. Please correct the form errors.',

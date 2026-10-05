@@ -1,6 +1,6 @@
 import { AppText } from '@/components/common/AppText';
+import { BRAND_RING_GRADIENT_COLORS, GRADIENT_DIAGONAL_END, GRADIENT_DIAGONAL_START } from '@/constants/gradients';
 import { useAuth } from '@/hooks/useAuth';
-import { Colors } from '@/styles/common/colors';
 import { headerComponentStyles as styles } from '@/styles/components/layout/HeaderComponent';
 import type { HeaderProps } from '@/types';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -31,9 +31,9 @@ const HeaderComponent: React.FC<HeaderProps> = () => {
         style={styles.profileButton}
       >
         <LinearGradient
-          colors={[Colors.red10, Colors.brandGradientVivid, Colors.amber10]}
-          end={{ x: 1, y: 1 }}
-          start={{ x: 0, y: 0 }}
+          colors={BRAND_RING_GRADIENT_COLORS}
+          end={GRADIENT_DIAGONAL_END}
+          start={GRADIENT_DIAGONAL_START}
           style={styles.avatarRing}
         >
           <View style={styles.avatarInner}>

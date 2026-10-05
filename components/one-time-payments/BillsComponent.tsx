@@ -1,28 +1,13 @@
-import {
-  BRAND_ACTION_GRADIENT_COLORS,
-  BRAND_ACTION_GRADIENT_LOCATIONS,
-  GRADIENT_HORIZONTAL_END,
-  GRADIENT_HORIZONTAL_START,
-  SAVED_BILL_CARD_SNAP_INTERVAL,
-  SAVED_BILL_NO_AMOUNT_LABEL,
-  SAVED_BILL_SKELETON_COUNT,
-} from '@/constants';
+import { BRAND_ACTION_GRADIENT_COLORS, BRAND_ACTION_GRADIENT_LOCATIONS, GRADIENT_HORIZONTAL_END, GRADIENT_HORIZONTAL_START, SAVED_BILL_CARD_SNAP_INTERVAL, SAVED_BILL_SKELETON_COUNT, } from '@/constants';
+import { useAllSavedBills } from '@/hooks/useAllSavedBills';
 import { useGetBillersQuery } from '@/redux/features/biller/billerApi';
 import { useGetBillsQuery } from '@/redux/features/bills/billsApi';
 import { openAddBiller, openSavedBill } from '@/services/routeNavigation';
 import { Colors } from '@/styles/common/colors';
 import { globalStyle } from '@/styles/common/globals';
 import { billsComponentStyles as styles } from '@/styles/components/one-time-payments/BillsComponent';
-import type { BillerCardProps, BillsComponentProps } from '@/types';
-import {
-  formatSavedBillAmount,
-  getBillerLogoMap,
-  getSavedBillIdentity,
-  getSavedBillInitials,
-  getSavedBillsForDisplay,
-  getUniqueSavedBills,
-  shouldUseMockSavedBills,
-} from '@/utils/savedBills';
+import type { BillsComponentProps } from '@/types';
+import { getBillerDueSummary, getBillerLogoMap, getSavedBillIdentity, getSavedBillsForDisplay, getUniqueSavedBills, shouldUseMockSavedBills, sortSavedBillsByUrgency, } from '@/utils/savedBills';
 import { Feather } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
 import { router } from 'expo-router';
@@ -30,45 +15,14 @@ import React, { useMemo } from 'react';
 import { Pressable, ScrollView, View } from 'react-native';
 import { AppText } from '../common/AppText';
 import EmptyStateCard from '../common/EmptyStateCard';
-import { SkeletonBlock, SkeletonGroup } from '../common/Loading';
-import MerchantLogo from '../common/MerchantLogo';
+import { SavedBillersSkeleton, SkeletonBlock, SkeletonGroup } from '../common/Loading';
 import { SectionHeaderComponent } from '../common/SectionHeaderComponent';
-
-const BillerCard = ({ bill, logoUrl }: BillerCardProps) => {
-  const amount = formatSavedBillAmount(bill);
-  const hasAmount = amount !== SAVED_BILL_NO_AMOUNT_LABEL;
-  const name = bill.billing_name || bill.merchant_name;
-
-  return (
-    <Pressable
-      accessibilityHint="Opens this saved bill for payment"
-      accessibilityLabel={`${name}, ${bill.merchant_name}, ${amount}`}
-      accessibilityRole="button"
-      onPress={() => openSavedBill(bill)}
-      style={({ pressed }) => [styles.billerCard, pressed && styles.cardPressed]}
-      testID={`biller-card-${bill.billing_reference_id || bill.billing_id}`}
-    >
-      <MerchantLogo initials={getSavedBillInitials(bill.merchant_name || name)} logoUrl={logoUrl} />
-      <View style={styles.billerDetails}>
-        <AppText numberOfLines={1} weight="600" style={styles.nickname}>{name}</AppText>
-        <AppText numberOfLines={2} style={styles.merchantName}>{bill.merchant_name}</AppText>
-      </View>
-      <AppText
-        adjustsFontSizeToFit={hasAmount}
-        minimumFontScale={0.8}
-        numberOfLines={1}
-        weight={hasAmount ? '600' : 'regular'}
-        style={hasAmount ? styles.amount : styles.noAmount}
-      >
-        {amount}
-      </AppText>
-    </Pressable>
-  );
-};
+import DueSummaryStrip from './DueSummaryStrip';
+import SavedBillCard from './SavedBillCard';
 
 const BillerSkeleton = () => (
   <View accessibilityLabel="Loading saved bill" style={styles.skeletonCard}>
-    <SkeletonBlock borderRadius={12} height={40} style={globalStyle.skeletonOnCard} width={40} />
+    <SkeletonBlock borderRadius={20} height={40} style={globalStyle.skeletonOnCard} width={40} />
     <View style={styles.skeletonDetails}>
       <SkeletonBlock height={12} style={globalStyle.skeletonOnCard} width={90} />
       <SkeletonBlock height={10} style={globalStyle.skeletonOnCard} width={110} />
@@ -83,27 +37,41 @@ export default function BillsComponent({
   onViewAllPress,
   onAddBillerPress,
   onPayNowPress,
+  variant = 'panel',
 }: BillsComponentProps) {
-  const billsQuery = useGetBillsQuery({ page: 0 });
+  const isPlain = variant === 'plain';
+  const billsQuery = useGetBillsQuery({ page: 0 }, { skip: isPlain });
+  const allSavedBills = useAllSavedBills({ skip: !isPlain });
   const billersQuery = useGetBillersQuery({});
-  const isUsingMockBills = shouldUseMockSavedBills(billsQuery.data);
-  const bills = useMemo(
-    () => getUniqueSavedBills(getSavedBillsForDisplay(billsQuery.data)),
-    [billsQuery.data],
-  );
+  const isUsingMockBills = !isPlain && shouldUseMockSavedBills(billsQuery.data);
+  const bills = useMemo(() => {
+    const savedBills = isPlain
+      ? allSavedBills.bills
+      : getUniqueSavedBills(getSavedBillsForDisplay(billsQuery.data));
+    return isPlain ? sortSavedBillsByUrgency(savedBills) : savedBills;
+  }, [allSavedBills.bills, billsQuery.data, isPlain]);
+  const dueSummary = useMemo(() => (isPlain ? getBillerDueSummary(bills) : null), [bills, isPlain]);
   const billerLogosByMerchantId = useMemo(
     () => getBillerLogoMap(billersQuery.data),
     [billersQuery.data],
   );
 
-  const hasError = (billsQuery.isError || billersQuery.isError) && !isUsingMockBills;
+  const savedBillsError = isPlain ? allSavedBills.isError : billsQuery.isError;
+  const savedBillsLoading = isPlain ? allSavedBills.isLoading : billsQuery.isLoading;
+  const savedBillsFetching = isPlain ? allSavedBills.isFetching : billsQuery.isFetching;
+  const hasError = (savedBillsError || (!isPlain && billersQuery.isError)) && !isUsingMockBills;
   const isLoading = !isUsingMockBills && (
-    billsQuery.isLoading || billersQuery.isLoading
-    || (hasError && (billsQuery.isFetching || billersQuery.isFetching))
+    savedBillsLoading || (!isPlain && billersQuery.isLoading)
+    || (hasError && (savedBillsFetching || (!isPlain && billersQuery.isFetching)))
   );
   const isEmpty = bills.length === 0;
 
   const retry = () => {
+    if (isPlain) {
+      void allSavedBills.refetch();
+      return;
+    }
+
     void Promise.allSettled([billsQuery.refetch(), billersQuery.refetch()]);
   };
 
@@ -158,7 +126,33 @@ export default function BillsComponent({
     </View>
   );
 
+  const renderCarousel = () => (
+    <ScrollView
+      contentContainerStyle={isPlain ? styles.plainCarouselContent : styles.carouselContent}
+      decelerationRate="fast"
+      horizontal
+      showsHorizontalScrollIndicator={false}
+      snapToInterval={SAVED_BILL_CARD_SNAP_INTERVAL}
+      style={isPlain ? styles.plainCarouselViewport : styles.carouselViewport}
+      testID="bills-carousel"
+    >
+      {bills.map((bill, index) => (
+        <SavedBillCard
+          bill={bill}
+          key={getSavedBillIdentity(bill, index)}
+          logoUrl={billerLogosByMerchantId.get(bill.merchant_id)}
+          onPress={openSavedBill}
+          variant="card"
+        />
+      ))}
+    </ScrollView>
+  );
+
   if (isLoading) {
+    if (isPlain) {
+      return <SavedBillersSkeleton />;
+    }
+
     return (
       <View style={globalStyle.sectionPanel}>
         <SectionHeaderComponent title={sectionHeader?.title} />
@@ -171,8 +165,43 @@ export default function BillsComponent({
     );
   }
 
+  if (isPlain) {
+    return (
+      <View style={styles.plainSection} testID="bills-section">
+        <SectionHeaderComponent
+          containerStyle={styles.plainHeader}
+          count={hasError || isEmpty ? undefined : bills.length}
+          linkText={hasError || isEmpty ? null : sectionHeader?.linkText}
+          onViewAllPress={handleViewAllPress}
+          title={sectionHeader?.title}
+        />
+        {hasError ? (
+          <EmptyStateCard
+            message="Unable to load your billers."
+            onRetry={retry}
+            retryLabel="Try loading your billers again"
+            variant="error"
+          />
+        ) : isEmpty ? (
+          <EmptyStateCard
+            appearance="dashed"
+            icon="bookmark"
+            message="Billers you save will appear here for one-tap payments."
+            title="No saved billers yet"
+            variant="empty"
+          />
+        ) : (
+          <View style={styles.plainBody}>
+            {dueSummary ? <DueSummaryStrip summary={dueSummary} /> : null}
+            {renderCarousel()}
+          </View>
+        )}
+      </View>
+    );
+  }
+
   return (
-    <View style={globalStyle.sectionPanel}>
+    <View style={globalStyle.sectionPanel} testID="bills-section">
       <SectionHeaderComponent
         title={sectionHeader?.title}
         linkText={isEmpty ? null : sectionHeader?.linkText}
@@ -193,22 +222,7 @@ export default function BillsComponent({
           variant="empty"
         />
       ) : (
-        <ScrollView
-          contentContainerStyle={styles.carouselContent}
-          decelerationRate="fast"
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          snapToInterval={SAVED_BILL_CARD_SNAP_INTERVAL}
-          style={styles.carouselViewport}
-        >
-          {bills.map((bill, index) => (
-            <BillerCard
-              bill={bill}
-              key={getSavedBillIdentity(bill, index)}
-              logoUrl={billerLogosByMerchantId.get(bill.merchant_id)}
-            />
-          ))}
-        </ScrollView>
+        renderCarousel()
       )}
       {!hasError && sectionFooter?.button ? renderActions() : null}
     </View>

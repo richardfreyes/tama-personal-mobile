@@ -36,3 +36,5 @@ export const SlideUpScreenModal = React.forwardRef<BottomSheetMethods, SlideUpSc
     </BottomSheet>
   );
 });
+
+SlideUpScreenModal.displayName = 'SlideUpScreenModal';

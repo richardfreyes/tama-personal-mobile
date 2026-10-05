@@ -1,4 +1,4 @@
-import { ENROLLMENT_DETAIL_SECTION_ORDER } from '@/constants/enrollment';
+import { ENROLLMENT_DETAIL_SECTION_ORDER, ENROLLMENT_EMPTY_DISPLAY_VALUES } from '@/constants/enrollment';
 import type { Enrollment, EnrollmentDetailField, EnrollmentDetailSection, EnrollmentDetailSectionTitle, EnrollmentDetailsViewModel, EnrollmentDisplayField, EnrollmentPaymentMethodDetails, EnrollmentPaymentMethodSummary } from '@/types/enrollment';
 import { getProviderDisplay } from '@/utils/card';
 import { formatApiDate } from '@/utils/date';
@@ -10,12 +10,10 @@ const isRecord = (value: any): value is Record<string, any> => (
 
 const normalizeKey = (value: string): string => value.replace(/[^a-z0-9]/gi, '').toLowerCase();
 
-const EMPTY_DISPLAY_VALUES = new Set(['n/a', 'na', 'none', 'null', 'undefined', 'nan']);
-
 const toDisplayString = (value: any): string | null => {
   if (typeof value === 'string') {
     const trimmed = value.trim();
-    return trimmed && !EMPTY_DISPLAY_VALUES.has(trimmed.toLowerCase()) ? trimmed : null;
+    return trimmed && !ENROLLMENT_EMPTY_DISPLAY_VALUES.has(trimmed.toLowerCase()) ? trimmed : null;
   }
 
   if (typeof value === 'number' && Number.isFinite(value)) {
@@ -270,7 +268,6 @@ export const getEnrollmentStatusLabel = (status?: string | null): string => {
     .join(' ');
 };
 
-// Home and Bills both report how many enrollments are running, so they share this one definition.
 export const isActiveEnrollment = ({ status }: Pick<Enrollment, 'status'>): boolean => (
   getEnrollmentStatusLabel(status) === 'Active'
 );

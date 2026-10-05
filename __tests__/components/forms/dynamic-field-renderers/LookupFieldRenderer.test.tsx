@@ -4,7 +4,6 @@ import React from 'react';
 import { LookupFieldRenderer } from '../../../../components/forms/dynamic-field-renderers/LookupFieldRenderer';
 import { renderWithProviders } from '../../../../utils/test-utils';
 
-// Capture the props passed to NativePicker so we can exercise its callbacks.
 let pickerProps: any = null;
 
 jest.mock('@/components/forms/NativePicker', () => {
@@ -48,8 +47,6 @@ describe('LookupFieldRenderer', () => {
     jest.clearAllMocks();
   });
 
-  // ---- Rendering / prop mapping ----
-
   it('renders the NativePicker', () => {
     renderWithProviders(<LookupFieldRenderer {...(buildProps() as any)} />);
     expect(screen.getByTestId('native-picker')).toBeTruthy();
@@ -87,8 +84,6 @@ describe('LookupFieldRenderer', () => {
     expect(pickerProps.selectedValue).toBe('US');
   });
 
-  // ---- onValueChange (default branch) ----
-
   it('calls handleFieldChange with the raw value for a standard field', () => {
     const handleFieldChange = jest.fn();
     renderWithProviders(
@@ -97,8 +92,6 @@ describe('LookupFieldRenderer', () => {
     pickerProps.onValueChange('US');
     expect(handleFieldChange).toHaveBeenCalledWith('country', 'US');
   });
-
-  // ---- onValueChange (enrollments branch) ----
 
   it('stores the code for a enrollments paymentType field', () => {
     const handleFieldChange = jest.fn();
@@ -140,8 +133,6 @@ describe('LookupFieldRenderer', () => {
     });
   });
 
-  // ---- onValueChange (projectName branch) ----
-
   it('resolves the project name and metadata for the projectName field', () => {
     const handleFieldChange = jest.fn();
     renderWithProviders(
@@ -167,8 +158,6 @@ describe('LookupFieldRenderer', () => {
       }),
     );
   });
-
-  // ---- Error wiring ----
 
   it('passes the error only when the field is touched', () => {
     renderWithProviders(

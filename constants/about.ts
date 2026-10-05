@@ -1,16 +1,9 @@
 
-import { APP_INFO } from '@/utils/appInfo';
-import { Feather } from '@expo/vector-icons';
+import { APP_INFO } from '@/constants/appInfo';
+import type { AboutStat, LegalRow } from '@/types/settings';
 import { router } from 'expo-router';
 
-type FeatherIconName = React.ComponentProps<typeof Feather>['name'];
-
-export const STATS: {
-  value: string;
-  label: string;
-  description: string;
-  icon: FeatherIconName;
-}[] = [
+export const STATS: AboutStat[] = [
   {
     value: 'Multiple',
     label: 'Currencies available',
@@ -38,11 +31,7 @@ export const VERSION_ROWS = [
   ...(APP_INFO.releaseDate ? [{ label: 'Release Date', value: APP_INFO.releaseDate }] : []),
 ];
 
-export const LEGAL_ROWS: {
-  title: string;
-  icon: FeatherIconName;
-  onPress: () => void;
-}[] = [
+export const LEGAL_ROWS: LegalRow[] = [
   {
     title: 'Terms & Conditions',
     icon: 'file-text',

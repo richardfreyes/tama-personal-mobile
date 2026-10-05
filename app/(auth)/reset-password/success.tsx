@@ -10,7 +10,7 @@ const SuccessScreen = () => {
     setIsLoading(true);
     router.replace('/login');
   }
-  
+
   return (
     <PageState title="Password successfully changed" description="Your password has been successfully updated. You can now log in to your account securely using your new password.">
       <AppButton title="Back to Login" variant="primary" onPress={handleSubmit} isLoading={isLoading} disabled={isLoading}/>

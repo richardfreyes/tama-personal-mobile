@@ -5,7 +5,6 @@ import React from 'react';
 import { View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-// Keeps scrolled content from running underneath the clock and battery icons.
 export default function DashboardStatusBarScrim() {
   const { top } = useSafeAreaInsets();
   if (top <= 0) return null;

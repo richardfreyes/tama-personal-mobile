@@ -1,12 +1,6 @@
-export type ContactActionType = 'email' | 'phone' | 'web';
+import type { ContactChannel, ContactSupportInfo } from '@/types/settings';
 
-export const CONTACT_CHANNELS: {
-  action: ContactActionType;
-  icon: 'facebook' | 'instagram' | 'mail' | 'phone';
-  label: string;
-  title: string;
-  url: string;
-}[] = [
+export const CONTACT_CHANNELS: ContactChannel[] = [
   {
     action: 'web',
     icon: 'facebook',
@@ -53,7 +47,7 @@ export const CONTACT_CHANNELS: {
 
 export const SUPPORT_EMAIL_CHANNEL = CONTACT_CHANNELS.find(({ action }) => action === 'email');
 
-export const CONTACT_SUPPORT_INFO = [
+export const CONTACT_SUPPORT_INFO: ContactSupportInfo[] = [
   {
     label: 'Support Hours',
     value: 'Monday to Friday, 7:00 AM - 6:00 PM PhST',

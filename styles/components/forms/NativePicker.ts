@@ -18,20 +18,16 @@ export const nativePickerStyles = StyleSheet.create({
   },
 
   touchOverlay: { 
-    ...StyleSheet.absoluteFillObject, 
+    ...StyleSheet.absoluteFill, 
     zIndex: 10 
   },
 
-  // ============================================================
-  // Android Specific (Invisible Overlay Strategy)
-  // ============================================================
   androidWrapper: { 
     width: '100%', 
     position: 'relative',
     justifyContent: 'center',
   },
 
-  // The native picker is invisible but sits on top to catch clicks
   androidInvisiblePicker: {
     position: 'absolute',
     top: 0,
@@ -46,16 +42,13 @@ export const nativePickerStyles = StyleSheet.create({
     elevation: 10,
   },
 
-  // ============================================================
-  // iOS Modal Container & Backdrop
-  // ============================================================
   modalOverlay: { 
     flex: 1, 
     justifyContent: 'flex-end' 
   },
 
   modalBackdrop: { 
-    ...StyleSheet.absoluteFillObject, 
+    ...StyleSheet.absoluteFill, 
     backgroundColor: 'rgba(0, 0, 0, 0.5)' 
   },
 
@@ -70,9 +63,6 @@ export const nativePickerStyles = StyleSheet.create({
     elevation: 8,
   },
 
-  // ============================================================
-  // iOS Modal Header (Done/Cancel Bar)
-  // ============================================================
   modalHeader: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -99,9 +89,6 @@ export const nativePickerStyles = StyleSheet.create({
     fontWeight: '600' 
   },
 
-  // ============================================================
-  // iOS Picker Wheel
-  // ============================================================
   pickerWrapper: { 
     paddingHorizontal: 0 
   },

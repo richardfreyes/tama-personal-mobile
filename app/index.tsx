@@ -41,7 +41,7 @@ const RedirectingPage = () => {
 
   const isInAuthPages = segments[0] === '(auth)' || segments.includes('login') || segments.includes('signup') || segments.includes('reset-password');
   const isAtRoot = pathname === '/' || pathname === '' || !pathname;
-  
+
   if (!appReady) {
     return (
       <View style={rootStyles.container}>

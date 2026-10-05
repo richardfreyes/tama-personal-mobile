@@ -2,19 +2,8 @@ import BpiIcon from '@/assets/icons/bpi.svg';
 import ChinabankIcon from '@/assets/icons/chinabank.svg';
 import RcbcIcon from '@/assets/icons/rcbc.svg';
 import UbIcon from '@/assets/icons/unionbank.svg';
-import type { DirectDebitOutcome } from '@/types/common';
-import type React from 'react';
-import type { StyleProp, ViewStyle } from 'react-native';
+import type { DirectDebitBank, DirectDebitOutcome } from '@/types/common';
 
-type SvgIcon = React.ComponentType<{ width?: number; height?: number; style?: StyleProp<ViewStyle> }>;
-
-export interface DirectDebitBank {
-  channelCode: string; // Xendit channel code, e.g. 'BA_BPI'
-  label: string;
-  icon: SvgIcon;
-}
-
-// `paymentMethodName` the API gives a linked bank account, as opposed to a saved card.
 export const DIRECT_DEBIT_PAYMENT_METHOD_NAME = 'directdebit';
 
 export const DIRECT_DEBIT_BANKS: DirectDebitBank[] = [

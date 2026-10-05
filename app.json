@@ -7,7 +7,6 @@
     "icon": "./assets/images/icon.png",
     "scheme": "personaldashboardmob",
     "userInterfaceStyle": "automatic",
-    "newArchEnabled": true,
     "extra": {
       "APP_ENV": "prod"
     },
@@ -28,7 +27,6 @@
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#BF1814"
       },
-      "edgeToEdgeEnabled": false,
       "predictiveBackGestureEnabled": false,
       "package": "com.tama.mobile",
       "softwareKeyboardLayoutMode": "resize"

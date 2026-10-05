@@ -3,6 +3,10 @@ import { FontSizes } from "@/styles/common/typography";
 import { StyleSheet } from "react-native";
 
 export const billsStyles = StyleSheet.create({
+  screen: {
+    backgroundColor: Colors.neutral01,
+    flex: 1,
+  },
   scrollViewContent: {
   },
   header: {

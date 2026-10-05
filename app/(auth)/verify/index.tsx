@@ -25,7 +25,7 @@ const VerificationScreen = () => {
   const [otp, setOtp] = useState('');
   const [otpError, setOtpError] = useState<string | undefined>(undefined);
   const isLoading = isVerifying || isResending;
-  
+
   const validateOtp = (value: string): string | undefined => {
     if (!value) {
       return "Verification code is required.";
@@ -59,13 +59,13 @@ const VerificationScreen = () => {
       }));
     }
   };
-  
+
   const handleOTPChange = (code: string) => {
     setOtp(code);
     if (otpError) {
       setOtpError(undefined);
     }
-    
+
     if (code.length === COMMON.VALIDATORS.DEFAULT_OTP_LENGTH) {
       Keyboard.dismiss();
     }

@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-require-imports */
+
 import { afterEach, beforeEach, describe, expect, it, jest } from '@jest/globals';
 import { act, fireEvent, screen } from '@testing-library/react-native';
 import React from 'react';
@@ -38,8 +38,6 @@ describe('EnrollmentVerificationWebView', () => {
   afterEach(() => {
     jest.restoreAllMocks();
   });
-
-  // ---- Rendering ----
 
   it('renders the modal with the header title', () => {
     renderWithProviders(<EnrollmentVerificationWebView {...DEFAULT_PROPS} />);
@@ -96,8 +94,6 @@ describe('EnrollmentVerificationWebView', () => {
     ]);
   });
 
-  // ---- Injected JavaScript ----
-
   it('injects a script that sets accessSignature and accessType in sessionStorage', () => {
     renderWithProviders(<EnrollmentVerificationWebView {...DEFAULT_PROPS} />);
     const webView = screen.getByTestId('webview');
@@ -121,8 +117,6 @@ describe('EnrollmentVerificationWebView', () => {
     expect(script).toContain(JSON.stringify(props.accessSignature));
     expect(script).toContain(JSON.stringify(props.accessType));
   });
-
-  // ---- Backend callback / onComplete ----
 
   it('shows the centered native completion card after the backend success callback finishes loading', () => {
     renderWithProviders(<EnrollmentVerificationWebView {...DEFAULT_PROPS} />);
@@ -261,8 +255,6 @@ describe('EnrollmentVerificationWebView', () => {
       });
     });
 
-    // The GET must proceed so the backend finalizes the enrollment (creates invoices,
-    // advances the status). Blocking it would leave the enrollment in an invalid status.
     expect(shouldLoad).toBe(true);
     expect(DEFAULT_PROPS.onComplete).not.toHaveBeenCalled();
   });
@@ -331,8 +323,6 @@ describe('EnrollmentVerificationWebView', () => {
       message: 'Verification was cancelled. You can try again when you are ready.',
     });
   });
-
-  // ---- Props variations ----
 
   it('renders with a different url', () => {
     const customUrl = 'https://other.example.com/verify/xyz';

@@ -1,16 +1,16 @@
-import { FLOATING_NAV_TABS } from '@/constants';
+import { FLOATING_NAV_HIDDEN_ROUTES, FLOATING_NAV_TABS } from '@/constants';
 import { AppText } from '@/components/common/AppText';
 import { useTabBarAnimation } from '@/context/TabBarAnimationContext';
 import { Colors } from '@/styles/common/colors';
 import { floatingNavBarStyles as styles } from '@/styles/components/layout/FloatingNavBar';
-import { BottomTabBarProps } from '@react-navigation/bottom-tabs';
 import { router, usePathname, useSegments } from 'expo-router';
+import type { BottomTabBarProps } from 'expo-router/tabs';
 import React, { useEffect } from 'react';
 import { TouchableOpacity, View } from 'react-native';
 import Animated, { useAnimatedKeyboard, useAnimatedStyle } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-const FloatingNavBar = ({ state, navigation }: BottomTabBarProps) => {
+const FloatingNavBar = ({ state, emitter, navigateToTab }: BottomTabBarProps) => {
   const pathname = usePathname();
   const segments = useSegments();
   const { tabBarTranslateY, tabBarHeight } = useTabBarAnimation();
@@ -22,8 +22,6 @@ const FloatingNavBar = ({ state, navigation }: BottomTabBarProps) => {
   }, [pathname, tabBarTranslateY]);
 
   const animatedStyle = useAnimatedStyle(() => {
-    // Use the actual keyboard height from the animated hook. This avoids conflicts with
-    // Android's native window resizing when the keyboard appears, preventing crashes.
     const effectiveTranslateY = tabBarTranslateY.value + keyboard.height.value;
 
     return {
@@ -35,6 +33,11 @@ const FloatingNavBar = ({ state, navigation }: BottomTabBarProps) => {
 
   const getSection = (name: string) => name.split('/')[0];
 
+  const routePath = segments.filter((segment) => !segment.startsWith('(')).join('/');
+  if (FLOATING_NAV_HIDDEN_ROUTES.includes(routePath)) {
+    return null;
+  }
+
   const focusedRouteName = state.routes[state.index]?.name ?? '';
   const activeSection =
     pathname.split('/').find(Boolean)
@@ -45,8 +48,6 @@ const FloatingNavBar = ({ state, navigation }: BottomTabBarProps) => {
     <Animated.View
       style={[styles.tabBarContainer, { bottom: insets.bottom + 8 }, animatedStyle]}
       onLayout={(event) => {
-        // Measure the height of the tab bar and store it in the shared context value.
-        // This ensures the scroll animation uses the correct height, preventing crashes.
         tabBarHeight.value = event.nativeEvent.layout.height;
       }}
     >
@@ -59,14 +60,14 @@ const FloatingNavBar = ({ state, navigation }: BottomTabBarProps) => {
           const iconColor = isFocused ? Colors.red09 : Colors.maroon09;
 
           const onPress = () => {
-            const event = navigation.emit({
+            const event = emitter.emit({
               type: 'tabPress',
               target: route.key,
               canPreventDefault: true,
             });
 
             if (!isFocused && !event.defaultPrevented) {
-              navigation.navigate(route.name, { merge: true });
+              navigateToTab(route.key);
             } else if (isFocused && pathname !== tab.href && !event.defaultPrevented) {
               router.replace(tab.href);
             }

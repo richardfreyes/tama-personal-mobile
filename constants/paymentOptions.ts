@@ -1,9 +1,11 @@
 import AmexCardIcon from '@/assets/icons/amex.svg';
 import ApplePayIcon from '@/assets/icons/apple-pay.svg';
 import bankTransfer from '@/assets/icons/bank-transfer.svg';
+import BankIcon from '@/assets/icons/bank.svg';
 import BdoIcon from '@/assets/icons/bdo.svg';
 import BpiIcon from '@/assets/icons/bpi.svg';
 import ChinabankIcon from '@/assets/icons/chinabank.svg';
+import CreditCardOutlineIcon from '@/assets/icons/credit-card-outline.svg';
 import DinnersClubCardIcon from '@/assets/icons/diners-club.svg';
 import DiscoverCardIcon from '@/assets/icons/discover.svg';
 import GCashIcon from '@/assets/icons/gcash.svg';
@@ -18,7 +20,10 @@ import SepaIcon from '@/assets/icons/sepa.svg';
 import UbIcon from '@/assets/icons/unionbank.svg';
 import UnionPayCardIcon from '@/assets/icons/unionpay.svg';
 import VisaCardIcon from '@/assets/icons/visa.svg';
-import type { LogoReference, PaymentSourceOption } from '@/types';
+import type { LogoReference, OneTimePaymentMethod, PaymentSourceOption } from '@/types';
+import { ONE_TIME_PAYMENT_FLOWS } from './oneTimePaymentFlows';
+
+export const PAYMENT_METHOD_PRIORITY_COUNTRIES = ['PH', 'US'];
 
 export const paymentCardLogos = {
   mastercard: { id: 'mc', uri: MasterCardIcon, altText: 'Mastercard' },
@@ -44,7 +49,7 @@ export const paymentCardLogos = {
 };
 
 export const PAYMENT_OPTIONS = [
-  { id: 1, title: 'Credit/Debit Card', logos: [
+  { id: ONE_TIME_PAYMENT_FLOWS.card.paymentOptionId, title: ONE_TIME_PAYMENT_FLOWS.card.title, logos: [
       paymentCardLogos.mastercard as LogoReference,
       paymentCardLogos.visa as LogoReference,
       paymentCardLogos.amex as LogoReference,
@@ -53,10 +58,10 @@ export const PAYMENT_OPTIONS = [
       paymentCardLogos.unionpay as LogoReference
     ] as readonly LogoReference[], mainLogoUri: null
   },
-  { id: 2, title: 'PayPal', logos: [], mainLogoUri: paymentCardLogos.paypal },
+  { id: ONE_TIME_PAYMENT_FLOWS.paypal.paymentOptionId, title: ONE_TIME_PAYMENT_FLOWS.paypal.title, logos: [], mainLogoUri: paymentCardLogos.paypal },
   { id: 3, title: 'PayPal US', logos: [], mainLogoUri: paymentCardLogos.paypal },
   { id: 4, title: 'PayPal PH', logos: [], mainLogoUri: paymentCardLogos.paypal },
-  { id: 5, title: 'Philippine Banks', logoSpacing: 16, logos: [
+  { id: ONE_TIME_PAYMENT_FLOWS.bank.paymentOptionId, title: ONE_TIME_PAYMENT_FLOWS.bank.title, logoSpacing: 16, logos: [
       paymentCardLogos.bpi as LogoReference,
       paymentCardLogos.chinabank as LogoReference,
       paymentCardLogos.rcbc as LogoReference,
@@ -64,7 +69,7 @@ export const PAYMENT_OPTIONS = [
     ] as readonly LogoReference[], mainLogoUri: null
   },
   {
-    id: 6, title: 'QRPH', logos: [], mainLogoUri: paymentCardLogos.qrph
+    id: ONE_TIME_PAYMENT_FLOWS.qrph.paymentOptionId, title: ONE_TIME_PAYMENT_FLOWS.qrph.title, logos: [], mainLogoUri: paymentCardLogos.qrph
   },
   {
     id: 7, title: 'Google Pay', logos: [], mainLogoUri: paymentCardLogos.gpay
@@ -86,8 +91,43 @@ export const PAYMENT_OPTIONS = [
 ] as const;
 
 export const PAYMENT_SOURCE_OPTIONS: PaymentSourceOption[] = [
-  { value: 'saved', label: 'Use a saved payment method', description: 'Pay using a card saved to your account.' },
-  { value: 'new-card', label: 'Select payment method', description: 'Use this payment method once. It won’t be saved.' }
+  { value: 'saved', label: 'Saved card', description: 'Pay using a card saved to your account.' },
+  { value: 'new-card', label: 'Other method', description: 'Use this payment method once. It won’t be saved.' }
+];
+
+export const ONE_TIME_PAYMENT_METHODS: OneTimePaymentMethod[] = [
+  {
+    value: ONE_TIME_PAYMENT_FLOWS.card.value,
+    title: ONE_TIME_PAYMENT_FLOWS.card.title,
+    description: 'Visa, Mastercard, Amex, Discover, Diners, UnionPay',
+    icon: CreditCardOutlineIcon,
+    iconWidth: 22,
+    iconHeight: 22,
+  },
+  {
+    value: ONE_TIME_PAYMENT_FLOWS.paypal.value,
+    title: ONE_TIME_PAYMENT_FLOWS.paypal.title,
+    description: 'Pay with your PayPal account',
+    icon: PaypalIcon,
+    iconWidth: 38,
+    iconHeight: 12,
+  },
+  {
+    value: ONE_TIME_PAYMENT_FLOWS.bank.value,
+    title: ONE_TIME_PAYMENT_FLOWS.bank.title,
+    description: 'BPI, RCBC, UnionBank and more',
+    icon: BankIcon,
+    iconWidth: 22,
+    iconHeight: 22,
+  },
+  {
+    value: ONE_TIME_PAYMENT_FLOWS.qrph.value,
+    title: ONE_TIME_PAYMENT_FLOWS.qrph.title,
+    description: 'Scan with any bank or e-wallet app',
+    icon: QrPHIcon,
+    iconWidth: 38,
+    iconHeight: 12,
+  },
 ];
 
 export const AUTOPAY_STATUS = [

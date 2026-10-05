@@ -39,7 +39,7 @@ const OTPInput: React.FC<OTPInputProps> = ({
     if (numericText !== '' && index + numericText.length < length) {
       inputRefs.current[index + numericText.length]?.focus();
     }
-    
+
     if (fullCode.length === length) {
       Keyboard.dismiss();
     }

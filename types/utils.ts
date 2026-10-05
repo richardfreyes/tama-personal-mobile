@@ -2,6 +2,9 @@ import { MerchantEnrollmentPayload, MerchantFormConfigResponse, MerchantFormFiel
 import { PaymentInfoRow } from "./common";
 import { AddCardFormInputs } from "./form";
 
+export type CurrencyInputSelection = { start: number; end: number };
+export type ModalActionFn = () => void;
+
 export type PaymentMethodFormData = AddCardFormInputs & {
   saveAsDefaultBilling: boolean;
   useAsPrimaryPayment: boolean;

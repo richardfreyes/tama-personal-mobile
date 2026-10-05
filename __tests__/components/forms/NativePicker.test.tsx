@@ -43,8 +43,6 @@ describe('NativePicker', () => {
     jest.clearAllMocks();
   });
 
-  // ---- Basic rendering ----
-
   it('renders the label', () => {
     const props = defaultProps();
     renderWithProviders(<NativePicker {...props} />);
@@ -68,8 +66,6 @@ describe('NativePicker', () => {
     expect(screen.getByText('Japan')).toBeTruthy();
   });
 
-  // ---- Display value ----
-
   it('shows selected option name as display value', () => {
     const props = defaultProps();
     props.selectedValue = 'us';
@@ -84,8 +80,6 @@ describe('NativePicker', () => {
     expect(screen.getByDisplayValue('')).toBeTruthy();
   });
 
-  // ---- Error display ----
-
   it('shows error text when error prop is provided', () => {
     const props = defaultProps();
     renderWithProviders(<NativePicker {...props} error="Required field" />);
@@ -98,8 +92,6 @@ describe('NativePicker', () => {
     expect(screen.queryByText('Required field')).toBeNull();
   });
 
-  // ---- Disabled state ----
-
   describe('when disabled', () => {
     it('shows alert with disabledMessage on Android', () => {
       Platform.OS = 'android';
@@ -109,13 +101,13 @@ describe('NativePicker', () => {
       );
 
       const overlay = screen.getByTestId('picker').parent;
-      // On Android, the disabled overlay is a TouchableOpacity covering the picker
+
       const touchables = screen.root.findAll(
         (node) =>
           node.props.onPress !== undefined &&
           node.props.style !== undefined,
       );
-      // Press the last touchable overlay (the disabled overlay)
+
       const disabledOverlay = touchables[touchables.length - 1];
       fireEvent.press(disabledOverlay);
 
@@ -142,8 +134,6 @@ describe('NativePicker', () => {
     });
   });
 
-  // ---- iOS-specific behavior ----
-
   describe('iOS', () => {
     beforeEach(() => {
       Platform.OS = 'ios';
@@ -153,7 +143,6 @@ describe('NativePicker', () => {
       const props = defaultProps();
       renderWithProviders(<NativePicker {...props} />);
 
-      // Press the input overlay to open picker
       const touchables = screen.root.findAll(
         (node) =>
           node.props.onPress !== undefined &&
@@ -220,7 +209,6 @@ describe('NativePicker', () => {
 
       fireEvent.press(screen.getByText('Cancel'));
 
-      // onValueChange should NOT have been called
       expect(props.onValueChange).not.toHaveBeenCalled();
     });
 

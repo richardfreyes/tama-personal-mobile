@@ -16,7 +16,6 @@ const baseProps = {
 };
 
 describe('NotificationItem', () => {
-  // ---- Rendering ----
 
   it('renders the title, body and date', () => {
     renderWithProviders(<NotificationItem {...baseProps} />);
@@ -32,8 +31,6 @@ describe('NotificationItem', () => {
     expect(JSON.stringify(toJSON())).toContain('SvgMock');
   });
 
-  // ---- Read / unread styling ----
-
   it('applies the unread background colour when isRead is false', () => {
     renderWithProviders(<NotificationItem {...baseProps} isRead={false} />);
     const card = screen.UNSAFE_getAllByType(TouchableOpacity)[0];
@@ -47,8 +44,6 @@ describe('NotificationItem', () => {
     const style = StyleSheet.flatten(card.props.style);
     expect(style.backgroundColor).not.toBe(Colors.maroon01);
   });
-
-  // ---- Interaction ----
 
   it('calls onPress with the notification id when pressed', () => {
     const onPress = jest.fn();

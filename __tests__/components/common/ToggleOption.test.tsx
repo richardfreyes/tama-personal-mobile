@@ -5,7 +5,6 @@ import ToggleOptionComponent from '../../../components/common/ToggleOption';
 import { renderWithProviders } from '../../../utils/test-utils';
 
 describe('ToggleOptionComponent', () => {
-  // ---- Default rendering ----
 
   it('renders the default options when none are provided', () => {
     renderWithProviders(<ToggleOptionComponent />);
@@ -21,8 +20,6 @@ describe('ToggleOptionComponent', () => {
     expect(screen.getByText('Weekly')).toBeTruthy();
     expect(screen.getByText('Monthly')).toBeTruthy();
   });
-
-  // ---- Selection ----
 
   it('calls onOptionChange with the pressed option', () => {
     const onOptionChange = jest.fn();
@@ -45,7 +42,7 @@ describe('ToggleOptionComponent', () => {
         onOptionChange={onOptionChange}
       />,
     );
-    // Pressing the already-selected option still triggers the change callback
+
     fireEvent.press(screen.getByText('Two'));
     expect(onOptionChange).toHaveBeenCalledWith('Two');
   });
@@ -54,8 +51,6 @@ describe('ToggleOptionComponent', () => {
     renderWithProviders(<ToggleOptionComponent options={['One', 'Two']} />);
     expect(() => fireEvent.press(screen.getByText('Two'))).not.toThrow();
   });
-
-  // ---- Button-config (AppButton) variant ----
 
   it('renders the AppButton variant when buttonConfig.isButton is true', () => {
     const onOptionChange = jest.fn();

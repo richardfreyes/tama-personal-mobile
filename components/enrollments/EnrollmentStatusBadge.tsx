@@ -1,45 +1,39 @@
-import { AppText } from '@/components/common/AppText';
-import { enrollmentStatusBadgeStyles as styles } from '@/styles/components/enrollments/EnrollmentStatusBadge';
-import type { EnrollmentStatusBadgeProps, EnrollmentStatusStyles } from '@/types/enrollment';
+import StatusBadge from '@/components/common/StatusBadge';
+import { Colors } from '@/styles/common/colors';
+import type { EnrollmentStatusBadgeProps } from '@/types/enrollment';
 import { getEnrollmentStatusLabel } from '@/utils/enrollmentPresentation';
 import React from 'react';
-import { View } from 'react-native';
 
-const getStatusStyles = (status?: string | null): EnrollmentStatusStyles => {
+const getStatusColors = (status?: string | null): { text: string; dot: string; background: string } => {
   const normalized = status?.trim().toLowerCase() || '';
   const statusWords = normalized.split(/[\s_-]+/);
 
   if (statusWords.some((word) => ['failed', 'error', 'declined', 'cancelled', 'canceled', 'expired'].includes(word))) {
-    return { badge: styles.failedBadge, dot: styles.failedDot };
+    return { background: Colors.error01, dot: Colors.error10, text: Colors.neutral09 };
   }
 
   if (statusWords.some((word) => ['pending', 'processing', 'scheduled'].includes(word))) {
-    return { badge: styles.pendingBadge, dot: styles.pendingDot };
+    return { background: Colors.amber02, dot: Colors.amber10, text: Colors.neutral09 };
   }
 
   if (statusWords.some((word) => ['active', 'approved', 'completed', 'success', 'successful', 'ongoing', 'progress'].includes(word))) {
-    return { badge: styles.activeBadge, dot: styles.activeDot };
+    return { background: Colors.success01, dot: Colors.success10, text: Colors.neutral09 };
   }
 
   if (statusWords.includes('paused') || normalized === 'on hold') {
-    return { badge: styles.pausedBadge, dot: styles.pausedDot };
+    return { background: Colors.info01, dot: Colors.info10, text: Colors.neutral09 };
   }
 
-  return { badge: styles.neutralBadge, dot: styles.neutralDot };
+  return { background: Colors.neutral04, dot: Colors.neutral07, text: Colors.neutral09 };
 };
 
-const EnrollmentStatusBadge = ({ status, variant = 'default' }: EnrollmentStatusBadgeProps) => {
-  const statusStyles = getStatusStyles(status);
-  const isSummaryCard = variant === 'summaryCard';
-
-  return (
-    <View style={[styles.badge, isSummaryCard && styles.summaryCardBadge, statusStyles.badge]}>
-      <View style={[styles.dot, statusStyles.dot]} />
-      <AppText size={isSummaryCard ? 'extraSmall' : 'tiny'} weight="600" style={[styles.text, statusStyles.text]}>
-        {getEnrollmentStatusLabel(status)}
-      </AppText>
-    </View>
-  );
-};
+const EnrollmentStatusBadge = ({ status, variant = 'default' }: EnrollmentStatusBadgeProps) => (
+  <StatusBadge
+    appearance="badge"
+    colors={getStatusColors(status)}
+    label={getEnrollmentStatusLabel(status)}
+    variant={variant}
+  />
+);
 
 export default EnrollmentStatusBadge;

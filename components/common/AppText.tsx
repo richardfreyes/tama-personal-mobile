@@ -1,7 +1,7 @@
 import { Colors } from '@/styles/common/colors';
 import { FontSizes } from '@/styles/common/typography';
 import { AppTextProps } from '@/types';
-import { PoppinsFontNames } from '@/utils/fonts';
+import { POPPINS_FONT_NAMES } from '@/constants/fonts';
 import React from 'react';
 import { Linking, Pressable } from 'react-native';
 import { Text } from 'react-native-paper';
@@ -23,13 +23,13 @@ export const AppText: React.FC<AppTextProps> = ({
   mVertical,
   ...rest 
 }) => {
-  const fontFamilyString = PoppinsFontNames[weight];
+  const fontFamilyString = POPPINS_FONT_NAMES[weight];
   const customFontFamilyStyle = { fontFamily: fontFamilyString };
 
   const handlePress = async () => {
     if (url) {
       const supported = await Linking.canOpenURL(url);
-      
+
       if (supported) {
         await Linking.openURL(url);
       } else {

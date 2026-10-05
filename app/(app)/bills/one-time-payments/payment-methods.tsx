@@ -3,8 +3,9 @@ import { SpacerComponent } from '@/components/common/SpacerComponent';
 import NavHeaderComponent from '@/components/layout/NavHeaderComponent';
 import PaymentMethodCardComponent from '@/components/payments/PaymentMethodCardComponent';
 import { COMMON } from '@/constants/common';
+import { openOneTimePaymentMethod } from '@/services/routeNavigation';
 import { globalStyle } from '@/styles/common/globals';
-import { router, useLocalSearchParams } from 'expo-router';
+import { useLocalSearchParams } from 'expo-router';
 import React from 'react';
 import { View } from 'react-native';
 
@@ -18,47 +19,7 @@ export default function OneTimePaymentMethodsScreen() {
   }>();
 
   const handleSelect = (title: string) => {
-    if (title === 'Philippine Banks') {
-      router.push({
-        pathname: '/payment-methods/direct-debit',
-        params: { returnTo, billingReferenceId, returnAmount },
-      });
-      return;
-    }
-    if (title === 'QRPH') {
-      router.push({
-        pathname: '/payment-methods/qrph',
-        params: {
-          returnTo,
-          billingReferenceId,
-          baseAmount: baseAmount || returnAmount,
-          baseCurrency: baseCurrency || 'PHP',
-        },
-      });
-      return;
-    }
-    if (title === 'PayPal') {
-      router.push({
-        pathname: '/payment-methods/paypal',
-        params: {
-          returnTo,
-          billingReferenceId,
-          baseAmount: baseAmount || returnAmount,
-          baseCurrency: baseCurrency || 'PHP',
-        },
-      });
-      return;
-    }
-    router.push({
-      pathname: '/payment-methods/form-details',
-      params: {
-        apiEnv: 'one-time',
-        methodTitle: title,
-        billingReferenceId,
-        baseAmount,
-        baseCurrency,
-      },
-    });
+    openOneTimePaymentMethod({ title, billingReferenceId, baseAmount, baseCurrency, returnTo, returnAmount });
   };
 
   return (
@@ -67,7 +28,7 @@ export default function OneTimePaymentMethodsScreen() {
       <View style={{ flex: 1 }}>
         <View style={ globalStyle.outerContainer }>
           {COMMON.PAYMENT_OPTIONS.map((option, idx) => {
-            // Credit/debit card and Philippine bank direct debit for one-time payments.
+
             const isDirectDebit = option.title === 'Philippine Banks';
             const isQrph = option.title === 'QRPH';
             const isPayPal = option.title === 'PayPal';

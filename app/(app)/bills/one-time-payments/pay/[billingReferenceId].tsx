@@ -1,18 +1,22 @@
-import { AppButton } from '@/components/common/AppButton';
 import { AppText } from '@/components/common/AppText';
 import EmptyStateCard from '@/components/common/EmptyStateCard';
 import { GlobalScrollView } from '@/components/common/GlobalScrollView';
-import InfoFieldComponent from '@/components/common/InfoFieldComponent';
-import { BillPaymentSkeleton, InlineLoadingIndicator } from '@/components/common/Loading';
-import { SpacerComponent } from '@/components/common/SpacerComponent';
+import { BillPaymentSkeleton } from '@/components/common/Loading';
 import InputValidationComponent from '@/components/forms/InputValidationComponent';
 import NavHeaderComponent from '@/components/layout/NavHeaderComponent';
-import PaymentMethodCardComponent from '@/components/payments/PaymentMethodsComponent';
+import SavedBillCard from '@/components/one-time-payments/SavedBillCard';
+import FeeNotice from '@/components/payments/FeeNotice';
+import OneTimeMethodList from '@/components/payments/OneTimeMethodList';
+import PaymentFooter from '@/components/payments/PaymentFooter';
+import PaymentInfoSection from '@/components/payments/PaymentInfoSection';
+import PaymentMethodsComponent from '@/components/payments/PaymentMethodsComponent';
 import PaymentSourceSelector from '@/components/payments/PaymentSourceSelector';
 import { ERRORS } from '@/constants';
 import { COMMON } from '@/constants/common';
-import { PAYMENT_SOURCE_OPTIONS } from '@/constants/paymentOptions';
+import { ONE_TIME_PAYMENT_METHODS, PAYMENT_SOURCE_OPTIONS } from '@/constants/paymentOptions';
+import { BILLER_SUMMARY_EMPTY_LABEL } from '@/constants/savedBills';
 import { useGetBillDetailQuery } from '@/redux/features/billDetail/billDetailApi';
+import { useGetBillersQuery } from '@/redux/features/biller/billerApi';
 import { useDeleteBillMutation } from '@/redux/features/bills/billsApi';
 import { showModal } from '@/redux/features/modal/modalSlice';
 import { selectLastCompletedInvoiceReferenceId } from '@/redux/features/oneTimePayment/oneTimePaymentSlice';
@@ -21,16 +25,17 @@ import { showSnackbar } from '@/redux/features/snackbar/snackbarSlice';
 import { useCreateTransactionComputationMutation } from '@/redux/features/transactions/transactionApi';
 import { TransactionComputationResponse } from '@/redux/features/transactions/transactionTypes';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
-import { openPaymentMethod } from '@/services/routeNavigation';
+import { openOneTimePaymentMethod, openPaymentMethod } from '@/services/routeNavigation';
 import { billingReferenceIdStyles as styles } from '@/styles/app/bills/one-time-payments/pay/billingReferenceId';
 import { Colors } from '@/styles/common/colors';
-import { globalStyle } from '@/styles/common/globals';
-import { formatLastFourDigits } from '@/utils/card';
-import { formatMoney, normalizeCurrencyInput, parseCurrencyInput } from '@/utils/format';
+import type { OneTimePaymentMethodId } from '@/types';
+import { formatLastFourDigits, getProviderDisplay, getSavedPaymentMethods } from '@/utils/card';
+import { formatPaymentTotal, formatPesoAmount, normalizeCurrencyInput, parseCurrencyInput } from '@/utils/format';
 import { modalActions } from '@/utils/modalActions';
+import { getBillerLogoMap, getBillerSummaryRows, getSavedBillAmountInput, getSavedBillNickname } from '@/utils/savedBills';
 import { validateField } from '@/utils/validators';
-import { router, useFocusEffect, useLocalSearchParams, type Route } from 'expo-router';
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { router, useFocusEffect, useLocalSearchParams } from 'expo-router';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { KeyboardAvoidingView, Platform, View } from 'react-native';
 
 const PayBillScreen = () => {
@@ -41,17 +46,27 @@ const PayBillScreen = () => {
   const preselectedReferenceId = typeof params.selectedPaymentMethodReferenceId === 'string' ? params.selectedPaymentMethodReferenceId : undefined;
   const returnedAmount = typeof params.amount === 'string' ? params.amount : undefined;
   const { data: paymentMethodData } = useGetPaymentMethodsQuery();
-  const isPaymentMethodsEmpty = !paymentMethodData || paymentMethodData.length === 0;
-  const { data: billData, isLoading: billDetailIsLoading } = useGetBillDetailQuery(billingReferenceId);
+  const { data: billersData } = useGetBillersQuery({});
+
+  const savedMethods = getSavedPaymentMethods(paymentMethodData);
+  const {
+    data: billData,
+    isError: billDetailIsError,
+    isLoading: billDetailIsLoading,
+    refetch: refetchBillDetail,
+  } = useGetBillDetailQuery(billingReferenceId);
   const [deleteBill] = useDeleteBillMutation();
   const [deletePaymentMethod, { isLoading: isRemovingCard }] = useDeleteCardPaymentMutation();
-  const isBillDataEmpty = !billData;
-  const primaryMethod = paymentMethodData?.find(method => method.isPrimary === true);
-  const preselectedMethod = preselectedReferenceId ? paymentMethodData?.find(method => method.referenceId === preselectedReferenceId) : undefined;
-  const selectedMethod = preselectedMethod ?? primaryMethod ?? paymentMethodData?.[0];
+  const [pickedMethodId, setPickedMethodId] = useState<string | undefined>();
+  const pickedMethod = savedMethods.find(method => method.referenceId === pickedMethodId);
+  const primaryMethod = savedMethods.find(method => method.isPrimary === true);
+  const preselectedMethod = preselectedReferenceId ? savedMethods.find(method => method.referenceId === preselectedReferenceId) : undefined;
+  const selectedMethod = pickedMethod ?? preselectedMethod ?? primaryMethod ?? savedMethods[0];
   const selectedReferenceId = selectedMethod?.referenceId;
   const [createTransactionComputation, { isLoading: isComputationLoading, reset: resetComputation }] = useCreateTransactionComputationMutation();
-  const [amount, setAmount] = useState(''); 
+  const [amount, setAmount] = useState('');
+
+  const [isAmountEdited, setIsAmountEdited] = useState(false);
   const [errors, setErrors] = useState<Record<string, string | undefined>>({});
   const [touched, setTouched] = useState<Record<string, boolean>>({});
   const [notes, setNotes] = useState('');
@@ -60,7 +75,11 @@ const PayBillScreen = () => {
   const [computationErr, setComputationErr] = useState(false);
   const [cardNeedsReAdd, setCardNeedsReAdd] = useState(false);
   const [paymentOption, setPaymentOption] = useState<'saved' | 'new-card'>('saved');
-  const currentComputationKey = JSON.stringify([billingReferenceId, selectedReferenceId, parseCurrencyInput(amount), notes]);
+  const isSavedCardMode = paymentOption === 'saved';
+  const [otherMethodId, setOtherMethodId] = useState<OneTimePaymentMethodId | null>(null);
+  const savedAmount = useMemo(() => (billData ? getSavedBillAmountInput(billData) : ''), [billData]);
+  const amountValue = isAmountEdited || amount !== '' ? amount : savedAmount;
+  const currentComputationKey = JSON.stringify([billingReferenceId, selectedReferenceId, parseCurrencyInput(amountValue), notes]);
   const computationResponse = resolvedComputation?.key === currentComputationKey ? resolvedComputation.response : null;
   const currentComputation = computationResponse?.computation ?? null;
 
@@ -74,29 +93,24 @@ const PayBillScreen = () => {
   useFocusEffect(
     useCallback(() => {
       clearComputationError();
-      return () => {
-        setAmount('');
-        setErrors({});
-        setTouched({});
-        setNotes('');
-        setResolvedComputation(null);
-      };
     }, [clearComputationError])
   );
 
-  // Start the next payment from a clean form once a payment has succeeded.
   const lastCompletedInvoiceReferenceId = useAppSelector(selectLastCompletedInvoiceReferenceId);
   const handledCompletedInvoiceRef = useRef(lastCompletedInvoiceReferenceId);
   useEffect(() => {
     if (handledCompletedInvoiceRef.current === lastCompletedInvoiceReferenceId) return;
     handledCompletedInvoiceRef.current = lastCompletedInvoiceReferenceId;
     setAmount('');
+    setIsAmountEdited(false);
     setErrors({});
     setTouched({});
     setNotes('');
     setResolvedComputation(null);
     clearComputationError();
     setPaymentOption('saved');
+    setPickedMethodId(undefined);
+    setOtherMethodId(null);
     resetComputation();
   }, [lastCompletedInvoiceReferenceId, resetComputation, clearComputationError]);
 
@@ -114,11 +128,12 @@ const PayBillScreen = () => {
   const handleSetValue = (text: string) => {
     const normalizedValue = normalizeCurrencyInput(text);
     setAmount(normalizedValue);
+    setIsAmountEdited(true);
 
-    if (touched['Amount']) {
-      const message = validateInput('Amount', normalizedValue);
-      setErrors(prev => ({ ...prev, 'Amount': message || undefined }));
-    }
+    setTouched(prev => ({ ...prev, 'Amount': true }));
+
+    const message = validateInput('Amount', normalizedValue);
+    setErrors(prev => ({ ...prev, 'Amount': message || undefined }));
   };
 
   useEffect(() => {
@@ -127,10 +142,10 @@ const PayBillScreen = () => {
       clearTimeout(debounceTimer.current);
     }
 
-    const error = validateField('Amount', amount);
-    const numAmount = parseCurrencyInput(amount);
-    
-    if (!error && numAmount != null && numAmount > 0 && selectedReferenceId) {
+    const error = validateField('Amount', amountValue);
+    const numAmount = parseCurrencyInput(amountValue);
+
+    if (isSavedCardMode && !error && numAmount != null && numAmount > 0 && selectedReferenceId) {
       const baseAmount = numAmount;
       debounceTimer.current = setTimeout(() => {
         const payload = {
@@ -158,14 +173,14 @@ const PayBillScreen = () => {
       setResolvedComputation(null);
       clearComputationError();
     }
-    
+
     return () => {
       active = false;
       if (debounceTimer.current) {
         clearTimeout(debounceTimer.current);
       }
     };
-  }, [amount, notes, selectedReferenceId, billingReferenceId, createTransactionComputation, clearComputationError]);
+  }, [amountValue, notes, selectedReferenceId, billingReferenceId, isSavedCardMode, createTransactionComputation, clearComputationError]);
 
   const handleDeleteBiller = async () => {
     if (!billData) return; 
@@ -173,7 +188,7 @@ const PayBillScreen = () => {
     try {
       await deleteBill(billData.billing_id).unwrap();
       dispatch(showSnackbar({
-        message: `Biller "${merchantName}" deleted successfully.`,
+        message: `Biller "${getSavedBillNickname(billData)}" deleted successfully.`,
         variant: 'success'
       }));
       router.back();
@@ -191,14 +206,14 @@ const PayBillScreen = () => {
 
     dispatch(showModal({
       id: modalId,
-      iconType: 'warning',
-      headerMessage: 'Delete Biller?',
-      bodyMessage: 'Are you sure you want to delete this biller?',
+      variant: 'confirm',
+      iconType: 'delete',
+      headerMessage: `Remove ${billData?.billing_name || merchantName || 'this biller'}?`,
+      bodyMessage: 'It will no longer appear in Saved billers. Your payment history stays.',
       buttonConfig: {
-        primaryLabel: 'Confirm',
-        primaryStyle: { backgroundColor: Colors.error06 },
-        secondaryLabel: 'No',
-        direction: 'row'
+        primaryLabel: 'Remove Biller',
+        secondaryLabel: 'Cancel',
+        direction: 'column'
       }
     }));
   }
@@ -209,7 +224,7 @@ const PayBillScreen = () => {
       params: {
         returnTo: `/bills/one-time-payments/pay/${billingReferenceId}`,
         billingReferenceId,
-        returnAmount: amount,
+        returnAmount: amountValue,
       },
     });
   };
@@ -232,9 +247,7 @@ const PayBillScreen = () => {
   const handleReplaceCardPress = () => {
     if (!selectedMethod) return;
 
-    // The card details screen blocks deleting a default card while others exist, so send the user
-    // there instead of failing the delete.
-    if (selectedMethod.isPrimary && (paymentMethodData?.length ?? 0) > 1) {
+    if (selectedMethod.isPrimary && savedMethods.length > 1) {
       openPaymentMethod(selectedMethod.referenceId, `/bills/one-time-payments/pay/${billingReferenceId}`);
       return;
     }
@@ -256,41 +269,42 @@ const PayBillScreen = () => {
     }));
   };
 
-  const handleSelectPaymentMethod = () => {
+  const validateAmountToPay = (): number | undefined => {
     setTouched(prev => ({ ...prev, 'Amount': true }));
-    const message = validateField('Amount', amount);
+    const message = validateField('Amount', amountValue);
     setErrors(prev => ({ ...prev, 'Amount': message || undefined }));
     if (message) {
       if (message === ERRORS.AMOUNT_REQUIRED) {
         dispatch(showSnackbar({ message, variant: 'error' }));
       }
-      return;
+      return undefined;
     }
 
-    const numAmount = parseCurrencyInput(amount);
+    const numAmount = parseCurrencyInput(amountValue);
     if (numAmount == null || numAmount <= 0) {
       dispatch(showSnackbar({ message: 'Enter a valid amount before paying.', variant: 'error' }));
-      return;
+      return undefined;
     }
 
-    router.push({
-      pathname: '/bills/one-time-payments/payment-methods',
-      params: {
-        billingReferenceId: billingReferenceId as string,
-        baseAmount: String(numAmount),
-        baseCurrency: 'PHP',
-        returnTo: `/bills/one-time-payments/pay/${billingReferenceId}`,
-        returnAmount: String(numAmount),
-      },
+    return numAmount;
+  };
+
+  const handleConfirmOtherMethod = () => {
+    const numAmount = validateAmountToPay();
+    const method = ONE_TIME_PAYMENT_METHODS.find(option => option.value === otherMethodId);
+    if (numAmount === undefined || !method) return;
+
+    openOneTimePaymentMethod({
+      title: method.title,
+      billingReferenceId,
+      baseAmount: String(numAmount),
+      baseCurrency: 'PHP',
+      returnTo: `/bills/one-time-payments/pay/${billingReferenceId}`,
+      returnAmount: String(numAmount),
     });
   };
 
   const handleConfirmPayment = () => {
-    if (isPaymentMethodsEmpty) {
-      handleSelectPaymentMethod();
-      return;
-    }
-
     if (!selectedReferenceId) {
       dispatch(showSnackbar({
         message: 'Select a default payment method before paying.',
@@ -301,7 +315,7 @@ const PayBillScreen = () => {
 
     setTouched(prev => ({ ...prev, 'Amount': true }));
 
-    const message = validateField('Amount', amount);
+    const message = validateField('Amount', amountValue);
     setErrors(prev => ({ ...prev, 'Amount': message || undefined }));
 
     if (message) {
@@ -334,129 +348,148 @@ const PayBillScreen = () => {
       },
     });
   };
-  
+
   if (billDetailIsLoading) {
     return (
-      <GlobalScrollView contentContainerStyle={[globalStyle.screenContainer, globalStyle.screenContainerTop]}>
-        <NavHeaderComponent title='Biller Details' />
-        <BillPaymentSkeleton label="Loading biller details" />
-      </GlobalScrollView>
+      <View style={styles.screen}>
+        <GlobalScrollView contentContainerStyle={styles.content}>
+          <NavHeaderComponent title='Biller Details' variant="outlined" />
+          <View style={styles.body}>
+            <BillPaymentSkeleton label="Loading biller details" />
+          </View>
+        </GlobalScrollView>
+      </View>
     );
   }
-  
+
+  if (billDetailIsError) {
+    return (
+      <View style={styles.screen}>
+        <NavHeaderComponent title='Biller Details' variant="outlined" />
+        <View style={styles.body}>
+          <EmptyStateCard
+            message="Unable to load this biller. Please try again later."
+            onRetry={() => { void refetchBillDetail(); }}
+            retryLabel="Try loading this biller again"
+            variant="error"
+          />
+        </View>
+      </View>
+    );
+  }
+
+  const parsedAmount = parseCurrencyInput(amountValue) ?? 0;
+
+  const hasAmount = parsedAmount > 0 && !validateField('Amount', amountValue);
+  const selectedOtherMethod = ONE_TIME_PAYMENT_METHODS.find(option => option.value === otherMethodId);
+  const hasPaymentChoice = isSavedCardMode ? Boolean(selectedMethod) : Boolean(selectedOtherMethod);
+  const isFeeReady = Boolean(currentComputation) && !computationErr;
+
+  const isFeePending = isSavedCardMode && hasAmount && hasPaymentChoice && !isFeeReady && !computationErr;
+  const canConfirm = hasAmount && hasPaymentChoice && (!isSavedCardMode || isFeeReady);
+  const hasFeeError = isSavedCardMode && hasAmount && hasPaymentChoice && computationErr;
+
+  const footerLabel = !hasAmount
+    ? 'Enter an amount to continue'
+    : !hasPaymentChoice
+      ? (isSavedCardMode ? 'Select a card' : 'Select a payment method')
+      : hasFeeError
+        ? 'Unable to calculate fees'
+        : `Total · ${isSavedCardMode
+          ? `${getProviderDisplay(selectedMethod?.paymentMethodProvider)} •••• ${formatLastFourDigits(selectedMethod?.lastFourCardDigits)}`
+          : selectedOtherMethod?.title}`;
+  const footerTotal = isSavedCardMode && currentComputation
+    ? formatPaymentTotal(currentComputation.totalCurrency, currentComputation.totalAmount)
+    : formatPesoAmount(parsedAmount);
+
+  const summaryRows = billData ? getBillerSummaryRows(billData) : undefined;
+  const billerLogoUrl = billData ? getBillerLogoMap(billersData).get(billData.merchant_id) : undefined;
+
   return (
-    <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === "ios" ? "padding" : "height"} >
-      <GlobalScrollView contentContainerStyle={globalStyle.screenContainer}>
-        <View style={{ flex: 1 }}>
-          <NavHeaderComponent title='Biller Details' rightNav={{ iconType: 'delete', onPress: modalDeleteBiller}} />
-          {(
-            <View style={styles.amountInputContainer}>
-              <View style={styles.amountInput}>
-                <InputValidationComponent
-                  field="Amount"
-                  value={amount}
-                  setValue={handleSetValue}
-                  placeholder="Amount"
-                  errors={errors}
-                  setErrors={setErrors}
-                  touched={touched}
-                  setTouched={setTouched}
-                  validateField={(field, val) => validateField(field, val)}
-                  keyboardType="decimal-pad"
-                  formatAsCurrency
-                />
-                <View style={[styles.computationWrapper, { marginBottom: 24, minHeight: 16, justifyContent: 'center' }]}>
-                  {paymentOption !== 'saved' ? null : isComputationLoading ? (
-                    <InlineLoadingIndicator label="Calculating fees" />
-                  ) : (
-                    <>
-                      {computationErr ? (
-                        <>
-                          <AppText size='extraSmall' mVertical={2} color='error10' style={{textAlign: 'center'}}>
-                            {cardNeedsReAdd
-                              ? 'This card can no longer be used. Please remove it and add it again.'
-                              : 'Unable to calculate fees for this bill. Please try again later or contact support.'}
-                          </AppText>
-                          {cardNeedsReAdd ? (
-                            <AppButton
-                              title="Replace card"
-                              variant="tertiary"
-                              onPress={handleReplaceCardPress}
-                              isLoading={isRemovingCard}
-                              buttonStyle={styles.replaceCardButton}
-                            />
-                          ) : null}
-                        </>
-                      ) : currentComputation ? (
-                        <View>
-                          <AppText size='extraSmall' style={styles.label}>
-                            You will be charged a service fee of{' '}
-                            <AppText size='extraSmall' style={styles.label} weight='700'>
-                              {formatMoney([currentComputation.feeCurrency, currentComputation.feeAmount])}
-                            </AppText>
-                          </AppText>
-                        </View>
-                      ) : null}
-                    </>
-                  )}
-                </View>
-              </View>
-            </View>
-          )}
-          <View style={[globalStyle.outerContainer, { marginBottom: 24 }]}>
-            { isBillDataEmpty && (
-              <EmptyStateCard
-                variant="empty"
-                message="Empty bill details. Please check back later."
+    <KeyboardAvoidingView style={styles.screen} behavior={Platform.OS === "ios" ? "padding" : "height"} >
+      <GlobalScrollView contentContainerStyle={styles.content} keyboardShouldPersistTaps="handled">
+        <NavHeaderComponent
+          rightNav={{ iconType: 'delete', onPress: modalDeleteBiller, accessibilityLabel: 'Remove saved biller' }}
+          title='Biller Details'
+          variant="outlined"
+        />
+        <View style={styles.body}>
+          <View style={styles.amountSection}>
+            {billData ? <SavedBillCard bill={billData} logoUrl={billerLogoUrl} variant="hero" /> : null}
+            <View style={styles.amountField}>
+              <InputValidationComponent
+                field="Amount"
+                value={amountValue}
+                setValue={handleSetValue}
+                label="Amount to pay"
+                placeholder="0.00"
+                prefix="₱"
+                variant="amount"
+                helperText={savedAmount
+                  ? 'Prefilled from your saved biller. You can change it.'
+                  : 'No amount saved for this biller. Enter the amount on your statement.'}
+                errors={errors}
+                setErrors={setErrors}
+                touched={touched}
+                setTouched={setTouched}
+                validateField={(field, val) => validateField(field, val)}
+                keyboardType="decimal-pad"
+                formatAsCurrency
               />
-            )}
-            <View style={styles.wrapper}>
-              <AppText size='base' weight='700' mBottom={8}>Biller Summary</AppText>
-              {billData?.custom_fields && (
-                Object.entries(billData.custom_fields).map(([key, field]) => (
-                  <InfoFieldComponent label={field.text} value={field.value} key={key} />
-                ))
-              )}
+              {isSavedCardMode && hasAmount ? (
+                <FeeNotice
+                  fee={currentComputation ? formatPaymentTotal(currentComputation.feeCurrency, currentComputation.feeAmount) : undefined}
+                  hasError={computationErr}
+                  isCalculating={isComputationLoading}
+                  isReplacingCard={isRemovingCard}
+                  needsCardReplacement={cardNeedsReAdd}
+                  onReplaceCard={handleReplaceCardPress}
+                />
+              ) : null}
             </View>
           </View>
-          <PaymentSourceSelector
-            options={PAYMENT_SOURCE_OPTIONS}
-            selectedValue={paymentOption}
-            onSelect={(value) => setPaymentOption(value as 'saved' | 'new-card')}
-          />
-
-          { paymentOption === 'saved' ? (
-            <>
-              <PaymentMethodCardComponent sectionHeader={{ title: 'Payment Methods' }} route={`/bills/one-time-payments/pay/${billingReferenceId}` as Route} onAddPaymentMethod={handleAddPaymentMethod}/>
-              <SpacerComponent height={24} />
-              { !isPaymentMethodsEmpty && (
-                <AppButton
-                  title="Confirm"
-                  variant="primary"
-                  onPress={handleConfirmPayment}
-                  isLoading={isComputationLoading}
-                  disabled={!currentComputation || isComputationLoading || computationErr}
-                />
-              )}
-            </>
+          {summaryRows ? (
+            <PaymentInfoSection
+              emptyText={BILLER_SUMMARY_EMPTY_LABEL}
+              rows={summaryRows.primary}
+              secondaryRows={summaryRows.secondary}
+              testID="biller-summary"
+              title="Biller Summary"
+              variant="summary"
+            />
           ) : (
-            <>
-              <View style={styles.newCardNotice}>
-                <AppText size='small'>
-                  This payment method will be used only for this payment and won’t be saved to your account.
-                </AppText>
-              </View>
-              <SpacerComponent height={12} />
-              <AppButton
-                title="Select payment method"
-                variant="primary"
-                onPress={handleSelectPaymentMethod}
-              />
-            </>
+            <EmptyStateCard
+              variant="empty"
+              message="Empty bill details. Please check back later."
+            />
           )}
+          <View style={styles.paySection}>
+            <AppText weight="600" style={styles.sectionTitle}>Pay with</AppText>
+            <PaymentSourceSelector
+              options={PAYMENT_SOURCE_OPTIONS}
+              selectedValue={paymentOption}
+              onSelect={(value) => setPaymentOption(value as 'saved' | 'new-card')}
+            />
+            {isSavedCardMode ? (
+              <PaymentMethodsComponent
+                onAddPaymentMethod={handleAddPaymentMethod}
+                onSelectMethod={(method) => setPickedMethodId(method.referenceId)}
+                selectedMethodId={selectedReferenceId}
+              />
+            ) : (
+              <OneTimeMethodList onSelectMethod={setOtherMethodId} selectedMethod={otherMethodId} />
+            )}
+          </View>
         </View>
-        <SpacerComponent height={24} />
       </GlobalScrollView>
+      <PaymentFooter
+        isConfirmDisabled={!canConfirm && !isFeePending}
+        isConfirming={isFeePending}
+        isLabelError={hasFeeError}
+        label={footerLabel}
+        onConfirm={isSavedCardMode ? handleConfirmPayment : handleConfirmOtherMethod}
+        total={footerTotal}
+      />
     </KeyboardAvoidingView>
   );
 };

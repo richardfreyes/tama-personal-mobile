@@ -5,7 +5,6 @@ import { SectionHeaderComponent } from '../../../components/common/SectionHeader
 import { renderWithProviders } from '../../../utils/test-utils';
 
 describe('SectionHeaderComponent', () => {
-  // ---- Rendering ----
 
   it('renders the title text', () => {
     renderWithProviders(
@@ -29,8 +28,6 @@ describe('SectionHeaderComponent', () => {
     expect(screen.queryByText('View All')).toBeNull();
   });
 
-  // ---- Interaction ----
-
   it('calls onViewAllPress when the link is pressed', () => {
     const onViewAllPress = jest.fn();
     renderWithProviders(
@@ -50,8 +47,6 @@ describe('SectionHeaderComponent', () => {
     );
     expect(() => fireEvent.press(screen.getByText('View All'))).not.toThrow();
   });
-
-  // ---- Link accessibility ----
 
   it('exposes the link as a button that says what it opens', () => {
     const onViewAllPress = jest.fn();
@@ -78,8 +73,6 @@ describe('SectionHeaderComponent', () => {
     expect(screen.queryByRole('button')).toBeNull();
   });
 
-  // ---- Optional style props ----
-
   it('renders with custom style props without crashing', () => {
     const { toJSON } = renderWithProviders(
       <SectionHeaderComponent
@@ -92,5 +85,23 @@ describe('SectionHeaderComponent', () => {
     );
     expect(screen.getByText('Styled')).toBeTruthy();
     expect(toJSON()).toBeTruthy();
+  });
+
+  it('shows a count badge beside the title when given a count', () => {
+    renderWithProviders(<SectionHeaderComponent title="Saved billers" count={4} linkText="Manage" />);
+
+    expect(screen.getByText('Saved billers')).toBeTruthy();
+    expect(screen.getByTestId('section-header-count')).toBeTruthy();
+    expect(screen.getByText('4')).toBeTruthy();
+  });
+
+  it('shows a count of zero rather than hiding it', () => {
+    renderWithProviders(<SectionHeaderComponent title="Saved billers" count={0} />);
+    expect(screen.getByText('0')).toBeTruthy();
+  });
+
+  it('has no badge without a count', () => {
+    renderWithProviders(<SectionHeaderComponent title="Saved billers" linkText="Manage" />);
+    expect(screen.queryByTestId('section-header-count')).toBeNull();
   });
 });

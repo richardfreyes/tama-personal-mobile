@@ -1,13 +1,11 @@
 import { useCreateMerchantEnrollmentPaymentVaultMutation, useCreateMerchantTransactionPaymentVaultMutation, useLazyGetMerchantEnrollmentPaymentBinQuery, useLazyGetMerchantEnrollmentQuery, useLazyGetMerchantTransactionPaymentBinQuery, useLazyGetMerchantTransactionQuery } from '@/redux/features/merchants/merchantApi';
+import { ENROLLMENT_CARD_LOG_TAG } from '@/constants/logging';
 import { UseInitializeEnrollmentPaymentMethodParams } from '@/types';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { getPaymentErrorMessage } from '../utils/paymentErrors';
 import { buildVaultPaymentBody, getNormalizedCardDetails } from '../utils/paymentMappers';
 import { getPaymentIntentKey } from '@/utils/paymentIntentKey';
 
-const TAG = '[EnrollmentCard]';
-
-// Status and message only: error bodies can carry provider text but never the card details we send
 const describeError = (error: any): string => `status=${error?.status ?? error?.originalStatus ?? 'n/a'} message=${error?.data?.message ?? error?.message ?? 'n/a'}`;
 
 export const useInitializeEnrollmentPaymentMethod = ({ merchantId, transactionId, xsrfKey, cardPayload, isEnrollment, onError }: UseInitializeEnrollmentPaymentMethodParams) => {
@@ -36,38 +34,37 @@ export const useInitializeEnrollmentPaymentMethod = ({ merchantId, transactionId
 
   const handleCardVerificationSuccess = useCallback(async () => {
     if (hasHandledCardVerificationRef.current) {
-      console.log(TAG, '3DS success ignored: already handled');
+      console.log(ENROLLMENT_CARD_LOG_TAG, '3DS success ignored: already handled');
       return;
     }
     hasHandledCardVerificationRef.current = true;
     setCardVerificationUrl(null);
-    console.log(TAG, '3DS success, refreshing the enrollment');
+    console.log(ENROLLMENT_CARD_LOG_TAG, '3DS success, refreshing the enrollment');
 
     try {
       await getMerchantEnrollment({ merchantCode: merchantId, enrollmentId: transactionId, xsrfKey }).unwrap();
-      console.log(TAG, 'enrollment refreshed, card ready');
+      console.log(ENROLLMENT_CARD_LOG_TAG, 'enrollment refreshed, card ready');
       setIsPaymentMethodReady(true);
     } catch (error: any) {
-      console.log(TAG, 'refreshing the enrollment after 3DS failed:', describeError(error));
+      console.log(ENROLLMENT_CARD_LOG_TAG, 'refreshing the enrollment after 3DS failed:', describeError(error));
       resetPaymentMethodState();
       onError(getPaymentErrorMessage(error));
     }
   }, [getMerchantEnrollment, merchantId, onError, resetPaymentMethodState, transactionId, xsrfKey]);
 
-  // Maya declined or cancelled the 3DS check, or the user closed the page before it finished
   const handleCardVerificationFailure = useCallback((message?: string) => {
     if (hasHandledCardVerificationRef.current) {
-      console.log(TAG, '3DS failure ignored: already handled');
+      console.log(ENROLLMENT_CARD_LOG_TAG, '3DS failure ignored: already handled');
       return;
     }
     hasHandledCardVerificationRef.current = true;
-    console.log(TAG, '3DS failure, showing the declined modal:', message ?? 'no message (page dismissed)');
+    console.log(ENROLLMENT_CARD_LOG_TAG, '3DS failure, showing the declined modal:', message ?? 'no message (page dismissed)');
     resetPaymentMethodState();
     onError(message || 'Card verification was not completed. Please try again or use a different card.');
   }, [onError, resetPaymentMethodState]);
 
   const handleCardVerificationDismissed = useCallback(() => {
-    console.log(TAG, '3DS page dismissed by the user');
+    console.log(ENROLLMENT_CARD_LOG_TAG, '3DS page dismissed by the user');
     handleCardVerificationFailure();
   }, [handleCardVerificationFailure]);
 
@@ -81,7 +78,7 @@ export const useInitializeEnrollmentPaymentMethod = ({ merchantId, transactionId
   useEffect(() => {
     if (!cardPayload || !cardDetails) {
       resetPaymentMethodState();
-      // notifyValidationErrorOnce('missing-card-details', 'Missing card details. Please select a payment method again.');
+
       return;
     }
 
@@ -147,7 +144,7 @@ export const useInitializeEnrollmentPaymentMethod = ({ merchantId, transactionId
               idempotencyKey: getPaymentIntentKey('transaction-vault', initializationKey),
             }).unwrap();
 
-        console.log(TAG, `vault response: httpStatus=${vaultResponse.httpStatus} verificationRequired=${Boolean(vaultResponse.verificationRequired)}`);
+        console.log(ENROLLMENT_CARD_LOG_TAG, `vault response: httpStatus=${vaultResponse.httpStatus} verificationRequired=${Boolean(vaultResponse.verificationRequired)}`);
         if (!isSuccessfulStatus(vaultResponse.httpStatus)) {
           if (isActive) {
             resetPaymentMethodState();
@@ -156,7 +153,6 @@ export const useInitializeEnrollmentPaymentMethod = ({ merchantId, transactionId
           return;
         }
 
-        // Maya asks for 3DS before it will vault the card: hold the card back until it is verified
         if (isEnrollment && vaultResponse.verificationRequired && vaultResponse.redirect) {
           if (isActive) {
             hasHandledCardVerificationRef.current = false;
@@ -183,7 +179,7 @@ export const useInitializeEnrollmentPaymentMethod = ({ merchantId, transactionId
           setIsPaymentMethodReady(true);
         }
       } catch (error: any) {
-        console.log(TAG, 'initialising the payment method failed:', describeError(error));
+        console.log(ENROLLMENT_CARD_LOG_TAG, 'initialising the payment method failed:', describeError(error));
         if (isActive) {
           resetPaymentMethodState();
           onError(getPaymentErrorMessage(error));

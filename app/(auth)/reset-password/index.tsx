@@ -29,13 +29,13 @@ const ResetPasswordScreen = () => {
   const handleSetValue = (field: keyof ResetPasswordInputs, value: string) => {
     setFormData(prev => ({ ...prev, [field]: value }));
   };
-  
+
   const validateInput = (field: string, value: string): string => {
     const message = validateField(field, value);
     setErrors(prev => ({ ...prev, [field]: message || undefined }));
     return message;
   };
-  
+
   const handleSubmit = async () => {
     const emailError = validateInput('email', formData.email);
     if (emailError) {

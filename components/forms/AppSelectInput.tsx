@@ -22,7 +22,7 @@ const AppSelectInput = ({
     setForceUpdateKey(prev => prev + 1); 
     setVisible(true);
   };
-  
+
   const closeMenu = () => {
     setIsFocused(false);
     setVisible(false);

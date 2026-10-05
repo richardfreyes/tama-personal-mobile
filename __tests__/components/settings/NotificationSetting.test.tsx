@@ -13,7 +13,6 @@ const baseProps = {
 };
 
 describe('SettingToggleItem (NotificationSetting)', () => {
-  // ---- Rendering ----
 
   it('renders the label', () => {
     renderWithProviders(<SettingToggleItem {...baseProps} />);
@@ -36,8 +35,6 @@ describe('SettingToggleItem (NotificationSetting)', () => {
     ).toBeNull();
   });
 
-  // ---- Switch state ----
-
   it('reflects the disabled state on the switch', () => {
     renderWithProviders(<SettingToggleItem {...baseProps} isEnabled={false} />);
     expect(screen.UNSAFE_getByType(Switch).props.value).toBe(false);
@@ -47,8 +44,6 @@ describe('SettingToggleItem (NotificationSetting)', () => {
     renderWithProviders(<SettingToggleItem {...baseProps} isEnabled />);
     expect(screen.UNSAFE_getByType(Switch).props.value).toBe(true);
   });
-
-  // ---- Interaction ----
 
   it('calls onToggle when the row is pressed', () => {
     const onToggle = jest.fn();

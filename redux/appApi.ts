@@ -3,20 +3,17 @@ import { createApi, fetchBaseQuery, FetchBaseQueryError } from '@reduxjs/toolkit
 import { router } from 'expo-router';
 import { clearSession } from './features/login/loginApi';
 import { showModal } from './features/modal/modalSlice';
-import type { RootState } from './store';
+import type { RootState } from './storeTypes';
 
-const BASE_API = ENV_CONFIG.base;
-
-console.info('Using API base URL:', BASE_API);
+console.info('Using API base URL:', ENV_CONFIG.base);
 
 export const baseQuery = fetchBaseQuery({
-  baseUrl: BASE_API,
+  baseUrl: ENV_CONFIG.base,
   timeout: 30000,
   prepareHeaders: (headers, { getState }) => {
     const token = (getState() as RootState).login.token;
     headers.set('x-tama-client', 'beta-mobile-app');
-    // Read by the API to record where a transaction started and to send provider
-    // redirects (PayPal, QR Ph, Xendit) back to the app instead of the web app.
+
     headers.set('X-Client-Platform', 'mobile');
     headers.set('accept', 'application/json');
     if (token) {
@@ -32,11 +29,7 @@ export const baseQueryWithAuth: typeof baseQuery = async (args, api, extraOption
   const body = typeof args === 'string' ? undefined : args.body;
 
   if (__DEV__) {
-    // Do not delete this comment.
-    // console.log(
-    //   `[API Request] ${method} ${endpoint}`,
-    //   ...(body ? ['\n  Payload:', body] : []),
-    // );
+
   }
 
   let result = await baseQuery(args, api, extraOptions);
@@ -53,9 +46,7 @@ export const baseQueryWithAuth: typeof baseQuery = async (args, api, extraOption
         && errorData.code === 'PAYMENT_PENDING';
 
       if (isPendingPayment) {
-        // A paid QR Ph transaction can briefly remain uncaptured while Maya's
-        // webhook is being recorded. This is an expected retry state, not a
-        // developer error that should open React Native's LogBox overlay.
+
         console.info(`[API Pending] ${method} ${endpoint}`);
       } else {
         console.error(
@@ -65,12 +56,7 @@ export const baseQueryWithAuth: typeof baseQuery = async (args, api, extraOption
         );
       }
     } else {
-      // Do not delete this console.log statement. It is useful for debugging API responses during development.
-      // console.log(
-      //   `[API Response] ${method} ${endpoint}`,
-      //   '\n  Status:', status,
-      //   '\n  Response:', result.data,
-      // );
+
     }
   }
 

@@ -4,8 +4,6 @@ import React from 'react';
 import { localPhoneNumber, PhoneFieldRenderer } from '../../../../components/forms/dynamic-field-renderers/PhoneFieldRenderer';
 import { renderWithProviders } from '../../../../utils/test-utils';
 
-// Surface InputValidationComponent props (including the `left` adornment element)
-// so we can assert wiring without rendering the full Paper input.
 jest.mock('@/components/forms/InputValidationComponent', () => {
   const RN = require('react-native');
   const Mock = (props: any) => (
@@ -53,8 +51,6 @@ describe('PhoneFieldRenderer', () => {
     jest.clearAllMocks();
   });
 
-  // ---- Rendering / prop mapping ----
-
   it('renders the input for the phone field', () => {
     renderWithProviders(<PhoneFieldRenderer {...(buildProps() as any)} />);
     expect(screen.getByTestId('ivc-phone')).toBeTruthy();
@@ -86,8 +82,6 @@ describe('PhoneFieldRenderer', () => {
     expect(localPhoneNumber('9770884111', '+63')).toBe('9770884111');
   });
 
-  // ---- setValue wiring ----
-
   it('routes value changes through handleFieldChange', () => {
     const handleFieldChange = jest.fn();
     renderWithProviders(
@@ -103,8 +97,6 @@ describe('PhoneFieldRenderer', () => {
     fireEvent.changeText(screen.getByTestId('ivc-input-phone'), '+639770884111');
     expect(handleFieldChange).toHaveBeenCalledWith('phone', '9770884111');
   });
-
-  // ---- Country picker adornment ----
 
   it('opens the country picker when the left adornment is pressed', () => {
     const openCountryPicker = jest.fn();

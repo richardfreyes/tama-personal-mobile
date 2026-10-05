@@ -1,22 +1,5 @@
 import { describe, expect, it } from '@jest/globals';
-import {
-  formatAmount,
-  formatCurrencyAmount,
-  formatCustomerMobile,
-  formatEnrollmentAmount,
-  formatExpiryDate,
-  formatLineItemFee,
-  formatMoney,
-  formatWithSpaces,
-  getFirstString,
-  getSearchParam,
-  isValidLineItemFee,
-  maskCardNumber,
-  normalizeMerchantFieldValue,
-  normalizeName,
-  removeCurrencySeparators,
-  resolveDisplayValue,
-} from '@/utils/format';
+import { formatAmount, formatCurrencyAmount, formatCustomerMobile, formatEnrollmentAmount, formatExpiryDate, formatLineItemFee, formatMobileNumber, formatMoney, formatPaymentTotal, formatWithSpaces, getFirstString, getSearchParam, isValidLineItemFee, maskCardNumber, normalizeMerchantFieldValue, normalizeName, removeCurrencySeparators, resolveDisplayValue, } from '@/utils/format';
 
 describe('removeCurrencySeparators', () => {
   it('strips commas from formatted numbers', () => {
@@ -233,5 +216,40 @@ describe('formatWithSpaces', () => {
 
   it('handles strings shorter than 4 characters', () => {
     expect(formatWithSpaces('123')).toBe('123');
+  });
+});
+
+describe('formatMobileNumber', () => {
+  it('joins the calling code and a national number in groups', () => {
+    expect(formatMobileNumber('9770884111', '+63')).toBe('+63 977 088 4111');
+    expect(formatMobileNumber('09770884111', '+63')).toBe('+63 977 088 4111');
+  });
+
+  it('splits a number that already carries its calling code', () => {
+    expect(formatMobileNumber('+639770884111', '+63')).toBe('+63 977 088 4111');
+    expect(formatMobileNumber('+639770884111', '63')).toBe('+63 977 088 4111');
+  });
+
+  it('returns a number it cannot split as entered', () => {
+    expect(formatMobileNumber('+14155552671')).toBe('+14155552671');
+    expect(formatMobileNumber('+14155552671', '+63')).toBe('+14155552671');
+  });
+
+  it('groups only 10-digit national numbers', () => {
+    expect(formatMobileNumber('12321321', '+63')).toBe('+63 12321321');
+    expect(formatMobileNumber('9770884111')).toBe('977 088 4111');
+  });
+
+  it('is empty without a number', () => {
+    expect(formatMobileNumber('', '+63')).toBe('');
+    expect(formatMobileNumber(undefined, '+63')).toBe('');
+    expect(formatMobileNumber(null)).toBe('');
+  });
+});
+
+describe('formatPaymentTotal', () => {
+  it('shows pesos with the peso sign and other currencies with their code', () => {
+    expect(formatPaymentTotal('PHP', 1250)).toBe('₱ 1,250.00');
+    expect(formatPaymentTotal('USD', 25.5)).toBe('USD 25.50');
   });
 });

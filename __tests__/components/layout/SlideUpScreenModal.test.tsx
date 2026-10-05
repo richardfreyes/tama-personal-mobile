@@ -5,8 +5,6 @@ import { Text } from 'react-native';
 import { SlideUpScreenModal } from '../../../components/layout/SlideUpScreenModal';
 import { renderWithProviders } from '../../../utils/test-utils';
 
-// @gorhom/bottom-sheet is not handled by the global setup; mock it with a
-// forwardRef view that exposes the imperative methods the component relays.
 jest.mock('@gorhom/bottom-sheet', () => {
   const React = require('react');
   const RN = require('react-native');
@@ -28,7 +26,6 @@ jest.mock('@gorhom/bottom-sheet', () => {
 });
 
 describe('SlideUpScreenModal', () => {
-  // ---- Rendering ----
 
   it('renders its children', () => {
     renderWithProviders(
@@ -47,8 +44,6 @@ describe('SlideUpScreenModal', () => {
     );
     expect(screen.getByTestId('bottom-sheet')).toBeTruthy();
   });
-
-  // ---- Imperative ref ----
 
   it('forwards the bottom sheet instance through the ref', () => {
     const ref = React.createRef<any>();

@@ -8,6 +8,7 @@ import { AppText } from './AppText';
 
 export const SectionHeaderComponent: React.FC<SectionHeaderProps> = ({
   title,
+  count,
   linkText,
   onViewAllPress = () => {},
   titleStyle,
@@ -16,7 +17,14 @@ export const SectionHeaderComponent: React.FC<SectionHeaderProps> = ({
 }) => {
   return (
     <View style={[styles.container, containerStyle]}>
-      <AppText weight="600" style={[styles.title, titleStyle]}>{title}</AppText>
+      <View style={styles.titleGroup}>
+        <AppText weight="600" numberOfLines={count === undefined ? undefined : 1} style={[styles.title, titleStyle]}>{title}</AppText>
+        {count === undefined ? null : (
+          <View style={styles.countBadge} testID="section-header-count">
+            <AppText weight="600" style={styles.countText}>{count}</AppText>
+          </View>
+        )}
+      </View>
       {linkText ? (
         <Pressable
           accessibilityLabel={title ? `${linkText} ${title}` : linkText}

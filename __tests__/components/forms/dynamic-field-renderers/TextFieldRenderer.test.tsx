@@ -4,8 +4,6 @@ import React from 'react';
 import { TextFieldRenderer } from '../../../../components/forms/dynamic-field-renderers/TextFieldRenderer';
 import { renderWithProviders } from '../../../../utils/test-utils';
 
-// Isolate the renderer by replacing the wrapped input with a lightweight mock
-// that surfaces the props it receives.
 jest.mock('@/components/forms/InputValidationComponent', () => {
   const RN = require('react-native');
   const Mock = (props: any) => (
@@ -54,8 +52,6 @@ describe('TextFieldRenderer', () => {
     jest.clearAllMocks();
   });
 
-  // ---- Rendering / prop mapping ----
-
   it('renders the input for the field key', () => {
     renderWithProviders(<TextFieldRenderer {...(buildProps() as any)} />);
     expect(screen.getByTestId('ivc-name')).toBeTruthy();
@@ -97,8 +93,6 @@ describe('TextFieldRenderer', () => {
     expect(screen.getByTestId('ivc-input-name').props.placeholder).toBe('Enter full name');
   });
 
-  // ---- setValue wiring ----
-
   it('routes value changes through handleFieldChange with the field key', () => {
     const handleFieldChange = jest.fn();
     renderWithProviders(
@@ -107,8 +101,6 @@ describe('TextFieldRenderer', () => {
     fireEvent.changeText(screen.getByTestId('ivc-input-name'), 'Bob');
     expect(handleFieldChange).toHaveBeenCalledWith('name', 'Bob');
   });
-
-  // ---- keyboardType per field type ----
 
   it('uses an email keyboard for email fields', () => {
     renderWithProviders(
@@ -159,8 +151,6 @@ describe('TextFieldRenderer', () => {
     );
   });
 
-  // ---- maxLength handling ----
-
   it('passes the field maxLength for non-currency fields', () => {
     renderWithProviders(<TextFieldRenderer {...(buildProps() as any)} />);
     expect(screen.getByTestId('ivc-input-name').props.maxLength).toBe(50);
@@ -178,8 +168,6 @@ describe('TextFieldRenderer', () => {
       screen.getByTestId('ivc-input-name').props.maxLength,
     ).toBeUndefined();
   });
-
-  // ---- multiline branch ----
 
   it('does not set a keyboardType when multiline is true', () => {
     renderWithProviders(

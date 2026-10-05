@@ -2,33 +2,11 @@ import { beforeEach, describe, expect, it, jest } from '@jest/globals';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as SecureStore from 'expo-secure-store';
 import { configureStore } from '@reduxjs/toolkit';
-import csrfReducer, {
-  selectCsrf,
-  setXsrfToken,
-} from '@/redux/features/csrf/csrfSlice';
-import loginReducer, {
-  logout,
-  retrieveToken,
-  setToken,
-} from '@/redux/features/login/loginApi';
-import modalReducer, {
-  hideModal,
-  selectModal,
-  showModal,
-} from '@/redux/features/modal/modalSlice';
-import enrollmentReviewReducer, {
-  clearEnrollmentCardPayload,
-  clearEnrollmentTransactionResponse,
-  selectEnrollmentReview,
-  setEnrollmentCardPayload,
-  setEnrollmentTransactionResponse,
-  triggerEnrollmentFormReset,
-} from '@/redux/features/enrollments/review/reviewSlice';
-import snackbarReducer, {
-  hideSnackbar,
-  selectSnackbar,
-  showSnackbar,
-} from '@/redux/features/snackbar/snackbarSlice';
+import csrfReducer, { selectCsrf, setXsrfToken, } from '@/redux/features/csrf/csrfSlice';
+import loginReducer, { logout, retrieveToken, setToken, } from '@/redux/features/login/loginApi';
+import modalReducer, { hideModal, selectModal, showModal, } from '@/redux/features/modal/modalSlice';
+import enrollmentReviewReducer, { clearEnrollmentCardPayload, clearEnrollmentTransactionResponse, selectEnrollmentReview, setEnrollmentCardPayload, setEnrollmentTransactionResponse, triggerEnrollmentFormReset, } from '@/redux/features/enrollments/review/reviewSlice';
+import snackbarReducer, { hideSnackbar, selectSnackbar, showSnackbar, } from '@/redux/features/snackbar/snackbarSlice';
 
 jest.mock('@react-native-async-storage/async-storage', () => ({
   getItem: jest.fn<(...args: any[]) => any>(),

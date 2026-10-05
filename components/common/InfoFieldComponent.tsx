@@ -9,7 +9,17 @@ import { View } from 'react-native';
 import { TextInput as PaperTextInput } from 'react-native-paper';
 import { AppText } from './AppText';
 
-const InfoFieldComponent: React.FC<InfoFieldProps> = ({ label, value, containerStyle, labelStyle, valueStyle, weight = '400', copy }) => {
+const InfoFieldComponent: React.FC<InfoFieldProps> = ({
+  label,
+  value,
+  containerStyle,
+  labelStyle,
+  valueStyle,
+  weight = '400',
+  copy,
+  variant = 'default',
+  emptyText = '---',
+}) => {
   const dispatch = useAppDispatch();
   const displayValue = formatMonetaryDisplayValue(value, label) || value;
 
@@ -21,14 +31,20 @@ const InfoFieldComponent: React.FC<InfoFieldProps> = ({ label, value, containerS
       variant: 'success'
     }));
   };
-  
+
+  const isSummary = variant === 'summary';
+  const valueWeight = isSummary ? (displayValue ? '500' : '400') : weight;
+
   return (
-    <View style={[styles.fieldContainer, containerStyle]}>
-      <AppText style={[styles.fieldLabel, labelStyle]}>
+    <View style={[styles.fieldContainer, isSummary && styles.summaryContainer, containerStyle]}>
+      <AppText style={[isSummary ? styles.summaryLabel : styles.fieldLabel, labelStyle]}>
         {label}
       </AppText>
-      <AppText style={[styles.fieldValue, valueStyle]} weight={weight}>
-        {displayValue || '---'}
+      <AppText
+        style={[isSummary ? (displayValue ? styles.summaryValue : styles.summaryEmpty) : styles.fieldValue, valueStyle]}
+        weight={valueWeight}
+      >
+        {displayValue || emptyText}
       </AppText>
       {copy && value && (
         <View style={{ marginRight: 16 }}>
@@ -40,7 +56,7 @@ const InfoFieldComponent: React.FC<InfoFieldProps> = ({ label, value, containerS
           />
         </View>
       )}
-      <View style={styles.fieldDivider} />
+      <View style={[styles.fieldDivider, isSummary && styles.summaryDivider]} />
     </View>
   )
 };

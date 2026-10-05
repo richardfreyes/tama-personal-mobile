@@ -3,14 +3,13 @@ import { fireEvent, screen } from '@testing-library/react-native';
 import React from 'react';
 import { StyleSheet } from 'react-native';
 import EmptyStateCard from '../../../components/common/EmptyStateCard';
+import { Colors } from '../../../styles/common/colors';
 import { renderWithProviders } from '../../../utils/test-utils';
 
 describe('EmptyStateCard', () => {
   afterEach(() => {
     jest.clearAllMocks();
   });
-
-  // ---- Message rendering ----
 
   it('renders the message text', () => {
     renderWithProviders(<EmptyStateCard message="No items found" />);
@@ -35,8 +34,6 @@ describe('EmptyStateCard', () => {
     renderWithProviders(<EmptyStateCard message="Default state" />);
     expect(screen.getByText('Default state')).toBeTruthy();
   });
-
-  // ---- Custom styles ----
 
   it('applies custom containerStyle', () => {
     const customStyle = { backgroundColor: 'red', padding: 20 };
@@ -78,8 +75,6 @@ describe('EmptyStateCard', () => {
     );
   });
 
-  // ---- Error with retry ----
-
   it('announces an error that can be retried as an alert with a Try Again button', () => {
     const onRetry = jest.fn();
     renderWithProviders(
@@ -107,8 +102,6 @@ describe('EmptyStateCard', () => {
     expect(screen.queryByRole('button')).toBeNull();
   });
 
-  // ---- Empty with an icon ----
-
   it('explains an empty section with a title and description when it has an icon', () => {
     renderWithProviders(
       <EmptyStateCard
@@ -135,8 +128,6 @@ describe('EmptyStateCard', () => {
     expect(screen.queryByText('Ignored title')).toBeNull();
   });
 
-  // ---- Edge cases ----
-
   it('renders with only the required message prop', () => {
     renderWithProviders(<EmptyStateCard message="Minimal" />);
     expect(screen.getByText('Minimal')).toBeTruthy();
@@ -145,5 +136,68 @@ describe('EmptyStateCard', () => {
   it('renders without crashing when message is an empty string', () => {
     const { toJSON } = renderWithProviders(<EmptyStateCard message="" />);
     expect(toJSON()).toBeTruthy();
+  });
+
+  describe('dashed appearance', () => {
+    it('is an outlined row with a title and description', () => {
+      renderWithProviders(
+        <EmptyStateCard
+          appearance="dashed"
+          icon="bookmark"
+          message="Billers you save will appear here for one-tap payments."
+          title="No saved billers yet"
+        />,
+      );
+
+      expect(screen.getByText('No saved billers yet')).toBeTruthy();
+      expect(screen.getByText('Billers you save will appear here for one-tap payments.')).toBeTruthy();
+    });
+
+    it('draws a dashed 1.5pt outline in the muted colour', () => {
+      const { toJSON } = renderWithProviders(
+        <EmptyStateCard appearance="dashed" icon="bookmark" message="Nothing here." title="Empty" />,
+      );
+      const root = (toJSON() as any);
+      const style = StyleSheet.flatten(root.props.style);
+
+      expect(style).toEqual(expect.objectContaining({
+        borderColor: Colors.outlineMuted,
+        borderRadius: 20,
+        borderStyle: 'dashed',
+        borderWidth: 1.5,
+        padding: 18,
+      }));
+    });
+  });
+
+  describe('centered appearance', () => {
+    it('stacks the title and message and offers one action', () => {
+      const onAction = jest.fn();
+      renderWithProviders(
+        <EmptyStateCard
+          actionLabel="Clear Search"
+          appearance="centered"
+          icon="search"
+          message="Nothing matches “Vertis North”."
+          onAction={onAction}
+          title="No billers found"
+        />,
+      );
+
+      expect(screen.getByText('No billers found')).toBeTruthy();
+      expect(screen.getByText('Nothing matches “Vertis North”.')).toBeTruthy();
+      fireEvent.press(screen.getByRole('button', { name: 'Clear Search' }));
+      expect(onAction).toHaveBeenCalledTimes(1);
+    });
+
+    it('has no button without an action', () => {
+      renderWithProviders(<EmptyStateCard appearance="centered" icon="search" message="Nothing." title="Empty" />);
+      expect(screen.queryByRole('button')).toBeNull();
+    });
+  });
+
+  it('keeps the solid card when there is no icon, whatever the appearance', () => {
+    renderWithProviders(<EmptyStateCard appearance="dashed" message="Plain message" />);
+    expect(screen.getByText('Plain message')).toBeTruthy();
   });
 });

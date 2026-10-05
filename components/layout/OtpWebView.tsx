@@ -2,18 +2,16 @@ import { NativeLoadingIndicator } from '@/components/common/Loading';
 import { VALIDATORS } from '@/constants';
 import { COMMON } from '@/constants/common';
 import { ENV_CONFIG } from '@/constants/env';
+import { OTP_WEB_VIEW_LOG_TAG } from '@/constants/logging';
 import { Colors } from '@/styles/common/colors';
 import { otpWebViewStyles as styles } from '@/styles/components/layout/OtpWebView';
 import { OtpWebViewProps } from '@/types';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Modal, Text, TouchableOpacity, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { WebView, WebViewNavigation } from 'react-native-webview';
+import { WebView, WebViewNavigation } from 'react-native-webview/index';
 import type { ShouldStartLoadRequest, WebViewErrorEvent, WebViewHttpErrorEvent, WebViewMessageEvent, WebViewNavigationEvent } from 'react-native-webview/lib/WebViewTypes';
 
-const TAG = '[OtpWebView]';
-
-// Path only: callback URLs carry reference ids and the provider's query strings are not needed to debug
 const describeUrl = (rawUrl: string): string => {
   try {
     const parsed = new URL(rawUrl);
@@ -41,7 +39,7 @@ export const OtpWebView = ({
   successMode = 'navigation',
 }: OtpWebViewProps) => {
   const insets = useSafeAreaInsets();
-  const webViewRef = useRef<WebView>(null);
+  const webViewRef = useRef<WebView<object>>(null);
   const hasCompletedRef = useRef(false);
   const failedSuccessUrlRef = useRef<string | null>(null);
   const successCallbackStartedRef = useRef(false);
@@ -158,7 +156,7 @@ export const OtpWebView = ({
   const dismiss = useCallback(() => {
     if (hasCompletedRef.current) return;
 
-    console.log(TAG, 'closed with Done before a result');
+    console.log(OTP_WEB_VIEW_LOG_TAG, 'closed with Done before a result');
     clearFailureCallbackTimer();
     hasCompletedRef.current = true;
     onComplete();
@@ -172,17 +170,15 @@ export const OtpWebView = ({
       return;
     }
 
-    // The provider redirects on its own a few seconds after its confirmation page appears, so
-    // closing now would cancel a card that is about to be verified. Wait for that redirect instead.
     if (dismissWaitTimerRef.current) return;
 
-    console.log(TAG, 'Done tapped, waiting for the provider redirect');
+    console.log(OTP_WEB_VIEW_LOG_TAG, 'Done tapped, waiting for the provider redirect');
     setIsWaitingOnDismiss(true);
     dismissWaitTimerRef.current = setTimeout(() => {
       dismissWaitTimerRef.current = null;
       if (hasCompletedRef.current) return;
 
-      console.log(TAG, 'no provider redirect after waiting, giving up');
+      console.log(OTP_WEB_VIEW_LOG_TAG, 'no provider redirect after waiting, giving up');
       setIsWaitingOnDismiss(false);
       onError?.('Card verification did not finish. Please try again.');
       dismiss();
@@ -192,7 +188,7 @@ export const OtpWebView = ({
   const completeNativeSuccess = useCallback(() => {
     if (hasCompletedRef.current) return;
 
-    console.log(TAG, 'success: callback finished and redirected on');
+    console.log(OTP_WEB_VIEW_LOG_TAG, 'success: callback finished and redirected on');
     clearFailureCallbackTimer();
     hasCompletedRef.current = true;
     successCallbackStartedRef.current = false;
@@ -202,7 +198,7 @@ export const OtpWebView = ({
   const completeFailure = useCallback(() => {
     if (hasCompletedRef.current) return;
 
-    console.log(TAG, `failure (success callback started=${successCallbackStartedRef.current}, failure callback started=${failureCallbackStartedRef.current})`);
+    console.log(OTP_WEB_VIEW_LOG_TAG, `failure (success callback started=${successCallbackStartedRef.current}, failure callback started=${failureCallbackStartedRef.current})`);
     clearFailureCallbackTimer();
     hasCompletedRef.current = true;
     successCallbackStartedRef.current = false;
@@ -248,7 +244,7 @@ export const OtpWebView = ({
 
     const requestUrl = request.url || '';
     const isTopFrame = request.isTopFrame !== false;
-    if (isTopFrame) console.log(TAG, 'navigating to', describeUrl(requestUrl));
+    if (isTopFrame) console.log(OTP_WEB_VIEW_LOG_TAG, 'navigating to', describeUrl(requestUrl));
     const isFailureCallback = successMode === 'message'
       && isTopFrame
       && isFailureUrl(requestUrl);
@@ -302,7 +298,7 @@ export const OtpWebView = ({
 
   const handleHttpError = useCallback((event: WebViewHttpErrorEvent) => {
     const { statusCode, url: requestUrl } = event.nativeEvent;
-    console.log(TAG, `HTTP ${statusCode} from`, describeUrl(requestUrl));
+    console.log(OTP_WEB_VIEW_LOG_TAG, `HTTP ${statusCode} from`, describeUrl(requestUrl));
 
     if (isFailureUrl(requestUrl)) {
       completeFailure();
@@ -341,7 +337,7 @@ export const OtpWebView = ({
         completeFailure();
       }
     } catch {
-      // Ignore unrelated or malformed messages from the verification page.
+
     }
   }, [completeFailure, completeNativeSuccess, successMode]);
 
@@ -382,7 +378,7 @@ export const OtpWebView = ({
           </View>
         ) : null}
 
-        <WebView
+        <WebView<object>
           ref={webViewRef}
           source={{ uri: sourceUrl }}
           style={styles.webView}

@@ -20,7 +20,7 @@ const CheckEmailScreen = () => {
         <AppText weight='700' mBottom={16} size='extraExtraLarge' color='maroon10'>Check Your Email</AppText>
 
         <AppText size='base'>
-          We've sent instructions to recover your account through email. Please check your inbox and follow the instructions to reset your password.
+          {"We've sent instructions to recover your account through email. Please check your inbox and follow the instructions to reset your password."}
         </AppText>
       </View>
 

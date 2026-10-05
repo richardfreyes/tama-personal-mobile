@@ -19,14 +19,12 @@ function TabBarAnimationCapture() {
   return null;
 }
 
-// ---- helpers ----
-
 type RouteEntry = { key: string; name: string };
 
 function buildNavProps(overrides: {
   routes?: RouteEntry[];
   index?: number;
-  navigate?: jest.Mock;
+  navigateToTab?: jest.Mock;
   emit?: jest.Mock;
 } = {}) {
   const routes: RouteEntry[] = overrides.routes ?? [
@@ -36,7 +34,7 @@ function buildNavProps(overrides: {
     { key: 'payments-key', name: 'payment-methods/index' },
   ];
 
-  const navigate = overrides.navigate ?? jest.fn();
+  const navigateToTab = overrides.navigateToTab ?? jest.fn();
   const emit = overrides.emit ?? jest.fn(() => ({ defaultPrevented: false }));
 
   return {
@@ -55,12 +53,12 @@ function buildNavProps(overrides: {
         {
           options: {},
           route: r,
-          navigation: { navigate, emit } as any,
           render: () => null,
         },
       ]),
     ),
-    navigation: { navigate, emit } as any,
+    emitter: { emit } as any,
+    navigateToTab,
     insets: { top: 0, bottom: 0, left: 0, right: 0 },
   };
 }
@@ -77,7 +75,6 @@ function renderNavBar(overrides: Parameters<typeof buildNavProps>[0] = {}) {
   };
 }
 
-/** Return all TouchableOpacity instances (the tab buttons). */
 function getTabButtons() {
   return screen.UNSAFE_getAllByType(TouchableOpacity);
 }
@@ -99,7 +96,20 @@ describe('FloatingNavBar', () => {
     jest.restoreAllMocks();
   });
 
-  // ---- Rendering ----
+  it('steps aside on Biller Details, which has its own footer', () => {
+    mockUseSegments.mockReturnValue(['(app)', 'bills', 'one-time-payments', 'pay', '[billingReferenceId]']);
+    mockUsePathname.mockReturnValue('/bills/one-time-payments/pay/bill-1');
+    renderNavBar();
+
+    expect(screen.UNSAFE_queryAllByType(TouchableOpacity)).toHaveLength(0);
+  });
+
+  it('stays on the other payment screens', () => {
+    mockUseSegments.mockReturnValue(['(app)', 'bills', 'one-time-payments', 'pay', 'confirm-payment']);
+    renderNavBar();
+
+    expect(getTabButtons()).toHaveLength(4);
+  });
 
   it('renders without crashing', () => {
     const { toJSON } = renderNavBar();
@@ -204,15 +214,13 @@ describe('FloatingNavBar', () => {
     expect(getTabButtons()).toHaveLength(1);
   });
 
-  // ---- Tab press — navigation ----
-
   it('navigates to the pressed tab when it is not focused', () => {
-    const navigate = jest.fn();
+    const navigateToTab = jest.fn();
     const emit = jest.fn(() => ({ defaultPrevented: false }));
-    renderNavBar({ index: 0, navigate, emit });
+    renderNavBar({ index: 0, navigateToTab, emit });
 
     const buttons = getTabButtons();
-    fireEvent.press(buttons[2]); // History tab
+    fireEvent.press(buttons[2]);
 
     expect(emit).toHaveBeenCalledWith(
       expect.objectContaining({
@@ -221,31 +229,31 @@ describe('FloatingNavBar', () => {
         canPreventDefault: true,
       }),
     );
-    expect(navigate).toHaveBeenCalledWith('transactions/index', { merge: true });
+    expect(navigateToTab).toHaveBeenCalledWith('transactions-key');
   });
 
   it('does not navigate when the pressed tab is already focused', () => {
-    const navigate = jest.fn();
+    const navigateToTab = jest.fn();
     const emit = jest.fn(() => ({ defaultPrevented: false }));
-    renderNavBar({ index: 0, navigate, emit });
+    renderNavBar({ index: 0, navigateToTab, emit });
 
     const buttons = getTabButtons();
-    fireEvent.press(buttons[0]); // already focused
+    fireEvent.press(buttons[0]);
 
     expect(emit).toHaveBeenCalledTimes(1);
-    expect(navigate).not.toHaveBeenCalled();
+    expect(navigateToTab).not.toHaveBeenCalled();
   });
 
   it('returns to the section root when the active tab is pressed from a nested screen', () => {
     mockUsePathname.mockReturnValue('/bills/one-time-payments/saved');
     mockUseSegments.mockReturnValue(['(app)', 'bills', 'one-time-payments', 'saved']);
-    const navigate = jest.fn();
-    renderNavBar({ index: 0, navigate });
+    const navigateToTab = jest.fn();
+    renderNavBar({ index: 0, navigateToTab });
 
-    fireEvent.press(getTabButtons()[1]); // Bills is already the active section
+    fireEvent.press(getTabButtons()[1]);
 
     expect(router.replace).toHaveBeenCalledWith('/bills');
-    expect(navigate).not.toHaveBeenCalled();
+    expect(navigateToTab).not.toHaveBeenCalled();
   });
 
   it('leaves the screen alone when the active tab is already on its root', () => {
@@ -259,15 +267,15 @@ describe('FloatingNavBar', () => {
   });
 
   it('does not navigate when the event is default-prevented', () => {
-    const navigate = jest.fn();
+    const navigateToTab = jest.fn();
     const emit = jest.fn(() => ({ defaultPrevented: true }));
-    renderNavBar({ index: 0, navigate, emit });
+    renderNavBar({ index: 0, navigateToTab, emit });
 
     const buttons = getTabButtons();
     fireEvent.press(buttons[1]);
 
     expect(emit).toHaveBeenCalledTimes(1);
-    expect(navigate).not.toHaveBeenCalled();
+    expect(navigateToTab).not.toHaveBeenCalled();
   });
 
   it('emits tabPress with the correct target key for each tab', () => {
@@ -277,36 +285,32 @@ describe('FloatingNavBar', () => {
 
     const expectedKeys = ['dashboard-key', 'bills-key', 'transactions-key', 'payments-key'];
     buttons.forEach((btn, i) => {
-      if (i === 0) return; // skip focused tab
+      if (i === 0) return;
       fireEvent.press(btn);
       const lastCall = ((emit as jest.Mock).mock.calls.at(-1)?.[0]) as { target: string };
       expect(lastCall.target).toBe(expectedKeys[i]);
     });
   });
 
-  it('navigates to the correct route name for each tab', () => {
-    const navigate = jest.fn();
+  it('navigates to the correct route key for each tab', () => {
+    const navigateToTab = jest.fn();
     const emit = jest.fn(() => ({ defaultPrevented: false }));
-    renderNavBar({ index: 0, navigate, emit });
+    renderNavBar({ index: 0, navigateToTab, emit });
     const buttons = getTabButtons();
 
-    const expectedRoutes = ['dashboard', 'bills/index', 'transactions/index', 'payment-methods/index'];
+    const expectedRouteKeys = ['dashboard-key', 'bills-key', 'transactions-key', 'payments-key'];
     buttons.forEach((btn, i) => {
       if (i === 0) return;
       fireEvent.press(btn);
-      const lastCall = (navigate as jest.Mock).mock.calls.at(-1);
-      expect(lastCall?.[0]).toBe(expectedRoutes[i]);
-      expect(lastCall?.[1]).toEqual({ merge: true });
+      const lastCall = (navigateToTab as jest.Mock).mock.calls.at(-1);
+      expect(lastCall?.[0]).toBe(expectedRouteKeys[i]);
     });
   });
 
-  // ---- Focus state / icon color ----
-
   it('passes the active color to the focused icon and inactive color to others', () => {
-    renderNavBar({ index: 2 }); // Bills is focused in navigator state
+    renderNavBar({ index: 2 });
     const buttons = getTabButtons();
 
-    // Visual order is Home, Bills, History, Wallet, independently of navigator route order.
     buttons.forEach((btn, i) => {
       if (i === 1) {
         expect(btn.props.accessibilityState).toEqual({ selected: true });
@@ -320,7 +324,7 @@ describe('FloatingNavBar', () => {
   });
 
   it('updates the focused icon when a different index is provided', () => {
-    // First render with index 0
+
     const { unmount } = renderNavBar({ index: 0 });
     let buttons = getTabButtons();
     expect(buttons[0].props.accessibilityState).toEqual({ selected: true });
@@ -328,7 +332,6 @@ describe('FloatingNavBar', () => {
     expect(getIconColor(buttons[2])).toBe(Colors.maroon09);
     unmount();
 
-    // Navigator index 1 is History, now shown in the third visual slot.
     renderNavBar({ index: 1 });
     buttons = getTabButtons();
     expect(buttons[0].props.accessibilityState).toEqual({ selected: false });
@@ -347,21 +350,16 @@ describe('FloatingNavBar', () => {
     expect(getIconColor(buttons[1])).toBe(Colors.red09);
   });
 
-  // ---- onLayout ----
-
   it('stores the measured height when onLayout fires', () => {
     renderNavBar();
     const tree = screen.toJSON() as any;
 
-    // The outermost Animated.View has the onLayout prop
     expect(tree.props.onLayout).toBeDefined();
 
-    // Simulate a layout event
     tree.props.onLayout({
       nativeEvent: { layout: { height: 70, width: 300, x: 0, y: 0 } },
     });
 
-    // No crash means tabBarHeight.value was written successfully
     expect(true).toBe(true);
   });
 });

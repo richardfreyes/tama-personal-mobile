@@ -1,3 +1,5 @@
+import { BILLER_DIRECTORY_SKELETON_ROW_WIDTHS } from '@/constants/billerDirectory';
+import { SAVED_BILL_CARD_WIDTH } from '@/constants/savedBills';
 import { Colors } from '@/styles/common/colors';
 import { loadingStyles as styles } from '@/styles/components/common/Loading';
 import { DetailsSkeletonProps, FormSkeletonProps, HorizontalCardSkeletonProps, NativeLoadingIndicatorProps, NativeProgressBarProps, PaymentInfoSkeletonProps, SkeletonBlockProps, SkeletonGroupProps, SkeletonListProps } from '@/types/loading';
@@ -133,7 +135,6 @@ export const SkeletonBlock = ({
   );
 };
 
-// Wraps placeholder blocks so screen readers announce them as busy content.
 export const SkeletonGroup = ({ label, style, testID, children }: SkeletonGroupProps) => (
   <View
     accessibilityLabel={label}
@@ -235,6 +236,32 @@ export const BillerListSkeleton = ({ rows = 6, label = 'Loading billers' }: Pick
     </View>
   );
 };
+
+export const SavedBillersSkeleton = ({ label = 'Loading saved bills' }: { label?: string }) => (
+  <SkeletonGroup label={label} style={styles.savedBillers} testID="bills-loading">
+    <SkeletonBlock borderRadius={6} height={18} style={styles.skeletonBar} width={132} />
+    <SkeletonBlock borderRadius={16} height={64} style={styles.skeletonSoft} />
+    <View style={styles.savedBillerCards}>
+      <SkeletonBlock borderRadius={20} height={128} style={styles.skeletonSoft} width={SAVED_BILL_CARD_WIDTH} />
+      <SkeletonBlock borderRadius={20} height={128} style={styles.skeletonSoft} width={SAVED_BILL_CARD_WIDTH} />
+      <SkeletonBlock borderRadius={20} height={128} style={[styles.skeletonSoft, styles.skeletonPeek]} width={40} />
+    </View>
+  </SkeletonGroup>
+);
+
+export const BillerDirectorySkeleton = ({ label = 'Loading billers' }: { label?: string }) => (
+  <SkeletonGroup label={label} style={styles.billerDirectory} testID="biller-directory-loading">
+    <SkeletonBlock borderRadius={999} height={48} style={styles.skeletonSoft} />
+    <View style={styles.billerDirectoryRows}>
+      {BILLER_DIRECTORY_SKELETON_ROW_WIDTHS.map((width, index) => (
+        <View key={index} style={styles.billerDirectoryRow}>
+          <SkeletonBlock borderRadius={20} height={40} style={styles.skeletonSoft} width={40} />
+          <SkeletonBlock borderRadius={6} height={14} style={styles.skeletonBar} width={width} />
+        </View>
+      ))}
+    </View>
+  </SkeletonGroup>
+);
 
 export const PaymentMethodListSkeleton = ({ rows = 3, label = 'Loading payment methods' }: Pick<SkeletonListProps, 'rows' | 'label'>) => {
   useLoadingAnnouncement(label);
@@ -416,16 +443,27 @@ export const BillPaymentSkeleton = ({ label = 'Loading biller details' }: { labe
       style={styles.billPaymentContainer}
       testID="bill-payment-skeleton"
     >
+      <View style={styles.billerSkeleton}>
+        <SkeletonBlock borderRadius={28} height={56} style={styles.skeletonSoft} width={56} />
+        <View style={styles.billerSkeletonText}>
+          <SkeletonBlock borderRadius={6} height={18} style={styles.skeletonBar} width="52%" />
+          <SkeletonBlock borderRadius={6} height={13} style={styles.skeletonBar} width="38%" />
+        </View>
+      </View>
       <View style={styles.amountSkeletonContainer}>
-        <SkeletonBlock width="70%" height={48} borderRadius={6} />
-        <SkeletonBlock width="52%" height={12} />
+        <SkeletonBlock borderRadius={6} height={13} style={styles.skeletonBar} width="28%" />
+        <SkeletonBlock borderRadius={14} height={64} style={styles.skeletonSoft} />
+        <SkeletonBlock borderRadius={6} height={12} style={styles.skeletonBar} width="64%" />
       </View>
-      <PaymentInfoSkeleton label={label} sections={1} rowsPerSection={4} />
-      <View style={styles.detailsSection}>
-        <SkeletonBlock width="48%" height={16} />
-        <PaymentMethodListSkeleton rows={1} label="Loading selected payment method" />
+      <View style={styles.summarySkeleton}>
+        <SkeletonBlock borderRadius={6} height={16} style={styles.skeletonBar} width="40%" />
+        <SkeletonBlock borderRadius={20} height={228} style={styles.skeletonSoft} />
       </View>
-      <SkeletonBlock height={40} borderRadius={20} />
+      <View style={styles.summarySkeleton}>
+        <SkeletonBlock borderRadius={6} height={16} style={styles.skeletonBar} width="30%" />
+        <SkeletonBlock borderRadius={14} height={48} style={styles.skeletonSoft} />
+        <SkeletonBlock borderRadius={20} height={128} style={styles.skeletonSoft} />
+      </View>
     </View>
   );
 };

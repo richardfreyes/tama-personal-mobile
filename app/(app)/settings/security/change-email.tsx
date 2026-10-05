@@ -25,7 +25,7 @@ export default function ChangeEmail() {
   const [formData, setFormData] = useState<EmailUpdateInputs>({ currentEmail: '', newEmail: '' });
   const [errors, setErrors] = useState<Partial<Record<keyof EmailUpdateInputs, string | undefined>>>({});
   const [touched, setTouched] = useState<Partial<Record<keyof EmailUpdateInputs, boolean>>>({});
-  
+
   useFocusEffect(
     useCallback(() => {
       return () => {
@@ -108,7 +108,7 @@ export default function ChangeEmail() {
           <View style={globalStyle.outerContainer}>
             <View style={styles.wrapper}>
               <AppText style={styles.mainTitle} weight='600'>Update Your Email</AppText>
-              <AppText style={[styles.descriptionText, { marginBottom: 24 }]}>Update the email you'll be using to login with this account.</AppText>
+              <AppText style={[styles.descriptionText, { marginBottom: 24 }]}>{"Update the email you'll be using to login with this account."}</AppText>
               <View style={styles.inputFieldContainer}>
                 <InputValidationComponent
                   field="currentEmail"

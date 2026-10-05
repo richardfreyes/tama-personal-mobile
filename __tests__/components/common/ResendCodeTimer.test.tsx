@@ -14,8 +14,6 @@ describe('ResendCodeTimer', () => {
     jest.useRealTimers();
   });
 
-  // ---- Active countdown ----
-
   it('shows the waiting message with the formatted seconds while counting down', () => {
     renderWithProviders(<ResendCodeTimer initialTime={3} onResend={jest.fn()} />);
     expect(
@@ -35,8 +33,6 @@ describe('ResendCodeTimer', () => {
     ).toBeTruthy();
   });
 
-  // ---- Countdown completion ----
-
   it('shows the resend link once the countdown reaches zero', async () => {
     renderWithProviders(<ResendCodeTimer initialTime={3} onResend={jest.fn()} />);
     await act(async () => {
@@ -47,8 +43,6 @@ describe('ResendCodeTimer', () => {
     });
     expect(screen.getByText("Didn't receive the code? ")).toBeTruthy();
   });
-
-  // ---- Resend behaviour ----
 
   it('calls onResend and restarts the countdown when the link is pressed', async () => {
     const onResend = jest.fn();
@@ -62,7 +56,6 @@ describe('ResendCodeTimer', () => {
     fireEvent.press(screen.getByText('Resend Code'));
     expect(onResend).toHaveBeenCalledTimes(1);
 
-    // After pressing, the countdown restarts and the waiting message returns.
     await waitFor(() =>
       expect(
         screen.getByText('Please wait 2s before requesting for a new code.'),

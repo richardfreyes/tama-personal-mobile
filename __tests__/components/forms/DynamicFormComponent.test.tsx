@@ -6,10 +6,6 @@ import DynamicFormComponent from '../../../components/forms/DynamicFormComponent
 import { FormField } from '../../../types/form';
 import { renderWithProviders } from '../../../utils/test-utils';
 
-// ---------------------------------------------------------------------------
-// Mocks – child components replaced with lightweight testable elements
-// ---------------------------------------------------------------------------
-
 jest.mock('@/components/forms/InputValidationComponent', () => {
   const RN = require('react-native');
   const Mock = (props: any) => (
@@ -77,10 +73,6 @@ jest.mock('react-native-paper-dates', () => ({
     );
   },
 }));
-
-// ---------------------------------------------------------------------------
-// Field fixtures
-// ---------------------------------------------------------------------------
 
 const textField: FormField = {
   fieldType: 'text',
@@ -208,10 +200,6 @@ const unknownField: FormField = {
   isRequired: false,
 };
 
-// ---------------------------------------------------------------------------
-// Helpers
-// ---------------------------------------------------------------------------
-
 let mockOnFormChange: jest.Mock;
 let mockValidateField: jest.Mock;
 let mockSetErrors: jest.Mock;
@@ -240,10 +228,6 @@ function renderForm(overrides: Record<string, any> = {}) {
   );
 }
 
-// ---------------------------------------------------------------------------
-// Tests
-// ---------------------------------------------------------------------------
-
 describe('DynamicFormComponent', () => {
   beforeEach(() => {
     mockOnFormChange = jest.fn();
@@ -256,13 +240,10 @@ describe('DynamicFormComponent', () => {
     jest.clearAllMocks();
   });
 
-  // ---- Empty / no fields ----
-
   it('renders nothing when fields array is empty', () => {
     const { toJSON } = renderForm({ fields: [] });
     const tree = toJSON() as any;
-    // Should only contain the hidden CountryPicker (show=false renders null)
-    // and hidden DatePickerModal (visible=false renders null)
+
     expect(screen.queryByTestId('input-validation-name')).toBeNull();
   });
 
@@ -271,15 +252,11 @@ describe('DynamicFormComponent', () => {
     expect(screen.queryByTestId('input-validation-name')).toBeNull();
   });
 
-  // ---- isEnrollmentsForm flag ----
-
   it('does not render field content when isEnrollmentsForm is true', () => {
     renderForm({ isEnrollmentsForm: true, fields: [textField, emailField] });
     expect(screen.queryByTestId('input-validation-name')).toBeNull();
     expect(screen.queryByTestId('input-validation-email')).toBeNull();
   });
-
-  // ---- Text field ----
 
   it('renders InputValidationComponent for text field type', () => {
     renderForm({ fields: [textField] });
@@ -312,21 +289,15 @@ describe('DynamicFormComponent', () => {
     expect(mockOnFormChange).toHaveBeenCalledWith('name', 'Bob', undefined);
   });
 
-  // ---- Email field ----
-
   it('renders InputValidationComponent for email field type', () => {
     renderForm({ fields: [emailField] });
     expect(screen.getByTestId('input-validation-email')).toBeTruthy();
   });
 
-  // ---- Number field ----
-
   it('renders InputValidationComponent for number field type', () => {
     renderForm({ fields: [numberField] });
     expect(screen.getByTestId('input-validation-amount')).toBeTruthy();
   });
-
-  // ---- Currency field ----
 
   it('renders InputValidationComponent for currency field type', () => {
     renderForm({ fields: [currencyField] });
@@ -337,8 +308,6 @@ describe('DynamicFormComponent', () => {
     renderForm({ fields: [currencyField] });
     expect(screen.getByTestId('format-as-currency-price').props.children).toBe('currency');
   });
-
-  // ---- Date field ----
 
   it('renders date field with label', () => {
     renderForm({ fields: [dateField] });
@@ -376,21 +345,15 @@ describe('DynamicFormComponent', () => {
     expect(screen.queryByText('Date is required')).toBeNull();
   });
 
-  // ---- Tel field ----
-
   it('renders InputValidationComponent for tel field type', () => {
     renderForm({ fields: [telField] });
     expect(screen.getByTestId('input-validation-phone')).toBeTruthy();
   });
 
-  // ---- Longtext field ----
-
   it('renders InputValidationComponent for longtext field type', () => {
     renderForm({ fields: [longtextField] });
     expect(screen.getByTestId('input-validation-notes')).toBeTruthy();
   });
-
-  // ---- Lookup field ----
 
   it('renders NativePicker for lookup field type', () => {
     renderForm({ fields: [lookupField] });
@@ -401,8 +364,6 @@ describe('DynamicFormComponent', () => {
     renderForm({ fields: [lookupField] });
     expect(screen.getByText('Country')).toBeTruthy();
   });
-
-  // ---- Checkbox field ----
 
   it('renders TermsAndConditionsCheckbox for checkbox field type', () => {
     renderForm({ fields: [checkboxField] });
@@ -444,8 +405,6 @@ describe('DynamicFormComponent', () => {
       screen.getByText(/To proceed, please check this box/),
     ).toBeTruthy();
   });
-
-  // ---- Row field ----
 
   it('renders nested fields inside a row', () => {
     renderForm({ fields: [rowField] });
@@ -519,15 +478,11 @@ describe('DynamicFormComponent', () => {
     expect(screen.getByTestId('input-validation-street')).toBeTruthy();
   });
 
-  // ---- Unknown field type ----
-
   it('renders nothing for an unrecognised field type', () => {
     renderForm({ fields: [unknownField] });
     expect(screen.queryByTestId('input-validation-unknown')).toBeNull();
     expect(screen.queryByTestId('native-picker-Unknown')).toBeNull();
   });
-
-  // ---- isFieldVisible ----
 
   it('hides field when isFieldVisible returns false', () => {
     const isFieldVisible = jest.fn().mockReturnValue(false);
@@ -561,8 +516,6 @@ describe('DynamicFormComponent', () => {
     expect(screen.queryByTestId('input-validation-street')).toBeNull();
   });
 
-  // ---- Validation behaviour ----
-
   it('calls validateField on change when field has been touched', () => {
     renderForm({
       fields: [textField],
@@ -589,16 +542,12 @@ describe('DynamicFormComponent', () => {
     expect(result).toEqual({ existingField: 'some error', name: undefined });
   });
 
-  // ---- Multiple fields ----
-
   it('renders multiple fields in order', () => {
     renderForm({ fields: [textField, emailField, longtextField] });
     expect(screen.getByTestId('input-validation-name')).toBeTruthy();
     expect(screen.getByTestId('input-validation-email')).toBeTruthy();
     expect(screen.getByTestId('input-validation-notes')).toBeTruthy();
   });
-
-  // ---- enrollmentFields ----
 
   it('renders enrollmentFields alongside regular fields', () => {
     const enrollmentText: FormField = {
@@ -611,8 +560,6 @@ describe('DynamicFormComponent', () => {
     expect(screen.getByTestId('input-validation-name')).toBeTruthy();
     expect(screen.getByTestId('input-validation-enrollmentName')).toBeTruthy();
   });
-
-  // ---- Global pickers render hidden by default ----
 
   it('does not show CountryPicker or DatePickerModal on initial render', () => {
     renderForm({ fields: [telField, dateField] });

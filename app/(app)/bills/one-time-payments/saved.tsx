@@ -25,6 +25,7 @@ export default function SavedBillsScreen() {
   const [isRefreshing, setIsRefreshing] = useState(false);
   const itemsRef = useRef<Bill[]>([]);
   const isLoadingMoreRef = useRef(false);
+  const refreshFirstPageRef = useRef(false);
   const lastProcessedResponseRef = useRef('');
   const scrollHandler = useTabBarScrollHandler();
   const {
@@ -74,6 +75,15 @@ export default function SavedBillsScreen() {
     }, []),
   );
 
+  useEffect(() => {
+    if (page !== 0 || !refreshFirstPageRef.current) {
+      return;
+    }
+
+    refreshFirstPageRef.current = false;
+    void refetch().finally(() => setIsRefreshing(false));
+  }, [page, refetch]);
+
   const loadMore = useCallback(() => {
     if (
       itemsRef.current.length > 0
@@ -91,12 +101,14 @@ export default function SavedBillsScreen() {
     setHasMore(true);
     isLoadingMoreRef.current = false;
 
+    if (page !== 0) {
+      refreshFirstPageRef.current = true;
+      setPage(0);
+      return;
+    }
+
     try {
-      if (page !== 0) {
-        setPage(0);
-      } else {
-        await refetch();
-      }
+      await refetch();
     } finally {
       setIsRefreshing(false);
     }

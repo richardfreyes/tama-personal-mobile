@@ -165,9 +165,7 @@ const QrphPayment = () => {
   const handleComplete = useCallback(() => {
     if (outcomeRef.current) return;
     if (session) {
-      // The page can be closed after paying but before Maya redirects, so check the
-      // payment status instead of assuming it failed. Unpaid sessions resolve to the
-      // same pending/error states with a "Check Payment Status" retry.
+
       void completePayment();
       return;
     }

@@ -1,4 +1,4 @@
-import type { RootState } from '@/redux/store';
+import type { RootState } from '@/redux/storeTypes';
 import type { Enrollment } from '@/types/enrollment';
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 import { initialState } from './enrollmentSelectionTypes';

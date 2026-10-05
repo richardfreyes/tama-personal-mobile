@@ -51,7 +51,6 @@ function renderSnackbar(props: Record<string, any> = {}) {
 }
 
 describe('SnackbarComponent', () => {
-  // ---- Visibility ----
 
   it('renders the message when visible', () => {
     renderSnackbar();
@@ -68,8 +67,6 @@ describe('SnackbarComponent', () => {
     expect(screen.queryByText('Saved successfully')).toBeNull();
   });
 
-  // ---- Variants ----
-
   it('renders the message for the success variant', () => {
     renderSnackbar({ variant: 'success', message: 'All good' });
     expect(screen.getByText('All good')).toBeTruthy();
@@ -79,8 +76,6 @@ describe('SnackbarComponent', () => {
     renderSnackbar({ variant: 'error', message: 'Something failed' });
     expect(screen.getByText('Something failed')).toBeTruthy();
   });
-
-  // ---- Edge cases ----
 
   it('renders an empty message without crashing', () => {
     const { toJSON } = renderSnackbar({ message: '' });

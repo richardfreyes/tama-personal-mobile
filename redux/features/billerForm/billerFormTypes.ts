@@ -17,7 +17,6 @@ export interface FormField {
   visibility?: any;
 }
 
-
 export type AppBaseQuery = BaseQueryFn<string | FetchArgs, any, FetchBaseQueryError, {}, {}>;
 
 export type LookupOptionsPayload = {

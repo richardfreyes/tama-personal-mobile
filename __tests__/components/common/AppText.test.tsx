@@ -1,6 +1,6 @@
 import { Colors } from '@/styles/common/colors';
 import { FontSizes } from '@/styles/common/typography';
-import { PoppinsFontNames } from '@/utils/fonts';
+import { POPPINS_FONT_NAMES } from '@/constants/fonts';
 import { renderWithProviders } from '@/utils/test-utils';
 import { afterEach, describe, expect, it, jest } from '@jest/globals';
 import { screen } from '@testing-library/react-native';
@@ -29,7 +29,7 @@ describe('AppText', () => {
     const textComponent = screen.getByText('Bold Text');
     const flattenedStyle = StyleSheet.flatten(textComponent.props.style);
     expect(flattenedStyle).toEqual(
-      expect.objectContaining({ fontFamily: PoppinsFontNames.bold })
+      expect.objectContaining({ fontFamily: POPPINS_FONT_NAMES.bold })
     );
   });
 

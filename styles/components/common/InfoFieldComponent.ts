@@ -33,5 +33,36 @@ export const infoFieldComponentStyles = StyleSheet.create({
   },
   copyIcon: {
     marginTop: 0,
-  }
+  },
+
+  summaryContainer: {
+    gap: 16,
+    paddingVertical: 13,
+  },
+  summaryLabel: {
+    color: Colors.maroon09,
+    flexShrink: 0,
+    fontSize: 13,
+    lineHeight: 20,
+  },
+  summaryValue: {
+    color: Colors.maroon11,
+    flex: 1,
+    fontSize: 14,
+    fontVariant: ['tabular-nums'],
+    lineHeight: 20,
+    minWidth: 0,
+    textAlign: 'right',
+  },
+  summaryEmpty: {
+    color: Colors.maroon06,
+    flex: 1,
+    fontSize: 14,
+    lineHeight: 20,
+    minWidth: 0,
+    textAlign: 'right',
+  },
+  summaryDivider: {
+    backgroundColor: Colors.dashboardSkeleton,
+  },
 });

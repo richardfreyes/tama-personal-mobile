@@ -35,7 +35,7 @@ jest.mock('@/components/layout/NavHeaderComponent', () => () => null);
 jest.mock('@/components/layout/OtpWebView', () => ({
   OtpWebView: ({ visible, onSuccess, onComplete }: { visible: boolean; onSuccess: () => void; onComplete: () => void }) => {
     if (!visible) return null;
-    // eslint-disable-next-line @typescript-eslint/no-require-imports
+
     const { Pressable, Text, View } = require('react-native');
     return (
       <View>

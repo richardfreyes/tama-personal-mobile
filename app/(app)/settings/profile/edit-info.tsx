@@ -66,13 +66,13 @@ export default function EditInfo() {
       newTouched[field] = true;
       const value = formData[field];
       const errorMessage = validateField(field, value || ''); 
-      
+
       if (errorMessage) {
         newErrors[field] = errorMessage;
         isValid = false;
       }
     });
-    
+
     setTouched(prev => ({ ...prev, ...newTouched }));
     setErrors(newErrors);
 
@@ -153,20 +153,10 @@ export default function EditInfo() {
                   editable={false} 
                 />
 
-                {/* TODO: Add mobile in the backend to allow editing phone number */}
-                {/* <InputValidationComponent
-                  field="mobileNumber"
-                  value={formData.mobileNumber ?? ''}
-                  setValue={(text) => handleTextChange('mobileNumber', text)}
-                  placeholder="Mobile Number"
-                  errors={errors} setErrors={setErrors as any}
-                  touched={touched} setTouched={setTouched as any}
-                  validateField={validateField}
-                  mode="outlined"
-                  keyboardType="phone-pad"
-                  autoCapitalize="none"
-                  editable={false}
-                /> */}
+                { }
+                {
+
+}
 
                 <AppButton 
                   title={isLoading ? "Saving..." : "Save"} 

@@ -53,7 +53,6 @@ export const ENROLLMENT_PAYLOAD_FIELD_EXCLUDED_KEYS = new Set([
   'projectName',
 ]);
 
-// The merchant API currently requires this legacy wire value.
 export const ENROLLMENT_SOURCE = 'portal3' as const;
 
 export const DEFAULT_ENROLLMENT_COUNT = 10;
@@ -78,14 +77,11 @@ export const ENROLLMENT_CALLBACK_MESSAGES: Record<EnrollmentCallbackOutcome, str
 
 export const MAX_CALLBACK_MESSAGE_LENGTH = 240;
 
-// Monthly payment card on the enrollment details screen. Stops at red (no orange) so the white text
-// on the translucent tiles keeps its contrast across the whole card.
 export const ENROLLMENT_SUMMARY_GRADIENT_COLORS = [Colors.maroon10, Colors.brandGradientDeep, Colors.red09] as const;
 export const ENROLLMENT_SUMMARY_GRADIENT_LOCATIONS = [0, 0.5, 1] as const;
 export const ENROLLMENT_SUMMARY_GRADIENT_START = { x: 0, y: 0 } as const;
 export const ENROLLMENT_SUMMARY_GRADIENT_END = { x: 1, y: 1 } as const;
 
-// Width from which the enrollment details cards sit side by side.
 export const ENROLLMENT_DETAILS_WIDE_BREAKPOINT = 760;
 
 export const ENROLLMENT_DETAILS_COPY = {
@@ -99,9 +95,9 @@ export const ENROLLMENT_DETAILS_COPY = {
   importantNotesDescription: 'Keep these reminders in mind for uninterrupted automatic payments',
 } as const;
 
-// The closing reminder names the merchant, so it is built where the merchant is known.
 export const ENROLLMENT_IMPORTANT_NOTES = [
   'Automatic payments will be charged to your enrolled card based on the payment schedule shown above.',
   'Keep your card active and ensure sufficient available credit or funds before each scheduled payment.',
   'The cardholder must be authorized to use this card for the enrolled account.',
 ] as const;
+export const ENROLLMENT_EMPTY_DISPLAY_VALUES = new Set(['n/a', 'na', 'none', 'null', 'undefined', 'nan']);

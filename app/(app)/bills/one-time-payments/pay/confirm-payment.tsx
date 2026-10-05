@@ -60,7 +60,7 @@ const ConfirmPaymentScreen = () => {
 
   const verifyPayment = async () => {
     try {
-      // NOTE: The invoice reference ID changes whenever the fees are recomputed, the transaction's ID does not
+
       const detail = await getTransactionDetail((transactionReferenceId || invoiceReferenceId) as string, false).unwrap();
       if (isFailedPaymentStatus(detail.status)) {
         dispatch(showSnackbar({ message: 'Payment could not be completed. Check its status before trying again.', variant: 'error' }));
@@ -70,7 +70,7 @@ const ConfirmPaymentScreen = () => {
         dispatch(showSnackbar({ message: 'Payment successful.', variant: 'success' }));
       }
     } catch {
-      // The charge was already accepted. The receipt screen loads the current status.
+
     }
     openReceipt();
   };

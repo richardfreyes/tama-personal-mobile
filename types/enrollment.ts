@@ -1,7 +1,7 @@
 import type { ENROLLMENT_DETAIL_SECTION_ORDER } from '@/constants/enrollment';
 import type { Merchant, MerchantFormField, MerchantTransactionFieldPayload, MerchantTransactionPayload, MerchantTransactionProjectPayload } from '@/redux/features/merchants/merchantTypes';
 import type { ReactNode } from 'react';
-import type { StyleProp, TextStyle, ViewStyle } from 'react-native';
+import type { StyleProp, ViewStyle } from 'react-native';
 import type { EnrollmentCardPayload } from './payment';
 
 export type EnrollmentMerchantLike = Partial<Merchant> & Record<string, any>;
@@ -178,9 +178,9 @@ export type OtpWebViewProps = {
   visible: boolean;
   isProcessing?: boolean;
   processingLabel?: string;
-  // Shown under the header while the provider page is open, e.g. to say the page must not be closed yet
+
   waitHint?: string;
-  // Done keeps waiting for the provider's redirect instead of closing, so an early tap is not mistaken for a decline
+
   waitOnDismiss?: boolean;
   onComplete: () => void;
   onSuccess?: () => void;
@@ -233,7 +233,7 @@ export interface EnrollmentPaymentMethodDetails {
 
 export interface EnrollmentDetailsViewModel {
   merchantName: string;
-  // Reads naturally in a sentence ("Contact {name} …") when the enrollment has no merchant name.
+
   merchantContactName: string;
   paymentType: string;
   referenceId: string | null;
@@ -325,10 +325,4 @@ export interface EnrollmentSummaryCardProps {
 export interface EnrollmentStatusBadgeProps {
   status?: string | null;
   variant?: 'default' | 'summaryCard';
-}
-
-export interface EnrollmentStatusStyles {
-  badge: StyleProp<ViewStyle>;
-  dot: StyleProp<ViewStyle>;
-  text?: StyleProp<TextStyle>;
 }

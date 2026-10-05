@@ -45,7 +45,7 @@ export const formDetailsStyles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     marginBottom: 15,
-  
+
   },
   finalCheckboxRow: {
     flexDirection: 'row',

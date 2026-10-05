@@ -11,6 +11,7 @@ import NavHeaderComponent from '@/components/layout/NavHeaderComponent';
 import { OtpWebView } from '@/components/layout/OtpWebView';
 import { VALIDATORS } from '@/constants';
 import { COMMON } from '@/constants/common';
+import { PAYMENT_METHOD_PRIORITY_COUNTRIES } from '@/constants/paymentOptions';
 import { ONE_TIME_PAY_RETURN_PREFIX } from '@/constants/routes';
 import { useAuth } from '@/hooks/useAuth';
 import { setEnrollmentCardPayload } from '@/redux/features/enrollments/review/reviewSlice';
@@ -23,7 +24,7 @@ import { formDetailsStyles as styles } from '@/styles/app/payment-methods/form-d
 import { globalStyle } from '@/styles/common/globals';
 import { AddCardFormInputs, PaymentMethodFormData } from '@/types';
 import { detectCardProvider } from '@/utils/card';
-import { buildAddCardRequestPayload, buildAddressPayload, buildEnrollmentCardPayload, formatPaymentMethodFieldValue, getNormalizedCardNumber, getPaymentOptionByTitle, getSavedBillingAddressFormValues, PAYMENT_METHOD_PRIORITY_COUNTRIES, validatePaymentMethodForm, validatePaymentMethodInput } from '@/utils/paymentMethodForm';
+import { buildAddCardRequestPayload, buildAddressPayload, buildEnrollmentCardPayload, formatPaymentMethodFieldValue, getNormalizedCardNumber, getPaymentOptionByTitle, getSavedBillingAddressFormValues, validatePaymentMethodForm, validatePaymentMethodInput } from '@/utils/paymentMethodForm';
 import { resolveInternalReturnPath } from '@/utils/returnNavigation';
 import { validateField } from '@/utils/validators';
 import { City, Country, ICity, ICountry, IState, State } from 'country-state-city';
@@ -202,7 +203,7 @@ const FormDetails = () => {
     if (countryCode) {
       const countryStates = State.getStatesOfCountry(countryCode);
       setStates(countryStates);
-      
+
       if (stateValue) {
         const stateCities = City.getCitiesOfState(countryCode, stateValue);
         setCities(stateCities);
@@ -236,7 +237,7 @@ const FormDetails = () => {
         [field]: value,
         ...getSavedBillingAddressFormValues(user),
       }));
-      
+
       setErrors(prev => ({
         ...prev,
         streetAddress: undefined,
@@ -361,7 +362,7 @@ const FormDetails = () => {
         }
       } catch (err: any) {
         dispatch(showSnackbar({
-          // TODO: change the backend response to send a specific error code for existing card to avoid relying on error message, QA Team corrected that exist with s 'exists'
+
           message: err.data?.message === 'Card information already exist' ? 'Card information already exists' : err.data?.message || 'Failed to add card.',
           variant: 'error'
         }));

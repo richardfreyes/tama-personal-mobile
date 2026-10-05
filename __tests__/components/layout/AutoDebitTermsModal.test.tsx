@@ -20,8 +20,6 @@ describe('AutoDebitTermsModal', () => {
     jest.restoreAllMocks();
   });
 
-  // ---- Visibility ----
-
   it('renders the title when visible', () => {
     renderWithProviders(<AutoDebitTermsModal visible onClose={jest.fn()} />);
     expect(
@@ -38,8 +36,6 @@ describe('AutoDebitTermsModal', () => {
     ).toBeNull();
   });
 
-  // ---- Content ----
-
   it('renders the numbered clauses', () => {
     renderWithProviders(<AutoDebitTermsModal visible onClose={jest.fn()} />);
     expect(screen.getByText(/recurring payment program/)).toBeTruthy();
@@ -47,8 +43,6 @@ describe('AutoDebitTermsModal', () => {
       screen.getByText(/required to submit separate Auto Debit enrollments/),
     ).toBeTruthy();
   });
-
-  // ---- Links ----
 
   it('opens the support email when the email link is pressed', () => {
     renderWithProviders(<AutoDebitTermsModal visible onClose={jest.fn()} />);
@@ -61,8 +55,6 @@ describe('AutoDebitTermsModal', () => {
     fireEvent.press(screen.getByText('+1 408-335-0522 (USA)'));
     expect(Linking.openURL).toHaveBeenCalledWith('tel:+14083350522');
   });
-
-  // ---- Interaction ----
 
   it('calls onClose when the Close button is pressed', () => {
     const onClose = jest.fn();

@@ -1,8 +1,21 @@
 import type React from "react";
-import type { ViewStyle } from "react-native";
+import type { StyleProp, ViewStyle } from "react-native";
 import type { TransactionSource } from "./transaction";
 
 export type SvgComponent = React.FC<any>;
+export type SvgIcon = React.ComponentType<{ width?: number; height?: number; style?: StyleProp<ViewStyle> }>;
+export type CardProvider = 'visa' | 'mastercard' | 'amex' | 'discover' | 'unknown';
+
+export interface CardValidationResult {
+  isValid: boolean;
+  isPotentiallyValid: boolean;
+}
+
+export interface DirectDebitBank {
+  channelCode: string;
+  label: string;
+  icon: SvgIcon;
+}
 
 export type DirectDebitOutcome = 'success' | 'failure' | 'cancelled';
 
@@ -10,13 +23,10 @@ export interface DirectDebitCallbackResult {
   outcome: DirectDebitOutcome;
 }
 
-/** Hosted payments that return to the app through the `payment-result` deep link. */
 export type PaymentResultProvider = 'paypal' | 'qrph';
 
-/** Outcome reported by the provider redirect. Only a hint: the backend is the source of truth. */
 export type PaymentResultOutcome = 'success' | 'failure' | 'cancelled' | 'error';
 
-/** What the payment result screen shows after reconciling with the backend. */
 export type PaymentResultStatus = Exclude<PaymentResultOutcome, 'success'> | 'pending';
 
 export interface PaymentResultCallback {
@@ -57,6 +67,18 @@ export interface PaymentMethodCardProps {
   style?: ViewStyle;
 }
 
+export type OneTimePaymentMethodId = 'card' | 'paypal' | 'bank' | 'qrph';
+
+export interface OneTimePaymentMethod {
+  value: OneTimePaymentMethodId;
+
+  title: string;
+  description: string;
+  icon: SvgComponent;
+  iconWidth: number;
+  iconHeight: number;
+}
+
 export interface AppliedFilters {
   statusFilters: string[];
   transactionTypeFilters: TransactionSource[];
@@ -91,6 +113,7 @@ export interface PaymentMethodParams {
 }
 
 export type PaymentInfoRow = {
+  id?: string;
   label: string;
   value: string;
   weight?: '400' | '500' | '600' | '700';
@@ -122,4 +145,10 @@ export type NormalizedCardDetails = {
 export type PaymentInfoSectionProps = {
   title: string;
   rows: PaymentInfoRow[];
+
+  secondaryRows?: PaymentInfoRow[];
+  emptyText?: string;
+
+  variant?: 'default' | 'summary';
+  testID?: string;
 };

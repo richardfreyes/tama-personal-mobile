@@ -83,7 +83,6 @@ function GlobalLayout() {
         });
         if (handledDirectDebitCallback) return;
 
-        // PayPal / QR Ph finished outside the in-app WebView: reconcile on the result screen.
         const handledPaymentResultCallback = handlePaymentResultBrowserCallback(url, (result) => {
           router.replace({
             pathname: '/payment-methods/payment-result',

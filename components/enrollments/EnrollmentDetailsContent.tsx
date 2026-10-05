@@ -3,15 +3,7 @@ import { NativeProgressBar } from '@/components/common/Loading';
 import DetailRows from '@/components/enrollments/DetailRows';
 import EnrollmentStatusBadge from '@/components/enrollments/EnrollmentStatusBadge';
 import { SUPPORT_EMAIL_CHANNEL } from '@/constants/contact';
-import {
-  ENROLLMENT_DETAILS_COPY,
-  ENROLLMENT_DETAILS_WIDE_BREAKPOINT,
-  ENROLLMENT_IMPORTANT_NOTES,
-  ENROLLMENT_SUMMARY_GRADIENT_COLORS,
-  ENROLLMENT_SUMMARY_GRADIENT_END,
-  ENROLLMENT_SUMMARY_GRADIENT_LOCATIONS,
-  ENROLLMENT_SUMMARY_GRADIENT_START,
-} from '@/constants/enrollment';
+import { ENROLLMENT_DETAILS_COPY, ENROLLMENT_DETAILS_WIDE_BREAKPOINT, ENROLLMENT_IMPORTANT_NOTES, ENROLLMENT_SUMMARY_GRADIENT_COLORS, ENROLLMENT_SUMMARY_GRADIENT_END, ENROLLMENT_SUMMARY_GRADIENT_LOCATIONS, ENROLLMENT_SUMMARY_GRADIENT_START, } from '@/constants/enrollment';
 import { showSnackbar } from '@/redux/features/snackbar/snackbarSlice';
 import { useAppDispatch } from '@/redux/hooks';
 import { enrollmentDetailsStyles as styles } from '@/styles/app/bills/enrollments/details';

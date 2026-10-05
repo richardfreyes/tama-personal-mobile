@@ -91,6 +91,12 @@ describe('getSavedPaymentMethods', () => {
     expect(getSavedPaymentMethods([method('bank-1', 'DirectDebit'), method('bank-2', 'DIRECTDEBIT')])).toEqual([]);
   });
 
+  it('lists a card once when the API returns it more than once', () => {
+    const methods = getSavedPaymentMethods([method('card-1', 'card'), method('card-1', 'card'), method('card-2', 'card')]);
+
+    expect(methods.map(({ referenceId }) => referenceId)).toEqual(['card-1', 'card-2']);
+  });
+
   it('copes with methods that are missing a name or have not loaded', () => {
     const unnamed = { referenceId: 'card-1' } as PaymentMethod;
 

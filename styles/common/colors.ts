@@ -1,6 +1,6 @@
 
 export const Colors = {
-  // Red Palette (TamaPay brand red - primary)
+
   red01: '#FCF3F2',
   red02: '#F5DAD9',
   red03: '#EEC2C1',
@@ -12,7 +12,6 @@ export const Colors = {
   red09: '#C11E1A',
   red10: '#BF1814',
 
-  // Maroon Palette (warm dark neutral - text and container backgrounds)
   maroon01: '#F7F6F6',
   maroon02: '#E7E4E3',
   maroon03: '#D6D0D0',
@@ -25,7 +24,6 @@ export const Colors = {
   maroon10: '#3D2422',
   maroon11: '#251615',
 
-  // Support Info Palette
   info01: '#E7F3FC',
   info02: '#C4E2F7',
   info03: '#9CCEF2',
@@ -37,7 +35,6 @@ export const Colors = {
   info09: '#2481DA',
   info10: '#176FD3',
 
-  // Support Success Palette
   success01: '#F2FAE9',
   success02: '#E0F3C8',
   success03: '#CBEBA3',
@@ -49,7 +46,6 @@ export const Colors = {
   success09: '#79C62F',
   success10: '#68BC20',
 
-  // Support Error Palette
   error01: '#FDE7E0',
   error02: '#F9C3B3',
   error03: '#F59C80',
@@ -61,7 +57,6 @@ export const Colors = {
   error09: '#E22400',
   error10: '#DD1700',
 
-  // Carmine Pink
   rose01: '#FDF4F4',
   rose02: '#FADDDD',
   rose03: '#F7C7C7',
@@ -73,7 +68,6 @@ export const Colors = {
   rose09: '#E44141',
   rose10: '#E12A2A',
 
-  // Neutral Palette
   neutral01: '#FFF',
   neutral02: '#FAFAFA',
   neutral03: '#F5F5F5',
@@ -85,7 +79,6 @@ export const Colors = {
   neutral09: '#262626',
   neutral10: '#000',
 
-  // Amber Palette (TamaPay brand orange)
   amber01: '#FEFAF4',
   amber02: '#FDF1E0',
   amber03: '#FCE8CA',
@@ -97,7 +90,6 @@ export const Colors = {
   amber09: '#F5B14C',
   amber10: '#F4A837',
 
-  // Dashboard surfaces and status accents from the home dashboard design.
   dashboardPanel: '#FCFBFB',
   dashboardPanelBorder: '#F4F2F1',
   dashboardCardBorder: '#EEE9E8',
@@ -106,15 +98,17 @@ export const Colors = {
   dashboardErrorText: '#B31D00',
   dashboardSuccessText: '#3F7A12',
 
-  // Stops between the logo red and orange, shared by the dashboard cards, the action buttons,
-  // the enrollment summary card and the profile avatar ring.
+  billDueText: '#9A4A0E',
+  billDueDot: '#EC6C2E',
+  outlineMuted: '#DCD6D5',
+  modalScrim: 'rgba(37,22,21,0.42)',
+
   brandGradientDeep: '#7F211D',
   brandGradientVivid: '#DF4029',
   brandGradientWarm: '#E65F2C',
   brandGradientAction: '#E5572B',
 
-  // Other Colors
   transparent: 'transparent',
-  // neutral01 fading out; a gradient to plain 'transparent' passes through grey on iOS.
+
   whiteTransparent: 'rgba(255,255,255,0)',
 } as const;

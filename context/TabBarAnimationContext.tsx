@@ -1,10 +1,6 @@
 import React, { createContext, useContext } from 'react';
-import { SharedValue, useSharedValue } from 'react-native-reanimated';
-
-interface TabBarAnimationContextType {
-  tabBarTranslateY: SharedValue<number>;
-  tabBarHeight: SharedValue<number>;
-}
+import { useSharedValue } from 'react-native-reanimated';
+import type { TabBarAnimationContextType } from '@/types/context';
 
 const TabBarAnimationContext = createContext<TabBarAnimationContextType | undefined>(undefined);
 

@@ -1,8 +1,6 @@
 import { parseDirectDebitCallbackUrl } from '@/utils/directDebitCallback';
 import { parsePaymentResultCallbackUrl } from '@/utils/paymentResultCallback';
-
-const PAYMENT_RESULT_ROUTE = '/payment-methods/payment-result';
-const DIRECT_DEBIT_RESULT_ROUTE = '/payment-methods/direct-debit-result';
+import { DIRECT_DEBIT_RESULT_ROUTE, PAYMENT_RESULT_ROUTE } from '@/constants/routes';
 
 const toQueryString = (params: Record<string, string | undefined>): string => (
   Object.entries(params)
@@ -11,12 +9,6 @@ const toQueryString = (params: Record<string, string | undefined>): string => (
     .join('&')
 );
 
-/**
- * Maps an incoming system URL to a real route. The backend sends payment returns as
- * `personaldashboardmob://mobile/payment-result` and `.../mobile/direct-debit-result`; there
- * is no `/mobile/...` route, so without this Expo Router shows "Unmatched Route". Any other URL
- * is returned unchanged.
- */
 export const getNativeIntentPath = (path: string): string => {
   const parseableUrl = path.startsWith('/') ? `https://mobile-callback.invalid${path}` : path;
 

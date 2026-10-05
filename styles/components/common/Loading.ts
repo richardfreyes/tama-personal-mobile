@@ -14,6 +14,43 @@ export const loadingStyles = StyleSheet.create({
   skeletonBlock: {
     backgroundColor: Colors.neutral04,
   },
+
+  skeletonSoft: {
+    backgroundColor: Colors.neutral03,
+  },
+  skeletonBar: {
+    backgroundColor: Colors.dashboardSkeleton,
+  },
+  skeletonPeek: {
+    borderBottomRightRadius: 0,
+    borderTopRightRadius: 0,
+  },
+  savedBillers: {
+    gap: 12,
+    paddingHorizontal: 20,
+    paddingTop: 8,
+  },
+  savedBillerCards: {
+    flexDirection: 'row',
+    gap: 12,
+    marginHorizontal: -20,
+    overflow: 'hidden',
+    paddingHorizontal: 20,
+  },
+  billerDirectory: {
+    gap: 20,
+    paddingBottom: 132,
+    paddingHorizontal: 20,
+    paddingTop: 20,
+  },
+  billerDirectoryRows: {
+    gap: 18,
+  },
+  billerDirectoryRow: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    gap: 12,
+  },
   skeletonContainer: {
     gap: 4,
     width: '100%',
@@ -171,12 +208,22 @@ export const loadingStyles = StyleSheet.create({
     paddingBottom: 24,
   },
   billPaymentContainer: {
-    gap: 12,
+    gap: 24,
+  },
+  billerSkeleton: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    gap: 14,
+  },
+  billerSkeletonText: {
+    flex: 1,
+    gap: 8,
   },
   amountSkeletonContainer: {
-    alignItems: 'center',
     gap: 8,
-    marginBottom: 12,
+  },
+  summarySkeleton: {
+    gap: 12,
   },
   progressTrack: {
     backgroundColor: Colors.neutral04,

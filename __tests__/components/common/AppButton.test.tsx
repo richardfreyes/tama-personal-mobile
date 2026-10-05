@@ -3,6 +3,8 @@ import { describe, expect, it, jest } from '@jest/globals';
 import { act, fireEvent, screen, waitFor } from '@testing-library/react-native';
 import React from 'react';
 import { AppButton } from '../../../components/common/AppButton';
+import { StyleSheet } from 'react-native';
+import { Colors } from '../../../styles/common/colors';
 import { renderWithProviders } from '../../../utils/test-utils';
 
 jest.mock('expo-router', () => ({
@@ -89,5 +91,37 @@ describe('AppButton', () => {
       />
     );
     expect(screen.getByText('Styled')).toBeTruthy();
+  });
+
+  describe('gradient variant', () => {
+    it('draws the brand gradient behind a white 52pt button', () => {
+      renderWithProviders(<AppButton title="Confirm" variant="gradient" onPress={() => {}} />);
+
+      expect(screen.getByTestId('app-button-gradient')).toBeTruthy();
+      const button = StyleSheet.flatten(screen.getByRole('button', { name: 'Confirm' }).props.style);
+      expect(button).toEqual(expect.objectContaining({ minHeight: 52, borderRadius: 14 }));
+      expect(StyleSheet.flatten(screen.getByText('Confirm').props.style)).toEqual(
+        expect.objectContaining({ color: Colors.neutral01, fontSize: 16 }),
+      );
+    });
+
+    it('goes flat and grey, and ignores presses, when disabled', () => {
+      const onPress = jest.fn();
+      renderWithProviders(<AppButton title="Confirm" variant="gradient" disabled onPress={onPress} />);
+
+      expect(screen.queryByTestId('app-button-gradient')).toBeNull();
+      expect(StyleSheet.flatten(screen.getByRole('button', { name: 'Confirm' }).props.style).backgroundColor)
+        .toBe(Colors.dashboardSkeleton);
+      expect(StyleSheet.flatten(screen.getByText('Confirm').props.style).color).toBe(Colors.maroon07);
+      fireEvent.press(screen.getByText('Confirm'));
+      expect(onPress).not.toHaveBeenCalled();
+    });
+
+    it('keeps the gradient and shows a spinner while loading', () => {
+      renderWithProviders(<AppButton title="Confirm" variant="gradient" isLoading onPress={() => {}} />);
+
+      expect(screen.getByTestId('app-button-gradient')).toBeTruthy();
+      expect(screen.getByTestId('ActivityIndicator')).toBeTruthy();
+    });
   });
 });

@@ -1,4 +1,4 @@
-import { RootState } from '@/redux/store';
+import type { RootState } from '@/redux/storeTypes';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { initialState, ShowModalPayload } from './modalTypes';
 
@@ -10,6 +10,7 @@ const modalSlice = createSlice({
       state.isVisible = true;
       state.dismissible = action.payload.dismissible;
       state.iconType = action.payload.iconType;
+      state.variant = action.payload.variant;
       state.headerMessage = action.payload.headerMessage;
       state.bodyMessage = action.payload.bodyMessage;
       state.bodyType = action.payload.bodyType;
@@ -20,6 +21,7 @@ const modalSlice = createSlice({
       state.isVisible = false;
       state.dismissible = undefined;
       state.iconType = undefined;
+      state.variant = undefined;
       state.headerMessage = undefined;
       state.bodyMessage = undefined;
       state.bodyType = undefined;

@@ -3,7 +3,6 @@ import { beforeEach, describe, expect, it, jest } from '@jest/globals';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react-native';
 import React from 'react';
 
-
 const mockDispatch = jest.fn<(...args: any[]) => any>();
 const mockPayWithPayPal = jest.fn<(...args: any[]) => any>();
 const mockCapturePayPal = jest.fn<(...args: any[]) => any>();
@@ -34,7 +33,7 @@ jest.mock('@/components/layout/NavHeaderComponent', () => () => null);
 jest.mock('@/components/layout/OtpWebView', () => ({
   OtpWebView: ({ visible, onSuccess }: { visible: boolean; onSuccess: () => void }) => {
     if (!visible) return null;
-    // eslint-disable-next-line @typescript-eslint/no-require-imports
+
     const { Pressable, Text } = require('react-native');
     return (
       <Pressable accessibilityRole="button" onPress={onSuccess}>
@@ -48,7 +47,6 @@ const resolved = (value: any) => ({
   abort: jest.fn(),
   unwrap: jest.fn<(...args: any[]) => any>().mockResolvedValue(value),
 });
-
 
 describe('PayPal hosted payment', () => {
   beforeEach(() => {

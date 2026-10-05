@@ -120,12 +120,10 @@ describe('transaction history normalization', () => {
   it('matches an enrollment by its payment reference id shown as the detail Reference ID', () => {
     const enrollmentTransaction = normalizeEnrollmentTransaction(enrollment);
 
-    // "QW-P-*" is the paymentReferenceId, distinct from the "QW-E-*" enrollment reference.
     expect(enrollmentTransaction.paymentReferenceId).toBe('QW-P-7');
     expect(transactionMatchesSearch(enrollmentTransaction, 'QW-P-7')).toBe(true);
     expect(transactionMatchesSearch(enrollmentTransaction, 'qw-p-7')).toBe(true);
 
-    // One-time payments have no payment reference and must not match a payment-ref query.
     expect(normalizeOneTimePaymentTransaction(oneTimePayment).paymentReferenceId).toBeNull();
     expect(transactionMatchesSearch(normalizeOneTimePaymentTransaction(oneTimePayment), 'QW-P-7')).toBe(false);
   });
@@ -175,8 +173,7 @@ describe('transaction history normalization', () => {
     const secondPayment = {
       ...firstPayment,
       externalTransactionId: 'payment-second',
-      // Multiple payments can share a bill/invoice reference. The backend
-      // transaction ID is the authoritative identity in that case.
+
       invoiceReferenceId: 'invoice-first',
       billingName: 'June bill',
       createdAt: '2026-06-01T11:00:00Z',

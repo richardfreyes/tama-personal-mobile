@@ -1,10 +1,12 @@
 import { Colors } from "@/styles/common/colors";
 import { globalStyle, inputFocusColor } from "@/styles/common/globals";
+import { inputValidationComponentStyles as styles } from "@/styles/components/forms/InputValidationComponent";
 import { InputValidationProps } from "@/types";
 import { formatCurrencyInput, getCurrencyInputSelection, normalizeCurrencyInput } from "@/utils/format";
-import React, { memo, useLayoutEffect, useRef, useState } from "react";
-import { KeyboardTypeOptions, NativeSyntheticEvent, TextInputSelectionChangeEventData, View } from "react-native";
+import React, { useLayoutEffect, useRef, useState } from "react";
+import { KeyboardTypeOptions, NativeSyntheticEvent, TextInput, TextInputSelectionChangeEventData, View } from "react-native";
 import { HelperText, TextInput as PaperTextInput, useTheme } from "react-native-paper";
+import { AppText } from "../common/AppText";
 
 const InputValidationComponent = ({
   field,
@@ -30,6 +32,9 @@ const InputValidationComponent = ({
   formatAsCurrency = false,
   rightIcon,
   left,
+  variant = "outlined",
+  prefix,
+  helperText,
 }: InputValidationProps) => {
   const theme = useTheme();
   const hasError = touched[field] && errors[field];
@@ -202,6 +207,38 @@ const InputValidationComponent = ({
     return null;
   };
 
+  if (variant === "amount") {
+    return (
+      <View style={styles.amountContainer}>
+        {label ? <AppText weight="500" style={styles.amountLabel}>{label}</AppText> : null}
+        <View style={[styles.amountField, isFocused && styles.amountFieldFocused, hasError && styles.amountFieldError]}>
+          {prefix ? <AppText weight="500" style={styles.amountPrefix}>{prefix}</AppText> : null}
+          <TextInput
+            accessibilityLabel={label ?? placeholder}
+            editable={editable}
+            keyboardType={keyboardType as KeyboardTypeOptions}
+            maxLength={maxLength}
+            onBlur={() => setIsFocused(false)}
+            onChangeText={handleValidation}
+            onFocus={() => setIsFocused(true)}
+            onKeyPress={handleKeyPress}
+            onSelectionChange={handleSelectionChange}
+            placeholder={placeholder}
+            placeholderTextColor={Colors.maroon06}
+            selection={formatAsCurrency ? selectionOverride : undefined}
+            style={styles.amountInput}
+            value={displayValue}
+          />
+        </View>
+        {hasError ? (
+          <AppText accessibilityRole="alert" style={styles.amountError}>{errors[field]}</AppText>
+        ) : helperText ? (
+          <AppText style={styles.amountHelper}>{helperText}</AppText>
+        ) : null}
+      </View>
+    );
+  }
+
   return (
     <View>
       <PaperTextInput
@@ -244,14 +281,4 @@ const InputValidationComponent = ({
   );
 };
 
-export default memo(InputValidationComponent, (prev, next) => {
-  return (
-    prev.value === next.value &&
-    prev.errors?.[prev.field] === next.errors?.[next.field] &&
-    prev.touched?.[prev.field] === next.touched?.[next.field] &&
-    prev.editable === next.editable &&
-    prev.secureTextEntry === next.secureTextEntry &&
-    prev.multiline === next.multiline &&
-    prev.formatAsCurrency === next.formatAsCurrency
-  );
-});
+export default InputValidationComponent;

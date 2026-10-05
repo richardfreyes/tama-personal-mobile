@@ -67,7 +67,7 @@ const FullScreenModal: React.FC<FullScreenModalProps> = ({
               contentStyle={{ minHeight: 280, textAlignVertical: 'top' }}
               style={{ marginBottom: 12 }}
             />
-            <AppText style={{ marginBottom: 12 }} size='extraSmall'>Cancellation of an invoice is final. Type <AppText size='extraSmall' weight='700'>"cancel invoice"</AppText> below to confirm cancellation:</AppText>
+            <AppText style={{ marginBottom: 12 }} size='extraSmall'>Cancellation of an invoice is final. Type <AppText size='extraSmall' weight='700'>{'"cancel invoice"'}</AppText> below to confirm cancellation:</AppText>
             <TextInput mode="outlined" activeOutlineColor={inputFocusColor} style={{ marginBottom: 24 }}/>
             <View style={styles.btnContainer}>
               <View style={{flex: 1, marginRight: 4}}>

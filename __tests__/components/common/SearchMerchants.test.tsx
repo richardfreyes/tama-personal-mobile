@@ -5,8 +5,6 @@ import { Image } from 'react-native';
 import SearchMerchants from '../../../components/common/SearchMerchants';
 import { renderWithProviders } from '../../../utils/test-utils';
 
-// useFocusEffect is not part of the global expo-router mock, so provide a
-// version that runs the callback once on mount (mirroring focus on render).
 jest.mock('expo-router', () => {
   const React = require('react');
   return {
@@ -15,7 +13,7 @@ jest.mock('expo-router', () => {
       React.useEffect(() => {
         const cleanup = cb();
         return typeof cleanup === 'function' ? cleanup : undefined;
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+
       }, []);
     },
   };
@@ -42,8 +40,6 @@ describe('SearchMerchants', () => {
   afterEach(() => {
     jest.clearAllMocks();
   });
-
-  // ---- Rendering ----
 
   it('renders the search input', () => {
     renderWithProviders(<SearchMerchants {...baseProps} />);
@@ -93,13 +89,19 @@ describe('SearchMerchants', () => {
     ).toBe(true);
   });
 
-  // ---- Search filtering ----
-
   it('filters the list by the search query', () => {
     renderWithProviders(<SearchMerchants {...baseProps} />);
     fireEvent.changeText(screen.getByPlaceholderText('Search biller'), 'Alpha');
     expect(screen.getByText('Alpha Biller')).toBeTruthy();
     expect(screen.queryByText('Beta Corp')).toBeNull();
+  });
+
+  it('matches an accented name from an unaccented query', () => {
+    renderWithProviders(
+      <SearchMerchants {...baseProps} data={[{ id: 4, name: 'Éclair Land' }]} />,
+    );
+    fireEvent.changeText(screen.getByPlaceholderText('Search biller'), 'eclair');
+    expect(screen.getByText('Éclair Land')).toBeTruthy();
   });
 
   it('shows the empty state when the search matches nothing', () => {
@@ -109,8 +111,6 @@ describe('SearchMerchants', () => {
       screen.getByText('No billers found matching your search.'),
     ).toBeTruthy();
   });
-
-  // ---- Empty / loading / error states ----
 
   it('shows the empty state when data is an empty array', () => {
     renderWithProviders(<SearchMerchants {...baseProps} data={[]} />);
@@ -148,8 +148,6 @@ describe('SearchMerchants', () => {
       screen.queryByText('No billers found matching your search.'),
     ).toBeNull();
   });
-
-  // ---- Interactions ----
 
   it('calls onSelect with the merchant when an item is pressed', () => {
     const onSelect = jest.fn();

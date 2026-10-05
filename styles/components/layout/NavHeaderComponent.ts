@@ -1,9 +1,7 @@
-import { COMMON } from "@/constants/common";
+import { NAV_HEADER_DEFAULT_HORIZONTAL_PADDING, NAV_HEADER_OUTLINED_BOTTOM_PADDING, NAV_HEADER_OUTLINED_BUTTON_SIZE, NAV_HEADER_OUTLINED_HORIZONTAL_PADDING, NAV_HEADER_VERTICAL_PADDING } from '@/constants';
+import { COMMON } from '@/constants/common';
 import { StyleSheet, ViewStyle } from "react-native";
 import { Colors } from "../../common/colors";
-
-const HEADER_VERTICAL_PADDING = 12;
-const DEFAULT_HORIZONTAL_PADDING = 24;
 
 const navButtonBase: ViewStyle = {
   justifyContent: 'center',
@@ -65,12 +63,45 @@ const navHeaderStyles = StyleSheet.create({
     top: 0,
   },
   stickyHeaderFallback: {
-    left: DEFAULT_HORIZONTAL_PADDING,
-    right: DEFAULT_HORIZONTAL_PADDING,
+    left: NAV_HEADER_DEFAULT_HORIZONTAL_PADDING,
+    right: NAV_HEADER_DEFAULT_HORIZONTAL_PADDING,
+  },
+
+  outlinedContainer: {
+    alignItems: 'center',
+    backgroundColor: Colors.neutral01,
+    flexDirection: 'row',
+    gap: 8,
+    paddingBottom: NAV_HEADER_OUTLINED_BOTTOM_PADDING,
+    paddingHorizontal: NAV_HEADER_OUTLINED_HORIZONTAL_PADDING,
+  },
+  outlinedButton: {
+    alignItems: 'center',
+    backgroundColor: Colors.neutral01,
+    borderColor: Colors.dashboardCardBorder,
+    borderRadius: 14,
+    borderWidth: 1,
+    height: NAV_HEADER_OUTLINED_BUTTON_SIZE,
+    justifyContent: 'center',
+    width: NAV_HEADER_OUTLINED_BUTTON_SIZE,
+  },
+  outlinedButtonPressed: {
+    backgroundColor: Colors.dashboardPanel,
+  },
+  outlinedButtonSlot: {
+    width: NAV_HEADER_OUTLINED_BUTTON_SIZE,
+  },
+  outlinedTitle: {
+    color: Colors.maroon11,
+    flex: 1,
+    fontSize: 17,
+    lineHeight: 24,
+    textAlign: 'center',
   },
 });
 
 export const navHeaderComponentStyles = {
   ...navHeaderStyles,
-  getHeaderHeight: (safeAreaTop: number) => safeAreaTop + COMMON.BACK_BUTTON_SIZE + (HEADER_VERTICAL_PADDING * 2),
+  getHeaderHeight: (safeAreaTop: number) => safeAreaTop + COMMON.BACK_BUTTON_SIZE + (NAV_HEADER_VERTICAL_PADDING * 2),
+  getOutlinedHeaderHeight: (safeAreaTop: number) => safeAreaTop + NAV_HEADER_OUTLINED_BUTTON_SIZE + NAV_HEADER_OUTLINED_BOTTOM_PADDING,
 };

@@ -17,7 +17,6 @@ export interface Merchant {
 
 export type MerchantsResponse = Merchant[];
 
-
 export interface PaymentChannel {
   code: string;
   name: string;
@@ -32,7 +31,6 @@ export interface PaymentMetadata {
   paypalEmail?: string | null;
   [key: string]: any;
 }
-
 
 export interface MerchantPayment {
   fields: [];
@@ -371,7 +369,7 @@ export interface MerchantTransactionPaymentVaultResponse {
   httpStatus?: number;
   message?: string;
   status?: string;
-  /** Enrollment vault only: Maya needs 3DS; open `redirect` before enrolling. */
+
   verificationRequired?: boolean;
   redirect?: string;
   [key: string]: any;

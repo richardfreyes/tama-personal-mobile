@@ -5,8 +5,6 @@ import { formatExpiryDate } from '@/utils/format';
 import { getCvcLength, validateCardNumber, validateCVC, validateExpiryDate, validateField } from '@/utils/validators';
 import { Country } from 'country-state-city';
 
-export const PAYMENT_METHOD_PRIORITY_COUNTRIES = ["PH", "US"];
-
 const fieldsToValidate: (keyof AddCardFormInputs)[] = [
   'fullName',
   'cardNumber',

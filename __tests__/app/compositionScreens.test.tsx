@@ -16,6 +16,7 @@ const mockMerchantsResult = {
 };
 const mockDisplayableMerchants = [{ id: 'display-1', pid: 'D1', name: 'Display One' }];
 const mockDispatch = jest.fn();
+const mockDirectoryProps = jest.fn();
 const mockUseGetMerchantsQuery = jest.fn((..._args: any[]) => mockMerchantsResult);
 const mockUseGetBillersQuery = jest.fn((..._args: any[]) => ({
   data: [{ merchant_id: 10, merchant_code: 'B1', merchant_name: 'Biller One' }],
@@ -30,6 +31,7 @@ const mockUseGetBillsQuery = jest.fn((..._args: any[]) => ({
   isLoading: false,
   refetch: mockRefetchBills,
 }));
+const mockUseAllSavedBills = jest.fn<(...args: any[]) => any>();
 const mockUseGetMonthlyBillsEnrollmentsQuery = jest.fn(() => ({ data: { items: [] } }));
 const mockUseLocalSearchParams = useLocalSearchParams as jest.MockedFunction<typeof useLocalSearchParams>;
 
@@ -41,6 +43,9 @@ jest.mock('@/redux/features/biller/billerApi', () => ({
 }));
 jest.mock('@/redux/features/bills/billsApi', () => ({
   useGetBillsQuery: (...args: any[]) => mockUseGetBillsQuery(...args),
+}));
+jest.mock('@/hooks/useAllSavedBills', () => ({
+  useAllSavedBills: (options: unknown) => mockUseAllSavedBills(options),
 }));
 jest.mock('@/redux/features/enrollments/enrollmentApi', () => ({
   useGetMonthlyBillsEnrollmentsQuery: () => mockUseGetMonthlyBillsEnrollmentsQuery(),
@@ -109,16 +114,24 @@ jest.mock('@/components/one-time-payments/BillsComponent', () => (
 jest.mock('@/components/common/SearchMerchants', () => (
   function MockSearchMerchants(props: any) {
     const { Pressable, Text, View } = require('react-native');
+    if (props.layout === 'directory') {
+      mockDirectoryProps(props);
+      return (
+        <View>
+          {props.header}
+          <Text>{`Directory:${props.data.length}:${props.isLoading}:${props.isError}:${Array.from(props.savedMerchantIds ?? []).join(',')}`}</Text>
+          <Pressable accessibilityRole="button" onPress={props.onRetry}>
+            <Text>Retry billers</Text>
+          </Pressable>
+        </View>
+      );
+    }
+
     return (
       <View>
-        {props.sectionTitle ? <Text>{props.sectionTitle}</Text> : null}
-        <Text>{`Search:${props.data.length}:${props.isLoading}:${props.isError}:${props.activeCategoryId}`}</Text>
-        <Pressable accessibilityRole="button" onPress={() => props.onSelect(props.data[0])}>
-          <Text>Select Merchant</Text>
-        </Pressable>
-        <Pressable accessibilityRole="button" onPress={() => props.onCategoryChange(99)}>
-          <Text>Select Category</Text>
-        </Pressable>
+        <Text>{`Billers:${props.data.length}:category:${props.activeCategoryId}`}</Text>
+        <Pressable accessibilityRole="button" onPress={() => props.onSelect(props.data[0])}><Text>Select biller</Text></Pressable>
+        <Pressable accessibilityRole="button" onPress={() => props.onCategoryChange(2)}><Text>Filter billers</Text></Pressable>
       </View>
     );
   }
@@ -173,6 +186,20 @@ describe('route composition screens', () => {
   beforeEach(() => {
     jest.clearAllMocks();
     mockUseLocalSearchParams.mockReturnValue({});
+    mockUseGetBillsQuery.mockReturnValue({
+      data: [],
+      isError: false,
+      isFetching: false,
+      isLoading: false,
+      refetch: mockRefetchBills,
+    });
+    mockUseAllSavedBills.mockImplementation(({ skip }: { skip: boolean }) => ({
+      bills: skip ? [] : mockUseGetBillsQuery({ page: 0 }).data ?? [],
+      isLoading: false,
+      isFetching: false,
+      isError: false,
+      refetch: mockRefetchBills,
+    }));
   });
 
   it('renders the enrolled list variant with its route header', () => {
@@ -200,56 +227,88 @@ describe('route composition screens', () => {
     }));
   });
 
-  it('renders the One Time Payments overview and forwards biller selection to the one-time payment form', () => {
-    render(<OneTimePaymentsScreen />);
-    expect(screen.getByText('Nav:One Time Payments')).toBeTruthy();
-    expect(screen.getByText('Bills:Saved Billers')).toBeTruthy();
-    expect(screen.getByText(/Search:1:false:false:/)).toBeTruthy();
-    expect(mockUseGetBillersQuery).toHaveBeenCalledWith({ search: '', category: undefined });
-
-    fireEvent.press(screen.getByText('View All'));
-    expect(router.push).toHaveBeenCalledWith('/bills/one-time-payments/saved');
-
-    // The overview list must be one-time-payment billers routed to the OTP add
-    // form — not auto-debit merchants routed to the enrollment form.
-    fireEvent.press(screen.getByText('Select Merchant'));
-    expect(router.push).toHaveBeenCalledWith({
-      pathname: '/(app)/bills/one-time-payments/add/form',
-      params: {
-        merchantId: 10,
-        merchantCode: 'B1',
-        merchantName: 'Biller One',
-      },
+  it('renders the One Time Payments screen: saved billers above a directory of the billers', () => {
+    mockUseGetBillsQuery.mockReturnValue({
+      data: [{ billing_reference_id: 'bill-1', merchant_id: 10 }] as any,
+      isError: false,
+      isFetching: false,
+      isLoading: false,
+      refetch: mockRefetchBills,
     });
+    render(<OneTimePaymentsScreen />);
 
-    fireEvent.press(screen.getByText('Select Category'));
-    expect(screen.getByText(/Search:1:false:false:99/)).toBeTruthy();
-    expect(mockUseGetBillersQuery).toHaveBeenLastCalledWith({ search: '', category: 99 });
+    expect(screen.getByText('Nav:One Time Payments')).toBeTruthy();
+    expect(screen.getByText('Bills:Saved billers')).toBeTruthy();
+
+    expect(screen.getByText('Directory:1:false:false:10')).toBeTruthy();
+    expect(mockUseGetBillersQuery).toHaveBeenCalledWith({});
   });
 
-  it('renders Add Biller within the one-time-payments route and forwards selection', () => {
+  it('marks merchants saved on later pages in the directory', () => {
+    mockUseAllSavedBills.mockReturnValue({
+      bills: [{ billing_reference_id: 'bill-1', merchant_id: 10 }, { billing_reference_id: 'bill-2', merchant_id: 20 }],
+      isLoading: false,
+      isFetching: false,
+      isError: false,
+      refetch: mockRefetchBills,
+    });
+    render(<OneTimePaymentsScreen />);
+
+    expect(screen.getByText('Directory:1:false:false:10,20')).toBeTruthy();
+  });
+
+  it('opens the saved bills from Manage', () => {
+    render(<OneTimePaymentsScreen />);
+
+    fireEvent.press(screen.getByText('Manage'));
+    expect(router.push).toHaveBeenCalledWith('/bills/one-time-payments/saved');
+  });
+
+  it('only shows the billers in the list: nothing in it can be selected yet', () => {
+    render(<OneTimePaymentsScreen />);
+
+    expect(mockDirectoryProps).toHaveBeenCalled();
+    const props = mockDirectoryProps.mock.calls[0][0] as Record<string, unknown>;
+    expect(props.onSelect).toBeUndefined();
+    expect(props.onAddBillerPress).toBeUndefined();
+  });
+
+  it('passes the billers loading and error state on to the directory and retries it', () => {
+    mockUseGetBillersQuery.mockReturnValueOnce({ data: undefined, isLoading: true, isError: false } as any);
+    const loading = render(<OneTimePaymentsScreen />);
+    expect(screen.getByText('Directory:0:true:false:')).toBeTruthy();
+    loading.unmount();
+
+    const refetch = jest.fn();
+    mockUseGetBillersQuery.mockReturnValueOnce({ data: undefined, isLoading: false, isError: true, refetch } as any);
+    render(<OneTimePaymentsScreen />);
+    expect(screen.getByText('Directory:0:false:true:')).toBeTruthy();
+    fireEvent.press(screen.getByText('Retry billers'));
+    expect(refetch).toHaveBeenCalledTimes(1);
+  });
+
+  it('opens the add-biller picker from view=add and routes a selected merchant to the form', () => {
     mockUseLocalSearchParams.mockReturnValue({ view: 'add' });
     render(<OneTimePaymentsScreen />);
 
-    expect(screen.getByText('Nav:One Time Payments')).toBeTruthy();
-    // The add-biller view shows only the biller search, not the Saved Billers section.
-    expect(screen.queryByText('Bills:Saved Billers')).toBeNull();
-    expect(screen.getByText(/Search:1:false:false:/)).toBeTruthy();
+    expect(screen.getByText('Nav:Add Biller')).toBeTruthy();
+    expect(screen.getByText('Billers:1:category:undefined')).toBeTruthy();
+    expect(screen.queryByText('Directory:1:false:false:')).toBeNull();
     expect(mockUseGetBillersQuery).toHaveBeenCalledWith({ search: '', category: undefined });
+    expect(mockUseAllSavedBills).toHaveBeenCalledWith({ skip: true });
 
-    fireEvent.press(screen.getByText('Select Merchant'));
+    fireEvent.press(screen.getByText('Select biller'));
     expect(router.push).toHaveBeenCalledWith({
       pathname: '/(app)/bills/one-time-payments/add/form',
       params: {
-        merchantId: 10,
+        merchantId: '10',
         merchantCode: 'B1',
         merchantName: 'Biller One',
       },
     });
 
-    fireEvent.press(screen.getByText('Select Category'));
-    expect(screen.getByText(/Search:1:false:false:99/)).toBeTruthy();
-    expect(mockUseGetBillersQuery).toHaveBeenLastCalledWith({ search: '', category: 99 });
+    fireEvent.press(screen.getByText('Filter billers'));
+    expect(mockUseGetBillersQuery).toHaveBeenCalledWith({ search: '', category: 2 });
   });
 
   it('renders the dedicated Saved Bills route', () => {
@@ -276,10 +335,9 @@ describe('route composition screens', () => {
   it('reuses the shared sections with the dashboard options', () => {
     render(<Dashboard />);
 
-    // One Time Payments shows its Add Biller / Pay Now footer.
     expect(screen.getByText('Add Biller')).toBeTruthy();
     expect(screen.getByText('Pay Now')).toBeTruthy();
-    // Payment methods return to the dashboard, don't scroll on their own, and have no add button here.
+
     expect(screen.getByText('PaymentMethods options:/dashboard:false:false')).toBeTruthy();
   });
 

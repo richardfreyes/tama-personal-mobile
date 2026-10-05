@@ -54,7 +54,7 @@ const CreateNewPasswordScreen: React.FC = () => {
       } else if (field === 'createPassword') {
         extraData.selected = formData.confirmPassword;
       }
-      
+
       const error = validateField(field as string, value, extraData);
       return error || undefined;
     },

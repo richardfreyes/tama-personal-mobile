@@ -11,8 +11,6 @@ export const formatTransactionStatus = (status: string): string => (
     .replace(/\b\w/g, (character) => character.toUpperCase())
 );
 
-// Enrollment statuses are not normalised by the backend, so anything not failed or in flight counts
-// as settled; for one-time payments an unrecognised status stays neutral instead of guessing.
 export const getTransactionStatusTone = (
   { source, status }: Pick<UnifiedTransaction, 'source' | 'status'>,
 ): TransactionStatusTone => {
@@ -24,7 +22,6 @@ export const getTransactionStatusTone = (
   return 'neutral';
 };
 
-// Settled transactions need no badge, so only the other tones render one.
 export const getTransactionStatusBadge = (transaction: UnifiedTransaction) => {
   const tone = getTransactionStatusTone(transaction);
   if (tone === 'success') {
@@ -140,9 +137,6 @@ export const transactionDetailToListTransaction = (
     merchantName: detail.merchantName,
     merchantLogoUrl: merchantLogoUrl ?? null,
     customerName: detail.billingDetails?.customerName?.value ?? null,
-    // Transaction history displays the amount charged to the payment method.
-    // The detail endpoint exposes that as total*, while the list endpoint
-    // returns the same values in its base* fields.
     baseAmount: detail.totalAmount,
     baseCurrency: detail.totalCurrency,
     status: detail.status,

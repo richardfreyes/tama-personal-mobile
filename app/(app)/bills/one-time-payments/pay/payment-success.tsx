@@ -33,11 +33,11 @@ const PaymentSuccessScreen = () => {
   const parsedComputationResponse = useMemo(() => (
     parseComputationResponse(rawComputationResponse)
   ), [rawComputationResponse]);
-  // NOTE: Prefer the transaction's ID as the invoice reference ID changes whenever the fees are recomputed
+
   const receiptInvoiceReferenceId = getSearchParam(transactionReferenceId) || getSearchParam(invoiceReferenceId) || parsedComputationResponse?.invoiceReferenceId || parsedComputationResponse?.computation?.invoiceReferenceId || '';
   const { data: billData } = useGetBillDetailQuery(billingId, { skip: !billingId });
   const { data: billers = [] } = useGetBillersQuery({});
-  // currentData, not data: data still holds the previous payment's receipt while a new invoice loads.
+
   const { currentData: transactionData, isLoading: isTransactionLoading, isFetching: isTransactionFetching, isError: isTransactionError } = useGetTransactionDetailQuery(receiptInvoiceReferenceId, {
     skip: !receiptInvoiceReferenceId,
   });
@@ -96,7 +96,7 @@ const PaymentSuccessScreen = () => {
       ));
     }
   }, [dispatch, merchantLogoUrl, receiptInvoiceReferenceId, transactionData]);
-  
+
   const paymentProvider = useMemo(() => {
     if (activeTransaction?.paymentMethodProvider) {
       return activeTransaction.paymentMethodProvider;
@@ -190,11 +190,10 @@ const PaymentSuccessScreen = () => {
           ) : null}
 
           <View style={styles.paymentDetailsContainer}>
-            {/* TODO: Enable download receipt for phase 2 */}
-            {/* <TouchableOpacity style={styles.downloadReceiptContainer}>
-              <DownloadIcon width={24} height={24} />
-              <AppText style={ styles.downloadReceiptLabel}>Get PDF Receipt</AppText>
-            </TouchableOpacity> */}
+            { }
+            {
+
+}
             
             <AppText mBottom={12} style={styles.downloadDateLabel}>{formattedDate}</AppText>
             <AppText mBottom={20} style={styles.downloadDescLabel}>
@@ -206,11 +205,10 @@ const PaymentSuccessScreen = () => {
         </View>
         <SpacerComponent height={24} />
         
-        {/* TODO: Enable share receipt for phase 2 */}
-        {/* <AppButton 
-          title="Share Receipt"
-          variant="primary" 
-        /> */}
+        { }
+        {
+
+}
 
         <SpacerComponent height={12} />
         <AppButton 

@@ -1,11 +1,5 @@
 import { AppText } from '@/components/common/AppText';
-import {
-  DASHBOARD_BILL_CARD_GRADIENT_COLORS,
-  DASHBOARD_BILL_CARD_GRADIENT_LOCATIONS,
-  DASHBOARD_BILL_CAROUSEL_GAP,
-  GRADIENT_HORIZONTAL_END,
-  GRADIENT_HORIZONTAL_START,
-} from '@/constants';
+import { DASHBOARD_BILL_CARD_GRADIENT_COLORS, DASHBOARD_BILL_CARD_GRADIENT_LOCATIONS, DASHBOARD_BILL_CAROUSEL_GAP, GRADIENT_HORIZONTAL_END, GRADIENT_HORIZONTAL_START, } from '@/constants';
 import { Colors } from '@/styles/common/colors';
 import { upcomingBillCardStyles as styles } from '@/styles/components/enrollments/UpcomingBillCard';
 import type { UpcomingBillCardProps } from '@/types/common';

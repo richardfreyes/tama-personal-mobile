@@ -5,7 +5,6 @@ import { PaperProvider } from 'react-native-paper';
 import { CheckboxFieldRenderer } from '../../../../components/forms/dynamic-field-renderers/CheckboxFieldRenderer';
 import { renderWithProviders } from '../../../../utils/test-utils';
 
-// Replace the terms checkbox with a lightweight mock that surfaces its props.
 jest.mock('@/components/settings/TermsAndPolicyText', () => {
   const RN = require('react-native');
   const Mock = (props: any) => (
@@ -56,8 +55,6 @@ describe('CheckboxFieldRenderer', () => {
     jest.clearAllMocks();
   });
 
-  // ---- Rendering ----
-
   it('renders the checkbox with the field label as extra text', () => {
     renderRenderer();
     expect(screen.getByTestId('terms-checkbox')).toBeTruthy();
@@ -74,8 +71,6 @@ describe('CheckboxFieldRenderer', () => {
     expect(screen.getByText('Checked')).toBeTruthy();
   });
 
-  // ---- Toggle ----
-
   it('toggles the value via handleFieldChange when pressed', () => {
     const handleFieldChange = jest.fn();
     renderRenderer({ formData: { termsAccepted: false }, handleFieldChange });
@@ -89,8 +84,6 @@ describe('CheckboxFieldRenderer', () => {
     fireEvent.press(screen.getByTestId('terms-toggle'));
     expect(handleFieldChange).toHaveBeenCalledWith('termsAccepted', false);
   });
-
-  // ---- Terms link (enrollment) ----
 
   it('passes onTermsPress as the link handler when isEnrollment is true', () => {
     renderRenderer({ isEnrollment: true });
@@ -113,8 +106,6 @@ describe('CheckboxFieldRenderer', () => {
     expect(screen.getByText('HAS_PRIVACY_LINK')).toBeTruthy();
     expect(screen.getByText('HAS_REFUND_LINK')).toBeTruthy();
   });
-
-  // ---- Error helper text ----
 
   it('shows the consent error when touched and an error exists', () => {
     renderRenderer({

@@ -12,21 +12,21 @@ jest.mock('expo-router', () => ({
 }));
 jest.mock('@/components/payments/PaymentMethodCardComponent', () => (
   function PaymentMethodCardMock({ option, onPress }: any) {
-    // eslint-disable-next-line @typescript-eslint/no-require-imports
+
     const { Pressable, Text } = require('react-native');
     return <Pressable accessibilityRole="button" onPress={onPress}><Text>{`Method:${option.title}`}</Text></Pressable>;
   }
 ));
 jest.mock('@/components/layout/NavHeaderComponent', () => (
   function NavHeaderMock({ title }: any) {
-    // eslint-disable-next-line @typescript-eslint/no-require-imports
+
     const { Text } = require('react-native');
     return <Text>{`Nav:${title}`}</Text>;
   }
 ));
 jest.mock('@/components/common/GlobalScrollView', () => ({
   GlobalScrollView: ({ children }: any) => {
-    // eslint-disable-next-line @typescript-eslint/no-require-imports
+
     const { View } = require('react-native');
     return <View>{children}</View>;
   },

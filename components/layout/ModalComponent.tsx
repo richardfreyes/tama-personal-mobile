@@ -8,6 +8,7 @@ import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { Colors } from '@/styles/common/colors';
 import { modalComponentStyles as styles } from '@/styles/components/layout/ModalComponent';
 import { modalActions } from '@/utils/modalActions';
+import { Feather } from '@expo/vector-icons';
 import React from 'react';
 import { Linking, Modal, TouchableOpacity, View } from 'react-native';
 import { AppButton } from '../common/AppButton';
@@ -32,7 +33,7 @@ const getTypeIcon = (iconType: string) => {
 export default function ModalComponent() {
   const dispatch = useAppDispatch();
   const { email } = useAuth();
-  const { isVisible, dismissible, iconType, headerMessage, bodyMessage, bodyType, buttonConfig, id } = useAppSelector(selectModal);
+  const { isVisible, dismissible, iconType, variant, headerMessage, bodyMessage, bodyType, buttonConfig, id } = useAppSelector(selectModal);
   const IconToRender = getTypeIcon(iconType || 'info');
 
   if (!isVisible) {
@@ -97,6 +98,48 @@ export default function ModalComponent() {
     }
   };
 
+  if (variant === 'confirm') {
+    return (
+      <Modal animationType="fade" transparent={true} visible={isVisible} onRequestClose={handleRequestClose}>
+        <TouchableOpacity testID="modal-backdrop" style={styles.confirmScrim} activeOpacity={1} onPressOut={handleRequestClose}>
+          <View accessibilityViewIsModal style={styles.confirmCard} onStartShouldSetResponder={() => true}>
+            {iconType ? (
+              <View style={styles.confirmIcon}>
+                {iconType === 'delete'
+                  ? <Feather color={Colors.red09} name="trash-2" size={22} />
+                  : <IconToRender width={26} height={26} />}
+              </View>
+            ) : null}
+            <View style={styles.confirmCopy}>
+              <AppText accessibilityRole="header" weight="600" style={styles.confirmTitle}>{headerMessage}</AppText>
+              <AppText style={styles.confirmBody}>{bodyMessage}</AppText>
+            </View>
+            {buttonConfig ? (
+              <View style={styles.confirmActions}>
+                <AppButton
+                  buttonStyle={styles.confirmPrimaryButton}
+                  onPress={handlePrimaryPress}
+                  textStyle={styles.confirmButtonText}
+                  title={buttonConfig.primaryLabel}
+                  variant="primary"
+                />
+                {buttonConfig.secondaryLabel ? (
+                  <AppButton
+                    buttonStyle={styles.confirmSecondaryButton}
+                    onPress={handleSecondaryPress}
+                    textStyle={styles.confirmSecondaryText}
+                    title={buttonConfig.secondaryLabel}
+                    variant="quaternary"
+                  />
+                ) : null}
+              </View>
+            ) : null}
+          </View>
+        </TouchableOpacity>
+      </Modal>
+    );
+  }
+
   return (  
     <Modal animationType="fade" transparent={true} visible={isVisible} onRequestClose={handleRequestClose}>
       <TouchableOpacity testID="modal-backdrop" style={styles.centeredView} activeOpacity={1} onPressOut={handleRequestClose}>
@@ -131,127 +174,3 @@ export default function ModalComponent() {
     </Modal>
   );
 };
-
-// REFERENCE TODO FOR PHASE 2 THIS IS REFACTORED CODE
-
-// END //
-// const ModalComponent: React.FC<ModalComponentProps> = ({
-//   type,
-//   iconType,
-//   isVisible,
-//   onClose,
-//   headerMessage,
-//   bodyMessage,
-//   buttonConfig,
-//   buttonText,
-//   buttonTextSecondary,
-//   onButtonPress,
-//   onButtonPressSecondary,
-//   invoiceStatus,
-//   refId,
-//   chargedAmount,
-//   retries,
-//   paymentRefId,
-//   datePaid,
-// }) => {
-//   const getStatusIconProps = (status: string | null | undefined) => {
-//     switch (status) {
-//       case 'Paid':
-//         return { 
-//           Icon: CheckIcon, 
-//           fillColor: Colors.success10 
-//         };
-//       case 'Pending':
-//       case 'Sched':
-//         return { 
-//           Icon: ClockIcon, 
-//           fillColor: Colors.maroon10 
-//         };
-//       default:
-//         return { 
-//           Icon: CircleExclamationIcon, 
-//           fillColor: Colors.textSecondary
-//         };
-//     }
-//   };
-//   const { Icon: StatusIcon, fillColor } = getStatusIconProps(invoiceStatus);
-
-//   const getTypeIcon = (iconType: string) => {
-//     switch (iconType) {
-//       case 'error':
-//       case 'warning':
-//         return WarningIcon;
-//       case 'success':
-//         return CheckCircleIcon;
-//       default:
-//         return CheckCircleIcon;
-//     }
-//   }
-//   const TypeIcon = getTypeIcon(iconType || '');
-
-//   return (  
-//     <Modal animationType="fade" transparent={true} visible={isVisible} onRequestClose={onClose} >
-//       <TouchableOpacity style={styles.centeredView} activeOpacity={1} onPressOut={onClose}>
-//         { type && type === 'invoice' ? (
-//           <View style={styles.modalView} onStartShouldSetResponder={() => true}>
-//             <TouchableOpacity style={{ alignSelf: 'flex-end' }} onPress={onClose}>
-//               <CloseIcon width={24} height={24} onPress={onClose} />
-//             </TouchableOpacity>
-//             <StatusIcon width={42} height={42} style={styles.icon} fill={fillColor} />
-//             <AppText style={styles.invoiceTitle} weight='700'>{invoiceStatus?.toUpperCase()}</AppText>
-//             <AppText size='extraSmall' style={styles.invoiceLabel}>Invoice Reference ID: <AppText size='extraSmall' weight='700'>{refId}</AppText></AppText>
-//             <AppText size='extraSmall' style={styles.invoiceLabel}>{invoiceStatus === 'Paid' ? 'Charged Amount: ' : 'Amount Due:'} <AppText size='extraSmall' weight='700'>{chargedAmount}</AppText></AppText>
-//             { invoiceStatus === 'Paid' ? (
-//               <>
-//                 <AppText size='extraSmall' style={styles.invoiceLabel}>Retries: <AppText size='extraSmall'>{retries}</AppText></AppText>
-//                 <AppText size='extraSmall' style={styles.invoiceLabel}>Payment Reference ID: <AppText size='extraSmall' weight='700' style={{color: Colors.red10, textDecorationLine: 'underline'}}>{paymentRefId}</AppText></AppText>
-//               </>
-//             ) : null }
-//             <AppText size='extraSmall' style={styles.invoiceLabel}>{ invoiceStatus === 'Paid' ? 'Paid At: ' : 'Due At: '}<AppText size='extraSmall' weight='700'>{datePaid}</AppText></AppText>
-//             { invoiceStatus === 'Sched' ? (
-//               <View style={{ width: '100%' }}>
-//                 <SpacerComponent height={24} />
-//                 <AppButton title={buttonText} onPress={onButtonPress} variant="primary"/>
-//                 <SpacerComponent height={12} />
-//                 { buttonTextSecondary ? 
-//                   <AppButton 
-//                     title={buttonTextSecondary} 
-//                     onPress={onButtonPressSecondary} 
-//                     variant="danger" 
-//                     countdownSeconds={5} 
-//                     isCountdownActive={isVisible}
-//                   /> 
-//                 : null }
-//               </View>
-//             ) : null }
-//           </View>
-//         ) : (
-//           <View style={styles.modalView} onStartShouldSetResponder={() => true}>
-//             <AppText style={styles.headerMessage} weight='700'>{headerMessage}</AppText>
-//             <TypeIcon width={42} height={42} style={styles.icon} />
-//             <AppText style={styles.modalText}>{bodyMessage}</AppText>
-//             { buttonConfig && buttonConfig.direction === 'row' ? (
-//               <View style={{ width: '100%', flexDirection: 'row' }}>
-//                 <View style={{ flex: 1, marginRight: 6 }}>
-//                   <AppButton title={buttonText} onPress={onButtonPress} variant="tertiary"/>
-//                 </View>
-//                 <View style={{ flex: 1, marginLeft: 6 }}>
-//                   { buttonTextSecondary ? <AppButton title={buttonTextSecondary} onPress={onButtonPress} variant="danger"/> : null }
-//                 </View>
-//               </View>
-//             ) : (
-//               <View style={{ width: '100%' }}>
-//                 <AppButton title={buttonText} onPress={onButtonPress} variant="primary"/>
-//                 <SpacerComponent height={12} />
-//                 { buttonTextSecondary ? <AppButton title={buttonTextSecondary} onPress={onButtonPress} variant="tertiary" textStyle={{color: 'red'}}/> : null }
-//               </View>
-//             )}
-//           </View>
-//         )}
-//       </TouchableOpacity>
-//     </Modal>
-//   );
-// };
-
-
-// export default ModalComponent;

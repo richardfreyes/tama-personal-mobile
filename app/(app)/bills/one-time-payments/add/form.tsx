@@ -141,13 +141,13 @@ export default function AddBillerFormScreen() {
     }
 
     const markAndValidate = (fieldKey: string) => {
-      // Skip termsBox validation loop since we handle it manually
+
       if (fieldKey === 'termsBox') return;
 
       newTouched[fieldKey] = true;
       const value = formData[fieldKey] || '';
       let error = validateField(fieldKey, value);
-      
+
       if (fieldKey === 'billName') {
         if (!value || String(value).trim() === '') {
           error = 'Name of Bill is required.';
@@ -164,7 +164,7 @@ export default function AddBillerFormScreen() {
                 if (!regex.test(value)) {
                   error = 'Invalid format.';
                 }
-             } catch (e) { /* ignore */ }
+             } catch (e) {   }
           }
         }
       }

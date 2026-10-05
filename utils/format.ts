@@ -1,3 +1,6 @@
+import { CURRENCY_PREFIX_PATTERN, MOBILE_NATIONAL_NUMBER_LENGTH, MONEY_LABEL_PATTERN } from '@/constants/format';
+import type { CurrencyInputSelection } from '@/types/utils';
+
 const addCommaSeparators = (value: string): string => value.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 
 export const removeCurrencySeparators = (value: unknown): string => String(value ?? '').replace(/,/g, '');
@@ -45,8 +48,6 @@ export const parseCurrencyInput = (value: unknown): number | null => {
   const parsed = Number(normalized);
   return Number.isFinite(parsed) ? parsed : null;
 };
-
-type CurrencyInputSelection = { start: number; end: number };
 
 const clamp = (value: number, min: number, max: number): number => Math.max(min, Math.min(value, max));
 
@@ -165,9 +166,6 @@ export const getCurrencyInputSelection = ({
   return { start: cursor, end: cursor };
 };
 
-const CURRENCY_PREFIX_PATTERN = '(?:[A-Z]{3}|[$₱€£¥])';
-const MONEY_LABEL_PATTERN = /\b(amount|fee|fees|price|total|balance|due|charge|charged)\b/i;
-
 export const formatMonetaryDisplayValue = (value: unknown, label?: string): string => {
   if (value === null || value === undefined) {
     return '';
@@ -217,7 +215,6 @@ export const formatMoney = (value?: [string, number]) => {
   });
 };
 
-// Fixed to en-PH so peso amounts group the same way whatever the device locale is.
 export const formatPesoAmount = (amount: number): string => formatCurrencyAmount(
   '₱',
   amount,
@@ -225,7 +222,6 @@ export const formatPesoAmount = (amount: number): string => formatCurrencyAmount
   'en-PH',
 );
 
-// Splits a display amount such as "PHP 1,250.00" so the currency, whole and cents can be styled separately.
 export const getAmountParts = (amount: string) => {
   const match = amount.match(/^([A-Z]{3}|[₱$€£¥])\s*([\d,]+)(\.\d{2})$/);
   if (!match) return null;
@@ -283,6 +279,39 @@ export const formatAmountEnrollments = (amount?: string): string => {
 export const formatCustomerMobile = (mobile: string, prefix: string): string => {
   if (!mobile) { return mobile; }
   return mobile.startsWith('+') ? mobile : `+${prefix}${mobile}`;
+};
+
+export const formatPaymentTotal = (currency: string, amount: number): string => (
+  currency === 'PHP' ? formatPesoAmount(amount) : formatMoney([currency, amount])
+);
+
+export const formatMobileNumber = (number?: string | null, callingCode?: string | null): string => {
+  const raw = (number ?? '').trim();
+  if (!raw) {
+    return '';
+  }
+
+  const codeDigits = (callingCode ?? '').replace(/\D/g, '');
+  let nationalDigits = raw.replace(/\D/g, '');
+  let prefix = '';
+
+  if (raw.startsWith('+')) {
+    if (!codeDigits || !nationalDigits.startsWith(codeDigits)) {
+      return raw;
+    }
+
+    prefix = `+${codeDigits}`;
+    nationalDigits = nationalDigits.slice(codeDigits.length);
+  } else if (codeDigits) {
+    prefix = `+${codeDigits}`;
+    nationalDigits = nationalDigits.replace(/^0+/, '');
+  }
+
+  const grouped = nationalDigits.length === MOBILE_NATIONAL_NUMBER_LENGTH
+    ? `${nationalDigits.slice(0, 3)} ${nationalDigits.slice(3, 6)} ${nationalDigits.slice(6)}`
+    : nationalDigits;
+
+  return prefix ? `${prefix} ${grouped}` : grouped;
 };
 
 export const normalizeName = (name?: string | null): string => (name || '').trim().toLowerCase();

@@ -3,47 +3,37 @@ import { StyleSheet } from "react-native";
 
 export const paymentSourceSelectorStyles = StyleSheet.create({
   container: {
-    marginBottom: 16,
+    gap: 8,
   },
-  option: {
+  segments: {
+    backgroundColor: Colors.neutral03,
+    borderRadius: 14,
     flexDirection: 'row',
-    alignItems: 'flex-start',
-    padding: 12,
-    borderRadius: 8,
-    borderWidth: 1,
-    borderColor: Colors.neutral03,
-    marginBottom: 12,
-    backgroundColor: Colors.neutral01,
+    padding: 4,
   },
-  optionSelected: {
-    borderColor: Colors.red10,
-    backgroundColor: Colors.red01,
-  },
-  radioOuter: {
-    width: 20,
-    height: 20,
-    borderRadius: 10,
-    borderWidth: 2,
-    borderColor: Colors.neutral05,
+  segment: {
     alignItems: 'center',
-    justifyContent: 'center',
-    marginRight: 12,
-    marginTop: 2,
-  },
-  radioOuterSelected: {
-    borderColor: Colors.red10,
-  },
-  radioInner: {
-    width: 10,
-    height: 10,
-    borderRadius: 5,
-    backgroundColor: Colors.red10,
-  },
-  optionTextContainer: {
+    borderRadius: 11,
     flex: 1,
+    height: 40,
+    justifyContent: 'center',
   },
-  optionDescription: {
-    color: Colors.neutral08,
-    marginTop: 2,
+  segmentSelected: {
+    backgroundColor: Colors.neutral01,
+    boxShadow: '0px 1px 3px rgba(61, 36, 34, 0.12)',
+  },
+  segmentText: {
+    color: Colors.maroon09,
+    fontSize: 14,
+    lineHeight: 20,
+  },
+  segmentTextSelected: {
+    color: Colors.maroon11,
+  },
+  hint: {
+    color: Colors.maroon09,
+    fontSize: 13,
+    lineHeight: 18,
+    paddingHorizontal: 2,
   },
 });

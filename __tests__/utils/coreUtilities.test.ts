@@ -1,48 +1,17 @@
 import { afterEach, beforeEach, describe, expect, it, jest } from '@jest/globals';
 import { API_PATHS } from '@/redux/apiPaths';
 import { getLookupEndpoint } from '@/utils/billerForm';
-import {
-  detectCardProvider,
-  formatLastFourDigits,
-  getCardIcon,
-  getProviderDisplay,
-} from '@/utils/card';
-import {
-  formatApiDate,
-  formatDateDisplay,
-  formatDateForStorage,
-  getStartOfDay,
-  parseDateValue,
-} from '@/utils/date';
+import { detectCardProvider, formatLastFourDigits, getCardIcon, getProviderDisplay, } from '@/utils/card';
+import { formatApiDate, formatDateDisplay, formatDateForStorage, getStartOfDay, parseDateValue, } from '@/utils/date';
 import { getEnrollmentKey } from '@/utils/enrollment';
 import { decodeJwt, normalizeBase64Url } from '@/utils/jwt';
-import {
-  getBulletLevel,
-  getContactUrl,
-  getDocumentLines,
-  getLineStyle,
-  getLineWeight,
-  getLinkParts,
-  getTableCells,
-  getTableColumnWidth,
-  openContactLink,
-} from '@/utils/legalDocuments';
+import { getBulletLevel, getContactUrl, getDocumentLines, getLineStyle, getLineWeight, getLinkParts, getTableCells, getTableColumnWidth, openContactLink, } from '@/utils/legalDocuments';
 import { normalizeLookupOptions } from '@/utils/normalizeLookupOptions';
 import { thousandSeparator } from '@/utils/number';
-import {
-  getPaymentErrorMessage,
-  isPaymentMethodMismatchError,
-} from '@/utils/paymentErrors';
+import { getPaymentErrorMessage, isPaymentMethodMismatchError, } from '@/utils/paymentErrors';
 import { validatePaymentPreconditions } from '@/utils/paymentValidation';
 import { isRecord } from '@/utils/typeGuards';
-import {
-  getCvcLength,
-  validateCardNumber,
-  validateCVC,
-  validateExpiryDate,
-  validateField,
-  validateForm,
-} from '@/utils/validators';
+import { getCvcLength, validateCardNumber, validateCVC, validateExpiryDate, validateField, validateForm, } from '@/utils/validators';
 import { Linking } from 'react-native';
 
 jest.mock('@/assets/icons/amex.svg', () => 'Amex');
@@ -117,7 +86,7 @@ describe('core utility behavior', () => {
       'something else',
       null,
     ])('returns a renderable icon for %s', (provider) => {
-      // Jest maps every SVG asset to the same renderable test component.
+
       expect(getCardIcon(provider).uri).toBe('Visa');
     });
 

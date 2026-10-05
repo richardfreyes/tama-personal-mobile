@@ -2,6 +2,7 @@ import { act, fireEvent, render, screen } from '@testing-library/react-native';
 import { beforeEach, describe, expect, it, jest } from '@jest/globals';
 import { router } from 'expo-router';
 import React from 'react';
+import { Image } from 'react-native';
 import SavedBillsScreen from '@/app/(app)/bills/one-time-payments/saved';
 import { globalStyle } from '@/styles/common/globals';
 
@@ -88,7 +89,7 @@ describe('Saved Bills route', () => {
     expect(screen.getByLabelText('Saved Bills, 1 active')).toBeTruthy();
     expect(screen.queryByRole('button', { name: 'Saved Bills, 1 active' })).toBeNull();
     expect(screen.getByText('Netflix')).toBeTruthy();
-    expect(screen.getByTestId('saved-bill-logo-bill-1').props.source).toEqual({
+    expect(screen.UNSAFE_getAllByType(Image).map((image) => image.props.source)).toContainEqual({
       uri: 'https://example.com/netflix.png',
     });
     expect(screen.queryByText('NE')).toBeNull();
@@ -173,6 +174,32 @@ describe('Saved Bills route', () => {
     });
 
     expect(screen.getByText('Loading more bills…')).toBeTruthy();
+  });
+
+  it('refetches the first page when pulled to refresh after pagination', async () => {
+    const refetchedPages: number[] = [];
+    mockUseGetBillsQuery.mockImplementation((args: unknown) => {
+      const { page } = args as { page: number };
+      return {
+        ...successResult(page === 0 ? [makeBill(1, 'Netflix')] : [makeBill(2, 'Spotify Premium')]),
+        refetch: () => {
+          refetchedPages.push(page);
+          return Promise.resolve();
+        },
+      };
+    });
+
+    render(<SavedBillsScreen />);
+    act(() => {
+      screen.getByTestId('saved-bills-list').props.onEndReached();
+    });
+
+    await act(async () => {
+      await screen.getByTestId('saved-bills-list').props.refreshControl.props.onRefresh();
+    });
+
+    expect(refetchedPages).toEqual([0]);
+    expect(screen.getByTestId('saved-bills-list').props.refreshControl.props.refreshing).toBe(false);
   });
 
   it('attaches the shared navigation-menu scroll behavior to the list', () => {

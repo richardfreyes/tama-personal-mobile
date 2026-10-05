@@ -41,8 +41,6 @@ describe('HeaderComponent', () => {
     jest.restoreAllMocks();
   });
 
-  // ---- Rendering ----
-
   it('renders without crashing', () => {
     const { toJSON } = renderHeader();
     expect(toJSON()).toBeTruthy();
@@ -57,8 +55,6 @@ describe('HeaderComponent', () => {
     renderHeader();
     expect(screen.getByText('JD')).toBeTruthy();
   });
-
-  // ---- Name variations ----
 
   it('renders initials for different names', () => {
     renderHeader({ firstName: 'Alice', lastName: 'Smith' });
@@ -77,8 +73,6 @@ describe('HeaderComponent', () => {
     expect(screen.getByText('BR')).toBeTruthy();
   });
 
-  // ---- Default / null user ----
-
   it('renders fallback initials when user is null', () => {
     renderWithProviders(<HeaderComponent />, {
       preloadedState: {
@@ -90,12 +84,10 @@ describe('HeaderComponent', () => {
         },
       },
     });
-    // useAuth defaults to firstName='User', lastName=''
+
     expect(screen.getByText('U')).toBeTruthy();
     expect(screen.getByText('User')).toBeTruthy();
   });
-
-  // ---- Navigation ----
 
   it('shows a time-of-day greeting', () => {
     renderHeader();
@@ -107,8 +99,6 @@ describe('HeaderComponent', () => {
     fireEvent.press(screen.getByRole('button', { name: 'Profile, John Doe' }));
     expect(router.push).toHaveBeenCalledWith('/settings');
   });
-
-  // ---- Edge cases ----
 
   it('renders with only required props', () => {
     const { toJSON } = renderHeader();

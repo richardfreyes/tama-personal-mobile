@@ -58,8 +58,6 @@ describe('GlobalScrollView', () => {
     jest.restoreAllMocks();
   });
 
-  // ---- Rendering ----
-
   it('renders without crashing', () => {
     const { toJSON } = renderGSV();
     expect(toJSON()).toBeTruthy();
@@ -96,12 +94,10 @@ describe('GlobalScrollView', () => {
     expect(screen.getByText('Nested Content')).toBeTruthy();
   });
 
-  // ---- ScrollView props pass-through ----
-
   it('passes through contentContainerStyle', () => {
     const style = { padding: 20, backgroundColor: 'red' };
     renderGSV({ contentContainerStyle: style });
-    // The Animated.ScrollView (mocked as plain ScrollView) receives the prop
+
     const scrollView = screen.UNSAFE_getAllByType(ScrollView)[0];
     expect(scrollView.props.contentContainerStyle).toEqual(style);
   });
@@ -128,8 +124,6 @@ describe('GlobalScrollView', () => {
     const scrollView = screen.UNSAFE_getAllByType(ScrollView)[0];
     expect(scrollView.props.scrollEventThrottle).toBe(16);
   });
-
-  // ---- onScroll callback ----
 
   it('attaches an onScroll handler to the ScrollView', () => {
     renderGSV();
@@ -208,8 +202,6 @@ describe('GlobalScrollView', () => {
     expect(mockTabBarTranslateY.value).toBe(0);
     expect(onScroll).not.toHaveBeenCalled();
   });
-
-  // ---- Edge cases ----
 
   it('renders with no extra props', () => {
     const { toJSON } = renderGSV();

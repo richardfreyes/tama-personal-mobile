@@ -146,7 +146,6 @@ const TransactionItem = ({ item }: TransactionItemProps) => {
   );
 };
 
-// The compact row used by the recent transactions preview.
 const RecentTransactionRow = ({ transaction }: RecentTransactionRowProps) => {
   const badge = getTransactionStatusBadge(transaction);
   const amount = formatTransactionDebitAmount(transaction);
@@ -502,7 +501,7 @@ const TransactionHistoryComponent = forwardRef<TransactionHistoryRef, Components
     );
 
     if (limit !== undefined) {
-      // A retry that is still fetching shows the placeholder again rather than the stale error.
+
       const isRetrying = (isOneTimePaymentError || isEnrollmentError) && isFetching && allItems.length === 0;
 
       return (

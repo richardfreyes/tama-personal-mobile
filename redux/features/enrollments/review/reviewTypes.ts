@@ -22,7 +22,6 @@ export interface EnrollmentTransactionResponse {
   isEnrollment?: boolean;
 }
 
-
 export interface EnrollmentReviewState {
   cardPayload: EnrollmentCardPayload | null;
   transactionResponse: EnrollmentTransactionResponse | null;
@@ -34,4 +33,3 @@ export const initialState: EnrollmentReviewState = {
   transactionResponse: null,
   formResetKey: 0,
 };
-

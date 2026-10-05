@@ -26,10 +26,10 @@ export const VALIDATORS = {
     DISCOVER: /^(6011|65|64[4-9])/,
     UNKNOWN: /.*/,
   },
-  // Maya card-vaulting 3DS callbacks (queue-workers /gateway/maya/vault/<ref>/<status>).
+
   CARD_3DS_SUCCESS_URL_PATTERN: /\/gateway\/maya\/vault\/[^/?#]+\/success(?:[?#]|$)/,
   CARD_3DS_FAILED_URL_PATTERN: /\/gateway\/maya\/vault\/[^/?#]+\/(?:failed|cancelled)(?:[?#]|$)/,
-  // Path-anchored (not substring) matchers for the Xendit direct-debit bank-auth callbacks.
+
   DIRECT_DEBIT_SUCCESS_URL_PATTERN: /\/payment-methods\/direct-debit\/success(?:[?#]|$)/,
   DIRECT_DEBIT_FAILURE_URL_PATTERN: /\/payment-methods\/direct-debit\/(?:error|cancel)(?:[?#]|$)/,
   QRPH_SUCCESS_URL_PATTERN: /\/transactions\/qrph\/success(?:[?#]|$)/,

@@ -232,9 +232,7 @@ describe('receipt and transaction-detail routes', () => {
   });
 
   it('stays on the skeleton during an arg transition instead of flashing the error state', () => {
-    // RTK keeps the previously-viewed transaction's `data` while the newly tapped
-    // one loads; `currentData` is undefined until the new result settles. The
-    // screen must show the skeleton, not the stale detail or "unavailable" error.
+
     Object.assign(mockParams, { invoiceReferenceId: 'invoice-2' });
     mockTransactionQuery.data = {
       merchantName: 'Previously Viewed Merchant',
@@ -260,8 +258,7 @@ describe('receipt and transaction-detail routes', () => {
       transactionId: 'ENR-2',
       transactionType: 'enrollment',
     });
-    // Stale response from the previously-viewed enrollment transaction that does
-    // not contain ENR-2; currentData is undefined until the new search settles.
+
     mockEnrollmentTransactionHistoryQuery.data = {
       transactions: [{ enrollmentTransactionId: 99, externalTransactionId: 'ENR-OLD' }],
       pagination: { offset: 0, limit: 10, total: 1 },

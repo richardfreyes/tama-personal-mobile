@@ -1,17 +1,7 @@
 import { AppText } from '@/components/common/AppText';
 import EmptyStateCard from '@/components/common/EmptyStateCard';
 import { SkeletonBlock } from '@/components/common/Loading';
-import {
-  BRAND_ACTION_GRADIENT_COLORS,
-  BRAND_ACTION_GRADIENT_LOCATIONS,
-  BRAND_SOFT_GRADIENT_COLORS,
-  DASHBOARD_BILL_CAROUSEL_GAP,
-  DASHBOARD_BILL_PAGE_INSET,
-  GRADIENT_DIAGONAL_END,
-  GRADIENT_DIAGONAL_START,
-  GRADIENT_HORIZONTAL_END,
-  GRADIENT_HORIZONTAL_START,
-} from '@/constants';
+import { BRAND_ACTION_GRADIENT_COLORS, BRAND_ACTION_GRADIENT_LOCATIONS, BRAND_SOFT_GRADIENT_COLORS, DASHBOARD_BILL_CAROUSEL_GAP, DASHBOARD_BILL_PAGE_INSET, GRADIENT_DIAGONAL_END, GRADIENT_DIAGONAL_START, GRADIENT_HORIZONTAL_END, GRADIENT_HORIZONTAL_START, } from '@/constants';
 import { useGetMonthlyBillsEnrollmentsQuery } from '@/redux/features/enrollments/enrollmentApi';
 import { setSelectedEnrollment } from '@/redux/features/enrollmentSelection/enrollmentSelectionSlice';
 import { useAppDispatch } from '@/redux/hooks';

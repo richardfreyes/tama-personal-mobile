@@ -83,6 +83,10 @@ export type Props = {
 export interface InputValidationProps extends Props {
   mode?: 'flat' | 'outlined';
   left?: React.ReactNode;
+
+  variant?: 'outlined' | 'amount';
+  prefix?: string;
+  helperText?: string;
 }
 
 export interface ResetPasswordInputs {

@@ -23,7 +23,7 @@ export default function TabLayout() {
     <TabBarAnimationProvider>
       <Tabs
         backBehavior="fullHistory"
-        tabBar={props => <FloatingNavBar {...props} />}
+        tabBar={(props) => <FloatingNavBar {...props} />}
         screenOptions={{
           headerShown: false,
           headerShadowVisible: false,

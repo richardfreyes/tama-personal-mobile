@@ -7,4 +7,7 @@ export type BillsComponentProps = Pick<
   | 'onViewAllPress'
   | 'onAddBillerPress'
   | 'onPayNowPress'
->;
+> & {
+
+  variant?: 'panel' | 'plain';
+};

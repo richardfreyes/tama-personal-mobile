@@ -1,0 +1,3 @@
+export const MERCHANT_LOGO_DEFAULT_SIZE = 40;
+export const MERCHANT_LOGO_RING_INSET = 8;
+export const MERCHANT_LOGO_CIRCLE_RATIO = 0.7;

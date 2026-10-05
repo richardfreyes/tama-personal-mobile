@@ -29,17 +29,12 @@ const OTPDeliverySelectionScreen: React.FC = () => {
   const insets = useSafeAreaInsets();
   const [selectedMethod, setSelectedMethod] = useState<'email' | 'text' | null>('email');
 
-  // mock from the previous screen (reset-password.tsx)
   const userEmail = 'user@example.com';
   const userPhone = '+63 955 577* ***';
-  
+
   const handleContinue = (otp: string) => {
     setSelectedMethod(otp as string as 'email' | 'text');
 
-    // TODO: 1. Call API to request OTP via selectedMethod.
-    // TODO: 2. Navigate to the OTP verification screen (verify.tsx)
-    // passing the selected method and user identifier.
-    // For now, navigate to the existing verification screen:
     router.push({
       pathname: '/reset-password/verify-otp', 
       params: { method: selectedMethod, identifier: selectedMethod === 'email' ? userEmail : userPhone }

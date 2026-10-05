@@ -5,7 +5,6 @@ import { FormField } from "../billerForm/billerFormTypes";
 const getAppLookupEndpoint = (field: FormField, id: number | string) => {
   const billerId = Number(id);
 
-  // Self references name a property in the biller's configuration, not a URL.
   if (field.lookupReference?.source === "self") {
     const key = field.lookupReference.location;
     return key ? API_PATHS.dashboard.getBillerConfig(billerId, key) : undefined;

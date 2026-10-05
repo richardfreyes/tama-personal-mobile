@@ -8,8 +8,7 @@ export const monthlyBillsStyles = StyleSheet.create({
   carouselViewport: {
     alignSelf: 'stretch',
     marginHorizontal: -20,
-    // The track pads 16 above and below the card so its shadow isn't clipped; pull it back so the
-    // card sits 16 below the header and the indicators 10 below the card.
+
     marginVertical: -16,
   },
   carousel: {
@@ -48,7 +47,7 @@ export const monthlyBillsStyles = StyleSheet.create({
     height: 6,
     width: 6,
   },
-  // Also used by the login onboarding pagination.
+
   indicatorDot: {
     borderRadius: 3,
     height: 6,

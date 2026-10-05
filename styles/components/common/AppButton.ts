@@ -33,6 +33,22 @@ export const appButtonStyles = StyleSheet.create({
     backgroundColor: Colors.neutral03,
     color: Colors.neutral05,
   },
+
+  gradient: {
+    borderRadius: 14,
+    borderWidth: 0,
+    minHeight: 52,
+    paddingVertical: 0,
+  },
+  gradientShadow: {
+    boxShadow: '0px 6px 16px -8px rgba(229, 87, 43, 0.6)',
+  },
+  gradientFill: {
+    borderRadius: 14,
+  },
+  gradientDisabled: {
+    backgroundColor: Colors.dashboardSkeleton,
+  },
   content: {
     alignItems: 'center',
     justifyContent: 'center',
@@ -67,5 +83,12 @@ export const appButtonStyles = StyleSheet.create({
   },
   textDanger: {
     color: Colors.neutral01
-  }
+  },
+  textGradient: {
+    color: Colors.neutral01,
+    fontSize: FontSizes.medium,
+  },
+  textGradientDisabled: {
+    color: Colors.maroon07,
+  },
 });

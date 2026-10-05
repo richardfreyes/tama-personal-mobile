@@ -5,6 +5,7 @@ import { router } from 'expo-router';
 import React from 'react';
 import { StyleSheet } from 'react-native';
 import NavHeaderComponent from '../../../components/layout/NavHeaderComponent';
+import { Colors } from '../../../styles/common/colors';
 import { navHeaderComponentStyles } from '../../../styles/components/layout/NavHeaderComponent';
 
 let mockIsFocused = true;
@@ -14,7 +15,7 @@ jest.mock('@react-navigation/native', () => ({
 }));
 
 jest.mock('react-native-paper', () => {
-  // eslint-disable-next-line @typescript-eslint/no-require-imports
+
   const React = require('react');
   const actual = jest.requireActual('react-native-paper') as Record<string, unknown>;
 
@@ -28,7 +29,6 @@ jest.mock('react-native-safe-area-context', () => ({
   useSafeAreaInsets: () => ({ top: 44, bottom: 34, left: 0, right: 0 }),
 }));
 
-// expo-router is globally mocked in jest.setup.js but missing navigate/canGoBack
 const mockRouter = router as jest.Mocked<typeof router> & {
   navigate: jest.Mock;
   canGoBack: jest.Mock;
@@ -46,8 +46,6 @@ describe('NavHeaderComponent', () => {
   afterEach(() => {
     jest.clearAllMocks();
   });
-
-  // ---- Basic rendering ----
 
   it('renders the title', () => {
     renderNavHeader(<NavHeaderComponent title="Settings" />);
@@ -85,12 +83,10 @@ describe('NavHeaderComponent', () => {
     expect(toJSON()).toBeTruthy();
   });
 
-  // ---- Logo ----
-
   it('renders logo when logo prop is true', () => {
     const { toJSON } = renderNavHeader(<NavHeaderComponent title="Home" logo={true} />);
     const json = JSON.stringify(toJSON());
-    // SVG mock renders as "SvgMock" string, logo adds an extra wrapper View with marginRight
+
     expect(json).toContain('"marginRight":8');
   });
 
@@ -99,8 +95,6 @@ describe('NavHeaderComponent', () => {
     const json = JSON.stringify(toJSON());
     expect(json).not.toContain('"marginRight":8');
   });
-
-  // ---- Back button behavior ----
 
   it('calls onBackPress when provided', () => {
     const onBackPress = jest.fn<() => void>();
@@ -137,8 +131,6 @@ describe('NavHeaderComponent', () => {
     expect(mockRouter.replace).not.toHaveBeenCalled();
   });
 
-  // ---- Right nav ----
-
   it('renders right nav button when rightNav is provided', () => {
     const onPress = jest.fn<() => void>();
     renderNavHeader(
@@ -160,5 +152,75 @@ describe('NavHeaderComponent', () => {
     const { toJSON } = renderNavHeader(<NavHeaderComponent title="Page" />);
     expect(screen.queryByLabelText('More options')).toBeNull();
     expect(toJSON()).toBeTruthy();
+  });
+
+  describe('outlined variant', () => {
+    it('shows a bordered 44pt back button and a 17pt semibold title', () => {
+      renderNavHeader(<NavHeaderComponent title="One Time Payments" variant="outlined" />);
+
+      expect(StyleSheet.flatten(screen.getByLabelText('Go back').props.style)).toEqual(
+        expect.objectContaining({
+          borderColor: Colors.dashboardCardBorder,
+          borderRadius: 14,
+          borderWidth: 1,
+          height: 44,
+          width: 44,
+        }),
+      );
+      expect(StyleSheet.flatten(screen.getByText('One Time Payments').props.style)).toEqual(
+        expect.objectContaining({ fontFamily: 'PoppinsSemiBold', fontSize: 17, lineHeight: 24 }),
+      );
+    });
+
+    it('does not capitalise the title', () => {
+      renderNavHeader(<NavHeaderComponent title="Biller details" variant="outlined" />);
+      expect(StyleSheet.flatten(screen.getByText('Biller details').props.style).textTransform).toBeUndefined();
+    });
+
+    it('sizes the header to the safe area plus the 44pt row and 8pt of padding', () => {
+      renderNavHeader(<NavHeaderComponent title="One Time Payments" variant="outlined" />);
+
+      expect(StyleSheet.flatten(screen.getByTestId('nav-header-spacer').props.style).height).toBe(44 + 44 + 8);
+      expect(navHeaderComponentStyles.getOutlinedHeaderHeight(0)).toBe(52);
+    });
+
+    it('goes back from the back button', () => {
+      (mockRouter.canGoBack as jest.Mock).mockReturnValue(true);
+      renderNavHeader(<NavHeaderComponent title="Biller details" variant="outlined" />);
+
+      fireEvent.press(screen.getByLabelText('Go back'));
+      expect(mockRouter.back).toHaveBeenCalledTimes(1);
+    });
+
+    it('offers a neutral trash button that runs its handler', () => {
+      const onPress = jest.fn();
+      renderNavHeader(
+        <NavHeaderComponent
+          rightNav={{ iconType: 'delete', onPress, accessibilityLabel: 'Remove saved biller' }}
+          title="Biller details"
+          variant="outlined"
+        />,
+      );
+
+      const remove = screen.getByRole('button', { name: 'Remove saved biller' });
+      expect(StyleSheet.flatten(remove.props.style)).toEqual(
+        expect.objectContaining({ borderWidth: 1, height: 44, width: 44 }),
+      );
+      fireEvent.press(remove);
+      expect(onPress).toHaveBeenCalledTimes(1);
+    });
+
+    it('labels the trash button "Delete" unless told otherwise', () => {
+      renderNavHeader(
+        <NavHeaderComponent rightNav={{ iconType: 'delete', onPress: jest.fn() }} title="Biller details" variant="outlined" />,
+      );
+      expect(screen.getByRole('button', { name: 'Delete' })).toBeTruthy();
+    });
+
+    it('keeps the title centred with an empty slot when there is no right button', () => {
+      renderNavHeader(<NavHeaderComponent title="One Time Payments" variant="outlined" />);
+      expect(screen.queryByRole('button', { name: 'Delete' })).toBeNull();
+      expect(screen.getAllByRole('button')).toHaveLength(1);
+    });
   });
 });

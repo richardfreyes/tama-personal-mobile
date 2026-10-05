@@ -9,7 +9,9 @@ export interface ModalButtonConfig {
 interface ModalState {
   isVisible: boolean;
   dismissible?: boolean;
-  iconType?: 'success' | 'warning' | 'info' | 'error' | 'logout' |null;
+  iconType?: 'success' | 'warning' | 'info' | 'error' | 'logout' | 'delete' | null;
+
+  variant?: 'default' | 'confirm';
   headerMessage?: string;
   bodyMessage?: string;
   bodyType?: 'accountDeletion' | 'default';

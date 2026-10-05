@@ -34,10 +34,10 @@ export const handleDirectDebitBrowserCallback = (
 
   try {
     void WebBrowser.dismissBrowser().catch(() => {
-      // The callback may come from a WebView or a platform without a dismissible browser.
+
     });
   } catch {
-    // The browser module can throw synchronously when no browser session is active.
+
   }
 
   onResult(result);

@@ -2,7 +2,8 @@ import { showModal } from "@/redux/features/modal/modalSlice";
 import { store } from "@/redux/store";
 import { Colors } from "@/styles/common/colors";
 import { SettingRoute } from "@/types";
-import { Route, router } from "expo-router";
+import { router } from "expo-router";
+import type { Href } from 'expo-router';
 
 export const handleSettingsRoute = (route: SettingRoute) => {
   if (!route) return;
@@ -22,7 +23,7 @@ export const handleSettingsRoute = (route: SettingRoute) => {
     return;
   }
   if (route.startsWith('/')) {
-    router.push(route as Route);
+    router.push(route as Href);
     return;
   }
   router.push(`./${route}`);

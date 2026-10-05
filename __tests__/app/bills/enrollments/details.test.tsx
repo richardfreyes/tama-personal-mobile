@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-require-imports */
+
 import { configureStore } from '@reduxjs/toolkit';
 import { beforeEach, describe, expect, it, jest } from '@jest/globals';
 import { fireEvent, screen, waitFor } from '@testing-library/react-native';
@@ -7,9 +7,7 @@ import { useLocalSearchParams } from 'expo-router';
 import React from 'react';
 import { Linking } from 'react-native';
 import EnrollmentDetailsScreen from '../../../../app/(app)/bills/enrollments/details';
-import enrollmentSelectionReducer, {
-  setSelectedEnrollment,
-} from '../../../../redux/features/enrollmentSelection/enrollmentSelectionSlice';
+import enrollmentSelectionReducer, { setSelectedEnrollment, } from '../../../../redux/features/enrollmentSelection/enrollmentSelectionSlice';
 import { renderWithProviders } from '../../../../utils/test-utils';
 
 const mockUseGetEnrollmentsQuery = jest.fn();

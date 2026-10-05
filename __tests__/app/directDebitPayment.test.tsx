@@ -37,7 +37,7 @@ jest.mock('@/components/layout/NavHeaderComponent', () => () => null);
 
 jest.mock('@/components/payments/DirectDebitBankOption', () => {
   return function MockDirectDebitBankOption({ label, onPress }: { label: string; onPress: () => void }) {
-    // eslint-disable-next-line @typescript-eslint/no-require-imports
+
     const { Pressable, Text } = require('react-native');
     return (
       <Pressable accessibilityRole="button" onPress={onPress}>
@@ -62,7 +62,7 @@ jest.mock('@/components/layout/OtpWebView', () => ({
     onComplete: () => void;
   }) {
     if (!visible) return null;
-    // eslint-disable-next-line @typescript-eslint/no-require-imports
+
     const { Pressable, Text, View } = require('react-native');
     return (
       <View>

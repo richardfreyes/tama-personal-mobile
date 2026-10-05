@@ -13,7 +13,7 @@ import { ScrollView, TouchableOpacity, View } from 'react-native';
 export default function Security() {
   const handleSettingsRoute = (route: SettingRoute) => {
     if (!route) return;
-  
+
     if(route === '#deactivationDeletion') {
       store.dispatch(showModal({
         id: 'deactivationDeletion',

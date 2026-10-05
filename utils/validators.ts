@@ -1,12 +1,8 @@
 import { ERRORS } from "@/constants";
 import { COMMON } from "@/constants/common";
 import { normalizeCurrencyInput, parseCurrencyInput } from "@/utils/format";
+import type { CardValidationResult } from '@/types/payment';
 import valid from 'card-validator';
-
-export interface CardValidationResult {
-  isValid: boolean;
-  isPotentiallyValid: boolean;
-}
 
 export const validateCardNumber = (number: string): CardValidationResult => {
   const validation = valid.number(number);
@@ -57,7 +53,7 @@ export const validateField = (fieldName: string, value: string, extra?: { passwo
         }
       }
       break;
-      
+
     case 'password':
       if (!value) return "Password is required.";
       break;
@@ -75,72 +71,72 @@ export const validateField = (fieldName: string, value: string, extra?: { passwo
         if (value !== extra.passwordToMatch) return "Passwords do not match.";
       }
       break;
-      
+
     case 'signupPassword':
     case 'createPassword':
       if (!value) return "Password is required.";
       break;
-      
+
     case 'confirmPassword':
       if (!value) return "Password is required.";
       if (extra?.passwordToMatch !== undefined && extra.passwordToMatch !== '') {
         if (value !== extra?.passwordToMatch) return "Passwords do not match.";
       }
       break;
-      
+
     case 'firstName':
     case 'lastName':
       if (!value) {
         return `${fieldName === 'firstName' ? 'First' : 'Last'} Name is required.`;
       }
       break;
-      
+
     case 'fullName':
       if (value.trim().length < 3) return 'Full Name is required.';
       break;
-      
+
     case 'cardNumber':
       if (!value) return 'Card Number is required.';
       const cardValidation = validateCardNumber(value);
       if (!cardValidation.isValid && !cardValidation.isPotentiallyValid) return 'Invalid card number.';
       break;
-      
+
     case 'expiryDate':
       if (!value) return 'Expiry Date is required.';
       const expiryValidation = validateExpiryDate(value);
       if (!expiryValidation.isValid && !expiryValidation.isPotentiallyValid) return 'Invalid expiration date.';
       break;
-      
+
     case 'securityCode':
       if (!value) return 'Security Code is required.';
       const currentCardNumber = extra?.currentCardNumber || '';
       const requiredLength = getCvcLength(currentCardNumber);
       const cvcValidation = validateCVC(value, requiredLength);
-      
+
       if (!cvcValidation.isValid && !cvcValidation.isPotentiallyValid) return 'Invalid security code.';
       break;
-      
+
     case 'streetAddress':
       if (value.trim().length === 0) return 'Street Address is required.';
       break;
-      
+
     case 'country':
       if (!value || value.trim().length === 0) return 'Country is required.';
       break;
-      
+
     case 'stateRegion':
     case 'state':
       if (!value || value.trim().length === 0) return 'State/Region is required.';
       break;
-      
+
     case 'city':
       if (!value || value.trim().length === 0) return 'City is required.';
       break;
-      
+
     case 'postalCode':
       if (value.trim().length === 0) return 'Postal Code is required.';
       break;
-      
+
     case 'Amount':
       if (!value) return ERRORS.AMOUNT_REQUIRED;
       const normalizedAmount = normalizeCurrencyInput(value);
@@ -158,7 +154,7 @@ export const validateField = (fieldName: string, value: string, extra?: { passwo
       if (!value || value.trim().length === 0) return `${fieldName} is required.`;
       break;
   }
-  
+
   return "";
 };
 

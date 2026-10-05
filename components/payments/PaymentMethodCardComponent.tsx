@@ -15,7 +15,7 @@ const SmallLogoItem: React.FC<{ item: LogoReference; spacing: number; isLast: bo
         key={item.id}
         width={26} 
         height={26} 
-        // resizeMode="contain"
+
       />
     </View>
   );

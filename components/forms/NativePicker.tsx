@@ -28,7 +28,6 @@ const NativePicker: React.FC<NativePickerProps> = ({
   const selectedOption = options.find(opt => opt.code === selectedValue);
   const displayValue = selectedOption?.name || '';
 
-  // Keep tempValue in sync
   useEffect(() => {
     setTempValue(selectedValue);
   }, [selectedValue]);
@@ -57,7 +56,6 @@ const NativePicker: React.FC<NativePickerProps> = ({
 
     Keyboard.dismiss();
 
-    // Small delay prevents keyboard/Modal race
     requestAnimationFrame(() => {
       setVisible(true);
     });
@@ -86,9 +84,6 @@ const NativePicker: React.FC<NativePickerProps> = ({
     </View>
   );
 
-  // =====================================================
-  // iOS
-  // =====================================================
   if (Platform.OS === 'ios') {
     return (
       <View style={styles.container}>
@@ -162,9 +157,6 @@ const NativePicker: React.FC<NativePickerProps> = ({
     );
   }
 
-  // =====================================================
-  // Android (Picker always mounted!)
-  // =====================================================
   return (
     <View style={styles.container}>
       <View style={styles.androidWrapper}>

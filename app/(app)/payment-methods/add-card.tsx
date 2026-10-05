@@ -23,7 +23,7 @@ const AddCard = () => {
       <View style={{ flex: 1 }}>
         <View style={ globalStyle.outerContainer }>
           {COMMON.PAYMENT_OPTIONS.map((option, idx) => {
-            // credit/debit card only
+
             if (idx !== 0) return null;
             return (
               <PaymentMethodCardComponent

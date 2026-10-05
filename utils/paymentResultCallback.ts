@@ -17,11 +17,6 @@ const normaliseOutcome = (value: string | string[] | undefined): PaymentResultOu
   return 'error';
 };
 
-/**
- * Parses the backend's `personaldashboardmob://mobile/payment-result?...` deep link, used
- * when a PayPal or QR Ph page finishes outside the in-app WebView (external browser or the
- * provider's own app).
- */
 export const parsePaymentResultCallbackUrl = (url: string): PaymentResultCallback | null => {
   if (!url) return null;
 

@@ -1,7 +1,7 @@
-import { TRANSACTION_HISTORY_PAGE_SIZE } from '@/constants/transaction';
+import { DEFAULT_TRANSACTION_LIST_ARGS } from '@/constants/transaction';
 import { API_PATHS } from "@/redux/apiPaths";
 import { appApi } from "@/redux/appApi";
-import type { AppThunk } from '@/redux/store';
+import type { AppThunk } from '@/redux/storeTypes';
 import type { Transaction } from "@/types";
 import { mergeCompletedTransactionIntoPage } from '@/utils/transactionHistory';
 import type { CapturePayPalResponse, FetchTransactionsParams, PayTransactionRequest, PayTransactionResponse, PayWithCardPayload, PayWithCardResponse, PayWithPayPalRequest, PayWithPayPalResponse, PayWithQrphRequest, PayWithQrphResponse, RawTransaction, TransactionComputationPayload, TransactionComputationResponse, TransactionsPage, VerifyQrphResponse } from "./transactionTypes";
@@ -43,9 +43,7 @@ export const transactionApi = appApi.injectEndpoints({
           'Content-Type': 'application/json',
         },
       }),
-      // The receipt/detail response reconciles the exact completed item into the
-      // list cache. Refetching the eventually-consistent list here can cache the
-      // previous page and leave transaction history one payment behind.
+
       invalidatesTags: ['TransactionLast', 'Bills', 'TransactionDetail'],
     }),
     payWithCard: builder.mutation<PayWithCardResponse, { payload: PayWithCardPayload; idempotencyKey: string }>({
@@ -127,12 +125,6 @@ export const {
   useCapturePayPalMutation,
   useCancelPayPalMutation,
 } = transactionApi;
-
-const DEFAULT_TRANSACTION_LIST_ARGS: FetchTransactionsParams = {
-  page: 1,
-  count: TRANSACTION_HISTORY_PAGE_SIZE,
-  searchQuery: '',
-};
 
 const isUnfilteredFirstPage = (params: FetchTransactionsParams): boolean => (
   params.page === 1

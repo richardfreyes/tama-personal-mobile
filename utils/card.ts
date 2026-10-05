@@ -19,8 +19,7 @@ import VisaCardIcon from '@/assets/icons/visa.svg';
 import { COMMON } from "@/constants/common";
 import { DIRECT_DEBIT_PAYMENT_METHOD_NAME } from '@/constants/directDebit';
 import type { PaymentMethod } from '@/redux/features/paymentMethods/paymentMethodTypes';
-
-export type CardProvider = 'visa' | 'mastercard' | 'amex' | 'discover' | 'unknown';
+import type { CardProvider } from '@/types/payment';
 
 const cardPatterns: Record<CardProvider, RegExp> = {
   visa: COMMON.VALIDATORS.CARD_PATTERNS.VISA,
@@ -45,7 +44,7 @@ export const detectCardProvider = (cardNumber: string): CardProvider => {
   if (cardPatterns.discover.test(cleanedNumber)) {
     return 'discover';
   }
-  
+
   return 'unknown';
 };
 
@@ -85,10 +84,15 @@ export const formatLastFourDigits = (lastFour?: string | null): string => {
   return trimmedLastFour || '----';
 };
 
-// Direct debit is a one-time-payment-only method offered inside the pay flow, so it is never
-// presented in the saved payment methods lists.
-export const getSavedPaymentMethods = (methods?: PaymentMethod[] | null): PaymentMethod[] => (
-  (methods ?? []).filter(
-    (method) => method.paymentMethodName?.toLowerCase() !== DIRECT_DEBIT_PAYMENT_METHOD_NAME,
-  )
-);
+export const getSavedPaymentMethods = (methods?: PaymentMethod[] | null): PaymentMethod[] => {
+  const seen = new Set<string>();
+
+  return (methods ?? []).filter((method) => {
+    if (method.paymentMethodName?.toLowerCase() === DIRECT_DEBIT_PAYMENT_METHOD_NAME || seen.has(method.referenceId)) {
+      return false;
+    }
+
+    seen.add(method.referenceId);
+    return true;
+  });
+};

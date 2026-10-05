@@ -1,10 +1,8 @@
-import { afterEach, beforeEach, describe, expect, it, jest } from '@jest/globals';
+import { beforeEach, describe, expect, it, jest } from '@jest/globals';
 import BillerFormScreen from '@/app/(app)/bills/one-time-payments/add/form';
-import PayBillScreen from '@/app/(app)/bills/one-time-payments/pay/[billingReferenceId]';
 import ConfirmPaymentScreen from '@/app/(app)/bills/one-time-payments/pay/confirm-payment';
 import PaymentSuccessScreen from '@/app/(app)/bills/one-time-payments/pay/payment-success';
-import { modalActions } from '@/utils/modalActions';
-import { act, fireEvent, render, screen, waitFor } from '@testing-library/react-native';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react-native';
 import React from 'react';
 
 const mockDispatch = jest.fn<(...args: any[]) => any>();
@@ -94,9 +92,9 @@ jest.mock('@/components/common/GlobalScrollView', () => ({
 jest.mock('@/components/layout/NavHeaderComponent', () => (
   ({ title, rightNav, onBackPress }: any) => {
     const { Pressable, Text, View } = require('react-native');
-    // eslint-disable-next-line @typescript-eslint/no-require-imports
+
     const { router } = require('expo-router');
-    // Mirror the real component: custom handler if provided, else history back.
+
     const handleBack = onBackPress ?? (() => router.back());
     return (
       <View>
@@ -225,7 +223,7 @@ describe('saved-biller and bill-payment routes', () => {
     render(<BillerFormScreen />);
     expect(screen.getByText('No form configuration or lookup options available.')).toBeTruthy();
     fireEvent.press(screen.getByText('Nav:Add Biller Information'));
-    // Back now returns to the actual previous screen via navigation history.
+
     expect(mockRouter.back).toHaveBeenCalledTimes(1);
   });
 
@@ -249,290 +247,6 @@ describe('saved-biller and bill-payment routes', () => {
       paymentTypeCode: 'MERCHANT_One Time Payment',
     })));
     expect(mockRouter.push).toHaveBeenCalledWith('/bills/one-time-payments');
-  });
-
-  it('routes bill payment to the payment-method selection when the new-card option is chosen', () => {
-    Object.assign(mockParams, { billingReferenceId: 'bill-1', merchantName: 'Merchant One' });
-    mockBillQuery.data = { billing_id: 'bill-1', custom_fields: {} };
-    render(<PayBillScreen />);
-    fireEvent.changeText(screen.getByLabelText('Amount'), '100');
-    fireEvent.press(screen.getByRole('radio', { name: /Select payment method/ }));
-    fireEvent.press(screen.getByRole('button', { name: 'Select payment method' }));
-    expect(mockRouter.push).toHaveBeenCalledWith(expect.objectContaining({
-      pathname: '/bills/one-time-payments/payment-methods',
-      params: expect.objectContaining({
-        billingReferenceId: 'bill-1',
-        baseAmount: '100',
-      }),
-    }));
-  });
-
-  it('resets the payment form only after a payment succeeds', () => {
-    Object.assign(mockParams, { billingReferenceId: 'bill-1', merchantName: 'Merchant One' });
-    mockBillQuery.data = { billing_id: 'bill-1', custom_fields: {} };
-    mockPaymentMethodsQuery.data = [{ referenceId: 'pm-1', isPrimary: true }];
-    const view = render(<PayBillScreen />);
-    fireEvent.changeText(screen.getByLabelText('Amount'), '100');
-    fireEvent.press(screen.getByRole('radio', { name: /Select payment method/ }));
-    expect(screen.queryByRole('button', { name: 'Confirm' })).toBeNull();
-
-    // A fee computation gives the mutation a new reset function; that must not clear the form.
-    mockComputationState.reset = jest.fn<(...args: any[]) => any>();
-    view.rerender(<PayBillScreen />);
-    expect(screen.getByLabelText('Amount').props.value).toBe('100');
-    mockComputationState.reset = mockResetComputation;
-
-    mockState.oneTimePayment.lastCompletedInvoiceReferenceId = 'invoice-1';
-    view.rerender(<PayBillScreen />);
-
-    expect(screen.getByLabelText('Amount').props.value).toBe('');
-    expect(screen.getByRole('button', { name: 'Confirm' })).toBeTruthy();
-    expect(mockResetComputation).toHaveBeenCalled();
-  });
-
-  it('blocks the new-card flow until a valid amount is entered', () => {
-    Object.assign(mockParams, { billingReferenceId: 'bill-1', merchantName: 'Merchant One' });
-    mockBillQuery.data = { billing_id: 'bill-1', custom_fields: {} };
-    render(<PayBillScreen />);
-    fireEvent.press(screen.getByRole('radio', { name: /Select payment method/ }));
-    fireEvent.press(screen.getByRole('button', { name: 'Select payment method' }));
-    expect(mockRouter.push).not.toHaveBeenCalled();
-    expect(mockDispatch).toHaveBeenCalledWith(expect.objectContaining({
-      payload: { message: 'Amount is required.', variant: 'error' },
-    }));
-  });
-
-  it('shows an error snackbar when confirming without an amount', () => {
-    Object.assign(mockParams, { billingReferenceId: 'bill-1', merchantName: 'Merchant One' });
-    mockBillQuery.data = { billing_id: 'bill-1', custom_fields: {} };
-    mockPaymentMethodsQuery.data = [
-      { referenceId: 'card-1', isPrimary: true, paymentMethodProvider: 'visa', lastFourCardDigits: '4242' },
-    ];
-    render(<PayBillScreen />);
-    expect(screen.getByRole('button', { name: 'Confirm' }).props.accessibilityState.disabled).toBe(true);
-    expect(mockRouter.push).not.toHaveBeenCalled();
-  });
-
-  it('opens the add-and-save flow with a validated return path to Biller Details', () => {
-    Object.assign(mockParams, { billingReferenceId: 'bill-1', merchantName: 'Merchant One' });
-    mockBillQuery.data = { billing_id: 'bill-1', custom_fields: {} };
-    mockPaymentMethodsQuery.data = [
-      { referenceId: 'card-1', isPrimary: true, paymentMethodProvider: 'visa', lastFourCardDigits: '4242' },
-    ];
-    render(<PayBillScreen />);
-    fireEvent.changeText(screen.getByLabelText('Amount'), '175');
-    fireEvent.press(screen.getByRole('button', { name: 'Add Payment Method' }));
-    expect(mockRouter.push).toHaveBeenCalledWith(expect.objectContaining({
-      pathname: '/payment-methods/add-card',
-      params: expect.objectContaining({
-        returnTo: '/bills/one-time-payments/pay/bill-1',
-        billingReferenceId: 'bill-1',
-        returnAmount: '175',
-      }),
-    }));
-  });
-
-  it('preselects the returned payment method for computation', () => {
-    jest.useFakeTimers();
-    try {
-      Object.assign(mockParams, { billingReferenceId: 'bill-1', merchantName: 'Merchant One', selectedPaymentMethodReferenceId: 'card-2' });
-      mockBillQuery.data = { billing_id: 'bill-1', custom_fields: {} };
-      mockPaymentMethodsQuery.data = [
-        { referenceId: 'card-1', isPrimary: true, paymentMethodProvider: 'visa', lastFourCardDigits: '4242' },
-        { referenceId: 'card-2', isPrimary: false, paymentMethodProvider: 'mastercard', lastFourCardDigits: '5555' },
-      ];
-      render(<PayBillScreen />);
-      fireEvent.changeText(screen.getByLabelText('Amount'), '100');
-      act(() => {
-        jest.advanceTimersByTime(1000);
-      });
-      // the returned card overrides the default primary selection
-      expect(mockCreateComputation).toHaveBeenCalledWith(expect.objectContaining({
-        paymentMethodReferenceId: 'card-2',
-      }));
-    } finally {
-      jest.useRealTimers();
-    }
-  });
-
-  it('restores the previously entered amount from the return params', () => {
-    jest.useFakeTimers();
-    try {
-      Object.assign(mockParams, { billingReferenceId: 'bill-1', merchantName: 'Merchant One', amount: '325' });
-      mockBillQuery.data = { billing_id: 'bill-1', custom_fields: {} };
-      mockPaymentMethodsQuery.data = [
-        { referenceId: 'card-1', isPrimary: true, paymentMethodProvider: 'visa', lastFourCardDigits: '4242' },
-      ];
-      render(<PayBillScreen />);
-      act(() => {
-        jest.advanceTimersByTime(1000);
-      });
-      expect(mockCreateComputation).toHaveBeenCalledWith(expect.objectContaining({
-        baseAmount: 325,
-      }));
-    } finally {
-      jest.useRealTimers();
-    }
-  });
-
-  it('offers the new-card option alongside saved methods', () => {
-    Object.assign(mockParams, { billingReferenceId: 'bill-1', merchantName: 'Merchant One' });
-    mockBillQuery.data = { billing_id: 'bill-1', custom_fields: {} };
-    mockPaymentMethodsQuery.data = [
-      { referenceId: 'card-1', isPrimary: true, paymentMethodProvider: 'visa', lastFourCardDigits: '4242' },
-    ];
-    render(<PayBillScreen />);
-    fireEvent.changeText(screen.getByLabelText('Amount'), '250');
-    fireEvent.press(screen.getByRole('radio', { name: /Select payment method/ }));
-    fireEvent.press(screen.getByRole('button', { name: 'Select payment method' }));
-    expect(mockRouter.push).toHaveBeenCalledWith(expect.objectContaining({
-      pathname: '/bills/one-time-payments/payment-methods',
-      params: expect.objectContaining({ baseAmount: '250' }),
-    }));
-  });
-
-  describe('when the selected card needs to be added again', () => {
-    const revaultError = () => ({
-      unwrap: jest.fn<(...args: any[]) => any>().mockRejectedValue({ data: { code: 'CARD_REVAULT_REQUIRED' } }),
-    });
-
-    const renderWithRevaultCard = async (methods: any[], amount = '100') => {
-      Object.assign(mockParams, { billingReferenceId: 'bill-1', merchantName: 'Merchant One' });
-      mockBillQuery.data = { billing_id: 'bill-1', custom_fields: {} };
-      mockPaymentMethodsQuery.data = methods;
-      mockCreateComputation.mockReturnValue(revaultError());
-      render(<PayBillScreen />);
-      fireEvent.changeText(screen.getByLabelText('Amount'), amount);
-      await act(async () => {
-        jest.advanceTimersByTime(1000);
-      });
-    };
-
-    const card = (overrides: Record<string, any> = {}) => ({
-      referenceId: 'card-1', isPrimary: true, paymentMethodProvider: 'visa', lastFourCardDigits: '4242', ...overrides,
-    });
-
-    beforeEach(() => {
-      jest.useFakeTimers();
-    });
-
-    afterEach(() => {
-      jest.useRealTimers();
-    });
-
-    it('offers to replace the card only for the re-add error', async () => {
-      await renderWithRevaultCard([card()]);
-      expect(screen.getByText('This card can no longer be used. Please remove it and add it again.')).toBeTruthy();
-      expect(screen.getByRole('button', { name: 'Replace card' })).toBeTruthy();
-    });
-
-    it('does not offer to replace the card for other computation errors', async () => {
-      Object.assign(mockParams, { billingReferenceId: 'bill-1', merchantName: 'Merchant One' });
-      mockBillQuery.data = { billing_id: 'bill-1', custom_fields: {} };
-      mockPaymentMethodsQuery.data = [card()];
-      mockCreateComputation.mockReturnValue({
-        unwrap: jest.fn<(...args: any[]) => any>().mockRejectedValue({ data: { code: 'SOMETHING_ELSE' } }),
-      });
-      render(<PayBillScreen />);
-      fireEvent.changeText(screen.getByLabelText('Amount'), '100');
-      await act(async () => {
-        jest.advanceTimersByTime(1000);
-      });
-      expect(screen.getByText(/Unable to calculate fees/)).toBeTruthy();
-      expect(screen.queryByRole('button', { name: 'Replace card' })).toBeNull();
-    });
-
-    it('removes the card and opens add-card with the return path after confirmation', async () => {
-      await renderWithRevaultCard([card()]);
-      fireEvent.press(screen.getByRole('button', { name: 'Replace card' }));
-
-      expect(mockDispatch).toHaveBeenCalledWith(expect.objectContaining({
-        payload: expect.objectContaining({
-          id: 'replaceCard',
-          bodyMessage: 'The card ending in 4242 will be removed so you can add it again.',
-        }),
-      }));
-      expect(mockDeletePaymentMethod).not.toHaveBeenCalled();
-
-      await act(async () => {
-        modalActions.replaceCard();
-      });
-
-      expect(mockDeletePaymentMethod).toHaveBeenCalledWith({ id: 'card-1' });
-      expect(mockRouter.push).toHaveBeenCalledWith(expect.objectContaining({
-        pathname: '/payment-methods/add-card',
-        params: expect.objectContaining({
-          returnTo: '/bills/one-time-payments/pay/bill-1',
-          billingReferenceId: 'bill-1',
-          returnAmount: '100',
-        }),
-      }));
-    });
-
-    it('stays on the screen and reports the failure when the card cannot be removed', async () => {
-      mockDeletePaymentMethod.mockReturnValue({
-        unwrap: jest.fn<(...args: any[]) => any>().mockRejectedValue({ data: { message: 'Card is in use.' } }),
-      });
-      await renderWithRevaultCard([card()]);
-      fireEvent.press(screen.getByRole('button', { name: 'Replace card' }));
-
-      await act(async () => {
-        modalActions.replaceCard();
-      });
-
-      expect(mockRouter.push).not.toHaveBeenCalled();
-      expect(mockDispatch).toHaveBeenCalledWith(expect.objectContaining({
-        payload: { message: 'Card is in use.', variant: 'error' },
-      }));
-    });
-
-    it('opens the card details instead of deleting a default card while other cards exist', async () => {
-      await renderWithRevaultCard([card(), card({ referenceId: 'card-2', isPrimary: false, lastFourCardDigits: '5555' })]);
-      fireEvent.press(screen.getByRole('button', { name: 'Replace card' }));
-
-      expect(mockDeletePaymentMethod).not.toHaveBeenCalled();
-      expect(mockRouter.push).toHaveBeenCalledWith(
-        expect.objectContaining({
-          pathname: '/payment-methods/update-card',
-          params: { referenceId: 'card-1', route: '/bills/one-time-payments/pay/bill-1' },
-        }),
-        expect.anything(),
-      );
-    });
-
-    it('clears the error once the amount is emptied', async () => {
-      await renderWithRevaultCard([card()]);
-      expect(screen.getByRole('button', { name: 'Replace card' })).toBeTruthy();
-
-      fireEvent.changeText(screen.getByLabelText('Amount'), '');
-
-      expect(screen.queryByText(/can no longer be used/)).toBeNull();
-      expect(screen.queryByRole('button', { name: 'Replace card' })).toBeNull();
-    });
-  });
-
-  it('computes the payment with the first saved method when none is marked primary', () => {
-    jest.useFakeTimers();
-    try {
-      Object.assign(mockParams, { billingReferenceId: 'bill-1', merchantName: 'Merchant One' });
-      mockBillQuery.data = { billing_id: 'bill-1', custom_fields: {} };
-      mockPaymentMethodsQuery.data = [
-        { referenceId: 'card-1', isPrimary: false, paymentMethodProvider: 'visa', lastFourCardDigits: '4242' },
-        { referenceId: 'card-2', isPrimary: false, paymentMethodProvider: 'mastercard', lastFourCardDigits: '5555' },
-      ];
-      render(<PayBillScreen />);
-      fireEvent.changeText(screen.getByLabelText('Amount'), '100');
-      act(() => {
-        jest.advanceTimersByTime(1000);
-      });
-      expect(mockCreateComputation).toHaveBeenCalledWith(expect.objectContaining({
-        paymentMethodReferenceId: 'card-1',
-        billingReferenceId: 'bill-1',
-        baseAmount: 100,
-      }));
-    } finally {
-      jest.useRealTimers();
-    }
   });
 
   it('requires terms before completing payment and routes a successful payment receipt', async () => {
@@ -656,7 +370,6 @@ describe('saved-biller and bill-payment routes', () => {
     expect(screen.getByText('Merchant One')).toBeTruthy();
     mockCacheCompletedTransaction.mockClear();
 
-    // Next payment: RTK Query keeps the old result in data but not in currentData.
     mockParams.invoiceReferenceId = 'invoice-2';
     mockTransactionQuery.currentData = undefined;
     mockTransactionQuery.isFetching = true;

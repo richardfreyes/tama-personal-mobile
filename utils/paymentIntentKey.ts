@@ -7,8 +7,6 @@ export const getPaymentIntentKey = (scope: string, reference: string): string =>
   const existing = intentKeys.get(intent);
   if (existing) return existing;
 
-  // Keep keys for active intents across screen remounts, without retaining an
-  // unbounded history in a long-running app session.
   if (intentKeys.size >= 100) {
     intentKeys.delete(intentKeys.keys().next().value!);
   }

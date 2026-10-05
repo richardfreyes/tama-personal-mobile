@@ -23,7 +23,7 @@ import { showModal } from '@/redux/features/modal/modalSlice';
 import { showSnackbar } from '@/redux/features/snackbar/snackbarSlice';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import type { MerchantEnrollmentDetailResponse } from '@/redux/features/merchants/merchantTypes';
-import type { RootState } from '@/redux/store';
+import type { RootState } from '@/redux/storeTypes';
 import { confirmPaymentStyles as styles } from '@/styles/app/bills/enrollments/confirm-payment';
 import { globalStyle } from '@/styles/common/globals';
 import { ConfirmPaymentDisplayTransaction, EnrollmentCallbackResult, EnrollmentLineItem, PaymentInfoRow } from '@/types';

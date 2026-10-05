@@ -1,11 +1,6 @@
 import { beforeEach, describe, expect, it, jest } from '@jest/globals';
 import * as SecureStore from 'expo-secure-store';
-import {
-  clearBiometricCredentials,
-  getBiometricCredentials,
-  hasBiometricsEnabled,
-  saveBiometricCredentials,
-} from '@/services/authStorage';
+import { clearBiometricCredentials, getBiometricCredentials, hasBiometricsEnabled, saveBiometricCredentials, } from '@/services/authStorage';
 
 jest.mock('expo-secure-store', () => ({
   setItemAsync: jest.fn<(...args: any[]) => any>(),

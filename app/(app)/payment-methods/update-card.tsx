@@ -11,9 +11,10 @@ import { useAppDispatch } from '@/redux/hooks';
 import { updateCardStyles as styles } from '@/styles/app/payment-methods/update-card';
 import { Colors } from '@/styles/common/colors';
 import { globalStyle } from '@/styles/common/globals';
+import type { NavigationRoute } from '@/types/navigation';
 import { formatLastFourDigits, getCardIcon, getProviderDisplay } from '@/utils/card';
 import { modalActions } from '@/utils/modalActions';
-import { Redirect, Route, router, useFocusEffect, useLocalSearchParams } from 'expo-router';
+import { Redirect, router, useFocusEffect, useLocalSearchParams } from 'expo-router';
 import React, { useCallback, useState } from 'react';
 import { ScrollView, View } from 'react-native';
 
@@ -22,7 +23,7 @@ export default function PaymentMethodDetailsCard() {
   const referenceIdParam = Array.isArray(params.referenceId) ? params.referenceId[0] : params.referenceId;
   const referenceId = referenceIdParam == null ? undefined : String(referenceIdParam);
   const backRouteParam = Array.isArray(params.route) ? params.route[0] : params.route;
-  const backRoute = typeof backRouteParam === 'string' ? backRouteParam as Route : undefined;
+  const backRoute = typeof backRouteParam === 'string' ? backRouteParam as NavigationRoute : undefined;
   const dispatch = useAppDispatch();
   const [updatePaymentMethod, { isLoading: isSettingDefault }] = useUpdateCardPaymentMutation();
   const [deletePaymentMethod, { isLoading: isDeleting }] = useDeleteCardPaymentMutation();

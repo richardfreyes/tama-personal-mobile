@@ -3,7 +3,7 @@ import { AppText } from '@/components/common/AppText';
 import { GlobalScrollView } from '@/components/common/GlobalScrollView';
 import NavHeaderComponent from '@/components/layout/NavHeaderComponent';
 import { CONTACT_CHANNELS, CONTACT_SUPPORT_INFO } from '@/constants/contact';
-import type { ContactActionType } from '@/constants/contact';
+import type { ContactActionType } from '@/types/settings';
 import { contactStyles as styles } from '@/styles/app/settings/contact';
 import { Colors } from '@/styles/common/colors';
 import { globalStyle } from '@/styles/common/globals';

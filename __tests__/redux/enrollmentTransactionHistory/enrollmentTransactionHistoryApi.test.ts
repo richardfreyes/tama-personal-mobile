@@ -36,7 +36,7 @@ const loadModule = (): typeof import(
     '@/redux/features/enrollmentTransactionHistory/enrollmentTransactionHistoryApi'
   );
   jest.isolateModules(() => {
-    // eslint-disable-next-line @typescript-eslint/no-require-imports
+
     loaded = require('@/redux/features/enrollmentTransactionHistory/enrollmentTransactionHistoryApi');
   });
   return loaded;

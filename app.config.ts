@@ -11,7 +11,7 @@ function resolveAppEnv(fallback?: string): string {
     try {
       fs.writeFileSync(APP_ENV_CACHE, `${fromProcess}\n`);
     } catch {
-      // best-effort persistence; ignore write failures
+
     }
     return fromProcess;
   }
@@ -20,7 +20,7 @@ function resolveAppEnv(fallback?: string): string {
     const cached = fs.readFileSync(APP_ENV_CACHE, 'utf8').trim();
     if (cached) return cached;
   } catch {
-    // no cache file yet — fall through to the static default
+
   }
 
   return fallback || 'prod';

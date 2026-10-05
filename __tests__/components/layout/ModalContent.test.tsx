@@ -25,8 +25,6 @@ describe('ModalContent', () => {
     jest.clearAllMocks();
   });
 
-  // ---- Visibility ----
-
   it('renders the title when visible', () => {
     renderWithProviders(<ModalContent {...baseProps} />);
     const title = screen.getByText('Terms & Conditions');
@@ -40,8 +38,6 @@ describe('ModalContent', () => {
     renderWithProviders(<ModalContent {...baseProps} visible={false} />);
     expect(screen.queryByText('Terms & Conditions')).toBeNull();
   });
-
-  // ---- Optional content ----
 
   it('renders the description when provided', () => {
     renderWithProviders(
@@ -81,8 +77,6 @@ describe('ModalContent', () => {
     );
     expect(screen.getByText('Extra content')).toBeTruthy();
   });
-
-  // ---- Interaction ----
 
   it('calls onClose when the Close button is pressed', () => {
     const onClose = jest.fn();

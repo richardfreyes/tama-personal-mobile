@@ -1,11 +1,6 @@
-import { RootState } from '@/redux/store';
+import type { RootState } from '@/redux/storeTypes';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-
-interface OneTimePaymentState {
-  // Invoice of the last payment that reached the success screen. The pay and
-  // confirm screens stay mounted between payments and reset when this changes.
-  lastCompletedInvoiceReferenceId: string | null;
-}
+import type { OneTimePaymentState } from './oneTimePaymentTypes';
 
 const initialState: OneTimePaymentState = {
   lastCompletedInvoiceReferenceId: null,
