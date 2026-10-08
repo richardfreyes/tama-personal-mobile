@@ -11,12 +11,12 @@ import { ImageBackground, View } from 'react-native';
 const IntroScreen: React.FC = () => {
   const handleGetStarted = async () => {
     await handleOnBoard();
-    router.replace('login/onboarding-flow' as never);
+    router.replace('/login/onboarding-flow');
   };
 
   const handleLogin = async () => {
     await handleOnBoard();
-    router.replace('login' as never);
+    router.replace('/login');
   };
 
   const handleOnBoard = () => {
@@ -37,10 +37,11 @@ const IntroScreen: React.FC = () => {
           <BrandLogoWhite style={styles.logo} width={300} height={99} />
         </View>
         <View style={styles.buttonContainer}>
-          { }
-          {
-
-}
+          <AppButton
+            title="Get Started"
+            onPress={handleGetStarted}
+            variant="primary"
+          />
           <AppButton
             title="Login"
             onPress={handleLogin}

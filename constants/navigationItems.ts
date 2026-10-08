@@ -55,8 +55,8 @@ export const SETTINGS = [
 ] as const;
 
 export const ACCOUNT_SECURITY = [
-  { id: 'changeEmail', title: 'Change Email', icon: MailIcon, route: '/security/change-email' },
-  { id: 'changePassword', title: 'Change Password', icon: TridotIcon, route: '/security/change-password' },
+  { id: 'changeEmail', title: 'Change Email', icon: MailIcon, route: '/settings/security/change-email' },
+  { id: 'changePassword', title: 'Change Password', icon: TridotIcon, route: '/settings/security/change-password' },
   { id: 'deactivationDeletion', title: 'Deactivation or Deletion', icon: UserDeletion, route: '#deactivationDeletion' },
 ] as const;
 

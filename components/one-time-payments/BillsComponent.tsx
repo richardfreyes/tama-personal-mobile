@@ -204,7 +204,7 @@ export default function BillsComponent({
     <View style={globalStyle.sectionPanel} testID="bills-section">
       <SectionHeaderComponent
         title={sectionHeader?.title}
-        linkText={isEmpty ? null : sectionHeader?.linkText}
+        linkText={sectionHeader?.linkText}
         onViewAllPress={handleViewAllPress}
       />
       {hasError ? (

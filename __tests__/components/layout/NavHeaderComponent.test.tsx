@@ -1,7 +1,7 @@
 import { renderWithProviders } from '@/utils/test-utils';
 import { afterEach, beforeEach, describe, expect, it, jest } from '@jest/globals';
 import { fireEvent, screen } from '@testing-library/react-native';
-import { router } from 'expo-router';
+import { router, useIsFocused } from 'expo-router';
 import React from 'react';
 import { StyleSheet } from 'react-native';
 import NavHeaderComponent from '../../../components/layout/NavHeaderComponent';
@@ -9,10 +9,6 @@ import { Colors } from '../../../styles/common/colors';
 import { navHeaderComponentStyles } from '../../../styles/components/layout/NavHeaderComponent';
 
 let mockIsFocused = true;
-
-jest.mock('@react-navigation/native', () => ({
-  useIsFocused: () => mockIsFocused,
-}));
 
 jest.mock('react-native-paper', () => {
 
@@ -36,6 +32,7 @@ const mockRouter = router as jest.Mocked<typeof router> & {
 
 beforeEach(() => {
   mockIsFocused = true;
+  (useIsFocused as jest.Mock).mockImplementation(() => mockIsFocused);
   (mockRouter as any).navigate = jest.fn();
   (mockRouter as any).canGoBack = jest.fn().mockReturnValue(false);
 });

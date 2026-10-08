@@ -74,7 +74,7 @@ const ConfirmPaymentScreen = () => {
   const showEnrollmentDeclinedModal = useCallback(() => {
     const modalId = 'enrollment-verification-declined';
     modalActions[modalId] = () => {
-      router.replace('/(app)/bills/enrollments/payment-method');
+      router.replace('/bills/enrollments/payment-method');
     };
     dispatch(showModal({
       id: modalId,

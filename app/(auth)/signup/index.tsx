@@ -282,7 +282,7 @@ const SignupScreen = () => {
 
         <View style={styles.loginLinkContainer}>
           <AppText style={styles.loginLinkText}>Already have an account? </AppText>
-          <TouchableOpacity onPress={() => router.replace('/(auth)/login')}>
+          <TouchableOpacity onPress={() => router.replace('/login')}>
             <AppText style={styles.loginLink}>Login</AppText>
           </TouchableOpacity>
         </View>

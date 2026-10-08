@@ -329,8 +329,8 @@ describe('Enrollment payment navigation', () => {
       type: 'enrollmentReview/setEnrollmentCardPayload',
       payload: mockEnrollmentCardPayload,
     });
-    expect(mockedRouter.replace).toHaveBeenCalledWith('/(app)/bills/enrollments/confirm-payment');
-    expect(mockedRouter.push).not.toHaveBeenCalledWith('/(app)/bills/enrollments/confirm-payment');
+    expect(mockedRouter.replace).toHaveBeenCalledWith('/bills/enrollments/confirm-payment');
+    expect(mockedRouter.push).not.toHaveBeenCalledWith('/bills/enrollments/confirm-payment');
   });
 
   it('shows Pay Bills on the enrollment confirm-payment page after direct render', () => {
@@ -389,7 +389,7 @@ describe('Enrollment payment navigation', () => {
       modalActions['enrollment-verification-declined']();
     });
 
-    expect(mockedRouter.replace).toHaveBeenCalledWith('/(app)/bills/enrollments/payment-method');
+    expect(mockedRouter.replace).toHaveBeenCalledWith('/bills/enrollments/payment-method');
   });
 
   it('resets Payment Submitted state when a new Auto-Debit enrollment transaction starts', () => {
@@ -475,13 +475,13 @@ describe('Enrollment payment navigation', () => {
         buttonConfig: { primaryLabel: 'OK' },
       }),
     }));
-    expect(mockedRouter.replace).not.toHaveBeenCalledWith('/(app)/bills/enrollments/payment-method');
+    expect(mockedRouter.replace).not.toHaveBeenCalledWith('/bills/enrollments/payment-method');
 
     act(() => {
       modalActions['enrollment-verification-declined']();
     });
 
-    expect(mockedRouter.replace).toHaveBeenCalledWith('/(app)/bills/enrollments/payment-method');
+    expect(mockedRouter.replace).toHaveBeenCalledWith('/bills/enrollments/payment-method');
   });
 
   it('opens styled Auto-Debit terms in ModalContent instead of the browser', () => {

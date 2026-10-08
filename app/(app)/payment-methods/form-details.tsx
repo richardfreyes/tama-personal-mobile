@@ -328,7 +328,7 @@ const FormDetails = () => {
 
     if (apiEnv === 'enrollments') {
       dispatch(setEnrollmentCardPayload(enrollmentCardPayload));
-      router.replace('/(app)/bills/enrollments/confirm-payment');
+      router.replace('/bills/enrollments/confirm-payment');
       return;
     } else {
       try {

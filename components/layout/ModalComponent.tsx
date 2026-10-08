@@ -2,6 +2,7 @@ import { default as CheckCircleIcon } from '@/assets/icons/check-circle.svg';
 import InfoIcon from '@/assets/icons/circle-exclamation.svg';
 import LogoutIcon from '@/assets/icons/logout.svg';
 import WarningIcon from '@/assets/icons/warning.svg';
+import { ACCOUNT_DELETION_MAILTO_SUBJECT, SUPPORT_EMAIL, SUPPORT_MAILTO } from '@/constants/contact';
 import { useAuth } from '@/hooks/useAuth';
 import { hideModal, selectModal } from '@/redux/features/modal/modalSlice';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
@@ -35,6 +36,7 @@ export default function ModalComponent() {
   const { email } = useAuth();
   const { isVisible, dismissible, iconType, variant, headerMessage, bodyMessage, bodyType, buttonConfig, id } = useAppSelector(selectModal);
   const IconToRender = getTypeIcon(iconType || 'info');
+  const ACCOUNT_DELETION_MAILTO = `${SUPPORT_MAILTO}?subject=${ACCOUNT_DELETION_MAILTO_SUBJECT} - ${email}`;
 
   if (!isVisible) {
     return null;
@@ -57,7 +59,7 @@ export default function ModalComponent() {
     }
 
     if (bodyType === 'accountDeletion') {
-      Linking.openURL(`mailto:support@aqwire.co?subject=[ACCOUNT DEACTIVATION OR DELETION REQUEST] - ${email}`);
+      Linking.openURL(`${ACCOUNT_DELETION_MAILTO}`);
     }
 
     handleClose();
@@ -75,9 +77,9 @@ export default function ModalComponent() {
             To permanently delete your account and associated data, please send an email to{' '}
             <AppText
               style={{ color: Colors.red10 }}
-              onPress={() => Linking.openURL(`mailto:support@aqwire.co?subject=[ACCOUNT DEACTIVATION OR DELETION REQUEST] - ${email}`)}
+              onPress={() => Linking.openURL(`${ACCOUNT_DELETION_MAILTO}`)}
             >
-              support@aqwire.co
+              {SUPPORT_EMAIL}
             </AppText>{' '}
             with the following details:
             {'\n\n'}

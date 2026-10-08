@@ -1,3 +1,4 @@
+import { LEGAL_URLS } from '@/constants/enrollment';
 import { Colors } from '@/styles/common/colors';
 import { FontSizes } from '@/styles/common/typography';
 import { termsAndPolicyTextStyles as styles } from '@/styles/components/settings/TermsAndPolicyText';
@@ -31,7 +32,7 @@ const TermsAndConditionsCheckbox: React.FC<TermsAndConditionsCheckboxProps> = ({
       return;
     }
 
-    void openLink('https://pay.aqwire.io/terms');
+    void openLink(LEGAL_URLS.TERMS_URL);
   };
 
   const handlePrivacyPress = () => {
@@ -40,7 +41,7 @@ const TermsAndConditionsCheckbox: React.FC<TermsAndConditionsCheckboxProps> = ({
       return;
     }
 
-    void openLink('https://pay.aqwire.io/privacy');
+    void openLink(LEGAL_URLS.PRIVACY_URL);
   };
 
   return (

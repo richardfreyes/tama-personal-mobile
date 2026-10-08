@@ -19,60 +19,12 @@ function TabBarAnimationCapture() {
   return null;
 }
 
-type RouteEntry = { key: string; name: string };
-
-function buildNavProps(overrides: {
-  routes?: RouteEntry[];
-  index?: number;
-  navigateToTab?: jest.Mock;
-  emit?: jest.Mock;
-} = {}) {
-  const routes: RouteEntry[] = overrides.routes ?? [
-    { key: 'dashboard-key', name: 'dashboard' },
-    { key: 'transactions-key', name: 'transactions/index' },
-    { key: 'bills-key', name: 'bills/index' },
-    { key: 'payments-key', name: 'payment-methods/index' },
-  ];
-
-  const navigateToTab = overrides.navigateToTab ?? jest.fn();
-  const emit = overrides.emit ?? jest.fn(() => ({ defaultPrevented: false }));
-
-  return {
-    state: {
-      index: overrides.index ?? 0,
-      routes,
-      key: 'tab-state-key',
-      routeNames: routes.map((r) => r.name),
-      stale: false as const,
-      type: 'tab' as const,
-      history: [],
-    },
-    descriptors: Object.fromEntries(
-      routes.map((r) => [
-        r.key,
-        {
-          options: {},
-          route: r,
-          render: () => null,
-        },
-      ]),
-    ),
-    emitter: { emit } as any,
-    navigateToTab,
-    insets: { top: 0, bottom: 0, left: 0, right: 0 },
-  };
-}
-
-function renderNavBar(overrides: Parameters<typeof buildNavProps>[0] = {}) {
-  const props = buildNavProps(overrides);
-  return {
-    ...renderWithProviders(
-      <TabBarAnimationProvider>
-        <FloatingNavBar {...(props as any)} />
-      </TabBarAnimationProvider>,
-    ),
-    props,
-  };
+function renderNavBar() {
+  return renderWithProviders(
+    <TabBarAnimationProvider>
+      <FloatingNavBar />
+    </TabBarAnimationProvider>,
+  );
 }
 
 function getTabButtons() {
@@ -133,8 +85,9 @@ describe('FloatingNavBar', () => {
   });
 
   it('renders the tab bar with Bills active on the dedicated Saved Bills route', () => {
-    mockUseSegments.mockReturnValue(['(app)', 'bills', 'saved']);
-    renderNavBar({ index: 0 });
+    mockUsePathname.mockReturnValue('/bills/one-time-payments/saved');
+    mockUseSegments.mockReturnValue(['(app)', 'bills', 'one-time-payments', 'saved']);
+    renderNavBar();
 
     const buttons = getTabButtons();
     expect(buttons).toHaveLength(VALID_ROUTE_NAMES.length);
@@ -143,57 +96,18 @@ describe('FloatingNavBar', () => {
     expect(getIconColor(buttons[1])).toBe(Colors.red09);
   });
 
-  it('keeps Bills active when the focused navigator route is Saved Bills', () => {
-    const routes: RouteEntry[] = [
-      { key: 'bills-key', name: 'bills/index' },
-      { key: 'saved-bills-key', name: 'bills/one-time-payments/saved' },
-    ];
-    renderNavBar({ index: 1, routes });
-
-    const buttons = getTabButtons();
-    expect(buttons).toHaveLength(1);
-    expect(buttons[0].props.accessibilityState).toEqual({ selected: true });
-    expect(getIconColor(buttons[0])).toBe(Colors.red09);
-  });
-
   it('renders a tab button for each route that has an icon config', () => {
     renderNavBar();
     const buttons = getTabButtons();
     expect(buttons).toHaveLength(VALID_ROUTE_NAMES.length);
   });
 
-  it('skips routes that do not have an icon config entry', () => {
-    const routes: RouteEntry[] = [
-      { key: 'dashboard-key', name: 'dashboard' },
-      { key: 'unknown-key', name: 'settings/index' },
-    ];
-    renderNavBar({ routes });
-    const buttons = getTabButtons();
-    expect(buttons).toHaveLength(1);
-  });
-
-  it('renders no tab buttons when all routes are unknown', () => {
-    const routes: RouteEntry[] = [
-      { key: 'a-key', name: 'unknown-a' },
-      { key: 'b-key', name: 'unknown-b' },
-    ];
-    renderNavBar({ routes });
-    expect(screen.UNSAFE_queryAllByType(TouchableOpacity)).toHaveLength(0);
-  });
-
-  it('renders the container when routes array is empty', () => {
-    const { toJSON } = renderNavBar({ routes: [] });
-    expect(toJSON()).toBeTruthy();
-    expect(screen.UNSAFE_queryAllByType(TouchableOpacity)).toHaveLength(0);
-  });
-
   it('restores the tab bar when navigating to another route', () => {
     mockUsePathname.mockReturnValue('/dashboard');
-    const props = buildNavProps();
     const renderTree = () => (
       <TabBarAnimationProvider>
         <TabBarAnimationCapture />
-        <FloatingNavBar {...(props as any)} />
+        <FloatingNavBar />
       </TabBarAnimationProvider>
     );
     const { rerender } = renderWithProviders(renderTree());
@@ -208,107 +122,52 @@ describe('FloatingNavBar', () => {
     expect(capturedTabBarTranslateY!.value).toBe(0);
   });
 
-  it('renders correctly with a single valid route', () => {
-    const routes: RouteEntry[] = [{ key: 'dashboard-key', name: 'dashboard' }];
-    renderNavBar({ routes, index: 0 });
-    expect(getTabButtons()).toHaveLength(1);
-  });
-
   it('navigates to the pressed tab when it is not focused', () => {
-    const navigateToTab = jest.fn();
-    const emit = jest.fn(() => ({ defaultPrevented: false }));
-    renderNavBar({ index: 0, navigateToTab, emit });
+    mockUsePathname.mockReturnValue('/dashboard');
+    renderNavBar();
 
     const buttons = getTabButtons();
     fireEvent.press(buttons[2]);
+    fireEvent.press(buttons[1]);
 
-    expect(emit).toHaveBeenCalledWith(
-      expect.objectContaining({
-        type: 'tabPress',
-        target: 'transactions-key',
-        canPreventDefault: true,
-      }),
-    );
-    expect(navigateToTab).toHaveBeenCalledWith('transactions-key');
+    expect(router.navigate).toHaveBeenNthCalledWith(1, '/transactions');
+    expect(router.navigate).toHaveBeenNthCalledWith(2, '/bills');
   });
 
   it('does not navigate when the pressed tab is already focused', () => {
-    const navigateToTab = jest.fn();
-    const emit = jest.fn(() => ({ defaultPrevented: false }));
-    renderNavBar({ index: 0, navigateToTab, emit });
+    mockUsePathname.mockReturnValue('/dashboard');
+    renderNavBar();
 
-    const buttons = getTabButtons();
-    fireEvent.press(buttons[0]);
+    fireEvent.press(getTabButtons()[0]);
 
-    expect(emit).toHaveBeenCalledTimes(1);
-    expect(navigateToTab).not.toHaveBeenCalled();
+    expect(router.navigate).not.toHaveBeenCalled();
+    expect(router.replace).not.toHaveBeenCalled();
   });
 
   it('returns to the section root when the active tab is pressed from a nested screen', () => {
     mockUsePathname.mockReturnValue('/bills/one-time-payments/saved');
     mockUseSegments.mockReturnValue(['(app)', 'bills', 'one-time-payments', 'saved']);
-    const navigateToTab = jest.fn();
-    renderNavBar({ index: 0, navigateToTab });
+    renderNavBar();
 
     fireEvent.press(getTabButtons()[1]);
 
     expect(router.replace).toHaveBeenCalledWith('/bills');
-    expect(navigateToTab).not.toHaveBeenCalled();
+    expect(router.navigate).not.toHaveBeenCalled();
   });
 
   it('leaves the screen alone when the active tab is already on its root', () => {
     mockUsePathname.mockReturnValue('/bills');
     mockUseSegments.mockReturnValue(['(app)', 'bills']);
-    renderNavBar({ index: 0 });
+    renderNavBar();
 
     fireEvent.press(getTabButtons()[1]);
 
     expect(router.replace).not.toHaveBeenCalled();
   });
 
-  it('does not navigate when the event is default-prevented', () => {
-    const navigateToTab = jest.fn();
-    const emit = jest.fn(() => ({ defaultPrevented: true }));
-    renderNavBar({ index: 0, navigateToTab, emit });
-
-    const buttons = getTabButtons();
-    fireEvent.press(buttons[1]);
-
-    expect(emit).toHaveBeenCalledTimes(1);
-    expect(navigateToTab).not.toHaveBeenCalled();
-  });
-
-  it('emits tabPress with the correct target key for each tab', () => {
-    const emit = jest.fn(() => ({ defaultPrevented: false }));
-    renderNavBar({ index: 0, emit });
-    const buttons = getTabButtons();
-
-    const expectedKeys = ['dashboard-key', 'bills-key', 'transactions-key', 'payments-key'];
-    buttons.forEach((btn, i) => {
-      if (i === 0) return;
-      fireEvent.press(btn);
-      const lastCall = ((emit as jest.Mock).mock.calls.at(-1)?.[0]) as { target: string };
-      expect(lastCall.target).toBe(expectedKeys[i]);
-    });
-  });
-
-  it('navigates to the correct route key for each tab', () => {
-    const navigateToTab = jest.fn();
-    const emit = jest.fn(() => ({ defaultPrevented: false }));
-    renderNavBar({ index: 0, navigateToTab, emit });
-    const buttons = getTabButtons();
-
-    const expectedRouteKeys = ['dashboard-key', 'bills-key', 'transactions-key', 'payments-key'];
-    buttons.forEach((btn, i) => {
-      if (i === 0) return;
-      fireEvent.press(btn);
-      const lastCall = (navigateToTab as jest.Mock).mock.calls.at(-1);
-      expect(lastCall?.[0]).toBe(expectedRouteKeys[i]);
-    });
-  });
-
   it('passes the active color to the focused icon and inactive color to others', () => {
-    renderNavBar({ index: 2 });
+    mockUsePathname.mockReturnValue('/bills');
+    renderNavBar();
     const buttons = getTabButtons();
 
     buttons.forEach((btn, i) => {
@@ -323,16 +182,16 @@ describe('FloatingNavBar', () => {
     });
   });
 
-  it('updates the focused icon when a different index is provided', () => {
-
-    const { unmount } = renderNavBar({ index: 0 });
+  it('updates the focused icon when the pathname changes', () => {
+    mockUsePathname.mockReturnValue('/dashboard');
+    const { unmount } = renderNavBar();
     let buttons = getTabButtons();
     expect(buttons[0].props.accessibilityState).toEqual({ selected: true });
-    expect(getIconColor(buttons[0])).toBe(Colors.red09);
     expect(getIconColor(buttons[2])).toBe(Colors.maroon09);
     unmount();
 
-    renderNavBar({ index: 1 });
+    mockUsePathname.mockReturnValue('/transactions');
+    renderNavBar();
     buttons = getTabButtons();
     expect(buttons[0].props.accessibilityState).toEqual({ selected: false });
     expect(buttons[2].props.accessibilityState).toEqual({ selected: true });
@@ -342,7 +201,7 @@ describe('FloatingNavBar', () => {
   it('keeps the Bills navigation item active throughout the Add Biller flow', () => {
     mockUsePathname.mockReturnValue('/bills/one-time-payments/add/form');
     mockUseSegments.mockReturnValue(['(app)', 'bills', 'one-time-payments', 'add', 'form']);
-    renderNavBar({ index: 0 });
+    renderNavBar();
 
     const buttons = getTabButtons();
     expect(buttons[0].props.accessibilityState).toEqual({ selected: false });

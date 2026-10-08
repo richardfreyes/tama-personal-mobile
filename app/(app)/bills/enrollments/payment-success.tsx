@@ -5,6 +5,7 @@ import { GlobalScrollView } from '@/components/common/GlobalScrollView';
 import { ReceiptSkeleton } from '@/components/common/Loading';
 import { SpacerComponent } from '@/components/common/SpacerComponent';
 import NavHeaderComponent from '@/components/layout/NavHeaderComponent';
+import { SUPPORT_EMAIL, SUPPORT_MAILTO } from '@/constants/contact';
 import { useGetMerchantEnrollmentReceiptQuery, useGetMerchantReceiptQuery } from '@/redux/features/merchants/merchantApi';
 import type { MerchantTransactionFieldPayload } from '@/redux/features/merchants/merchantTypes';
 import { paymentSuccessStyles as styles } from '@/styles/app/bills/common/payment-success';
@@ -91,7 +92,7 @@ const EnrollmentPaymentSuccessScreen = () => {
   return (
     <GlobalScrollView contentContainerStyle={[globalStyle.screenContainer, globalStyle.screenContainerTop]}>
       <View style={{ flex: 1 }}>
-        <NavHeaderComponent title='Pay Bills' onBackPress={() => router.replace('/')} />
+        <NavHeaderComponent title='Pay Bills' onBackPress={() => router.replace('/dashboard')} />
         {isLoading ? (
           <ReceiptSkeleton label="Loading payment receipt" />
         ) : isError || !receipt ? (
@@ -143,8 +144,8 @@ const EnrollmentPaymentSuccessScreen = () => {
                 </View>
                 <View style={styles.scheduledPaymentNoteContainer}>
                   <AppText size='extraSmall' color='neutral07' style={{ textAlign: 'center' }}>This has been processed and your payment will be posted real-time. You can also find a copy of your receipt on your email. For questions or concerns, please reach out to us at 
-                    <AppText style={{ fontSize: styles.downloadDescLabel.fontSize, color: Colors.info07 }} onPress={() => Linking.openURL('mailto:support@aqwire.co')}>
-                      <AppText> </AppText>support@aqwire.co
+                    <AppText style={{ fontSize: styles.downloadDescLabel.fontSize, color: Colors.info07 }} onPress={() => Linking.openURL(SUPPORT_MAILTO)}>
+                      <AppText> </AppText>{SUPPORT_EMAIL}
                     </AppText>
                   </AppText>
                 </View>

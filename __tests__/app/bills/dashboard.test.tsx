@@ -2,7 +2,7 @@ import { beforeEach, describe, expect, it, jest } from '@jest/globals';
 import { fireEvent, render, screen } from '@testing-library/react-native';
 import { router } from 'expo-router';
 import React from 'react';
-import Bills from '@/app/(app)/bills';
+import Bills from '@/app/(app)/(tabs)/bills';
 
 const mockUseGetEnrollmentsQuery = jest.fn();
 const mockUseGetBillsQuery = jest.fn();
@@ -80,7 +80,7 @@ describe('Bills dashboard', () => {
     expect(screen.queryByText('No active enrollments')).toBeNull();
 
     fireEvent.press(screen.getByRole('button', { name: 'View Auto Debit' }));
-    expect(router.push).toHaveBeenCalledWith('/(app)/bills/enrollments/enrolled');
+    expect(router.push).toHaveBeenCalledWith('/bills/enrollments/enrolled');
   });
 
   it('shows a loading placeholder for the AutoPay section while enrollments load', () => {

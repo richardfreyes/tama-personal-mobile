@@ -29,6 +29,10 @@ export default function Security() {
       }));
       return;
     }
+    if (route.startsWith('/')) {
+      router.push(route as never);
+      return;
+    }
     router.push(`./${route}`);
   };
 

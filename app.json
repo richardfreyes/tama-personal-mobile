@@ -51,11 +51,15 @@
         }
       ],
       "expo-font",
+      "expo-image",
       "expo-web-browser",
       "expo-local-authentication",
       [
         "expo-build-properties",
         {
+          "ios": {
+            "deploymentTarget": "16.4"
+          },
           "android": {
             "kotlinVersion": "2.0.21",
             "usesCleartextTraffic": true,

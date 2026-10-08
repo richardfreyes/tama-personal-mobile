@@ -1,3 +1,4 @@
+import { SUPPORT_EMAIL } from "@/constants/contact";
 import { showModal } from "@/redux/features/modal/modalSlice";
 import { store } from "@/redux/store";
 import { Colors } from "@/styles/common/colors";
@@ -12,7 +13,7 @@ export const handleSettingsRoute = (route: SettingRoute) => {
     store.dispatch(showModal({
       iconType: 'warning',
       headerMessage: 'Account Deactivation or Deletion Request',
-      bodyMessage: 'To permanently delete your account and associated data, please send an email to support@aqwire.co with the following details:\n\n• Full Name\n• Registered Email Address\n• Reason for Deletion (Optional)\n\nOur team will process your request within 7 business days.',
+      bodyMessage: `To permanently delete your account and associated data, please send an email to ${SUPPORT_EMAIL} with the following details:\n\n• Full Name\n• Registered Email Address\n• Reason for Deletion (Optional)\n\nOur team will process your request within 7 business days.`,
       buttonConfig: {
           primaryLabel: 'Send Email',
           primaryStyle: { backgroundColor: Colors.info10 },

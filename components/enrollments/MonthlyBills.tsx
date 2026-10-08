@@ -69,7 +69,7 @@ export const MonthlyBillsComponent = () => {
   const handleBillPress = useCallback((bill: UpcomingEnrollmentBill) => {
     dispatch(setSelectedEnrollment(bill.enrollment));
     router.push({
-      pathname: '/(app)/bills/enrollments/details',
+      pathname: '/bills/enrollments/details',
       params: {
         enrollmentId: bill.enrollment.referenceId || bill.enrollment.transactionId || bill.key,
       },
@@ -77,7 +77,7 @@ export const MonthlyBillsComponent = () => {
   }, [dispatch]);
 
   const handleEnrollAutoDebit = useCallback(() => {
-    router.push('/(app)/bills/enrollments');
+    router.push('/bills/enrollments');
   }, []);
 
   const handleLayout = useCallback((event: LayoutChangeEvent) => {

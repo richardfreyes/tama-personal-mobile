@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it, jest } from '@jest/globals';
 import EnrollmentHomeScreen from '@/app/(app)/bills/enrollments';
 import NotificationsScreen from '@/app/(app)/notifications';
-import TransactionsScreen from '@/app/(app)/transactions';
+import TransactionsScreen from '@/app/(app)/(tabs)/transactions';
 import { fireEvent, render, screen } from '@testing-library/react-native';
 import React from 'react';
 import { RefreshControl } from 'react-native';
@@ -148,7 +148,7 @@ describe('enrollment, transaction-list, and notification routes', () => {
     fireEvent.press(screen.getByText('Select enrollment merchant'));
     expect(mockDispatch).toHaveBeenCalledWith({ type: 'enrollmentReview/triggerEnrollmentFormReset', payload: undefined });
     expect(mockRouter.push).toHaveBeenCalledWith({
-      pathname: '/(app)/bills/enrollments/form',
+      pathname: '/bills/enrollments/form',
       params: { merchantId: 'merchant-1', merchantCode: 'M1', merchantName: 'Merchant One' },
     });
     const refresh = view.UNSAFE_getByType(RefreshControl);
@@ -162,6 +162,15 @@ describe('enrollment, transaction-list, and notification routes', () => {
     expect(screen.queryByText(/Notification:/)).toBeNull();
     fireEvent.press(screen.getByText('More options'));
     expect(mockSheet.snapToIndex).toHaveBeenCalledWith(1);
+  });
+
+  it('marks notifications read from the overflow menu instead of opening settings', () => {
+    render(<NotificationsScreen />);
+    fireEvent.press(screen.getByText('Mark All As Read'));
+    expect(mockRouter.push).not.toHaveBeenCalled();
+    expect(mockSheet.close).toHaveBeenCalled();
+    fireEvent.press(screen.getByText('Notification Settings'));
+    expect(mockRouter.push).toHaveBeenCalledWith('/notifications/settings');
   });
 
   it('opens, applies, resets, refreshes, and paginates transaction filters', async () => {

@@ -24,6 +24,8 @@ For auto-reload during development:
 npm run dev
 ```
 
+The server serves every route both with and without the `/v1` prefix, because the `local`, `custom` and `mock` environments call `http://localhost:8800` without it while `sandbox`/`dev`/`uat`/`prod` include it. Login does not require a `turnstileToken`, matching the app.
+
 ### Test User
 
 | Field    | Value              |

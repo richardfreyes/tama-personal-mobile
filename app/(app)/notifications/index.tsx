@@ -15,9 +15,13 @@ import { ScrollView, TouchableOpacity, View } from 'react-native';
 
 const NotificationsScreen = () => {
   const [notifications, setNotifications] = useState<typeof COMMON.MOCK_DATA.NOTIFICATIONS>([]);
+  const [listFilter, setListFilter] = useState('Recent Activity');
   const bottomSheetRef = useRef<BottomSheet>(null);
+  const visibleNotifications = listFilter === 'Unread'
+    ? notifications.filter((notification) => !notification.isRead)
+    : notifications;
 
-  const sections = notifications.reduce((acc, notification) => {
+  const sections = visibleNotifications.reduce((acc, notification) => {
     const category = notification.category;
     if (!acc[category]) {
       acc[category] = [];
@@ -50,6 +54,17 @@ const NotificationsScreen = () => {
   );
 
   const handleSelectionChange = (selectedOption: string) => {
+    setListFilter(selectedOption);
+  };
+
+  const handleMenuPress = (item: (typeof COMMON.NOTIFICATIONS)[number]) => {
+    if (item.id === '1') {
+      setNotifications((current) => current.map((notification) => ({ ...notification, isRead: true })));
+      bottomSheetRef.current?.close();
+      return;
+    }
+
+    router.push(item.route);
   };
 
   const onMorePress = () => {
@@ -85,7 +100,7 @@ const NotificationsScreen = () => {
               {COMMON.NOTIFICATIONS.map((item) => {
                 const SvgComponent = item.icon;
                 return (
-                  <TouchableOpacity style={globalStyle.optionHolder} key={item.id} onPress={() => router.push(item.route)}>
+                  <TouchableOpacity style={globalStyle.optionHolder} key={item.id} onPress={() => handleMenuPress(item)}>
                     <View style={globalStyle.optionContent}>
                       <SvgComponent style={globalStyle.optionIcon} width={16} height={16} />
                       <AppText weight='600'>{item.title}</AppText>

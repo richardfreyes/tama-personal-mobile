@@ -3,8 +3,8 @@ import OneTimePaymentsScreen from '@/app/(app)/bills/one-time-payments';
 import SavedBillsScreen from '@/app/(app)/bills/one-time-payments/saved';
 import EnrolledScreen from '@/app/(app)/bills/enrollments/enrolled';
 import OneTimePaymentMethodsScreen from '@/app/(app)/bills/one-time-payments/payment-methods';
-import Dashboard from '@/app/(app)/dashboard';
-import PaymentMethodsScreen from '@/app/(app)/payment-methods';
+import Dashboard from '@/app/(app)/(tabs)/dashboard';
+import PaymentMethodsScreen from '@/app/(app)/(tabs)/payment-methods';
 import { fireEvent, render, screen, within } from '@testing-library/react-native';
 import { router, useLocalSearchParams } from 'expo-router';
 import React from 'react';
@@ -299,7 +299,7 @@ describe('route composition screens', () => {
 
     fireEvent.press(screen.getByText('Select biller'));
     expect(router.push).toHaveBeenCalledWith({
-      pathname: '/(app)/bills/one-time-payments/add/form',
+      pathname: '/bills/one-time-payments/add/form',
       params: {
         merchantId: '10',
         merchantCode: 'B1',
@@ -366,7 +366,7 @@ describe('route composition screens', () => {
     expect(mockDispatch).toHaveBeenCalledWith({
       type: 'enrollmentReview/clearEnrollmentTransactionResponse',
     });
-    expect(router.push).toHaveBeenCalledWith('/(app)/bills/enrollments');
+    expect(router.push).toHaveBeenCalledWith('/bills/enrollments');
   });
 
   it('only counts running enrollments as active, not pending or in-review ones', () => {
@@ -383,7 +383,7 @@ describe('route composition screens', () => {
     } as any);
     render(<Dashboard />);
     fireEvent.press(screen.getByText('Auto Debit:0:false:false'));
-    expect(router.push).toHaveBeenCalledWith('/(app)/bills/enrollments');
+    expect(router.push).toHaveBeenCalledWith('/bills/enrollments');
   });
 
   it('opens the existing Auto Debit enrollment list for an active member', () => {
@@ -392,7 +392,7 @@ describe('route composition screens', () => {
     } as any);
     render(<Dashboard />);
     fireEvent.press(screen.getByText('Auto Debit:1:false:false'));
-    expect(router.push).toHaveBeenCalledWith('/(app)/bills/enrollments/enrolled');
+    expect(router.push).toHaveBeenCalledWith('/bills/enrollments/enrolled');
     expect(mockDispatch).not.toHaveBeenCalled();
   });
 });

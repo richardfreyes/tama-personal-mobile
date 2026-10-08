@@ -23,13 +23,13 @@ export default function Dashboard() {
 
   const openAutoDebit = () => {
     if (activeEnrollmentCount > 0) {
-      router.push('/(app)/bills/enrollments/enrolled');
+      router.push('/bills/enrollments/enrolled');
       return;
     }
 
     dispatch(clearEnrollmentCardPayload());
     dispatch(clearEnrollmentTransactionResponse());
-    router.push('/(app)/bills/enrollments');
+    router.push('/bills/enrollments');
   };
 
   return (
@@ -43,6 +43,7 @@ export default function Dashboard() {
           isLoading={enrollmentsQuery.isLoading || (enrollmentsQuery.isError && enrollmentsQuery.isFetching)}
           onPress={openAutoDebit}
           onRetry={() => { void enrollmentsQuery.refetch(); }}
+          showViewAll
         />
         <BillsComponent
           sectionHeader={{ title: 'One Time Payments', linkText: 'View All' }}

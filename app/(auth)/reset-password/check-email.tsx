@@ -10,7 +10,7 @@ import { ScrollView, View } from 'react-native';
 const CheckEmailScreen = () => {
 
   const handleBackToLogin = () => {
-    router.replace('/(auth)/login');
+    router.replace('/login');
   };
 
   return (

@@ -118,7 +118,7 @@ describe('MonthlyBillsComponent', () => {
 
     expect(store.getState().enrollmentSelection.selectedEnrollment).toEqual(enrollment);
     expect(router.push).toHaveBeenCalledWith({
-      pathname: '/(app)/bills/enrollments/details',
+      pathname: '/bills/enrollments/details',
       params: { enrollmentId: 'ENR-001' },
     });
   });
@@ -230,7 +230,7 @@ describe('MonthlyBillsComponent', () => {
 
     fireEvent.press(screen.getByRole('button', { name: 'Enroll Auto Debit' }));
 
-    expect(router.push).toHaveBeenCalledWith('/(app)/bills/enrollments');
+    expect(router.push).toHaveBeenCalledWith('/bills/enrollments');
     expect(router.push).toHaveBeenCalledTimes(1);
   });
 });

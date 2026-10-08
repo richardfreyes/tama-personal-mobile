@@ -14,7 +14,7 @@ import { modalActions } from '@/utils/modalActions';
 import { Poppins_100Thin, Poppins_200ExtraLight, Poppins_300Light, Poppins_400Regular, Poppins_500Medium, Poppins_600SemiBold, Poppins_700Bold, Poppins_800ExtraBold, Poppins_900Black, useFonts } from '@expo-google-fonts/poppins';
 import * as Linking from 'expo-linking';
 import { SplashScreen, Stack, useRouter, useSegments } from 'expo-router';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import 'react-native-get-random-values';
 import { PaperProvider, Portal as PaperPortal } from 'react-native-paper';
@@ -28,7 +28,20 @@ if (!__DEV__) {
 }
 
 registerTranslation('en', en);
-SplashScreen.preventAutoHideAsync();
+
+const SPLASH_FONT_WAIT_MS = 1500;
+
+function hideSplash() {
+  const result = SplashScreen.hideAsync() as Promise<void> | void;
+  if (result && typeof result.catch === 'function') {
+    void result.catch(() => {});
+  }
+}
+
+const preventSplashHide = SplashScreen.preventAutoHideAsync() as Promise<void> | void;
+if (preventSplashHide && typeof preventSplashHide.catch === 'function') {
+  void preventSplashHide.catch(() => {});
+}
 
 function GlobalLayout() {
   const dispatch = useAppDispatch();
@@ -50,7 +63,7 @@ function GlobalLayout() {
           if (result.outcome === 'failure') {
             const modalId = 'enrollment-verification-declined';
             modalActions[modalId] = () => {
-              router.replace('/(app)/bills/enrollments/payment-method');
+              router.replace('/bills/enrollments/payment-method');
             };
             dispatch(showModal({
               id: modalId,
@@ -94,10 +107,12 @@ function GlobalLayout() {
         const { hostname, path, queryParams } = Linking.parse(url);
         const route = hostname || path;
         if (route === 'reset-password' || route === 'reset-password-confirm' || route?.includes('reset-password')) {
-          const token = queryParams?.token as string;
+          const resetToken = queryParams?.token as string;
           const code = queryParams?.code as string;
-          if (token && code) {
-            router.push(`/(auth)/reset-password/create-new-password?token=${token}&code=${code}`);
+          if (resetToken && code) {
+            void Promise.resolve(dispatch(clearSession())).then(() => {
+              router.push(`/reset-password/create-new-password?token=${resetToken}&code=${code}`);
+            });
           } else {
             console.warn('Reset password link missing token or code');
           }
@@ -109,7 +124,7 @@ function GlobalLayout() {
           const Ntoken = queryParams?.Ntoken as string;
           const code = queryParams?.code as string;
           if (Otoken && Ntoken) {
-            router.push(`/(auth)/change-email-confirm?Otoken=${Otoken}&Ntoken=${Ntoken}&code=${code}`);
+            router.push(`/change-email-confirm?Otoken=${Otoken}&Ntoken=${Ntoken}&code=${code}`);
           } else {
             console.warn('Change email link missing token or code');
           }
@@ -162,14 +177,24 @@ export default function RootLayout() {
     PoppinsExtraBold: Poppins_800ExtraBold,
     PoppinsBlack: Poppins_900Black,
   });
+  const [fontWaitExpired, setFontWaitExpired] = useState(false);
+  const canRender = Boolean(fontsLoaded || fontError || fontWaitExpired);
 
   useEffect(() => {
-    if (fontsLoaded || fontError) {
-      SplashScreen.hideAsync();
-    }
-  }, [fontsLoaded, fontError]);
+    const fallback = setTimeout(() => setFontWaitExpired(true), SPLASH_FONT_WAIT_MS);
+    return () => clearTimeout(fallback);
+  }, []);
 
-  if (!fontsLoaded && !fontError) {
+  useEffect(() => {
+    if (!canRender) return;
+
+    hideSplash();
+    // A reload shows the native splash again after the first hide.
+    const retry = setTimeout(hideSplash, 300);
+    return () => clearTimeout(retry);
+  }, [canRender]);
+
+  if (!canRender) {
     return null;
   }
 

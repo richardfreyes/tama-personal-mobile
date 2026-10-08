@@ -50,11 +50,12 @@ jest.mock('@/components/common/GlobalScrollView', () => ({
   },
 }));
 jest.mock('@/components/layout/NavHeaderComponent', () => (
-  ({ title, rightNav }: any) => {
+  ({ title, rightNav, onBackPress }: any) => {
     const { Pressable, Text, View } = require('react-native');
     return (
       <View>
         <Text>{`Nav:${title}`}</Text>
+        {onBackPress ? <Pressable accessibilityRole="button" onPress={onBackPress}><Text>Go back</Text></Pressable> : null}
         {rightNav?.iconType ? <Pressable accessibilityRole="button" onPress={rightNav.onPress}><Text>Transaction actions</Text></Pressable> : null}
       </View>
     );
@@ -159,6 +160,35 @@ describe('receipt and transaction-detail routes', () => {
     expect(screen.getByText('Account:12345')).toBeTruthy();
     expect(screen.getByText('Total Amount:PHP 105.00')).toBeTruthy();
     fireEvent.press(screen.getByRole('button', { name: 'Back to Home' }));
+    expect(mockRouter.replace).toHaveBeenCalledWith('/dashboard');
+  });
+
+  it('returns to the dashboard from the receipt header instead of the root gate', () => {
+    Object.assign(mockParams, {
+      merchantId: 'M1',
+      referenceId: 'receipt-1',
+      receiptAccessToken: 'signature',
+    });
+    mockPaymentReceiptQuery.data = {
+      merchantName: 'Merchant One',
+      referenceId: 'receipt-1',
+      transactionId: 'transaction-1',
+      projectName: 'Project One',
+      paymentTypeName: 'Card',
+      transactionFields: [],
+      customerName: 'Ada Lovelace',
+      customerEmail: 'ada@example.com',
+      customerMobileNo: '+639171234567',
+      billBase: ['PHP', 100],
+      billConverted: ['USD', 2],
+      billFee: ['PHP', 5],
+      billTotal: ['PHP', 105],
+      paymentStatusName: 'Paid',
+      methodProvider: 'visa',
+      createdAt: '2026-01-01T00:00:00Z',
+    };
+    render(<EnrollmentPaymentSuccessScreen />);
+    fireEvent.press(screen.getByRole('button', { name: 'Go back' }));
     expect(mockRouter.replace).toHaveBeenCalledWith('/dashboard');
   });
 

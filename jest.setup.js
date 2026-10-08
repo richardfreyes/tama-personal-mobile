@@ -44,6 +44,7 @@ jest.mock('expo-router', () => ({
   router: {
     push: jest.fn(),
     replace: jest.fn(),
+    navigate: jest.fn(),
     back: jest.fn(),
   },
   useRouter: jest.fn(() => ({
@@ -53,6 +54,7 @@ jest.mock('expo-router', () => ({
   })),
   useLocalSearchParams: jest.fn(() => ({})),
   usePathname: jest.fn(() => '/'),
+  useIsFocused: jest.fn(() => true),
   useSegments: jest.fn(() => []),
   useFocusEffect: jest.fn((callback) => {
     const React = require('react');

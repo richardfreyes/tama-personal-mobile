@@ -5,12 +5,11 @@ import { COMMON } from '@/constants/common';
 import { onboardingFlowStyles as styles } from '@/styles/auth/login/onboarding-flow';
 import { globalStyle } from '@/styles/common/globals';
 import { monthlyBillsStyles } from '@/styles/components/enrollments/MonthlyBills';
-import { useNavigation } from 'expo-router';
+import { router } from 'expo-router';
 import React, { useRef, useState } from 'react';
 import { NativeScrollEvent, NativeSyntheticEvent, ScrollView, View } from 'react-native';
 
 const OnboardingFlow = () => {
-  const navigation = useNavigation();
   const [containerWidth, setContainerWidth] = useState(0);
   const [activeIndex, setActiveIndex] = useState(0);
   const scrollViewRef = useRef<ScrollView>(null);
@@ -27,8 +26,8 @@ const OnboardingFlow = () => {
   };
 
   const handleNavigate = () => {
-    navigation.navigate('login/index' as never);
-  }
+    router.replace('/login');
+  };
 
   const renderIndicators = () => {
     return (

@@ -71,7 +71,7 @@ describe('informational settings screens', () => {
 
     fireEvent.press(screen.getByText('Email Support'));
     await waitFor(() => expect(Linking.openURL).toHaveBeenCalledWith(
-      'mailto:support@aqwire.io',
+      'mailto:support@aqwire.co',
     ));
   });
 });

@@ -790,13 +790,13 @@ describe('TransactionHistoryComponent recent preview', () => {
     expect(screen.queryByText(/reached the bottom/)).toBeNull();
   });
 
-  it('shows the empty state, without View All, when both sources have no transactions', () => {
+  it('shows the empty state, with View All, when both sources have no transactions', () => {
     render(<TransactionHistoryComponent {...previewProps} />);
 
     expect(screen.getByText('No transactions yet')).toBeTruthy();
     expect(screen.getByText('Your bill payments will appear here.')).toBeTruthy();
     expect(screen.queryAllByTestId(/^recent-transaction-/)).toHaveLength(0);
-    expect(screen.queryByText('View All')).toBeNull();
+    expect(screen.getByText('View All')).toBeTruthy();
   });
 
   it('keeps loaded transactions visible during a background refresh', () => {

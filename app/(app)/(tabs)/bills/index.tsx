@@ -20,7 +20,7 @@ export default function Bills() {
 
   const handleMakePayment = () => router.push('/bills/one-time-payments');
   const handleEnrollAutoPay = () => router.push('/bills/enrollments');
-  const handleManageAutoPay = () => router.push('/(app)/bills/enrollments/enrolled');
+  const handleManageAutoPay = () => router.push('/bills/enrollments/enrolled');
 
   return (
     <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>

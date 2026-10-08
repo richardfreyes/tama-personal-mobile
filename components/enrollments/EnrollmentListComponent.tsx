@@ -192,13 +192,13 @@ const EnrollmentListComponent = forwardRef<EnrollmentListRef, EnrollmentListComp
   const handleEnrollmentPress = useCallback((item: Enrollment) => {
     dispatch(setSelectedEnrollment(item));
     router.push({
-      pathname: '/(app)/bills/enrollments/details',
+      pathname: '/bills/enrollments/details',
       params: { enrollmentId: getEnrollmentKey(item) },
     });
   }, [dispatch]);
 
   const handleViewAll = useCallback(() => {
-    router.push('/(app)/bills/enrollments/enrolled');
+    router.push('/bills/enrollments/enrolled');
   }, []);
 
   const showInitialLoader = isLoading && items.length === 0;

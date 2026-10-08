@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it, jest } from '@jest/globals';
 import AuthLayout from '@/app/(auth)/_layout';
-import DashboardLayout from '@/app/(app)/dashboard/_layout';
+import DashboardLayout from '@/app/(app)/(tabs)/dashboard/_layout';
 import { render, screen, waitFor } from '@testing-library/react-native';
 import React from 'react';
 

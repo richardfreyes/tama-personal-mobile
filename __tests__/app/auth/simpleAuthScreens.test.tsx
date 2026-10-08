@@ -31,14 +31,16 @@ describe('simple authentication screens', () => {
     expect(screen.getByText('Check Your Email')).toBeTruthy();
     expect(screen.getByText(/sent instructions to recover your account/)).toBeTruthy();
     fireEvent.press(screen.getByRole('button', { name: 'Back to Login' }));
-    expect(router.replace).toHaveBeenCalledWith('/(auth)/login');
+    expect(router.replace).toHaveBeenCalledWith('/login');
   });
 
   it('marks onboarding complete before navigating from the intro screen', async () => {
     (AsyncStorage.setItem as jest.Mock<(...args: any[]) => any>).mockResolvedValue(undefined);
     render(<IntroScreen />);
+    fireEvent.press(screen.getByRole('button', { name: 'Get Started' }));
+    await waitFor(() => expect(router.replace).toHaveBeenCalledWith('/login/onboarding-flow'));
     fireEvent.press(screen.getByRole('button', { name: 'Login' }));
     await waitFor(() => expect(AsyncStorage.setItem).toHaveBeenCalledWith('hasOnboarded', 'true'));
-    expect(router.replace).toHaveBeenCalledWith('login');
+    expect(router.replace).toHaveBeenCalledWith('/login');
   });
 });

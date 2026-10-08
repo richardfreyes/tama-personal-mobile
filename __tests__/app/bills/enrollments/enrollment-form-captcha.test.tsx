@@ -183,7 +183,7 @@ describe('Enrollment Auto Debit enrollment form', () => {
         isEnrollment: true,
       }),
     });
-    expect(mockedRouter.replace).toHaveBeenCalledWith('/(app)/bills/enrollments/payment-method');
+    expect(mockedRouter.replace).toHaveBeenCalledWith('/bills/enrollments/payment-method');
   });
 
   it('opens Auto Debit terms from the enrollment form', () => {

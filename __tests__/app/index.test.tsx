@@ -53,12 +53,12 @@ describe('application entry redirector', () => {
   it('sends users who have not onboarded to the intro route', async () => {
     (AsyncStorage.getItem as jest.Mock<(...args: any[]) => any>).mockResolvedValue(null);
     render(<App />);
-    expect(await screen.findByText('Redirect:/(auth)/login/intro')).toBeTruthy();
+    expect(await screen.findByText('Redirect:/login/intro')).toBeTruthy();
   });
 
   it.each([
-    [null, '/(auth)/login'],
-    ['token', '/(app)/dashboard'],
+    [null, '/login'],
+    ['token', '/dashboard'],
   ])('routes onboarded root users with token %s to %s', async (token, route) => {
     mockNavigationState.token = token;
     (AsyncStorage.getItem as jest.Mock<(...args: any[]) => any>).mockResolvedValue('true');
@@ -72,7 +72,7 @@ describe('application entry redirector', () => {
     mockNavigationState.segments = ['(auth)', 'login'];
     (AsyncStorage.getItem as jest.Mock<(...args: any[]) => any>).mockResolvedValue('true');
     render(<App />);
-    expect(await screen.findByText('Redirect:/(app)/dashboard')).toBeTruthy();
+    expect(await screen.findByText('Redirect:/dashboard')).toBeTruthy();
   });
 
   it('redirects anonymous users away from protected pages', async () => {
@@ -80,7 +80,7 @@ describe('application entry redirector', () => {
     mockNavigationState.segments = ['(app)', 'settings'];
     (AsyncStorage.getItem as jest.Mock<(...args: any[]) => any>).mockResolvedValue('true');
     render(<App />);
-    expect(await screen.findByText('Redirect:/(auth)/login')).toBeTruthy();
+    expect(await screen.findByText('Redirect:/login')).toBeTruthy();
   });
 
   it('renders no redirect when the current route already matches authentication state', async () => {
@@ -95,7 +95,7 @@ describe('application entry redirector', () => {
     const warning = jest.spyOn(console, 'warn').mockImplementation(() => undefined);
     (AsyncStorage.getItem as jest.Mock<(...args: any[]) => any>).mockRejectedValue(new Error('storage unavailable'));
     render(<App />);
-    expect(await screen.findByText('Redirect:/(auth)/login/intro')).toBeTruthy();
+    expect(await screen.findByText('Redirect:/login/intro')).toBeTruthy();
     expect(warning).toHaveBeenCalled();
     warning.mockRestore();
   });

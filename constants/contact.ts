@@ -1,5 +1,10 @@
 import type { ContactChannel, ContactSupportInfo } from '@/types/settings';
 
+export const SUPPORT_EMAIL = 'support@aqwire.co';
+export const SUPPORT_MAILTO = `mailto:${SUPPORT_EMAIL}`;
+export const HELP_CENTER_URL = 'https://support.aqwire.io/portal/en/home';
+export const ACCOUNT_DELETION_MAILTO_SUBJECT = '[ACCOUNT DEACTIVATION OR DELETION REQUEST]';
+
 export const CONTACT_CHANNELS: ContactChannel[] = [
   {
     action: 'web',
@@ -18,9 +23,9 @@ export const CONTACT_CHANNELS: ContactChannel[] = [
   {
     action: 'email',
     icon: 'mail',
-    label: 'support@aqwire.io',
+    label: SUPPORT_EMAIL,
     title: 'Email Support',
-    url: 'mailto:support@aqwire.io',
+    url: SUPPORT_MAILTO,
   },
   {
     action: 'phone',

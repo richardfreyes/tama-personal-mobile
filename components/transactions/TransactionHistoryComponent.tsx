@@ -508,7 +508,7 @@ const TransactionHistoryComponent = forwardRef<TransactionHistoryRef, Components
         <View style={globalStyle.sectionPanel} testID="recent-transactions">
           <SectionHeaderComponent
             title={sectionHeader?.title}
-            linkText={recentTransactions.length === 0 ? null : sectionHeader?.linkText}
+            linkText={sectionHeader?.linkText}
             onViewAllPress={handleViewAll}
           />
           {sourceErrorNotices}
@@ -550,7 +550,7 @@ const TransactionHistoryComponent = forwardRef<TransactionHistoryRef, Components
         <View style={globalStyle.sectionPanel}>
           <SectionHeaderComponent
             title={sectionHeader?.title}
-            linkText={isTransactionHistoryEmpty ? null : sectionHeader?.linkText}
+            linkText={sectionHeader?.linkText}
             onViewAllPress={handleViewAll}
           />
 

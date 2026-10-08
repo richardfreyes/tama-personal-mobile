@@ -156,7 +156,7 @@ describe('payment-method route screens', () => {
     });
     fireEvent.press(screen.getByText('Nav:Payment Methods'));
     expect(mockRouter.navigate).toHaveBeenCalledWith({
-      pathname: '/(app)/bills/enrollments/form',
+      pathname: '/bills/enrollments/form',
       params: { merchantId: 'merchant-1', merchantName: 'Merchant One' },
     });
   });

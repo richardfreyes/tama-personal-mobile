@@ -1,13 +1,16 @@
 import { AppText } from '@/components/common/AppText';
 import { GlobalScrollView } from '@/components/common/GlobalScrollView';
 import NavHeaderComponent from '@/components/layout/NavHeaderComponent';
+import { SlideUpScreenModal } from '@/components/layout/SlideUpScreenModal';
 import { COMMON } from '@/constants/common';
+import { HELP_CENTER_URL } from '@/constants/contact';
 import { useAuth } from '@/hooks/useAuth';
 import { clearSession } from '@/redux/features/login/loginApi';
 import { showModal } from '@/redux/features/modal/modalSlice';
 import { useAppDispatch } from '@/redux/hooks';
 import { handleSettingsRoute } from '@/services/navigation';
 import { settingsStyles as styles } from '@/styles/app/settings';
+import { Colors } from '@/styles/common/colors';
 import { globalStyle } from '@/styles/common/globals';
 import { SettingRoute } from '@/types';
 import { modalActions } from '@/utils/modalActions';
@@ -34,7 +37,7 @@ export default function AccountSettingsScreen() {
     } else if (route === '#about') {
       router.push('/settings/about');
     } else if (route === '#help') {
-      openLink('https://support.aqwire.io/portal/en/home');
+      openLink(HELP_CENTER_URL);
     } else if (route === '#contact') {
       router.push('/settings/contact');
     } else {
@@ -99,10 +102,22 @@ export default function AccountSettingsScreen() {
           </View>
         </View>
       </GlobalScrollView>
-      { }
-      {
-
-}
+      <SlideUpScreenModal ref={bottomSheetRef}>
+        <View>
+          <AppText style={[globalStyle.textAlignCenter, { marginBottom: 24 }]} size='medium' weight='700'>Upload Profile Photo</AppText>
+          {COMMON.PROFILE.map((item, index) => {
+            const SvgComponent = item.icon;
+            return (
+              <TouchableOpacity style={globalStyle.optionHolder} key={item.id}>
+                <View style={globalStyle.optionContent}>
+                  <SvgComponent style={globalStyle.optionIcon} width={16} height={16} />
+                  <AppText style={index === 2 ? { color: Colors.error06 } : null} weight='600'>{item.title}</AppText>
+                </View>
+              </TouchableOpacity>
+            );
+          })}
+        </View>
+      </SlideUpScreenModal>
     </View>
   );
 }

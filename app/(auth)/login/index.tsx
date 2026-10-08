@@ -295,6 +295,7 @@ const LoginScreen = () => {
                     setTouched={setTouched}
                     validateField={validateField}
                     autoCapitalize='none'
+                    keyboardType='email-address'
                   />
 
                   <InputValidationComponent {...passwordInputProps}/>

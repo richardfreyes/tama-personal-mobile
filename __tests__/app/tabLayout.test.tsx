@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, jest } from '@jest/globals';
-import TabLayout from '@/app/(app)/_layout';
+import AppLayout from '@/app/(app)/_layout';
 import { render, screen, waitFor } from '@testing-library/react-native';
 import React from 'react';
 
@@ -24,43 +24,37 @@ jest.mock('@/components/layout/FloatingNavBar', () => (
 ));
 jest.mock('expo-router', () => {
   const { Text, View } = require('react-native');
-  const Tabs = ({ children, screenOptions, tabBar }: any) => (
+  const Stack = ({ screenOptions }: any) => (
     <View>
-      {tabBar({ state: {}, descriptors: {}, navigation: {} })}
       <Text>{`Header shown:${screenOptions.headerShown}`}</Text>
-      {children}
     </View>
   );
-  Tabs.Screen = function MockTabScreen({ name }: any) {
-    return <Text>{`Tab:${name}`}</Text>;
-  };
   return {
     Redirect: ({ href }: any) => <Text>{`Redirect:${href}`}</Text>,
-    Tabs,
+    Stack,
   };
 });
 
-describe('TabLayout', () => {
+describe('AppLayout', () => {
   beforeEach(() => {
     jest.clearAllMocks();
     mockLoginState.token = 'test-token';
   });
 
-  it('composes the dashboard tab with floating navigation and no duplicate navigator header', () => {
-    render(<TabLayout />);
+  it('composes the app stack with floating navigation and no duplicate navigator header', () => {
+    render(<AppLayout />);
     expect(screen.getByText('Floating navigation')).toBeTruthy();
-    expect(screen.getByText('Tab:dashboard')).toBeTruthy();
     expect(screen.getByText('Header shown:false')).toBeTruthy();
     expect(mockDispatch).not.toHaveBeenCalled();
   });
 
   it('renders nothing while it checks storage for a saved sign-in, then sends guests to login', async () => {
     mockLoginState.token = null;
-    render(<TabLayout />);
+    render(<AppLayout />);
 
     expect(screen.toJSON()).toBeNull();
     expect(mockDispatch).toHaveBeenCalledWith({ type: 'login/retrieveToken' });
-    await waitFor(() => expect(screen.getByText('Redirect:/(auth)/login')).toBeTruthy());
+    await waitFor(() => expect(screen.getByText('Redirect:/login')).toBeTruthy());
     expect(screen.queryByText('Floating navigation')).toBeNull();
   });
 });

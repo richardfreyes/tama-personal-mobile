@@ -370,7 +370,7 @@ describe('BillsComponent', () => {
     expect(screen.getByText('View All')).toBeTruthy();
   });
 
-  it('hides section header linkText when bills list is empty', () => {
+  it('keeps section header linkText when bills list is empty', () => {
     mockUseGetBillsQuery.mockReturnValue({
       data: [],
       isLoading: false,
@@ -378,7 +378,7 @@ describe('BillsComponent', () => {
       error: null,
     });
     renderWithProviders(<BillsComponent {...defaultProps} />);
-    expect(screen.queryByText('View All')).toBeNull();
+    expect(screen.getByText('View All')).toBeTruthy();
   });
 
   it('shows Pay Now button when sectionFooter.button is true', () => {
@@ -444,7 +444,7 @@ describe('BillsComponent', () => {
     });
   });
 
-  it('opens the One Time Payments overview on View All press', () => {
+  it('opens the One Time Payments screen on View All press', () => {
     renderWithProviders(<BillsComponent {...defaultProps} />);
     fireEvent.press(screen.getByText('View All'));
     expect(router.push).toHaveBeenCalledWith('/bills/one-time-payments');

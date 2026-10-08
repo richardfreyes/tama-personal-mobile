@@ -27,7 +27,7 @@ const PaymentMethod = () => {
     }
 
     router.navigate({
-      pathname: '/(app)/bills/enrollments/form',
+      pathname: '/bills/enrollments/form',
       params: { merchantId, merchantName },
     });
   }, [merchantId, merchantName]);

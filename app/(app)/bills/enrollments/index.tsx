@@ -34,7 +34,7 @@ export default function Bills() {
   const handleBillerPress = (biller: any) => {
     dispatch(triggerEnrollmentFormReset());
     router.push({
-      pathname: '/(app)/bills/enrollments/form',
+      pathname: '/bills/enrollments/form',
       params: {
         merchantId: biller.id,
         merchantCode: biller.pid,

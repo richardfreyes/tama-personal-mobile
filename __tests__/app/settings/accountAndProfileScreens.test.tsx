@@ -63,6 +63,12 @@ jest.mock('@/components/common/GlobalScrollView', () => ({
     return <View>{children}</View>;
   },
 }));
+jest.mock('@/components/layout/SlideUpScreenModal', () => ({
+  SlideUpScreenModal: ({ children }: any) => {
+    const { View } = require('react-native');
+    return <View>{children}</View>;
+  },
+}));
 jest.mock('@/components/layout/NavHeaderComponent', () => (
   ({ title }: any) => {
     const { Text } = require('react-native');
@@ -128,7 +134,7 @@ describe('account, security, profile, and notification settings screens', () => 
   it('routes security actions and opens the deactivation modal', () => {
     render(<SecurityScreen />);
     fireEvent.press(screen.getByText('Change Email'));
-    expect(router.push).toHaveBeenCalledWith('.//security/change-email');
+    expect(router.push).toHaveBeenCalledWith('/settings/security/change-email');
     fireEvent.press(screen.getByText('Deactivation or Deletion'));
     expect(mockDispatch).toHaveBeenCalledWith(expect.objectContaining({
       type: 'modal/showModal',

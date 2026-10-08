@@ -26,6 +26,15 @@ app.use((req, res, next) => {
   next();
 });
 
+// The app's local/custom/mock envs call http://localhost:8800 without a /v1 prefix,
+// while sandbox/dev/uat/prod include it. Serve both by normalising to /v1.
+app.use((req, res, next) => {
+  if (!req.url.startsWith('/v1/') && req.url !== '/v1') {
+    req.url = `/v1${req.url.startsWith('/') ? '' : '/'}${req.url}`;
+  }
+  next();
+});
+
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET,POST,PUT,PATCH,DELETE,OPTIONS');
@@ -48,14 +57,10 @@ const loadFixture = (...segments) => {
 };
 
 app.post('/v1/auth/', (req, res) => {
-  const { username, password, turnstileToken } = req.body || {};
+  const { username, password } = req.body || {};
   if (!username || !password) {
     return res.status(400).json({ error: 'Email/username and password are required' });
   }
-  if (!turnstileToken) {
-    return res.status(400).json({ error: 'turnstileToken is required' });
-  }
-
   const found = users.find((u) => u.username === username && u.password === password);
   if (!found) {
     return res.status(401).json(loadFixture('auth', 'login', 'error-response.json'));
@@ -216,6 +221,10 @@ app.post('/v1/payment-methods/add-card-payment', (req, res) => {
   return res.status(201).json(loadFixture('payment-methods', 'add', 'success-response.json'));
 });
 
+app.delete('/v1/payment-methods/:id', (req, res) => {
+  return res.status(204).end();
+});
+
 app.patch('/v1/payment-methods/:id', (req, res) => {
   return res.json(loadFixture('payment-methods', 'update', 'success-response.json'));
 });
@@ -242,6 +251,11 @@ app.get('/v1/transactions/:id', (req, res) => {
 
 app.get('/v1/transactions/last/:id', (req, res) => {
   res.json(transactionLast);
+});
+
+app.get('/v1/enrollments/transactions', (req, res) => {
+  const offset = Number(req.query.page || 0) * Number(req.query.count || 10);
+  res.json({ transactions: [], pagination: { offset, limit: Number(req.query.count || 10), total: 0 } });
 });
 
 app.get('/v1/enrollments', (req, res) => {

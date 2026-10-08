@@ -4,13 +4,12 @@ import { useTabBarAnimation } from '@/context/TabBarAnimationContext';
 import { Colors } from '@/styles/common/colors';
 import { floatingNavBarStyles as styles } from '@/styles/components/layout/FloatingNavBar';
 import { router, usePathname, useSegments } from 'expo-router';
-import type { BottomTabBarProps } from 'expo-router/tabs';
 import React, { useEffect } from 'react';
 import { TouchableOpacity, View } from 'react-native';
 import Animated, { useAnimatedKeyboard, useAnimatedStyle } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-const FloatingNavBar = ({ state, emitter, navigateToTab }: BottomTabBarProps) => {
+const FloatingNavBar = () => {
   const pathname = usePathname();
   const segments = useSegments();
   const { tabBarTranslateY, tabBarHeight } = useTabBarAnimation();
@@ -38,11 +37,9 @@ const FloatingNavBar = ({ state, emitter, navigateToTab }: BottomTabBarProps) =>
     return null;
   }
 
-  const focusedRouteName = state.routes[state.index]?.name ?? '';
   const activeSection =
     pathname.split('/').find(Boolean)
-    ?? segments.find((segment) => segment && !segment.startsWith('('))
-    ?? getSection(focusedRouteName);
+    ?? segments.find((segment) => segment && !segment.startsWith('('));
 
   return (
     <Animated.View
@@ -53,29 +50,21 @@ const FloatingNavBar = ({ state, emitter, navigateToTab }: BottomTabBarProps) =>
     >
       <Animated.View style={[styles.tabBar]}>
         {FLOATING_NAV_TABS.map((tab) => {
-          const route = state.routes.find(({ name }) => name === tab.name);
-          if (!route) return null;
           const { icon: Icon } = tab;
           const isFocused = getSection(tab.name) === activeSection;
           const iconColor = isFocused ? Colors.red09 : Colors.maroon09;
 
           const onPress = () => {
-            const event = emitter.emit({
-              type: 'tabPress',
-              target: route.key,
-              canPreventDefault: true,
-            });
-
-            if (!isFocused && !event.defaultPrevented) {
-              navigateToTab(route.key);
-            } else if (isFocused && pathname !== tab.href && !event.defaultPrevented) {
+            if (!isFocused) {
+              router.navigate(tab.href);
+            } else if (pathname !== tab.href) {
               router.replace(tab.href);
             }
           };
 
           return (
             <TouchableOpacity
-              key={route.key}
+              key={tab.name}
               onPress={onPress}
               style={styles.tabButton}
               accessibilityRole="tab"

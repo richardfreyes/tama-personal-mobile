@@ -1,3 +1,4 @@
+import DownloadIcon from '@/assets/icons/download.svg';
 import InfoFieldComponent from '@/components/common/InfoFieldComponent';
 import { AppButton } from '@/components/common/AppButton';
 import { AppText } from '@/components/common/AppText';
@@ -23,7 +24,7 @@ import { buildCustomerDetails, buildReceiptDetails, formatCurrencyAmount, parseC
 import { transactionDetailToListTransaction } from '@/utils/transactionHistory';
 import { router, useLocalSearchParams } from 'expo-router';
 import React, { useEffect, useMemo, useState } from 'react';
-import { View } from 'react-native';
+import { TouchableOpacity, View } from 'react-native';
 
 const PaymentSuccessScreen = () => {
   const dispatch = useAppDispatch();
@@ -113,7 +114,7 @@ const PaymentSuccessScreen = () => {
   const renderState = (message: string, variant: 'empty' | 'error' = 'error') => (
     <GlobalScrollView contentContainerStyle={globalStyle.screenContainer}>
       <View style={{ flex: 1 }}>
-        <NavHeaderComponent title='Pay Bills' onBackPress={() => router.replace('/')} />
+        <NavHeaderComponent title='Pay Bills' onBackPress={() => router.replace('/dashboard')} />
         <EmptyStateCard variant={variant} message={message} />
         <SpacerComponent height={24} />
         <AppButton
@@ -134,7 +135,7 @@ const PaymentSuccessScreen = () => {
     return (
       <GlobalScrollView contentContainerStyle={[globalStyle.screenContainer, globalStyle.screenContainerTop]}>
         <View style={{ flex: 1 }}>
-          <NavHeaderComponent title='Pay Bills' onBackPress={() => router.replace('/')} />
+          <NavHeaderComponent title='Pay Bills' onBackPress={() => router.replace('/dashboard')} />
           <ReceiptSkeleton label="Loading payment receipt" />
         </View>
       </GlobalScrollView>
@@ -152,7 +153,7 @@ const PaymentSuccessScreen = () => {
   return (
     <GlobalScrollView contentContainerStyle={globalStyle.screenContainer}>
       <View style={{ flex: 1 }}>
-        <NavHeaderComponent title='Pay Bills' onBackPress={() => router.replace('/')} />
+        <NavHeaderComponent title='Pay Bills' onBackPress={() => router.replace('/dashboard')} />
         <View style={styles.screenWrapper}>
           {paymentIsProcessing ? (
             <AppText size="small" weight="700" style={styles.processingNotice}>Payment is processing</AppText>
@@ -190,10 +191,10 @@ const PaymentSuccessScreen = () => {
           ) : null}
 
           <View style={styles.paymentDetailsContainer}>
-            { }
-            {
-
-}
+            <TouchableOpacity style={styles.downloadReceiptContainer}>
+              <DownloadIcon width={24} height={24} />
+              <AppText style={styles.downloadReceiptLabel}>Get PDF Receipt</AppText>
+            </TouchableOpacity>
             
             <AppText mBottom={12} style={styles.downloadDateLabel}>{formattedDate}</AppText>
             <AppText mBottom={20} style={styles.downloadDescLabel}>
@@ -204,11 +205,11 @@ const PaymentSuccessScreen = () => {
           </View>
         </View>
         <SpacerComponent height={24} />
-        
-        { }
-        {
 
-}
+        <AppButton
+          title="Share Receipt"
+          variant="primary"
+        />
 
         <SpacerComponent height={12} />
         <AppButton 

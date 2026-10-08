@@ -148,7 +148,7 @@ describe('EnrollmentDetailsScreen', () => {
     expect(screen.queryByText('Enrollment link expires')).toBeNull();
     expect(screen.queryByText('August 20, 2026 at 1:46 AM')).toBeNull();
 
-    expect(screen.getByText('support@aqwire.io')).toBeTruthy();
+    expect(screen.getByText('support@aqwire.co')).toBeTruthy();
     expect(screen.queryByText('International: +1 408 400 3780')).toBeNull();
     expect(screen.queryByText('Local: +63 962 694 2113')).toBeNull();
     expect(screen.queryByText('Local: +63 962 694 0950')).toBeNull();
@@ -215,9 +215,9 @@ describe('EnrollmentDetailsScreen', () => {
     store.dispatch(setSelectedEnrollment(sampleEnrollment));
 
     renderWithProviders(<EnrollmentDetailsScreen />, { store });
-    fireEvent.press(screen.getByRole('link', { name: 'Email Tama Support at support@aqwire.io' }));
+    fireEvent.press(screen.getByRole('link', { name: 'Email Tama Support at support@aqwire.co' }));
 
-    expect(openURL).toHaveBeenCalledWith('mailto:support@aqwire.io');
+    expect(openURL).toHaveBeenCalledWith('mailto:support@aqwire.co');
     openURL.mockRestore();
   });
 

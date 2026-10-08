@@ -321,7 +321,7 @@ describe('add-and-save payment method return navigation (form-details)', () => {
 
     fireEvent.press(screen.getByRole('button', { name: 'Next' }));
 
-    expect(mockRouter.replace).toHaveBeenCalledWith('/(app)/bills/enrollments/confirm-payment');
+    expect(mockRouter.replace).toHaveBeenCalledWith('/bills/enrollments/confirm-payment');
     expect(mockAddCard).not.toHaveBeenCalled();
   });
 });

@@ -94,7 +94,7 @@ const ResetPasswordScreen = () => {
           
           <View style={styles.loginLinkContainer}>
             <AppText>Remember your password? </AppText>
-            <TouchableOpacity onPress={() => router.replace('/(auth)/login')}>
+            <TouchableOpacity onPress={() => router.replace('/login')}>
               <AppText style={[styles.loginLink, { color: primaryColor }]}>Login</AppText>
             </TouchableOpacity>
           </View>

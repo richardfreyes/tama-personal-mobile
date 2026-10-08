@@ -134,7 +134,7 @@ describe('PaymentMethodsComponent', () => {
     expect(screen.getByText('No payment methods yet')).toBeTruthy();
   });
 
-  it('hides the View All link when empty but still shows the add button', () => {
+  it('keeps the View All link when empty and still shows the add button', () => {
     mockUseGetPaymentMethodsQuery.mockReturnValue({
       data: [],
       isLoading: false,
@@ -144,7 +144,7 @@ describe('PaymentMethodsComponent', () => {
       refetch: jest.fn(),
     });
     renderWithProviders(<PaymentMethodsComponent {...defaultProps} />);
-    expect(screen.queryByText('View All')).toBeNull();
+    expect(screen.getByText('View All')).toBeTruthy();
     expect(screen.getByText('Add Payment Method')).toBeTruthy();
   });
 

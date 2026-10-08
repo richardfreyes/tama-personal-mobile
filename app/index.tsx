@@ -57,23 +57,23 @@ const RedirectingPage = () => {
   }
 
   if (!hasOnboarded) {
-    return <Redirect href="/(auth)/login/intro" />;
+    return <Redirect href="/login/intro" />;
   }
 
   if (isAtRoot) {
     if (token) {
-      return <Redirect href="/(app)/dashboard" />;
+      return <Redirect href="/dashboard" />;
     } else {
-      return <Redirect href="/(auth)/login" />;
+      return <Redirect href="/login" />;
     }
   }
 
   if (token && isInAuthPages) {
-    return <Redirect href="/(app)/dashboard" />;
+    return <Redirect href="/dashboard" />;
   }
 
   if (!token && !isInAuthPages) {
-    return <Redirect href="/(auth)/login" />;
+    return <Redirect href="/login" />;
   }
 
   return null;

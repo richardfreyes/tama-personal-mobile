@@ -3,7 +3,7 @@ import type { Href } from 'expo-router';
 
 export type NavigationRoute = Extract<Href, string>;
 
-export type SettingRoute = '/settings/profile' | '/settings/security' | '/settings/about' | '/settings/contact' | 'payment-methods' | 'logout' | '/security/change-email' | '/security/change-password' | '#deactivationDeletion' | '#about' | '#help' | '#contact';
+export type SettingRoute = '/settings/profile' | '/settings/security' | '/settings/about' | '/settings/contact' | '/settings/security/change-email' | '/settings/security/change-password' | 'payment-methods' | 'logout' | '#deactivationDeletion' | '#about' | '#help' | '#contact';
 
 export interface rightNavProps {
   iconType?: 'more' | 'delete' | '';

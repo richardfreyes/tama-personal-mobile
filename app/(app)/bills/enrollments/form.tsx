@@ -222,7 +222,7 @@ export default function InformationScreen() {
         message: COMMON.SUCCESS.CREATE_ENROLLMENT,
         variant: 'success',
       }));
-      router.replace('/(app)/bills/enrollments/payment-method');
+      router.replace('/bills/enrollments/payment-method');
     } catch (error: any) {
       console.error('createMerchantEnrollment error', error);
       dispatch(showSnackbar({

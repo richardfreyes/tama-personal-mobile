@@ -191,7 +191,7 @@ describe('EnrollmentListComponent', () => {
 
     fireEvent.press(screen.getByText('View All'));
 
-    expect(router.push).toHaveBeenCalledWith('/(app)/bills/enrollments/enrolled');
+    expect(router.push).toHaveBeenCalledWith('/bills/enrollments/enrolled');
   });
 
   it('selects the full enrollment and opens its details screen', () => {
@@ -205,7 +205,7 @@ describe('EnrollmentListComponent', () => {
 
     expect(store.getState().enrollmentSelection.selectedEnrollment).toEqual(enrollment);
     expect(router.push).toHaveBeenCalledWith({
-      pathname: '/(app)/bills/enrollments/details',
+      pathname: '/bills/enrollments/details',
       params: { enrollmentId: 'ENR-001' },
     });
   });

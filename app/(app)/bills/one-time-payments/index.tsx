@@ -30,7 +30,7 @@ export default function Bills() {
 
   const handleAddBillerPress = (biller: Biller) => {
     router.push({
-      pathname: '/(app)/bills/one-time-payments/add/form',
+      pathname: '/bills/one-time-payments/add/form',
       params: {
         merchantId: String(biller.merchant_id),
         merchantCode: biller.merchant_code,

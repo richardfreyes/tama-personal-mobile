@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it, jest } from '@jest/globals';
 import RootLayout from '@/app/_layout';
-import { fireEvent, render, screen, waitFor } from '@testing-library/react-native';
+import { act, fireEvent, render, screen, waitFor } from '@testing-library/react-native';
 import * as Linking from 'expo-linking';
 import { SplashScreen } from 'expo-router';
 import React from 'react';
@@ -148,9 +148,30 @@ describe('RootLayout', () => {
 
   it('waits for fonts when there is no font error', () => {
     mockFontState.loaded = false;
-    const { toJSON } = render(<RootLayout />);
-    expect(toJSON()).toBeNull();
+    const view = render(<RootLayout />);
+    expect(view.toJSON()).toBeNull();
     expect(SplashScreen.hideAsync).not.toHaveBeenCalled();
+    view.unmount();
+  });
+
+  it('hides the splash and renders if fonts never finish after a reload', () => {
+    jest.useFakeTimers();
+    mockFontState.loaded = false;
+    mockFontState.error = null;
+    const view = render(<RootLayout />);
+    try {
+      expect(view.toJSON()).toBeNull();
+
+      act(() => {
+        jest.advanceTimersByTime(1500);
+      });
+
+      expect(screen.getByText('Stack')).toBeTruthy();
+      expect(SplashScreen.hideAsync).toHaveBeenCalled();
+    } finally {
+      view.unmount();
+      jest.useRealTimers();
+    }
   });
 
   it('renders global UI, hides splash, and dismisses snackbar through Redux', async () => {
@@ -235,10 +256,10 @@ describe('RootLayout', () => {
 
     modalActions['enrollment-verification-declined']();
 
-    expect(mockRouter.replace).toHaveBeenCalledWith('/(app)/bills/enrollments/payment-method');
+    expect(mockRouter.replace).toHaveBeenCalledWith('/bills/enrollments/payment-method');
   });
 
-  it('routes valid reset-password and change-email deep links', () => {
+  it('routes valid reset-password and change-email deep links', async () => {
     (Linking.parse as jest.Mock<(...args: any[]) => any>)
       .mockReturnValueOnce({
         hostname: 'reset-password',
@@ -250,14 +271,17 @@ describe('RootLayout', () => {
       });
     render(<RootLayout />);
     mockUrlListener?.({ url: 'personaldashboardmob://reset-password' });
-    expect(mockRouter.push).toHaveBeenCalledWith(
-      '/(auth)/reset-password/create-new-password?token=TOKEN&code=CODE',
-    );
+    expect(mockDispatch).toHaveBeenCalledWith(expect.any(Function));
+    await waitFor(() => {
+      expect(mockRouter.push).toHaveBeenCalledWith(
+        '/reset-password/create-new-password?token=TOKEN&code=CODE',
+      );
+    });
 
     mockUrlListener?.({ url: 'personaldashboardmob://change-email-confirm' });
     expect(mockDispatch).toHaveBeenCalledWith(expect.any(Function));
     expect(mockRouter.push).toHaveBeenCalledWith(
-      '/(auth)/change-email-confirm?Otoken=OLD&Ntoken=NEW&code=CODE',
+      '/change-email-confirm?Otoken=OLD&Ntoken=NEW&code=CODE',
     );
   });
 

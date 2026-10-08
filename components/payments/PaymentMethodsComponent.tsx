@@ -190,7 +190,7 @@ export default function PaymentMethodsComponent({
     <View style={globalStyle.sectionPanel}>
       <SectionHeaderComponent
         title={sectionHeader?.title}
-        linkText={isPaymentMethodsEmpty ? null : sectionHeader?.linkText}
+        linkText={sectionHeader?.linkText}
         onViewAllPress={() => router.push('/payment-methods')}
       />
       {isRefreshable ? (
