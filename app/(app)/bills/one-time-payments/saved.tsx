@@ -1,14 +1,14 @@
-import { AppText } from '@/components/common/AppText';
 import EmptyStateCard from '@/components/common/EmptyStateCard';
 import { useTabBarScrollHandler } from '@/components/common/GlobalScrollView';
 import { InlineLoadingIndicator, SkeletonList } from '@/components/common/Loading';
+import { SectionHeaderComponent } from '@/components/common/SectionHeaderComponent';
 import NavHeaderComponent from '@/components/layout/NavHeaderComponent';
 import SavedBillCard from '@/components/one-time-payments/SavedBillCard';
 import { useGetBillersQuery } from '@/redux/features/biller/billerApi';
 import { useGetBillsQuery } from '@/redux/features/bills/billsApi';
 import type { Bill } from '@/redux/features/bills/billsTypes';
-import { openSavedBill } from '@/services/routeNavigation';
 import { billsStyles } from '@/styles/app/bills/one-time-payments';
+import { openSavedBill } from '@/services/routeNavigation';
 import { Colors } from '@/styles/common/colors';
 import { globalStyle } from '@/styles/common/globals';
 import { enrollmentListComponentStyles } from '@/styles/components/enrollments/EnrollmentListComponent';
@@ -117,11 +117,6 @@ export default function SavedBillsScreen() {
   const showInitialLoader = (isLoading || isFetching) && !isUsingMockData && items.length === 0;
   const showInitialError = isError && !isUsingMockData && items.length === 0;
   const activeCount = getActiveSavedBillCount(items);
-  const countLabel = showInitialLoader
-    ? 'Loading'
-    : showInitialError
-      ? 'Unavailable'
-      : `${activeCount} active`;
   const summaryAccessibilityLabel = showInitialLoader
     ? 'Saved Bills, loading active bill count'
     : showInitialError
@@ -132,11 +127,12 @@ export default function SavedBillsScreen() {
     <View
       accessibilityLabel={summaryAccessibilityLabel}
       accessible
-      style={billsStyles.header}
       testID="saved-bills-banner"
     >
-      <AppText color="neutral07" size="small">Pay a Bill</AppText>
-      <AppText color="red10" size="small">{countLabel}</AppText>
+      <SectionHeaderComponent
+        count={showInitialLoader ? 'Loading' : showInitialError ? 'Unavailable' : activeCount}
+        title="Pay a Bill"
+      />
     </View>
   );
 
@@ -187,11 +183,9 @@ export default function SavedBillsScreen() {
 
   return (
     <View style={[globalStyle.screenContainer, globalStyle.screenContainerTop]}>
-      <NavHeaderComponent title="Saved Bills" />
+      <NavHeaderComponent title="Saved Bills" variant="outlined" />
       <Animated.FlatList<Bill>
-        contentContainerStyle={[
-          globalStyle.outerContainer,
-        ]}
+        contentContainerStyle={billsStyles.savedListContent}
         data={items}
         initialNumToRender={8}
         keyExtractor={getSavedBillIdentity}
@@ -216,6 +210,8 @@ export default function SavedBillsScreen() {
             bill={item}
             logoUrl={billerLogosByMerchantId.get(item.merchant_id)}
             onPress={openSavedBill}
+            fullWidth
+            variant="card"
           />
         )}
         scrollEventThrottle={16}

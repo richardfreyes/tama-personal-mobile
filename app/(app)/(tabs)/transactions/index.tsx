@@ -6,8 +6,7 @@ import TransactionHistoryComponent from "@/components/transactions/TransactionHi
 import { COMMON } from "@/constants/common";
 import { Colors } from "@/styles/common/colors";
 import { globalStyle } from "@/styles/common/globals";
-import { AppliedFilters, TransactionHistoryRef } from "@/types";
-import BottomSheet from "@gorhom/bottom-sheet";
+import { AppliedFilters, SlideUpScreenModalRef, TransactionHistoryRef } from "@/types";
 import { useFocusEffect } from "expo-router";
 import { useCallback, useRef, useState } from "react";
 import { RefreshControl, View } from "react-native";
@@ -15,7 +14,7 @@ import { RefreshControl, View } from "react-native";
 export default function Transactions() {
   const [activeFilters, setActiveFilters] = useState<AppliedFilters>(COMMON.EMPTY_FILTERS);
   const [refreshing, setRefreshing] = useState(false);
-  const bottomSheetRef = useRef<BottomSheet>(null);
+  const bottomSheetRef = useRef<SlideUpScreenModalRef>(null);
   const listRef = useRef<TransactionHistoryRef>(null);
 
   useFocusEffect(
@@ -75,8 +74,9 @@ export default function Transactions() {
         </View>
       </GlobalScrollView>
       <SlideUpScreenModal ref={bottomSheetRef}>
-        <View>
+        <View style={{ flex: 1 }}>
           <FilterAutopay
+            initialFilters={activeFilters}
             onApply={handleApplyFilters}
             onReset={handleResetFilters}
           />

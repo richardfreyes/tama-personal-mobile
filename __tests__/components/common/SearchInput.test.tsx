@@ -89,7 +89,7 @@ describe('SearchInput', () => {
         height: 48,
       }));
       expect(container.borderWidth).toBeUndefined();
-      expect(screen.getByPlaceholderText('Search 21 billers').props.placeholderTextColor).toBe(Colors.maroon06);
+      expect(StyleSheet.flatten(screen.getByTestId('search-placeholder').props.style).color).toBe(Colors.maroon06);
     });
 
     it('has no clear button for an empty field', () => {

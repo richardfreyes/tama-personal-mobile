@@ -4,7 +4,7 @@ import { router } from 'expo-router';
 import React from 'react';
 import { Image } from 'react-native';
 import SavedBillsScreen from '@/app/(app)/bills/one-time-payments/saved';
-import { globalStyle } from '@/styles/common/globals';
+import { billsStyles } from '@/styles/app/bills/one-time-payments';
 
 const mockUseGetBillsQuery = jest.fn();
 const mockUseGetBillersQuery = jest.fn();
@@ -83,8 +83,8 @@ describe('Saved Bills route', () => {
     render(<SavedBillsScreen />);
 
     expect(screen.getByText('Nav:Saved Bills')).toBeTruthy();
-    expect(screen.getByTestId('saved-bills-list').props.contentContainerStyle).toContain(
-      globalStyle.outerContainer,
+    expect(screen.getByTestId('saved-bills-list').props.contentContainerStyle).toEqual(
+      billsStyles.savedListContent,
     );
     expect(screen.getByLabelText('Saved Bills, 1 active')).toBeTruthy();
     expect(screen.queryByRole('button', { name: 'Saved Bills, 1 active' })).toBeNull();

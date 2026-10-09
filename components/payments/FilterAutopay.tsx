@@ -12,10 +12,13 @@ import { AppButton } from '../common/AppButton';
 import { AppText } from '../common/AppText';
 import { SpacerComponent } from '../common/SpacerComponent';
 
-const FilterAutopay: React.FC<FilterAutopayProps> = ({ onApply, onReset }) => {
-  const [statusFilters, setStatusFilters] = useState<string[]>([]);
-  const [transactionTypeFilters, setTransactionTypeFilters] = useState<TransactionSource[]>([]);
-  const [range, setRange] = useState<DateRange>({ startDate: undefined, endDate: undefined });
+const FilterAutopay: React.FC<FilterAutopayProps> = ({ onApply, onReset, initialFilters }) => {
+  const [statusFilters, setStatusFilters] = useState<string[]>(initialFilters?.statusFilters ?? []);
+  const [transactionTypeFilters, setTransactionTypeFilters] = useState<TransactionSource[]>(initialFilters?.transactionTypeFilters ?? []);
+  const [range, setRange] = useState<DateRange>({
+    startDate: initialFilters?.startDate ? new Date(initialFilters.startDate) : undefined,
+    endDate: initialFilters?.endDate ? new Date(initialFilters.endDate) : undefined,
+  });
   const [open, setOpen] = useState(false);
 
   const onDismiss = () => {
@@ -72,7 +75,7 @@ const FilterAutopay: React.FC<FilterAutopayProps> = ({ onApply, onReset }) => {
 
   return (
     <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === "ios" ? "padding" : "height"} >
-      <View>
+      <View style={{ flex: 1 }}>
         <View style={styles.header}>
           <AppText style={styles.headerTitle} weight='700'>Filter</AppText>
         </View>

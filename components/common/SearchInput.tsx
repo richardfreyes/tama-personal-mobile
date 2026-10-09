@@ -6,7 +6,7 @@ import type { SearchInputProps } from '@/types/component-props';
 import { Feather } from '@expo/vector-icons';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import React, { forwardRef, useState } from 'react';
-import { Pressable, TextInput, type TextInputProps, View } from 'react-native';
+import { Pressable, Text, TextInput, type TextInputProps, View } from 'react-native';
 
 const SearchInput = forwardRef<TextInput, SearchInputProps>(function SearchInput({
   containerStyle,
@@ -44,11 +44,23 @@ const SearchInput = forwardRef<TextInput, SearchInputProps>(function SearchInput
           editable={editable}
           onBlur={handleBlur}
           onFocus={handleFocus}
-          placeholderTextColor={placeholderTextColor ?? Colors.maroon06}
+          placeholderTextColor={Colors.transparent}
           ref={ref}
           style={[styles.filledInput, inputStyle]}
           testID={testID}
         />
+        {/* iOS clips the native placeholder with Poppins, so draw it ourselves. */}
+        {!props.value && props.placeholder ? (
+          <Text
+            accessible={false}
+            numberOfLines={1}
+            pointerEvents="none"
+            style={[styles.filledPlaceholder, placeholderTextColor ? { color: placeholderTextColor } : null]}
+            testID={testID ? `${testID}-placeholder` : undefined}
+          >
+            {props.placeholder}
+          </Text>
+        ) : null}
         {props.value && onClear ? (
           <Pressable
             accessibilityLabel="Clear search"

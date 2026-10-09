@@ -75,7 +75,6 @@ const renderDirectory = (props: Partial<React.ComponentProps<typeof SearchMercha
   <SearchMerchants
     data={billers}
     header={<Text>Saved billers header</Text>}
-    layout="directory"
     savedMerchantIds={new Set([5])}
     searchProperty="merchant_name"
     {...props}
@@ -85,6 +84,19 @@ const renderDirectory = (props: Partial<React.ComponentProps<typeof SearchMercha
 describe('SearchMerchants directory', () => {
   beforeEach(() => {
     jest.clearAllMocks();
+  });
+
+  describe('enrollment merchants', () => {
+    it('lists merchants shaped { id, name, logoUrl } and returns the selected item', () => {
+      const onSelect = jest.fn();
+      const merchants = [{ id: 'm-2', name: 'Zeta Utilities' }, { id: 'm-1', name: 'Alpha Homes', logoUrl: '' }];
+      renderDirectory({ data: merchants, header: undefined, onSelect, savedMerchantIds: undefined, searchProperty: 'name' });
+
+      const names = screen.getAllByTestId(/^biller-row-/).map((row) => row.props.accessibilityLabel);
+      expect(names).toEqual(['Alpha Homes', 'Zeta Utilities']);
+      fireEvent.press(screen.getByTestId('biller-row-m-1'));
+      expect(onSelect).toHaveBeenCalledWith(merchants[1]);
+    });
   });
 
   describe('listing', () => {

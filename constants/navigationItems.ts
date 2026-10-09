@@ -66,8 +66,8 @@ export const NOTIFICATIONS = [
 ] as const;
 
 export const PROFILE = [
-  { id: '1', title: 'Choose From Library', icon: CameraIcon },
-  { id: '2', title: 'Take Photo', icon: ImageIcon },
+  { id: '1', title: 'Choose From Library', icon: ImageIcon },
+  { id: '2', title: 'Take Photo', icon: CameraIcon },
   { id: '3', title: 'Remove Current Picture', icon: DeleteIcon },
 ];
 

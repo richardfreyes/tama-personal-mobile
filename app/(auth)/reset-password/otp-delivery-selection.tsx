@@ -7,7 +7,7 @@ import { optDeliverySelectionStyles as styles } from '@/styles/auth/reset-passwo
 import { globalStyle } from '@/styles/common/globals';
 import { SelectionCardProps } from '@/types';
 import { router } from 'expo-router';
-import React, { useState } from 'react';
+import React from 'react';
 import { ScrollView, TouchableOpacity, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
@@ -27,17 +27,13 @@ const SelectionCard: React.FC<SelectionCardProps> = ({ icon: Icon, title, descri
 
 const OTPDeliverySelectionScreen: React.FC = () => {
   const insets = useSafeAreaInsets();
-  const [selectedMethod, setSelectedMethod] = useState<'email' | 'text' | null>('email');
-
   const userEmail = 'user@example.com';
   const userPhone = '+63 955 577* ***';
 
-  const handleContinue = (otp: string) => {
-    setSelectedMethod(otp as string as 'email' | 'text');
-
+  const handleContinue = (method: 'email' | 'text') => {
     router.push({
-      pathname: '/reset-password/verify-otp', 
-      params: { method: selectedMethod, identifier: selectedMethod === 'email' ? userEmail : userPhone }
+      pathname: '/reset-password/verify-otp',
+      params: { method, identifier: method === 'email' ? userEmail : userPhone }
     });
   };
 
@@ -50,14 +46,14 @@ const OTPDeliverySelectionScreen: React.FC = () => {
         <View style={styles.cardContainer}>
           <SelectionCard
             icon={PhoneIcon}
-            title="via email:"
+            title="via SMS:"
             description={userPhone}
             onPress={() => handleContinue('text')}
           />
           <SpacerComponent height={12} />
           <SelectionCard
             icon={MailIcon}
-            title="via SMS:"
+            title="via email:"
             description={userEmail}
             onPress={() => handleContinue('email')}
           />

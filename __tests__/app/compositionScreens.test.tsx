@@ -114,7 +114,7 @@ jest.mock('@/components/one-time-payments/BillsComponent', () => (
 jest.mock('@/components/common/SearchMerchants', () => (
   function MockSearchMerchants(props: any) {
     const { Pressable, Text, View } = require('react-native');
-    if (props.layout === 'directory') {
+    if (!props.onCategoryChange) {
       mockDirectoryProps(props);
       return (
         <View>

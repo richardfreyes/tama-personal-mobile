@@ -114,7 +114,7 @@ const PaymentSuccessScreen = () => {
   const renderState = (message: string, variant: 'empty' | 'error' = 'error') => (
     <GlobalScrollView contentContainerStyle={globalStyle.screenContainer}>
       <View style={{ flex: 1 }}>
-        <NavHeaderComponent title='Pay Bills' onBackPress={() => router.replace('/dashboard')} />
+        <NavHeaderComponent title='Pay Bills' onBackPress={() => router.replace('/dashboard')} variant="outlined" />
         <EmptyStateCard variant={variant} message={message} />
         <SpacerComponent height={24} />
         <AppButton
@@ -135,7 +135,7 @@ const PaymentSuccessScreen = () => {
     return (
       <GlobalScrollView contentContainerStyle={[globalStyle.screenContainer, globalStyle.screenContainerTop]}>
         <View style={{ flex: 1 }}>
-          <NavHeaderComponent title='Pay Bills' onBackPress={() => router.replace('/dashboard')} />
+          <NavHeaderComponent title='Pay Bills' onBackPress={() => router.replace('/dashboard')} variant="outlined" />
           <ReceiptSkeleton label="Loading payment receipt" />
         </View>
       </GlobalScrollView>
@@ -153,8 +153,8 @@ const PaymentSuccessScreen = () => {
   return (
     <GlobalScrollView contentContainerStyle={globalStyle.screenContainer}>
       <View style={{ flex: 1 }}>
-        <NavHeaderComponent title='Pay Bills' onBackPress={() => router.replace('/dashboard')} />
-        <View style={styles.screenWrapper}>
+        <NavHeaderComponent title='Pay Bills' onBackPress={() => router.replace('/dashboard')} variant="outlined" />
+        <View style={styles.receiptContent}>
           {paymentIsProcessing ? (
             <AppText size="small" weight="700" style={styles.processingNotice}>Payment is processing</AppText>
           ) : null}
@@ -170,7 +170,7 @@ const PaymentSuccessScreen = () => {
             ) : null}
           </View>
 
-          <View style={[globalStyle.outerContainer, { marginBottom: 24 }]}>
+          <View style={[globalStyle.listCard, styles.receiptCard]}>
             <View style={styles.wrapper}>
               <AppText size='base' style={styles.sectionTitle} weight='700'>Transaction Details</AppText>
               {Object.entries(transactionDetails).map(([key, field]) => (
@@ -180,7 +180,7 @@ const PaymentSuccessScreen = () => {
           </View>
 
           {Object.keys(customerDetails).length > 0 ? (
-            <View style={[globalStyle.outerContainer, { marginBottom: 24 }]}>
+            <View style={[globalStyle.listCard, styles.receiptCard]}>
               <View style={styles.wrapper}>
                 <AppText size='base' style={styles.sectionTitle} weight='700'>Payment Details</AppText>
                 {Object.entries(customerDetails).map(([key, field]) => (

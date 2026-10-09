@@ -12,9 +12,8 @@ import { handleSettingsRoute } from '@/services/navigation';
 import { settingsStyles as styles } from '@/styles/app/settings';
 import { Colors } from '@/styles/common/colors';
 import { globalStyle } from '@/styles/common/globals';
-import { SettingRoute } from '@/types';
+import { SettingRoute, SlideUpScreenModalRef } from '@/types';
 import { modalActions } from '@/utils/modalActions';
-import BottomSheet from '@gorhom/bottom-sheet';
 import { router } from 'expo-router';
 import * as WebBrowser from 'expo-web-browser';
 import { useRef } from 'react';
@@ -22,7 +21,7 @@ import { TouchableOpacity, View } from 'react-native';
 
 export default function AccountSettingsScreen() {  
   const dispatch = useAppDispatch();
-  const bottomSheetRef = useRef<BottomSheet>(null);
+  const bottomSheetRef = useRef<SlideUpScreenModalRef>(null);
   const { firstName, lastName, email } = useAuth();
   const initials = `${firstName?.charAt(0) || ''}${lastName?.charAt(0) || ''}`.toUpperCase();
 

@@ -69,13 +69,14 @@ jest.mock('@/components/layout/SlideUpScreenModal', () => {
   };
 });
 jest.mock('@/components/common/SearchMerchants', () => (
-  ({ data, activeCategoryId, onSelect, onCategoryChange }: any) => {
+  ({ data, header, layout, onSelect, refreshControl }: any) => {
     const { Pressable, Text, View } = require('react-native');
     return (
       <View>
-        <Text>{`Merchants:${data.length}:category:${activeCategoryId}`}</Text>
+        {header}
+        {refreshControl}
+        <Text>{`Merchants:${data.length}:directory`}</Text>
         <Pressable accessibilityRole="button" onPress={() => onSelect(data[0])}><Text>Select enrollment merchant</Text></Pressable>
-        <Pressable accessibilityRole="button" onPress={() => onCategoryChange(7)}><Text>Change category</Text></Pressable>
       </View>
     );
   }
@@ -143,8 +144,8 @@ describe('enrollment, transaction-list, and notification routes', () => {
     const view = render(<EnrollmentHomeScreen />);
     expect(mockDispatch).toHaveBeenCalledWith({ type: 'enrollmentReview/clearEnrollmentTransactionResponse', payload: undefined });
     expect(mockDispatch).toHaveBeenCalledWith({ type: 'enrollmentReview/clearEnrollmentCardPayload', payload: undefined });
-    fireEvent.press(screen.getByText('Change category'));
-    expect(screen.getByText('Merchants:1:category:7')).toBeTruthy();
+    expect(screen.getByText('Merchants:1:directory')).toBeTruthy();
+    expect(screen.getByText('Enrollments:carousel')).toBeTruthy();
     fireEvent.press(screen.getByText('Select enrollment merchant'));
     expect(mockDispatch).toHaveBeenCalledWith({ type: 'enrollmentReview/triggerEnrollmentFormReset', payload: undefined });
     expect(mockRouter.push).toHaveBeenCalledWith({

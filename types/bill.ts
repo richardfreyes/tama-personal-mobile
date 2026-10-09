@@ -44,9 +44,9 @@ export interface BillerSummaryRows {
   secondary: BillerSummaryRow[];
 }
 
-export interface BillerDirectoryGroup {
+export interface BillerDirectoryGroup<T = Biller> {
   letter: string;
-  billers: Biller[];
+  billers: T[];
 }
 
 export interface UpcomingEnrollmentBill {

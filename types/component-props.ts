@@ -7,7 +7,7 @@ import type { Feather } from "@expo/vector-icons";
 import type { Href } from 'expo-router';
 import type React from "react";
 import type { SharedValue } from "react-native-reanimated";
-import type { ScrollViewProps, StyleProp, TextInputProps, TextProps, TextStyle, TouchableOpacityProps, ViewStyle } from "react-native";
+import type { RefreshControlProps, ScrollViewProps, StyleProp, TextInputProps, TextProps, TextStyle, TouchableOpacityProps, ViewStyle } from "react-native";
 import type { BillerDueSummary, BillerStatus, SavedBillSummarySource, UpcomingEnrollmentBill } from "./bill";
 import type { Enrollment, EnrollmentDisplayField } from "./enrollment";
 import { FormField } from "./form";
@@ -56,7 +56,7 @@ export interface PaymentSourceSelectorProps {
 export interface SectionHeaderProps {
   title?: string;
 
-  count?: number;
+  count?: number | string;
   linkText?: string | null;
   onViewAllPress?: () => void;
   titleStyle?: TextStyle;
@@ -174,6 +174,14 @@ export interface PasswordRuleProps {
   valid: boolean;
 }
 
+export interface SlideUpScreenModalRef {
+  snapToIndex: (index: number) => void;
+  expand: () => void;
+  collapse: () => void;
+  close: () => void;
+  forceClose: () => void;
+}
+
 export interface SlideUpScreenModalProps {
   onClose?: () => void;
   children?: React.ReactNode;
@@ -259,19 +267,15 @@ export interface SearchMerchantsProps {
   data: any[];
   searchProperty: string;
   onSelect?: (item: any) => void;
-  sectionTitle?: string;
   isError?: boolean;
   isLoading?: boolean;
   activeCategoryId?: number | null;
   onCategoryChange?: (id: number | undefined) => void;
-  apiEnv?: 'enrollments' | 'wiremo';
-
-  layout?: 'filters' | 'directory';
-
   header?: React.ReactNode;
 
   savedMerchantIds?: ReadonlySet<number>;
   onRetry?: () => void;
+  refreshControl?: React.ReactElement<RefreshControlProps>;
 }
 
 export interface StatusBadgeProps {
@@ -378,6 +382,7 @@ export type SavedBillCardProps = {
   onPress?: (bill: Bill) => void;
 
   variant?: 'row' | 'card' | 'hero';
+  fullWidth?: boolean;
 
   status?: BillerStatus | null;
 };

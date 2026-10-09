@@ -92,18 +92,18 @@ const EnrollmentPaymentSuccessScreen = () => {
   return (
     <GlobalScrollView contentContainerStyle={[globalStyle.screenContainer, globalStyle.screenContainerTop]}>
       <View style={{ flex: 1 }}>
-        <NavHeaderComponent title='Pay Bills' onBackPress={() => router.replace('/dashboard')} />
+        <NavHeaderComponent title='Pay Bills' onBackPress={() => router.replace('/dashboard')} variant="outlined" />
         {isLoading ? (
           <ReceiptSkeleton label="Loading payment receipt" />
         ) : isError || !receipt ? (
-          <View style={styles.screenWrapper}>
+          <View style={styles.receiptContent}>
             <View style={{ alignItems: 'center' }}>
               <AppText size='medium' style={styles.title} weight='700'>Receipt unavailable</AppText>
               <AppText size='small' mBottom={24}>We could not load the payment receipt. Please try again later.</AppText>
             </View>
           </View>
         ) : (
-          <View style={styles.screenWrapper}>
+          <View style={styles.receiptContent}>
             <View style={{ alignItems: 'center' }}>
               <AppText size='medium' style={styles.title} weight='700'>{receipt.merchantName}</AppText>
               <AppText size='large' mBottom={8} weight='700'>{isEnrollment ? (enrollmentAmount || 'N/A') : formatMoney(receipt.billTotal)}</AppText>
@@ -114,7 +114,7 @@ const EnrollmentPaymentSuccessScreen = () => {
               ) : null}
             </View>
 
-            <View style={[globalStyle.outerContainer, { marginBottom: 24 }]}>
+            <View style={[globalStyle.listCard, styles.receiptCard]}>
               <View style={styles.wrapper}>
                 {receiptDetails.map((item, index) => (
                   <InfoFieldComponent
@@ -129,7 +129,7 @@ const EnrollmentPaymentSuccessScreen = () => {
 
             {scheduledPaymentInfo && (
               <>
-                <View style={[globalStyle.outerContainer, { marginBottom: 16 }]}>
+                <View style={[globalStyle.listCard, styles.receiptCard]}>
                   <View style={styles.wrapper}>
                     <AppText size='small' color='neutral07'>Scheduled Payment</AppText>
                     {scheduledPaymentInfo.rows.map((item, index) => (

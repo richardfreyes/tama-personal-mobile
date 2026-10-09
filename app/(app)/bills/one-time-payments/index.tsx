@@ -1,4 +1,3 @@
-import { GlobalScrollView } from '@/components/common/GlobalScrollView';
 import SearchMerchants from '@/components/common/SearchMerchants';
 import NavHeaderComponent from '@/components/layout/NavHeaderComponent';
 import BillsComponent from '@/components/one-time-payments/BillsComponent';
@@ -7,7 +6,6 @@ import { useAllSavedBills } from '@/hooks/useAllSavedBills';
 import { useGetBillersQuery } from '@/redux/features/biller/billerApi';
 import type { Biller } from '@/redux/features/biller/billerTypes';
 import { billsStyles } from '@/styles/app/bills/one-time-payments';
-import { globalStyle } from '@/styles/common/globals';
 import { getSavedMerchantIds } from '@/utils/savedBills';
 import { router, useLocalSearchParams } from 'expo-router';
 import React, { useMemo, useState } from 'react';
@@ -39,44 +37,37 @@ export default function Bills() {
     });
   };
 
-  if (isAddBillerView) {
-    return (
-      <KeyboardAvoidingView style={billsStyles.screen} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-        <GlobalScrollView contentContainerStyle={globalStyle.screenContainer}>
-          <NavHeaderComponent title="Add Biller" variant="outlined" />
-          <SearchMerchants
-            activeCategoryId={activeCategoryId}
-            data={billers || []}
-            isError={isError}
-            isLoading={isLoading}
-            onCategoryChange={setActiveCategoryId}
-            onSelect={handleAddBillerPress}
-            searchProperty="merchant_name"
-          />
-        </GlobalScrollView>
-      </KeyboardAvoidingView>
-    );
-  }
-
   return (
     <KeyboardAvoidingView style={billsStyles.screen} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-      <NavHeaderComponent title="One Time Payments" variant="outlined" />
-      <SearchMerchants
-        data={billers ?? []}
-        header={(
-          <BillsComponent
-            onViewAllPress={handleOpenSavedBills}
-            sectionHeader={{ title: 'Saved billers', linkText: 'Manage' }}
-            variant="plain"
-          />
-        )}
-        isError={isError}
-        isLoading={isLoading}
-        layout="directory"
-        onRetry={() => { void refetch(); }}
-        savedMerchantIds={savedMerchantIds}
-        searchProperty="merchant_name"
-      />
+      <NavHeaderComponent title={isAddBillerView ? 'Add Biller' : 'One Time Payments'} variant="outlined" />
+      {isAddBillerView ? (
+        <SearchMerchants
+          activeCategoryId={activeCategoryId}
+          data={billers ?? []}
+          isError={isError}
+          isLoading={isLoading}
+          onCategoryChange={setActiveCategoryId}
+          onRetry={() => { void refetch(); }}
+          onSelect={handleAddBillerPress}
+          searchProperty="merchant_name"
+        />
+      ) : (
+        <SearchMerchants
+          data={billers ?? []}
+          header={(
+            <BillsComponent
+              onViewAllPress={handleOpenSavedBills}
+              sectionHeader={{ title: 'Saved billers', linkText: 'Manage' }}
+              variant="plain"
+            />
+          )}
+          isError={isError}
+          isLoading={isLoading}
+          onRetry={() => { void refetch(); }}
+          savedMerchantIds={savedMerchantIds}
+          searchProperty="merchant_name"
+        />
+      )}
     </KeyboardAvoidingView>
   );
 }

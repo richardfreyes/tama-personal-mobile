@@ -19,6 +19,22 @@ jest.mock('expo-router', () => {
   };
 });
 
+jest.mock('react-native-reanimated', () => {
+  const { View, ScrollView } = jest.requireActual<typeof import('react-native')>('react-native');
+  return {
+    __esModule: true,
+    default: { ScrollView, View },
+    runOnJS: (fn: unknown) => fn,
+    useAnimatedStyle: (updater: () => object) => updater(),
+    useSharedValue: (value: unknown) => ({ value }),
+    withTiming: (value: unknown) => value,
+  };
+});
+
+jest.mock('@/components/common/GlobalScrollView', () => ({
+  useTabBarScrollHandler: (onScroll: unknown) => onScroll,
+}));
+
 const merchants = [
   { id: 1, name: 'Alpha Biller', merchant_logo_url: 'https://logo/alpha.png' },
   { id: 2, name: 'Beta Corp' },
@@ -41,28 +57,20 @@ describe('SearchMerchants', () => {
     jest.clearAllMocks();
   });
 
-  it('renders the search input', () => {
+  it('renders the search input with the biller count', () => {
     renderWithProviders(<SearchMerchants {...baseProps} />);
-    expect(screen.getByPlaceholderText('Search biller')).toBeTruthy();
+    expect(screen.getByPlaceholderText('Search 3 billers')).toBeTruthy();
   });
 
-  it('renders an optional section label for combined list screens', () => {
-    renderWithProviders(
-      <SearchMerchants {...baseProps} sectionTitle="Merchants" />,
-    );
-    expect(screen.getByText('Merchants')).toBeTruthy();
-  });
-
-  it('renders the category pills', () => {
+  it('renders the category pills when a category handler is given', () => {
     renderWithProviders(<SearchMerchants {...baseProps} />);
     expect(screen.getByText('All Billers')).toBeTruthy();
     expect(screen.getByText('Real Estate')).toBeTruthy();
   });
 
-  it('hides the real-estate category when apiEnv is enrollments', () => {
-    renderWithProviders(<SearchMerchants {...baseProps} apiEnv="enrollments" />);
-    expect(screen.getByText('All Billers')).toBeTruthy();
-    expect(screen.queryByText('Real Estate')).toBeNull();
+  it('omits the category pills without a category handler', () => {
+    renderWithProviders(<SearchMerchants {...baseProps} onCategoryChange={undefined} />);
+    expect(screen.queryByText('All Billers')).toBeNull();
   });
 
   it('renders the merchants from the data list', () => {
@@ -80,7 +88,7 @@ describe('SearchMerchants', () => {
   });
 
   it('renders a enrollment biller logo when logoUrl is present', () => {
-    renderWithProviders(<SearchMerchants {...baseProps} apiEnv="enrollments" />);
+    renderWithProviders(<SearchMerchants {...baseProps} />);
     const images = screen.UNSAFE_getAllByType(Image);
     expect(
       images.some(
@@ -91,7 +99,7 @@ describe('SearchMerchants', () => {
 
   it('filters the list by the search query', () => {
     renderWithProviders(<SearchMerchants {...baseProps} />);
-    fireEvent.changeText(screen.getByPlaceholderText('Search biller'), 'Alpha');
+    fireEvent.changeText(screen.getByPlaceholderText('Search 3 billers'), 'Alpha');
     expect(screen.getByText('Alpha Biller')).toBeTruthy();
     expect(screen.queryByText('Beta Corp')).toBeNull();
   });
@@ -100,39 +108,30 @@ describe('SearchMerchants', () => {
     renderWithProviders(
       <SearchMerchants {...baseProps} data={[{ id: 4, name: 'Éclair Land' }]} />,
     );
-    fireEvent.changeText(screen.getByPlaceholderText('Search biller'), 'eclair');
+    fireEvent.changeText(screen.getByPlaceholderText('Search 1 biller'), 'eclair');
     expect(screen.getByText('Éclair Land')).toBeTruthy();
   });
 
-  it('shows the empty state when the search matches nothing', () => {
+  it('shows the no-match state when the search matches nothing', () => {
     renderWithProviders(<SearchMerchants {...baseProps} />);
-    fireEvent.changeText(screen.getByPlaceholderText('Search biller'), 'zzzz');
-    expect(
-      screen.getByText('No billers found matching your search.'),
-    ).toBeTruthy();
+    fireEvent.changeText(screen.getByPlaceholderText('Search 3 billers'), 'zzzz');
+    expect(screen.getByText('No billers found')).toBeTruthy();
   });
 
-  it('shows the empty state when data is an empty array', () => {
+  it('shows the empty state when data is an empty array or undefined', () => {
     renderWithProviders(<SearchMerchants {...baseProps} data={[]} />);
-    expect(
-      screen.getByText('No billers found matching your search.'),
-    ).toBeTruthy();
+    expect(screen.getByText('No billers are available right now.')).toBeTruthy();
   });
 
-  it('shows the empty state when data is undefined', () => {
-    renderWithProviders(
-      <SearchMerchants {...baseProps} data={undefined as any} />,
-    );
-    expect(
-      screen.getByText('No billers found matching your search.'),
-    ).toBeTruthy();
+  it('treats undefined data as empty', () => {
+    renderWithProviders(<SearchMerchants {...baseProps} data={undefined as any} />);
+    expect(screen.getByText('No billers are available right now.')).toBeTruthy();
   });
 
   it('shows the error state when isError is true', () => {
     renderWithProviders(
-      <SearchMerchants {...baseProps} sectionTitle="Merchants" isError />,
+      <SearchMerchants {...baseProps} isError />,
     );
-    expect(screen.getByText('Merchants')).toBeTruthy();
     expect(
       screen.getByText(
         'Unable to load billers at the moment. Please try again later.',
@@ -144,9 +143,7 @@ describe('SearchMerchants', () => {
     renderWithProviders(
       <SearchMerchants {...baseProps} data={[]} isLoading />,
     );
-    expect(
-      screen.queryByText('No billers found matching your search.'),
-    ).toBeNull();
+    expect(screen.queryByText('No billers are available right now.')).toBeNull();
   });
 
   it('calls onSelect with the merchant when an item is pressed', () => {
@@ -165,12 +162,4 @@ describe('SearchMerchants', () => {
     expect(onCategoryChange).toHaveBeenCalledWith(2);
   });
 
-  it('does not crash when onCategoryChange is not provided', () => {
-    renderWithProviders(
-      <SearchMerchants {...baseProps} onCategoryChange={undefined as any} />,
-    );
-    expect(() =>
-      fireEvent.press(screen.getByText('All Billers')),
-    ).not.toThrow();
-  });
 });

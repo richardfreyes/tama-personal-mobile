@@ -9,15 +9,12 @@ export const paymentSuccessStyles = StyleSheet.create({
     width: '100%',
     flex: 1,
   },
-  screenWrapper: {
-    position: 'relative',
-    paddingTop: 33,
-    borderWidth: 1,
-    borderColor: Colors.neutral05,
-    paddingHorizontal: 22,
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
-    boxShadow: '0px 8px 32px rgba(102, 102, 102, 0.16)', 
+  receiptContent: {
+    paddingTop: 16,
+  },
+  receiptCard: {
+    marginBottom: 16,
+    paddingVertical: 8,
   },
   processingNotice: {
     textAlign: 'center',

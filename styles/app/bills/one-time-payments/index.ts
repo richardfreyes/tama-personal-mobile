@@ -9,6 +9,9 @@ export const billsStyles = StyleSheet.create({
   },
   scrollViewContent: {
   },
+  savedListContent: {
+    paddingBottom: 132,
+  },
   header: {
     flexDirection: 'row',
     justifyContent: 'space-between',

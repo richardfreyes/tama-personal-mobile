@@ -8,7 +8,7 @@ import NotificationItem from '@/components/settings/NotificationItem';
 import { COMMON } from '@/constants/common';
 import { notificationStyles as styles } from '@/styles/app/notifications';
 import { globalStyle } from '@/styles/common/globals';
-import BottomSheet from '@gorhom/bottom-sheet';
+import { SlideUpScreenModalRef } from '@/types';
 import { router } from 'expo-router';
 import React, { useRef, useState } from 'react';
 import { ScrollView, TouchableOpacity, View } from 'react-native';
@@ -16,7 +16,7 @@ import { ScrollView, TouchableOpacity, View } from 'react-native';
 const NotificationsScreen = () => {
   const [notifications, setNotifications] = useState<typeof COMMON.MOCK_DATA.NOTIFICATIONS>([]);
   const [listFilter, setListFilter] = useState('Recent Activity');
-  const bottomSheetRef = useRef<BottomSheet>(null);
+  const bottomSheetRef = useRef<SlideUpScreenModalRef>(null);
   const visibleNotifications = listFilter === 'Unread'
     ? notifications.filter((notification) => !notification.isRead)
     : notifications;
@@ -64,6 +64,7 @@ const NotificationsScreen = () => {
       return;
     }
 
+    bottomSheetRef.current?.close();
     router.push(item.route);
   };
 

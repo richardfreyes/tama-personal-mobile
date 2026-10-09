@@ -88,8 +88,8 @@ export const searchMerchantsStyles = StyleSheet.create({
   },
   filterScrollView: {
     flexDirection: 'row',
-    marginBottom: 20,
-    marginHorizontal: -20, 
+    marginBottom: 4,
+    marginTop: 8,
     paddingHorizontal: 20,
   },
   pill: {

@@ -13,6 +13,20 @@ export const savedBillCardStyles = StyleSheet.create({
     padding: 14,
     width: SAVED_BILL_CARD_WIDTH,
   },
+  cardFull: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 12,
+    width: 'auto',
+  },
+  identityFull: {
+    flex: 1,
+    minWidth: 0,
+  },
+  detailsFull: {
+    alignItems: 'flex-end',
+  },
   cardPressed: {
     backgroundColor: Colors.dashboardPanel,
   },

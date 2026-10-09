@@ -85,16 +85,30 @@ describe('reset-password route flow', () => {
     consoleError.mockRestore();
   });
 
-  it('renders both OTP delivery choices and navigates using the current default selection', () => {
+  it('labels each OTP delivery choice with its own contact detail', () => {
     render(<OTPDeliverySelectionScreen />);
     expect(screen.getByText('Make Selection')).toBeTruthy();
+    expect(screen.getByText('via email:')).toBeTruthy();
+    expect(screen.getByText('user@example.com')).toBeTruthy();
+    expect(screen.getByText('via SMS:')).toBeTruthy();
+    expect(screen.getByText('+63 955 577* ***')).toBeTruthy();
+  });
+
+  it('continues with the email method and address when the email card is pressed', () => {
+    render(<OTPDeliverySelectionScreen />);
     fireEvent.press(screen.getByText('via email:'));
     expect(router.push).toHaveBeenCalledWith({
       pathname: '/reset-password/verify-otp',
-      params: {
-        method: 'email',
-        identifier: 'user@example.com',
-      },
+      params: { method: 'email', identifier: 'user@example.com' },
+    });
+  });
+
+  it('continues with the text method and phone number when the SMS card is pressed', () => {
+    render(<OTPDeliverySelectionScreen />);
+    fireEvent.press(screen.getByText('via SMS:'));
+    expect(router.push).toHaveBeenCalledWith({
+      pathname: '/reset-password/verify-otp',
+      params: { method: 'text', identifier: '+63 955 577* ***' },
     });
   });
 

@@ -4,17 +4,26 @@ import type { BillerDirectoryGroup } from '@/types/bill';
 
 const getBillerName = (biller: Pick<Biller, 'merchant_name'>): string => biller.merchant_name ?? '';
 
+type NameGetter<T> = (item: T) => string;
+
 export const foldSearchText = (value: string): string => (
   value.trim().normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase()
 );
 
-export const sortBillersByName = (billers: Biller[]): Biller[] => [...billers].sort(
-  (a, b) => getBillerName(a).localeCompare(getBillerName(b), 'en', { sensitivity: 'base' }),
+export const sortBillersByName = <T = Biller>(
+  billers: T[],
+  getName: NameGetter<T> = getBillerName as NameGetter<T>,
+): T[] => [...billers].sort(
+  (a, b) => getName(a).localeCompare(getName(b), 'en', { sensitivity: 'base' }),
 );
 
-export const filterBillersByName = (billers: Biller[], query: string): Biller[] => {
+export const filterBillersByName = <T = Biller>(
+  billers: T[],
+  query: string,
+  getName: NameGetter<T> = getBillerName as NameGetter<T>,
+): T[] => {
   const term = foldSearchText(query);
-  return term ? billers.filter((biller) => foldSearchText(getBillerName(biller)).includes(term)) : billers;
+  return term ? billers.filter((biller) => foldSearchText(getName(biller)).includes(term)) : billers;
 };
 
 export const getBillerLetter = (name: string): string => {
@@ -22,11 +31,14 @@ export const getBillerLetter = (name: string): string => {
   return /[a-z]/.test(first) ? first.toUpperCase() : BILLER_DIRECTORY_OTHER_LETTER;
 };
 
-export const groupBillersByLetter = (billers: Biller[]): BillerDirectoryGroup[] => {
-  const groups = new Map<string, Biller[]>();
+export const groupBillersByLetter = <T = Biller>(
+  billers: T[],
+  getName: NameGetter<T> = getBillerName as NameGetter<T>,
+): BillerDirectoryGroup<T>[] => {
+  const groups = new Map<string, T[]>();
 
   billers.forEach((biller) => {
-    const letter = getBillerLetter(getBillerName(biller));
+    const letter = getBillerLetter(getName(biller));
     const group = groups.get(letter);
     if (group) {
       group.push(biller);

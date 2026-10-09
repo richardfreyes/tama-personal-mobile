@@ -17,6 +17,7 @@ export default function SavedBillCard({
   logoUrl,
   onPress,
   variant = 'row',
+  fullWidth = false,
   status: statusOverride,
 }: SavedBillCardProps) {
   const [isFocused, setIsFocused] = useState(false);
@@ -70,7 +71,7 @@ export default function SavedBillCard({
       onPress={() => onPress?.(bill as Bill)}
       style={
         isCard
-          ? ({ pressed }) => [cardStyles.card, pressed && cardStyles.cardPressed]
+          ? ({ pressed }) => [cardStyles.card, fullWidth && cardStyles.cardFull, pressed && cardStyles.cardPressed]
           : [
             globalStyle.optionHolder,
             enrollmentListComponentStyles.headerRow,
@@ -81,7 +82,7 @@ export default function SavedBillCard({
     >
       {isCard ? (
         <>
-          <View style={cardStyles.identity}>
+          <View style={[cardStyles.identity, fullWidth && cardStyles.identityFull]}>
             <MerchantLogo
               initials={getSavedBillInitials(bill.merchant_name || name)}
               logoUrl={logoUrl}
@@ -93,7 +94,7 @@ export default function SavedBillCard({
               <AppText numberOfLines={1} style={cardStyles.merchantName}>{bill.merchant_name}</AppText>
             </View>
           </View>
-          <View style={cardStyles.details}>
+          <View style={[cardStyles.details, fullWidth && cardStyles.detailsFull]}>
             <AppText
               adjustsFontSizeToFit={hasAmount}
               minimumFontScale={0.8}

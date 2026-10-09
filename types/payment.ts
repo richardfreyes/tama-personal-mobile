@@ -92,6 +92,7 @@ export interface AppliedFilters {
 export interface FilterAutopayProps {
   onApply: (filters: AppliedFilters) => void;
   onReset: () => void;
+  initialFilters?: AppliedFilters;
 }
 
 export type DateRange = {
