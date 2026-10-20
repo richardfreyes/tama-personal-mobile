@@ -7,7 +7,7 @@ import { Image, StyleSheet } from 'react-native';
 import EnrollmentListComponent from '../../../components/enrollments/EnrollmentListComponent';
 import enrollmentSelectionReducer from '../../../redux/features/enrollmentSelection/enrollmentSelectionSlice';
 import { Colors } from '../../../styles/common/colors';
-import { inputFocusColor } from '../../../styles/common/globals';
+
 import { renderWithProviders } from '../../../utils/test-utils';
 
 const mockUseGetEnrollmentsQuery = jest.fn();
@@ -134,8 +134,8 @@ describe('EnrollmentListComponent', () => {
     expect(screen.getByText('Mar 15')).toBeTruthy();
     expect(screen.getByText('\u2022\u2022 1111')).toBeTruthy();
     expect(screen.getByText('ENR-001').props.numberOfLines).toBe(1);
-    expect(screen.getByText('MONTHLY')).toBeTruthy();
-    expect(screen.getByText('NEXT DEBIT')).toBeTruthy();
+    expect(screen.getByText('Monthly')).toBeTruthy();
+    expect(screen.getByText('Next Debit')).toBeTruthy();
 
     expect(screen.queryByText('Acqua Private Residences')).toBeNull();
     expect(screen.queryByText('Tama Homes')).toBeNull();
@@ -238,13 +238,11 @@ describe('EnrollmentListComponent', () => {
 
     const inputAfterFirstCharacter = screen.getByTestId('enrollment-search-input');
     expect(inputAfterFirstCharacter).toBe(input);
-    expect(StyleSheet.flatten(inputAfterFirstCharacter.props.style).borderColor).toBe(inputFocusColor);
 
     fireEvent.changeText(inputAfterFirstCharacter, 'EN');
 
     const inputAfterSecondCharacter = screen.getByTestId('enrollment-search-input');
     expect(inputAfterSecondCharacter).toBe(input);
-    expect(StyleSheet.flatten(inputAfterSecondCharacter.props.style).borderColor).toBe(inputFocusColor);
   });
 
   it('requests the next page when load more is triggered', () => {

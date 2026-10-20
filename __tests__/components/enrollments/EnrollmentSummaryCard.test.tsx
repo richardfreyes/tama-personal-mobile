@@ -33,8 +33,8 @@ describe('EnrollmentSummaryCard', () => {
     render(<EnrollmentSummaryCard item={enrollment} index={0} onPress={onPress} />);
     expect(screen.getByText('TAMA')).toBeTruthy();
     expect(screen.getByText('ENR-001')).toBeTruthy();
-    expect(screen.getByText('MONTHLY')).toBeTruthy();
-    expect(screen.getByText('NEXT DEBIT')).toBeTruthy();
+    expect(screen.getByText('Monthly')).toBeTruthy();
+    expect(screen.getByText('Next Debit')).toBeTruthy();
     const card = screen.getByTestId('enrollment-card-0');
     fireEvent.press(card);
     expect(onPress).toHaveBeenCalledWith(enrollment);
@@ -68,7 +68,7 @@ describe('EnrollmentSummaryCard', () => {
         onPress={jest.fn<(...args: any[]) => any>()}
       />,
     );
-    expect(screen.getByText('AUTO DEBIT ENROLLMENT')).toBeTruthy();
+    expect(screen.getByText('Auto Debit Enrollment')).toBeTruthy();
     expect(screen.getByText('A')).toBeTruthy();
   });
 });

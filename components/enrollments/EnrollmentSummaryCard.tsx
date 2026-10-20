@@ -1,13 +1,11 @@
 import { useThemedStyles, useThemeColors } from '@/hooks/useAppTheme';
 import { AppText } from '@/components/common/AppText';
 import EnrollmentStatusBadge from '@/components/enrollments/EnrollmentStatusBadge';
-import { ENROLLMENT_SUMMARY_PANEL_GLOW_COLORS, ENROLLMENT_SUMMARY_PANEL_GLOW_END, ENROLLMENT_SUMMARY_PANEL_GLOW_START, ENROLLMENT_SUMMARY_PANEL_GRADIENT_COLORS, ENROLLMENT_SUMMARY_PANEL_GRADIENT_END, ENROLLMENT_SUMMARY_PANEL_GRADIENT_LOCATIONS, ENROLLMENT_SUMMARY_PANEL_GRADIENT_START, } from '@/constants/enrollment';
 import { Feather } from '@expo/vector-icons';
 import { createEnrollmentListComponentStyles as makeStyles } from '@/styles/components/enrollments/EnrollmentListComponent';
 import type { EnrollmentSummaryCardProps } from '@/types/enrollment';
 import { getCardIcon } from '@/utils/card';
 import { getEnrollmentMerchantCode, getEnrollmentMonthlyAmount, getEnrollmentNextDebitCountdown, getEnrollmentNextDebitShortDate, getEnrollmentPaymentMethod, getEnrollmentReferenceId, getEnrollmentStatusLabel, getEnrollmentTitle } from '@/utils/enrollmentPresentation';
-import { LinearGradient } from 'expo-linear-gradient';
 import React, { memo, useEffect, useRef } from 'react';
 import { Animated, Easing, Image, Pressable, View } from 'react-native';
 
@@ -22,7 +20,9 @@ const EnrollmentSummaryCard = ({ item, index, logoUrl: resolvedLogoUrl, onPress,
   const merchantCode = getEnrollmentMerchantCode(item);
   const monthlyAmount = getEnrollmentMonthlyAmount(item);
   const amount = monthlyAmount.startsWith('PHP') ? monthlyAmount.replace(/^PHP\s*/, '₱') : monthlyAmount;
-  const nextDebitDate = getEnrollmentNextDebitShortDate(item) ?? 'Not scheduled';
+  const nextDebitRaw = getEnrollmentNextDebitShortDate(item);
+  const nextDebitDate = nextDebitRaw ?? 'Not scheduled';
+  const hasDebitDate = nextDebitRaw !== null;
   const nextDebitCountdown = getEnrollmentNextDebitCountdown(item);
   const paymentMethod = getEnrollmentPaymentMethod(item);
   const displayTitle = merchantCode === 'Not available' ? title : merchantCode;
@@ -89,8 +89,8 @@ const EnrollmentSummaryCard = ({ item, index, logoUrl: resolvedLogoUrl, onPress,
             )}
           </View>
           <View style={styles.identityGroup}>
-            <AppText numberOfLines={1} weight="700" style={styles.title}>
-              {displayTitle.toUpperCase()}
+            <AppText numberOfLines={1} weight="600" style={styles.title}>
+              {displayTitle}
             </AppText>
             <AppText
               ellipsizeMode="middle"
@@ -112,27 +112,12 @@ const EnrollmentSummaryCard = ({ item, index, logoUrl: resolvedLogoUrl, onPress,
           />
         </View>
 
-        <LinearGradient
-          colors={[...ENROLLMENT_SUMMARY_PANEL_GRADIENT_COLORS]}
-          end={ENROLLMENT_SUMMARY_PANEL_GRADIENT_END}
-          locations={[...ENROLLMENT_SUMMARY_PANEL_GRADIENT_LOCATIONS]}
-          start={ENROLLMENT_SUMMARY_PANEL_GRADIENT_START}
-          style={styles.amountPanel}
-        >
-          <LinearGradient
-            colors={[...ENROLLMENT_SUMMARY_PANEL_GLOW_COLORS]}
-            end={ENROLLMENT_SUMMARY_PANEL_GLOW_END}
-            pointerEvents="none"
-            start={ENROLLMENT_SUMMARY_PANEL_GLOW_START}
-            style={styles.amountPanelGlow}
-          />
+        <View style={styles.amountPanel}>
           <View style={styles.amountColumn}>
-            <AppText weight="600" style={styles.panelLabel}>
-              MONTHLY
-            </AppText>
+            <AppText style={styles.panelLabel}>Monthly</AppText>
             <AppText
               adjustsFontSizeToFit
-              minimumFontScale={0.7}
+              minimumFontScale={0.75}
               numberOfLines={1}
               weight="700"
               style={styles.panelAmount}
@@ -141,19 +126,21 @@ const EnrollmentSummaryCard = ({ item, index, logoUrl: resolvedLogoUrl, onPress,
             </AppText>
           </View>
           <View style={styles.nextDebitColumn}>
-            <AppText weight="600" style={styles.panelLabel}>
-              NEXT DEBIT
-            </AppText>
-            <AppText numberOfLines={1} weight="700" style={styles.nextDebitValue}>
+            <AppText style={styles.panelLabel}>Next Debit</AppText>
+            <AppText
+              numberOfLines={1}
+              weight={hasDebitDate ? '600' : '400'}
+              style={[styles.nextDebitValue, !hasDebitDate && styles.nextDebitEmpty]}
+            >
               {nextDebitDate}
             </AppText>
             {nextDebitCountdown ? (
-              <AppText numberOfLines={1} weight="500" style={styles.nextDebitCountdown}>
+              <AppText numberOfLines={1} style={styles.nextDebitCountdown}>
                 {nextDebitCountdown}
               </AppText>
             ) : null}
           </View>
-        </LinearGradient>
+        </View>
 
         <View style={styles.paymentMethodFooter}>
           <View style={styles.paymentMethodIconFrame}>

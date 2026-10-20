@@ -25,7 +25,7 @@ export const createInputValidationComponentStyles = (Colors: ThemeColors) => Sty
   },
   amountFieldFocused: {
     borderColor: Colors.primary,
-   boxShadow: `0 0 0 3px ${Colors.focusRing}`,},
+  },
   amountFieldError: {
     borderColor: Colors.dashboardErrorText,
   },
@@ -34,19 +34,25 @@ export const createInputValidationComponentStyles = (Colors: ThemeColors) => Sty
     fontSize: 17,
     lineHeight: 22,
   },
+  amountInputWrapper: {
+    alignSelf: 'stretch',
+    flex: 1,
+    justifyContent: 'center',
+    paddingVertical: 10,
+  },
   amountInput: {
     color: Colors.text,
-    flex: 1,
     fontFamily: 'PoppinsSemiBold',
     fontSize: 28,
     fontVariant: ['tabular-nums'],
-    height: '100%',
     includeFontPadding: false,
     letterSpacing: -0.28,
+    lineHeight: 36,
     minWidth: 0,
     outlineColor: Colors.transparent,
     outlineWidth: 0,
     padding: 0,
+    width: '100%',
   },
   amountHelper: {
     color: Colors.maroon09,

@@ -220,22 +220,24 @@ const InputValidationComponent = ({
         {label ? <AppText weight="500" style={styles.amountLabel}>{label}</AppText> : null}
         <View style={[styles.amountField, isFocused && styles.amountFieldFocused, hasError && styles.amountFieldError]}>
           {prefix ? <AppText weight="500" style={styles.amountPrefix}>{prefix}</AppText> : null}
-          <TextInput
-            accessibilityLabel={label ?? placeholder}
-            editable={editable}
-            keyboardType={keyboardType as KeyboardTypeOptions}
-            maxLength={maxLength}
-            onBlur={() => setIsFocused(false)}
-            onChangeText={handleValidation}
-            onFocus={() => setIsFocused(true)}
-            onKeyPress={handleKeyPress}
-            onSelectionChange={handleSelectionChange}
-            placeholder={placeholder}
-            placeholderTextColor={Colors.maroon06}
-            selection={formatAsCurrency ? selectionOverride : undefined}
-            style={styles.amountInput}
-            value={displayValue}
-          />
+          <View style={styles.amountInputWrapper}>
+            <TextInput
+              accessibilityLabel={label ?? placeholder}
+              editable={editable}
+              keyboardType={keyboardType as KeyboardTypeOptions}
+              maxLength={maxLength}
+              onBlur={() => setIsFocused(false)}
+              onChangeText={handleValidation}
+              onFocus={() => setIsFocused(true)}
+              onKeyPress={handleKeyPress}
+              onSelectionChange={handleSelectionChange}
+              placeholder={placeholder}
+              placeholderTextColor={Colors.maroon06}
+              selection={formatAsCurrency ? selectionOverride : undefined}
+              style={styles.amountInput}
+              value={displayValue}
+            />
+          </View>
         </View>
         {hasError ? (
           <AppText accessibilityRole="alert" style={styles.amountError}>{errors[field]}</AppText>
