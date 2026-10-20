@@ -1,50 +1,50 @@
+import { Colors as LightColors } from '@/styles/common/colors';
+import type { ThemeColors } from '@/types/theme';
 import { StyleSheet } from 'react-native';
-import { Colors } from './colors';
-import { FontSizes } from './typography';
 
-export const inputFocusColor = Colors.neutral08;
+export const inputFocusColor = LightColors.primary;
 
-export const globalStyle = StyleSheet.create({
+export const createGlobalStyle = (Colors: ThemeColors) => StyleSheet.create({
   paperTextInput: {
-    borderRadius: 4,
+    borderRadius: 8,
     fontSize: 14,
-  },
+   height: 48, backgroundColor: Colors.inputBackground,},
   inputLabelError: {
     paddingLeft: 0,
     paddingRight: 0,
-    lineHeight: 12,
-  },
+    lineHeight: 16,
+   fontSize: 12, paddingTop: 0, paddingBottom: 0, minHeight: 12, color: Colors.errorText,},
   screenContainer: {
     flexGrow: 1, 
     justifyContent: 'center',
-    backgroundColor: Colors.neutral01,
-    paddingHorizontal: 24,
+    backgroundColor: Colors.background,
+    paddingHorizontal: 16,
     paddingVertical: 12,
   },
   screenContainerTop: {
     justifyContent: 'flex-start',
   },
   outerContainer: {
-    backgroundColor: Colors.maroon01,
+    backgroundColor: Colors.backgroundSecondary,
     padding: 12,
-    borderRadius: 8
+    borderRadius: 12
   },
 
   sectionPanel: {
-    backgroundColor: Colors.dashboardPanel,
+    backgroundColor: Colors.backgroundSecondary,
     borderColor: Colors.dashboardPanelBorder,
-    borderRadius: 24,
-    borderWidth: 1,
+    borderRadius: 12,
+    borderWidth: 0,
     overflow: 'hidden',
-    padding: 16,
+    padding: 12,
   },
 
   listCard: {
     backgroundColor: Colors.neutral01,
     borderColor: Colors.dashboardCardBorder,
-    borderRadius: 20,
+    borderRadius: 8,
     borderWidth: 1,
-    paddingHorizontal: 16,
+    paddingHorizontal: 12,
     paddingVertical: 2,
   },
 
@@ -52,8 +52,8 @@ export const globalStyle = StyleSheet.create({
     backgroundColor: Colors.dashboardSkeleton,
   },
   headerTitle: {
-    fontSize: 24,
-  },
+    fontSize: 22,
+   lineHeight: 28,},
   defaultText: {
     fontFamily: 'PoppinsRegular',
   },
@@ -76,7 +76,7 @@ export const globalStyle = StyleSheet.create({
     alignItems: 'center',
   },
   errorText: {
-    color: 'red',
+    color: Colors.errorText,
   },
   indicator: {
     height: 40,
@@ -92,36 +92,36 @@ export const globalStyle = StyleSheet.create({
     bottom: 0,
     justifyContent: 'center',
     position: 'absolute',
-    right: 17,
+    right: undefined,
     top: 0,
     width: 24,
-  },
+   left: 12,},
   searchIconDisabled: {
     opacity: 0.45,
   },
   inputBase: {
-    backgroundColor: Colors.neutral01,
+    backgroundColor: Colors.backgroundSecondary,
     borderColor: Colors.neutral04,
-    borderRadius: 30,
+    borderRadius: 8,
     borderWidth: 1,
     color: Colors.neutral09,
     fontFamily: 'PoppinsRegular',
-    fontSize: FontSizes.small,
+    fontSize: 14,
     fontWeight: '400',
     height: 44,
     includeFontPadding: false,
-    lineHeight: 15,
+    lineHeight: 20,
     outlineColor: 'transparent',
     paddingBottom: 0,
-    paddingLeft: 24,
-    paddingRight: 54,
+    paddingLeft: 40,
+    paddingRight: 12,
     paddingTop: 0,
     textAlignVertical: 'center',
     width: '100%',
   },
   inputFocused: {
-    borderColor: inputFocusColor,
-  },
+    borderColor: Colors.primary,
+   borderWidth: 1,},
   inputDisabled: {
     backgroundColor: Colors.neutral03,
     borderColor: Colors.neutral05,
@@ -145,4 +145,51 @@ export const globalStyle = StyleSheet.create({
   optionIcon: {
     marginRight: 8,
   },
+  inputFocusGradient: { borderRadius: 8, bottom: 0, left: 0, position: 'absolute', right: 0, top: 6 },
+  inputFocusFill: { backgroundColor: Colors.inputBackground, borderRadius: 6.5, bottom: 1.5, left: 1.5, position: 'absolute', right: 1.5, top: 7.5 },
+  inputFocusRing: { borderRadius: 8, boxShadow: `0 0 0 3px ${Colors.focusRing}` },
+  inputContent: { fontSize: 14, lineHeight: 20, fontFamily: 'PoppinsRegular' },
+  inputOutline: { borderRadius: 8, borderColor: Colors.neutral06 },
+  fieldLabel: { fontSize: 13, lineHeight: 18, marginBottom: 6, color: Colors.text, fontFamily: 'PoppinsMedium' },
+  authHeroIcon: {
+    alignItems: 'center',
+    backgroundColor: Colors.primaryTint,
+    borderRadius: 12,
+    height: 48,
+    justifyContent: 'center',
+    marginBottom: 16,
+    marginTop: 8,
+    width: 48,
+  },
+  authTitle: {
+    fontSize: 22,
+    lineHeight: 28,
+    marginBottom: 8,
+  },
+  authLead: {
+    color: Colors.textSecondary,
+    fontSize: 15,
+    lineHeight: 22,
+  },
+  authLink: {
+    color: Colors.primaryText,
+    fontFamily: 'PoppinsSemiBold',
+    fontSize: 15,
+    lineHeight: 20,
+  },
+  authMuted: {
+    color: Colors.textSecondary,
+    fontSize: 15,
+    lineHeight: 20,
+  },
+  nameRow: {
+    flexDirection: 'row',
+    gap: 12,
+  },
+  nameField: {
+    flex: 1,
+    minWidth: 0,
+  },
 });
+
+export const globalStyle = createGlobalStyle(LightColors);

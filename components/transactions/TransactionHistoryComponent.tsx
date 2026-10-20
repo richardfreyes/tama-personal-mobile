@@ -1,3 +1,4 @@
+import { useThemedStyles } from '@/hooks/useAppTheme';
 import AutoIcon from '@/assets/icons/auto.svg';
 import CheckIcon from '@/assets/icons/check.svg';
 import FilterIcon from '@/assets/icons/filter.svg';
@@ -5,8 +6,8 @@ import SearchInput from '@/components/common/SearchInput';
 import { TRANSACTION_HISTORY_PAGE_SIZE, TRANSACTION_STATUS_GROUPS, TRANSACTION_STATUS_TONE_COLORS } from '@/constants/transaction';
 import { useGetEnrollmentTransactionHistoryQuery } from '@/redux/features/enrollmentTransactionHistory/enrollmentTransactionHistoryApi';
 import { useGetTransactionsQuery } from '@/redux/features/transactions/transactionApi';
-import { globalStyle } from '@/styles/common/globals';
-import { transactionHistoryComponentStyles as styles } from '@/styles/components/transactions/TransactionHistoryComponent';
+import { createGlobalStyle as makeGlobalStyle } from '@/styles/common/globals';
+import { createTransactionHistoryComponentStyles as makeStyles } from '@/styles/components/transactions/TransactionHistoryComponent';
 import { ComponentsProps, RecentTransactionRowProps, TransactionHistoryRef, TransactionItemProps, TransactionStatusTone, UnifiedTransaction } from '@/types';
 import { formatApiDate, getStartOfDay } from '@/utils/date';
 import { formatMoney } from '@/utils/format';
@@ -70,11 +71,16 @@ const openTransaction = (item: UnifiedTransaction) => {
   });
 };
 
-const DateSeparator = ({ date }: { date: string }) => (
+const DateSeparator = ({ date }: { date: string }) => {
+  const styles = useThemedStyles(makeStyles);
+  return (
   <AppText weight="bold" variant="bodyMedium" style={styles.dateSeparatorText}>{date}</AppText>
 );
+};
 
 const TransactionItem = ({ item }: TransactionItemProps) => {
+  const styles = useThemedStyles(makeStyles);
+
   const statusDisplay = getStatusDisplay(item);
   const formattedAmount = formatMoney([item.currency, item.amount]);
   const formattedDate = formatApiDate(item.createdAt, 'MM/dd/yy - h:mmaaaa');
@@ -109,16 +115,18 @@ const TransactionItem = ({ item }: TransactionItemProps) => {
           )}
         </View>
         <View style={styles.textDetails}>
-          <AppText weight="600" style={styles.merchantName} size="extraSmall">{item.merchantName}</AppText>
-          <AppText size="extraSmall">{item.billingName || item.customerName || item.transactionId}</AppText>
+          <AppText numberOfLines={1} weight="600" style={styles.merchantName} size="extraSmall">{item.merchantName}</AppText>
+          <AppText numberOfLines={1} size="extraSmall">{item.billingName || item.customerName || item.transactionId}</AppText>
         </View>
       </View>
       <View style={styles.colRight}>
-        <View style={[styles.statusDisplay, { backgroundColor: statusDisplay.backgroundColor }]}>
-          <View style={[styles.dot, { backgroundColor: statusDisplay.dotColor }]} />
-          <AppText style={[styles.dateText, { color: statusDisplay.textColor }]} size="extraSmall">
-            {statusDisplay.text}{' '}
-          </AppText>
+        <View style={styles.badgeRow}>
+          <View style={[styles.statusDisplay, { backgroundColor: statusDisplay.backgroundColor }]}>
+            <View style={[styles.dot, { backgroundColor: statusDisplay.dotColor }]} />
+            <AppText style={[styles.dateText, { color: statusDisplay.textColor }]} size="extraSmall">
+              {statusDisplay.text}
+            </AppText>
+          </View>
           <View
             accessibilityLabel={`Transaction type: ${item.typeLabel}`}
             style={[
@@ -137,9 +145,7 @@ const TransactionItem = ({ item }: TransactionItemProps) => {
             </AppText>
           </View>
         </View>
-        <View style={styles.statusRow}>
-          <AppText style={styles.statusText} weight="600" size="small">{formattedAmount}</AppText>
-        </View>
+        <AppText style={styles.statusText} weight="600" size="small">{formattedAmount}</AppText>
         <AppText style={styles.dateText} size="tiny">{formattedDate}</AppText>
       </View>
     </TouchableOpacity>
@@ -147,6 +153,8 @@ const TransactionItem = ({ item }: TransactionItemProps) => {
 };
 
 const RecentTransactionRow = ({ transaction }: RecentTransactionRowProps) => {
+  const styles = useThemedStyles(makeStyles);
+
   const badge = getTransactionStatusBadge(transaction);
   const amount = formatTransactionDebitAmount(transaction);
   const date = formatApiDate(transaction.createdAt, 'MMM d');
@@ -185,7 +193,10 @@ const RecentTransactionRow = ({ transaction }: RecentTransactionRowProps) => {
   );
 };
 
-const RecentTransactionsSkeleton = ({ count }: { count: number }) => (
+const RecentTransactionsSkeleton = ({ count }: { count: number }) => {
+  const globalStyle = useThemedStyles(makeGlobalStyle);
+  const styles = useThemedStyles(makeStyles);
+  return (
   <SkeletonGroup label="Loading recent transactions" style={globalStyle.listCard} testID="recent-transactions-loading">
     {Array.from({ length: count }, (_, index) => (
       <React.Fragment key={index}>
@@ -202,8 +213,11 @@ const RecentTransactionsSkeleton = ({ count }: { count: number }) => (
     ))}
   </SkeletonGroup>
 );
+};
 
-const SourceErrorNotice = ({ message, onRetry }: { message: string; onRetry: () => void; }) => (
+const SourceErrorNotice = ({ message, onRetry }: { message: string; onRetry: () => void; }) => {
+  const styles = useThemedStyles(makeStyles);
+  return (
   <View accessibilityRole="alert" style={styles.sourceErrorNotice}>
     <AppText size="extraSmall" style={styles.sourceErrorText}>{message}</AppText>
     <TouchableOpacity
@@ -216,6 +230,7 @@ const SourceErrorNotice = ({ message, onRetry }: { message: string; onRetry: () 
     </TouchableOpacity>
   </View>
 );
+};
 
 const statusMatchesFilter = (transaction: UnifiedTransaction, selectedStatus: string): boolean => {
   const filter = selectedStatus.toLowerCase();
@@ -239,6 +254,9 @@ const statusMatchesFilter = (transaction: UnifiedTransaction, selectedStatus: st
 
 const TransactionHistoryComponent = forwardRef<TransactionHistoryRef, ComponentsProps>(
   ({ sectionHeader, onOpenFilterSheet, isFilterVisible, activeFilters, limit }, ref) => {
+  const globalStyle = useThemedStyles(makeGlobalStyle);
+  const styles = useThemedStyles(makeStyles);
+
     const pageSize = limit ?? TRANSACTION_HISTORY_PAGE_SIZE;
     const [searchQuery, setSearchQuery] = useState('');
     const [debouncedSearch, setDebouncedSearch] = useState('');

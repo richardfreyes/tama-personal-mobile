@@ -1,11 +1,12 @@
 import { StyleSheet } from "react-native";
-import { Colors } from "../../common/colors";
+import { Colors as LightColors } from '@/styles/common/colors';
+import type { ThemeColors } from '@/types/theme';
 import { FontSizes } from "../../common/typography";
 
-export const transactionHistoryComponentStyles = StyleSheet.create({
+export const createTransactionHistoryComponentStyles = (Colors: ThemeColors) => StyleSheet.create({
   dateSeparatorText: {
     fontSize: FontSizes.small,
-    color: Colors.red10,
+    color: Colors.primaryText,
     marginTop: 12,
   },
   itemContainer: {
@@ -17,8 +18,9 @@ export const transactionHistoryComponentStyles = StyleSheet.create({
   colLeft: {
     flexDirection: 'row',
     alignItems: 'center',
-    flex: 2,
-    marginRight: 30,
+    flex: 1,
+    marginRight: 8,
+    minWidth: 0,
   },
   iconPlaceholder: {
     width: 40,
@@ -43,26 +45,33 @@ export const transactionHistoryComponentStyles = StyleSheet.create({
   textDetails: {
     justifyContent: 'center',
     flex: 1,
+    minWidth: 0,
   },
   merchantName: {
     fontSize: FontSizes.small,
   },
   unitName: {
     fontSize: FontSizes.extraSmall,
-    color: Colors.red10,
+    color: Colors.primaryText,
   },
   colRight: {
-    flex: 1.5,
+    flexShrink: 0,
+    maxWidth: '55%',
     alignItems: 'flex-end',
     justifyContent: 'center',
   },
+  badgeRow: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'flex-end',
+    gap: 4,
+    marginBottom: 4,
+  },
   statusDisplay: {
-    paddingHorizontal: 6,
-    paddingVertical: 2,
-    display: 'flex',
+    paddingHorizontal: 8,
+    paddingVertical: 3,
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 4,
     borderRadius: 16,
   },
   dateText: {
@@ -81,11 +90,12 @@ export const transactionHistoryComponentStyles = StyleSheet.create({
     alignItems: 'center',
   },
   paymentTypeWrapper: {
-    padding: 4,
-    display: 'flex',
+    paddingHorizontal: 8,
+    paddingVertical: 3,
     flexDirection: 'row',
     alignItems: 'center',
     borderRadius: 16,
+    flexShrink: 1,
   },
   paymentType: {
     verticalAlign: 'middle',
@@ -104,7 +114,7 @@ export const transactionHistoryComponentStyles = StyleSheet.create({
     backgroundColor: Colors.info01,
   },
   enrollmentTypeText: {
-    color: Colors.info10,
+    color: Colors.primaryText,
   },
   statusText: {
 
@@ -182,7 +192,7 @@ export const transactionHistoryComponentStyles = StyleSheet.create({
     minWidth: 0,
   },
   recentMerchant: {
-    color: Colors.maroon11,
+    color: Colors.text,
     fontSize: 14,
     lineHeight: 20,
   },
@@ -198,7 +208,7 @@ export const transactionHistoryComponentStyles = StyleSheet.create({
     maxWidth: '48%',
   },
   recentAmount: {
-    color: Colors.maroon11,
+    color: Colors.text,
     fontSize: 14,
     fontVariant: ['tabular-nums'],
     lineHeight: 20,
@@ -230,3 +240,5 @@ export const transactionHistoryComponentStyles = StyleSheet.create({
     gap: 8,
   },
 });
+
+export const transactionHistoryComponentStyles = createTransactionHistoryComponentStyles(LightColors);
