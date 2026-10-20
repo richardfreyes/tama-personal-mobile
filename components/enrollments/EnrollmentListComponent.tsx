@@ -1,3 +1,4 @@
+import { useThemedStyles, useThemeColors } from '@/hooks/useAppTheme';
 import { AppText } from '@/components/common/AppText';
 import EmptyStateCard from '@/components/common/EmptyStateCard';
 import { useTabBarScrollHandler } from '@/components/common/GlobalScrollView';
@@ -5,14 +6,13 @@ import { HorizontalCardSkeleton, InlineLoadingIndicator, TransactionHistorySkele
 import SearchInput from '@/components/common/SearchInput';
 import { SectionHeaderComponent } from '@/components/common/SectionHeaderComponent';
 import EnrollmentSummaryCard from '@/components/enrollments/EnrollmentSummaryCard';
-import { DEFAULT_ENROLLMENT_COUNT } from '@/constants/enrollment';
+import { DEFAULT_ENROLLMENT_COUNT, ENROLLMENT_CAROUSEL_GAP } from '@/constants/enrollment';
 import { useGetEnrollmentsQuery } from '@/redux/features/enrollments/enrollmentApi';
 import { setSelectedEnrollment } from '@/redux/features/enrollmentSelection/enrollmentSelectionSlice';
 import { useGetMerchantsQuery } from '@/redux/features/merchants/merchantApi';
 import { useAppDispatch } from '@/redux/hooks';
-import { Colors } from '@/styles/common/colors';
-import { globalStyle } from '@/styles/common/globals';
-import { enrollmentListComponentStyles as styles } from '@/styles/components/enrollments/EnrollmentListComponent';
+import { createGlobalStyle as makeGlobalStyle } from '@/styles/common/globals';
+import { createEnrollmentListComponentStyles as makeStyles } from '@/styles/components/enrollments/EnrollmentListComponent';
 import type { Enrollment, EnrollmentListComponentProps, EnrollmentListRef } from '@/types';
 import { getEnrollmentKey } from '@/utils/enrollment';
 import { router, useFocusEffect } from 'expo-router';
@@ -81,16 +81,22 @@ const EnrollmentListComponent = forwardRef<EnrollmentListRef, EnrollmentListComp
   screenHeader,
   screenFooter,
 }, ref) => {
+  const globalStyle = useThemedStyles(makeGlobalStyle);
+  const styles = useThemedStyles(makeStyles);
+  const Colors = useThemeColors();
+
   const dispatch = useAppDispatch();
   const { width: windowWidth } = useWindowDimensions();
   const tabBarScrollHandler = useTabBarScrollHandler();
   const isCarousel = variant === 'carousel';
-  const carouselCardWidth = Math.min(Math.max(windowWidth - 88, 260), 340);
+  const carouselCardWidth = Math.min(Math.max(windowWidth - 104, 260), 344);
+  const carouselInterval = carouselCardWidth + ENROLLMENT_CAROUSEL_GAP;
   const [searchQuery, setSearchQuery] = useState('');
   const [debouncedSearch, setDebouncedSearch] = useState('');
   const [page, setPage] = useState(0);
   const [items, setItems] = useState<Enrollment[]>([]);
   const [hasMore, setHasMore] = useState(true);
+  const [activeSlide, setActiveSlide] = useState(0);
   const [isRefreshing, setIsRefreshing] = useState(false);
   const isLoadingMore = useRef(false);
   const { data: merchants } = useGetMerchantsQuery('');
@@ -206,8 +212,10 @@ const EnrollmentListComponent = forwardRef<EnrollmentListRef, EnrollmentListComp
 
   if (isCarousel) {
     return (
-      <View style={globalStyle.outerContainer}>
+      <View style={[globalStyle.sectionPanel, styles.carouselSection]}>
         <SectionHeaderComponent
+          containerStyle={styles.carouselHeader}
+          count={showInitialLoader || isError || isEmpty ? undefined : data?.totalCount ?? items.length}
           linkText={!showInitialLoader && !isError && !isEmpty ? 'View All' : null}
           onViewAllPress={handleViewAll}
           title="Enrollments"
@@ -237,6 +245,10 @@ const EnrollmentListComponent = forwardRef<EnrollmentListRef, EnrollmentListComp
             initialNumToRender={4}
             keyExtractor={getEnrollmentKey}
             maxToRenderPerBatch={4}
+            onMomentumScrollEnd={(event) => {
+              const index = Math.round(event.nativeEvent.contentOffset.x / carouselInterval);
+              setActiveSlide(Math.min(Math.max(index, 0), items.length - 1));
+            }}
             removeClippedSubviews={false}
             renderItem={({ item, index }) => (
               <EnrollmentSummaryCard
@@ -249,12 +261,22 @@ const EnrollmentListComponent = forwardRef<EnrollmentListRef, EnrollmentListComp
             )}
             showsHorizontalScrollIndicator={false}
             snapToAlignment="start"
-            snapToInterval={carouselCardWidth + 12}
+            snapToInterval={carouselInterval}
             style={styles.carouselList}
             testID="enrollment-carousel"
             windowSize={5}
           />
         )}
+        {!showInitialLoader && !isError && items.length > 1 ? (
+          <View style={styles.paginationDots} testID="enrollment-carousel-dots">
+            {items.slice(0, 8).map((item, index) => (
+              <View
+                key={getEnrollmentKey(item, index)}
+                style={[styles.paginationDot, index === activeSlide && styles.paginationDotActive]}
+              />
+            ))}
+          </View>
+        ) : null}
       </View>
     );
   }
@@ -266,11 +288,15 @@ const EnrollmentListComponent = forwardRef<EnrollmentListRef, EnrollmentListComp
         <SearchInput
           accessibilityLabel="Search enrollments"
           autoCapitalize="none"
+          autoCorrect={false}
+          containerStyle={styles.searchInput}
           onChangeText={setSearchQuery}
+          onClear={() => setSearchQuery('')}
           placeholder="Search enrollments"
           returnKeyType="search"
           testID="enrollment-search-input"
           value={searchQuery}
+          variant="filled"
         />
       </View>
     </View>
@@ -315,7 +341,7 @@ const EnrollmentListComponent = forwardRef<EnrollmentListRef, EnrollmentListComp
   );
 
   return (
-    <View style={[globalStyle.outerContainer, styles.listPanel]}>
+    <View style={[globalStyle.sectionPanel, styles.listPanel]}>
       <Animated.FlatList
         contentContainerStyle={styles.listContent}
         data={items}

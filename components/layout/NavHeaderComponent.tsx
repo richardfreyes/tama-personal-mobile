@@ -1,9 +1,8 @@
+import { useThemedStyles, useThemeColors } from '@/hooks/useAppTheme';
 import AqwireLogo from '@/assets/icons/aqwire-logo.svg';
 import DeleteIcon from '@/assets/icons/delete.svg';
-import Lefticon from '@/assets/icons/left.svg';
 import MoreIcon from '@/assets/icons/more.svg';
-import { Colors } from '@/styles/common/colors';
-import { navHeaderComponentStyles as styles } from '@/styles/components/layout/NavHeaderComponent';
+import { createNavHeaderComponentStyles as makeStyles } from '@/styles/components/layout/NavHeaderComponent';
 import { IconProps, NavHeaderProps } from '@/types';
 import { Feather } from '@expo/vector-icons';
 import { router, useFocusEffect, useIsFocused } from 'expo-router';
@@ -15,6 +14,9 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { AppText } from '../common/AppText';
 
 const NavHeaderComponent: React.FC<NavHeaderProps> = ({title, onBackPress, rightNav, logo, variant = 'default'}) => {
+  const Colors = useThemeColors();
+  const styles = useThemedStyles(makeStyles);
+
   const insets = useSafeAreaInsets();
   const { width: windowWidth } = useWindowDimensions();
   const placeholderRef = React.useRef<View>(null);
@@ -160,10 +162,10 @@ const NavHeaderComponent: React.FC<NavHeaderProps> = ({title, onBackPress, right
   };
 
   const renderHeaderContent = () => isOutlined ? renderOutlinedContent() : (
-    <View style={[styles.headerContainer, { paddingTop: insets.top + 12 }]}>
+    <View style={[styles.headerContainer, { paddingTop: insets.top + 6 }]}>
       <View style={styles.backButtonContainer}>
         <TouchableOpacity onPress={handleBack} style={styles.backButton} accessibilityRole="button" accessibilityLabel="Go back" hitSlop={4}>
-          <Lefticon width={24} height={24} />
+          <Feather name="chevron-left" size={20} color={Colors.text} />
         </TouchableOpacity>
       </View>
       <View style={styles.titleWrapper}>
@@ -172,7 +174,7 @@ const NavHeaderComponent: React.FC<NavHeaderProps> = ({title, onBackPress, right
             <AqwireLogo width={24} height={24} />
           </View>) : null
         }
-        <AppText color='maroon10' style={[styles.headerTitle]} weight='700'>
+        <AppText color='maroon10' style={[styles.headerTitle]} weight='600'>
           {title}
         </AppText>
       </View>

@@ -1,3 +1,4 @@
+import { useThemedStyles } from '@/hooks/useAppTheme';
 import { AppButton } from '@/components/common/AppButton';
 import { AppText } from '@/components/common/AppText';
 import DisplayNotice from '@/components/common/DisplayNotice';
@@ -24,8 +25,8 @@ import { showSnackbar } from '@/redux/features/snackbar/snackbarSlice';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import type { MerchantEnrollmentDetailResponse } from '@/redux/features/merchants/merchantTypes';
 import type { RootState } from '@/redux/storeTypes';
-import { confirmPaymentStyles as styles } from '@/styles/app/bills/enrollments/confirm-payment';
-import { globalStyle } from '@/styles/common/globals';
+import { createConfirmPaymentStyles as makeStyles } from '@/styles/app/bills/enrollments/confirm-payment';
+import { createGlobalStyle as makeGlobalStyle } from '@/styles/common/globals';
 import { ConfirmPaymentDisplayTransaction, EnrollmentCallbackResult, EnrollmentLineItem, PaymentInfoRow } from '@/types';
 import { formatLineItemFee, isValidLineItemFee, normalizeName } from '@/utils/format';
 import { buildEnrollmentPaymentDetails, buildPaymentDetails, buildPaymentMethodDetails, buildScheduledPaymentInfo } from '@/utils/paymentMappers';
@@ -37,6 +38,9 @@ import { View } from 'react-native';
 import { Checkbox, useTheme } from 'react-native-paper';
 
 const ConfirmPaymentScreen = () => {
+  const styles = useThemedStyles(makeStyles);
+  const globalStyle = useThemedStyles(makeGlobalStyle);
+
   const dispatch = useAppDispatch();
   const theme = useTheme();
   const primaryColor = theme.colors.primary;

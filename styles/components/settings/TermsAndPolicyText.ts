@@ -1,8 +1,9 @@
 import { StyleSheet } from "react-native";
-import { Colors } from "../../common/colors";
+import { Colors as LightColors } from '@/styles/common/colors';
+import type { ThemeColors } from '@/types/theme';
 import { FontSizes } from "../../common/typography";
 
-export const termsAndPolicyTextStyles = StyleSheet.create({
+export const createTermsAndPolicyTextStyles = (Colors: ThemeColors) => StyleSheet.create({
   termsRow: {
     marginBottom: 24,
     flexDirection: 'row',
@@ -18,6 +19,8 @@ export const termsAndPolicyTextStyles = StyleSheet.create({
   },
   termsLink: {
     fontSize: FontSizes.small,
-    color: Colors.info07,
+    color: Colors.primaryText,
+    fontFamily: 'PoppinsMedium',
   },
 });
+export const termsAndPolicyTextStyles = createTermsAndPolicyTextStyles(LightColors);

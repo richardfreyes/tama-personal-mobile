@@ -49,7 +49,7 @@ jest.mock('@/redux/hooks', () => ({
   }),
 }));
 jest.mock('@/redux/store', () => ({ store: {} }));
-jest.mock('@/styles/theme', () => ({ customTheme: {} }));
+jest.mock('@/styles/theme', () => ({ customTheme: {}, customDarkTheme: {} }));
 jest.mock('@/redux/appApi', () => ({
   appApi: { util: {
     resetApiState: () => ({ type: 'appApi/reset' }),

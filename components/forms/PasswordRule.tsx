@@ -1,12 +1,15 @@
+import { useThemeColors, useThemedStyles } from '@/hooks/useAppTheme';
 import IconCheck from '@/assets/icons/check-circle.svg';
-import { Colors } from '@/styles/common/colors';
-import { passwordRuleStyles as styles } from '@/styles/components/forms/PasswordRule';
+import { createPasswordRuleStyles as makeStyles } from '@/styles/components/forms/PasswordRule';
 import { PasswordRuleProps } from '@/types';
 import React from 'react';
 import { View } from 'react-native';
 import { AppText } from '../common/AppText';
 
-const PasswordRule: React.FC<PasswordRuleProps> = ({ text, valid }) => (
+const PasswordRule: React.FC<PasswordRuleProps> = ({ text, valid }) => {
+  const Colors = useThemeColors();
+  const styles = useThemedStyles(makeStyles);
+  return (
   <View style={styles.ruleRow}>
     <View>
       <IconCheck 
@@ -16,8 +19,9 @@ const PasswordRule: React.FC<PasswordRuleProps> = ({ text, valid }) => (
         fill={valid ? Colors.success09 : Colors.neutral03}
       />
     </View>
-    <AppText weight='300' style={styles.ruleText}>{text}</AppText>
+    <AppText weight='400' style={[styles.ruleText, valid && styles.ruleTextValid]}>{text}</AppText>
   </View>
 );
+};
 
 export default PasswordRule;

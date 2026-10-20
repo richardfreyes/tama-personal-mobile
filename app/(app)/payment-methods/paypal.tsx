@@ -1,3 +1,4 @@
+import { useThemedStyles } from '@/hooks/useAppTheme';
 import { AppButton } from '@/components/common/AppButton';
 import { AppText } from '@/components/common/AppText';
 import { NativeLoadingIndicator } from '@/components/common/Loading';
@@ -8,7 +9,7 @@ import { PAYMENT_CANCEL_TIMEOUT_MS, PAYMENT_REQUEST_TIMEOUT_MS, VALIDATORS } fro
 import { showSnackbar } from '@/redux/features/snackbar/snackbarSlice';
 import { useCancelPayPalMutation, useCapturePayPalMutation, usePayWithPayPalMutation } from '@/redux/features/transactions/transactionApi';
 import { useAppDispatch } from '@/redux/hooks';
-import { globalStyle } from '@/styles/common/globals';
+import { createGlobalStyle as makeGlobalStyle } from '@/styles/common/globals';
 import { PayPalSession } from '@/types/common';
 import { clearPaymentIntentKey, getPaymentIntentKey } from '@/utils/paymentIntentKey';
 import { router, useFocusEffect, useLocalSearchParams } from 'expo-router';
@@ -16,6 +17,8 @@ import React, { useCallback, useRef, useState } from 'react';
 import { ScrollView, View } from 'react-native';
 
 const PayPalPayment = () => {
+  const globalStyle = useThemedStyles(makeGlobalStyle);
+
   const dispatch = useAppDispatch();
   const { billingReferenceId, baseAmount, baseCurrency } = useLocalSearchParams<{billingReferenceId?: string; baseAmount?: string; baseCurrency?: string;}>();
   const [payWithPayPal] = usePayWithPayPalMutation();

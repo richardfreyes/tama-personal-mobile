@@ -1,10 +1,13 @@
+import { useThemedStyles } from '@/hooks/useAppTheme';
 import { AppText } from '@/components/common/AppText';
-import { enrollmentDetailsStyles as styles } from '@/styles/app/bills/enrollments/details';
+import { createEnrollmentDetailsStyles as makeStyles } from '@/styles/app/bills/enrollments/details';
 import type { DetailRowsProps } from '@/types/common';
 import React from 'react';
 import { View } from 'react-native';
 
 export default function DetailRows({ fields }: DetailRowsProps) {
+  const styles = useThemedStyles(makeStyles);
+
   return (
     <View style={styles.detailRows}>
       {fields.map((field) => (

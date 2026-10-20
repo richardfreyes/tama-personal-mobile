@@ -1,7 +1,8 @@
-import { Colors } from "@/styles/common/colors";
+import { Colors as LightColors } from '@/styles/common/colors';
+import type { ThemeColors } from '@/types/theme';
 import { StyleSheet } from "react-native";
 
-export const loadingStyles = StyleSheet.create({
+export const createLoadingStyles = (Colors: ThemeColors) => StyleSheet.create({
   inlineContainer: {
     alignItems: 'center',
     flexDirection: 'row',
@@ -238,3 +239,5 @@ export const loadingStyles = StyleSheet.create({
     height: '100%',
   },
 });
+
+export const loadingStyles = createLoadingStyles(LightColors);

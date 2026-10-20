@@ -1,3 +1,4 @@
+import { useThemedStyles } from '@/hooks/useAppTheme';
 import { AppButton } from '@/components/common/AppButton';
 import { AppText } from '@/components/common/AppText';
 import { SpacerComponent } from '@/components/common/SpacerComponent';
@@ -11,8 +12,8 @@ import { clearBiometricCredentials } from '@/services/authStorage';
 import { showModal } from '@/redux/features/modal/modalSlice';
 import { showSnackbar } from '@/redux/features/snackbar/snackbarSlice';
 import { useAppDispatch } from '@/redux/hooks';
-import { changePasswordStyles as styles } from '@/styles/app/settings/security/change-password';
-import { globalStyle } from '@/styles/common/globals';
+import { createChangePasswordStyles as makeStyles } from '@/styles/app/settings/security/change-password';
+import { createGlobalStyle as makeGlobalStyle } from '@/styles/common/globals';
 import { PasswordUpdateInputs } from '@/types';
 import { validateField } from '@/utils/validators';
 import { router, useFocusEffect } from 'expo-router';
@@ -20,6 +21,9 @@ import { useCallback, useState } from 'react';
 import { KeyboardAvoidingView, Platform, ScrollView, View } from 'react-native';
 
 export default function ChangePassword() {
+  const styles = useThemedStyles(makeStyles);
+  const globalStyle = useThemedStyles(makeGlobalStyle);
+
   const dispatch = useAppDispatch();
   const [updatePassword, { isLoading }] = useUpdatePasswordMutation();
   const [errors, setErrors] = useState<Partial<Record<keyof PasswordUpdateInputs, string | undefined>>>({});

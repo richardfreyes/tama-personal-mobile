@@ -2,14 +2,14 @@ import { StyleSheet } from "react-native";
 
 export const snackBarStyles = StyleSheet.create({
   snackbar: {
-    borderWidth: 1,
-    borderRadius: 5,
+    borderWidth: 0,
+    borderRadius: 8,
     alignSelf: 'center',
     minWidth: '100%',
   },
   content: {
-    paddingRight: 24,
+    paddingRight: 0,
     flexDirection: 'row',
     alignItems: 'center',
-  },
+   gap: 10,},
 });

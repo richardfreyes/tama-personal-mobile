@@ -43,6 +43,10 @@ export const FLOATING_NAV_TABS = [
 
 export const FLOATING_NAV_HIDDEN_ROUTES: readonly string[] = [
   'bills/one-time-payments/pay/[billingReferenceId]',
+  'bills/one-time-payments/pay/confirm-payment',
+  'bills/one-time-payments/pay/payment-success',
+  'bills/enrollments/confirm-payment',
+  'bills/enrollments/payment-success',
 ];
 
 export const SETTINGS = [

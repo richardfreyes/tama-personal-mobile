@@ -1,4 +1,5 @@
-import { feeNoticeStyles as styles } from '@/styles/components/payments/FeeNotice';
+import { useThemedStyles } from '@/hooks/useAppTheme';
+import { createFeeNoticeStyles as makeStyles } from '@/styles/components/payments/FeeNotice';
 import type { FeeNoticeProps } from '@/types';
 import React from 'react';
 import { View } from 'react-native';
@@ -14,6 +15,8 @@ export default function FeeNotice({
   onReplaceCard,
   isReplacingCard,
 }: FeeNoticeProps) {
+  const styles = useThemedStyles(makeStyles);
+
   if (isCalculating) {
     return <InlineLoadingIndicator label="Calculating fees" style={styles.calculating} />;
   }

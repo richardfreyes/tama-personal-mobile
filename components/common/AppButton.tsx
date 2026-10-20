@@ -1,5 +1,6 @@
+import { useThemedStyles, useThemeColors } from '@/hooks/useAppTheme';
 import { BRAND_ACTION_GRADIENT_COLORS, BRAND_ACTION_GRADIENT_LOCATIONS, GRADIENT_HORIZONTAL_END, GRADIENT_HORIZONTAL_START, } from '@/constants/gradients';
-import { appButtonStyles as styles } from '@/styles/components/common/AppButton';
+import { createAppButtonStyles as makeStyles } from '@/styles/components/common/AppButton';
 import { AppButtonProps } from '@/types';
 import { LinearGradient } from 'expo-linear-gradient';
 import { router } from 'expo-router';
@@ -21,6 +22,9 @@ export const AppButton: React.FC<AppButtonProps> = ({
   isCountdownActive = false,
   ...rest 
 }) => {
+  const styles = useThemedStyles(makeStyles);
+  const Colors = useThemeColors();
+
   const initialIsDisabled = disabled || isLoading;
   const [secondsLeft, setSecondsLeft] = useState(0);
 
@@ -97,7 +101,7 @@ export const AppButton: React.FC<AppButtonProps> = ({
     }
   };
 
-  const activityIndicatorColor = variant === 'primary' || showGradient ? 'white' : 'black';
+  const activityIndicatorColor = variant === 'primary' || variant === 'danger' || showGradient ? Colors.white : Colors.primaryText;
 
   return (
     <TouchableOpacity 

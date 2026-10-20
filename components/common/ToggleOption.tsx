@@ -1,4 +1,5 @@
-import { toggleOptionStyles } from '@/styles/components/common/ToggleOption';
+import { useThemedStyles } from '@/hooks/useAppTheme';
+import { createToggleOptionStyles as makeToggleOptionStyles } from '@/styles/components/common/ToggleOption';
 import { ButtonVariant, ToggleOptionProps } from '@/types';
 import React, { useState } from 'react';
 import { LayoutAnimation, TouchableOpacity, View } from 'react-native';
@@ -6,6 +7,8 @@ import { AppButton } from './AppButton';
 import { AppText } from './AppText';
 
 const ToggleOptionComponent: React.FC<ToggleOptionProps> = ({ options = ['Option A', 'Option B'], initialSelected, onOptionChange, buttonConfig }) => {
+  const toggleOptionStyles = useThemedStyles(makeToggleOptionStyles);
+
   const defaultSelection = initialSelected || options[0];
   const [selected, setSelected] = useState(defaultSelection);
   const useAppButton = buttonConfig?.isButton;

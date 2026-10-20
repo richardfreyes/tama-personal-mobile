@@ -1,17 +1,20 @@
+import { useThemedStyles, useThemeColors } from '@/hooks/useAppTheme';
 import { GlobalScrollView } from "@/components/common/GlobalScrollView";
 import NavHeaderComponent from "@/components/layout/NavHeaderComponent";
 import { SlideUpScreenModal } from "@/components/layout/SlideUpScreenModal";
 import FilterAutopay from "@/components/payments/FilterAutopay";
 import TransactionHistoryComponent from "@/components/transactions/TransactionHistoryComponent";
 import { COMMON } from "@/constants/common";
-import { Colors } from "@/styles/common/colors";
-import { globalStyle } from "@/styles/common/globals";
+import { createGlobalStyle as makeGlobalStyle } from "@/styles/common/globals";
 import { AppliedFilters, SlideUpScreenModalRef, TransactionHistoryRef } from "@/types";
 import { useFocusEffect } from "expo-router";
 import { useCallback, useRef, useState } from "react";
 import { RefreshControl, View } from "react-native";
 
 export default function Transactions() {
+  const globalStyle = useThemedStyles(makeGlobalStyle);
+  const Colors = useThemeColors();
+
   const [activeFilters, setActiveFilters] = useState<AppliedFilters>(COMMON.EMPTY_FILTERS);
   const [refreshing, setRefreshing] = useState(false);
   const bottomSheetRef = useRef<SlideUpScreenModalRef>(null);

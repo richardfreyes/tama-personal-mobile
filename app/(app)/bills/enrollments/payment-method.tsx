@@ -1,3 +1,4 @@
+import { useThemedStyles } from '@/hooks/useAppTheme';
 import EmptyStateCard from '@/components/common/EmptyStateCard';
 import { GlobalScrollView } from '@/components/common/GlobalScrollView';
 import { SpacerComponent } from '@/components/common/SpacerComponent';
@@ -6,12 +7,14 @@ import PaymentMethodCardComponent from '@/components/payments/PaymentMethodCardC
 import { COMMON } from '@/constants/common';
 import { selectEnrollmentReview } from '@/redux/features/enrollments/review/reviewSlice';
 import { useAppSelector } from '@/redux/hooks';
-import { globalStyle } from '@/styles/common/globals';
+import { createGlobalStyle as makeGlobalStyle } from '@/styles/common/globals';
 import { router } from 'expo-router';
 import React, { useCallback } from 'react';
 import { ScrollView, View } from 'react-native';
 
 const PaymentMethod = () => {
+  const globalStyle = useThemedStyles(makeGlobalStyle);
+
   const { transactionResponse } = useAppSelector(selectEnrollmentReview);
   const merchantId = transactionResponse?.merchantId || '';
   const merchantName = transactionResponse?.merchantName || '';

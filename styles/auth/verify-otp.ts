@@ -1,12 +1,13 @@
-import { StyleSheet } from "react-native";
+import { Colors as LightColors } from '@/styles/common/colors';
+import type { ThemeColors } from '@/types/theme';
+import { StyleSheet } from 'react-native';
 
-export const verifyStyles = StyleSheet.create({
+export const createVerifyStyles = (Colors: ThemeColors) => StyleSheet.create({
   container: {
-    justifyContent: 'space-between',
     flexGrow: 1,
-    paddingVertical: 20,
-  },
-  headerTitle: {
-    fontSize: 24,
+    justifyContent: 'space-between',
+    paddingVertical: 16,
   },
 });
+
+export const verifyStyles = createVerifyStyles(LightColors);

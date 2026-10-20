@@ -152,16 +152,16 @@ describe('NavHeaderComponent', () => {
   });
 
   describe('outlined variant', () => {
-    it('shows a bordered 44pt back button and a 17pt semibold title', () => {
+    it('shows a filled 40pt back button and a 17pt semibold title', () => {
       renderNavHeader(<NavHeaderComponent title="One Time Payments" variant="outlined" />);
 
       expect(StyleSheet.flatten(screen.getByLabelText('Go back').props.style)).toEqual(
         expect.objectContaining({
           borderColor: Colors.dashboardCardBorder,
-          borderRadius: 14,
-          borderWidth: 1,
-          height: 44,
-          width: 44,
+          borderRadius: 8,
+          borderWidth: 0,
+          height: 40,
+          width: 40,
         }),
       );
       expect(StyleSheet.flatten(screen.getByText('One Time Payments').props.style)).toEqual(
@@ -201,7 +201,7 @@ describe('NavHeaderComponent', () => {
 
       const remove = screen.getByRole('button', { name: 'Remove saved biller' });
       expect(StyleSheet.flatten(remove.props.style)).toEqual(
-        expect.objectContaining({ borderWidth: 1, height: 44, width: 44 }),
+        expect.objectContaining({ borderWidth: 0, height: 40, width: 40 }),
       );
       fireEvent.press(remove);
       expect(onPress).toHaveBeenCalledTimes(1);

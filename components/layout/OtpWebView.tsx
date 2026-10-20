@@ -1,10 +1,10 @@
+import { useThemedStyles, useThemeColors } from '@/hooks/useAppTheme';
 import { NativeLoadingIndicator } from '@/components/common/Loading';
 import { VALIDATORS } from '@/constants';
 import { COMMON } from '@/constants/common';
 import { ENV_CONFIG } from '@/constants/env';
 import { OTP_WEB_VIEW_LOG_TAG } from '@/constants/logging';
-import { Colors } from '@/styles/common/colors';
-import { otpWebViewStyles as styles } from '@/styles/components/layout/OtpWebView';
+import { createOtpWebViewStyles as makeStyles } from '@/styles/components/layout/OtpWebView';
 import { OtpWebViewProps } from '@/types';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Modal, Text, TouchableOpacity, View } from 'react-native';
@@ -38,6 +38,9 @@ export const OtpWebView = ({
   failureUrlPatterns,
   successMode = 'navigation',
 }: OtpWebViewProps) => {
+  const styles = useThemedStyles(makeStyles);
+  const Colors = useThemeColors();
+
   const insets = useSafeAreaInsets();
   const webViewRef = useRef<WebView<object>>(null);
   const hasCompletedRef = useRef(false);

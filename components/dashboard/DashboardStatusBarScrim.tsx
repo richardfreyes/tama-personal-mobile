@@ -1,11 +1,14 @@
-import { Colors } from '@/styles/common/colors';
-import { dashboardStatusBarScrimStyles as styles } from '@/styles/components/dashboard/DashboardStatusBarScrim';
+import { useThemedStyles, useThemeColors } from '@/hooks/useAppTheme';
+import { createDashboardStatusBarScrimStyles as makeStyles } from '@/styles/components/dashboard/DashboardStatusBarScrim';
 import { LinearGradient } from 'expo-linear-gradient';
 import React from 'react';
 import { View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 export default function DashboardStatusBarScrim() {
+  const styles = useThemedStyles(makeStyles);
+  const Colors = useThemeColors();
+
   const { top } = useSafeAreaInsets();
   if (top <= 0) return null;
 

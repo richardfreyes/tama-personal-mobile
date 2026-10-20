@@ -1,8 +1,9 @@
 import { StyleSheet } from "react-native";
-import { Colors } from "../../common/colors";
+import { Colors as LightColors } from '@/styles/common/colors';
+import type { ThemeColors } from '@/types/theme';
 import { FontSizes } from "../../common/typography";
 
-export const paymentMethodCardComponentStyles = StyleSheet.create({
+export const createPaymentMethodCardComponentStyles = (Colors: ThemeColors) => StyleSheet.create({
   cardContainer: {
     backgroundColor: Colors.neutral01,
     borderRadius: 8,
@@ -28,3 +29,5 @@ export const paymentMethodCardComponentStyles = StyleSheet.create({
     fontSize: FontSizes.small,
   },
 });
+
+export const paymentMethodCardComponentStyles = createPaymentMethodCardComponentStyles(LightColors);

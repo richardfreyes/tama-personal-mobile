@@ -1,8 +1,9 @@
 import { StyleSheet } from "react-native";
-import { Colors } from "../../common/colors";
+import { Colors as LightColors } from '@/styles/common/colors';
+import type { ThemeColors } from '@/types/theme';
 import { FontSizes } from "../../common/typography";
 
-export const toggleOptionStyles = StyleSheet.create({
+export const createToggleOptionStyles = (Colors: ThemeColors) => StyleSheet.create({
   container: {
     display: 'flex',
     flexDirection: 'row',
@@ -24,9 +25,10 @@ export const toggleOptionStyles = StyleSheet.create({
     fontSize: FontSizes.base
   },
   selectedText: {
-    color: Colors.red10,
+    color: Colors.primaryText,
   },
   unselectedText: {
     color: Colors.neutral08
   },
 });
+export const toggleOptionStyles = createToggleOptionStyles(LightColors);

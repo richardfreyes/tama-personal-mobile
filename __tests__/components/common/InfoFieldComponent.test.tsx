@@ -135,7 +135,7 @@ describe('InfoFieldComponent', () => {
 
       const placeholder = screen.getByText('Not provided');
       expect(StyleSheet.flatten(placeholder.props.style)).toEqual(expect.objectContaining({
-        color: '#A49897',
+        color: '#9CA3AF',
         fontSize: 14,
       }));
       expect(screen.queryByText('---')).toBeNull();

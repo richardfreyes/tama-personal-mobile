@@ -1,7 +1,8 @@
 import { StyleSheet } from "react-native";
-import { Colors } from "../../common/colors";
+import { Colors as LightColors } from '@/styles/common/colors';
+import type { ThemeColors } from '@/types/theme';
 
-export const oneTimeMethodListStyles = StyleSheet.create({
+export const createOneTimeMethodListStyles = (Colors: ThemeColors) => StyleSheet.create({
 
   list: {
     paddingVertical: 0,
@@ -16,3 +17,5 @@ export const oneTimeMethodListStyles = StyleSheet.create({
     width: 44,
   },
 });
+
+export const oneTimeMethodListStyles = createOneTimeMethodListStyles(LightColors);

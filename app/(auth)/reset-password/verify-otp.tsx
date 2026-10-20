@@ -1,3 +1,4 @@
+import { useThemeColors, useThemedStyles } from '@/hooks/useAppTheme';
 import { AppButton } from '@/components/common/AppButton';
 import { AppText } from '@/components/common/AppText';
 import ResendCodeTimer from '@/components/common/ResendCodeTimer';
@@ -5,16 +6,18 @@ import { SpacerComponent } from '@/components/common/SpacerComponent';
 import OTPInput from '@/components/forms/OTPInput';
 import NavHeaderComponent from '@/components/layout/NavHeaderComponent';
 import { COMMON } from '@/constants/common';
-import { verifyStyles as styles } from '@/styles/auth/verify-otp';
-import { globalStyle } from '@/styles/common/globals';
-import { FontSizes } from '@/styles/common/typography';
+import { createVerifyStyles as makeStyles } from '@/styles/auth/verify-otp';
+import { createGlobalStyle as makeGlobalStyle } from '@/styles/common/globals';
+import { Feather } from '@expo/vector-icons';
 import { router } from 'expo-router';
 import React, { useMemo, useState } from 'react';
 import { Keyboard, ScrollView, View } from 'react-native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 const VerificationScreen = () => {
-  const insets = useSafeAreaInsets();
+  const globalStyle = useThemedStyles(makeGlobalStyle);
+  const styles = useThemedStyles(makeStyles);
+  const Colors = useThemeColors();
+
   const [otp, setOtp] = useState('');
   const [errors, setErrors] = useState<Record<'otp', string | undefined>>({otp: undefined});
   const isLoading = false;
@@ -66,9 +69,12 @@ const VerificationScreen = () => {
     <ScrollView contentContainerStyle={[globalStyle.screenContainer, styles.container ]}>
       <View>
         <NavHeaderComponent />
-        <AppText weight='700' style={[globalStyle.headerTitle, { marginBottom: 24 }]}>Enter Verification Code</AppText>
-        <AppText style={{fontSize: FontSizes.base}}>
-          We have sent a six-digit verification code to <AppText weight='700'>user@example.com</AppText>. Please enter the code below to reset your password and regain access to your account.
+        <View style={globalStyle.authHeroIcon}>
+          <Feather name="mail" size={22} color={Colors.primaryText} />
+        </View>
+        <AppText weight='600' style={globalStyle.authTitle}>Enter Verification Code</AppText>
+        <AppText style={globalStyle.authLead}>
+          We have sent a six-digit verification code to <AppText weight='600'>user@example.com</AppText>. Please enter the code below to reset your password and regain access to your account.
         </AppText>
         <OTPInput 
           length={6} 

@@ -1,3 +1,4 @@
+import { useThemedStyles, useThemeColors } from '@/hooks/useAppTheme';
 import { default as CheckCircleIcon } from '@/assets/icons/check-circle.svg';
 import InfoIcon from '@/assets/icons/circle-exclamation.svg';
 import LogoutIcon from '@/assets/icons/logout.svg';
@@ -6,8 +7,7 @@ import { ACCOUNT_DELETION_MAILTO_SUBJECT, SUPPORT_EMAIL, SUPPORT_MAILTO } from '
 import { useAuth } from '@/hooks/useAuth';
 import { hideModal, selectModal } from '@/redux/features/modal/modalSlice';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
-import { Colors } from '@/styles/common/colors';
-import { modalComponentStyles as styles } from '@/styles/components/layout/ModalComponent';
+import { createModalComponentStyles as makeStyles } from '@/styles/components/layout/ModalComponent';
 import { modalActions } from '@/utils/modalActions';
 import { Feather } from '@expo/vector-icons';
 import React from 'react';
@@ -32,6 +32,9 @@ const getTypeIcon = (iconType: string) => {
 };
 
 export default function ModalComponent() {
+  const styles = useThemedStyles(makeStyles);
+  const Colors = useThemeColors();
+
   const dispatch = useAppDispatch();
   const { email } = useAuth();
   const { isVisible, dismissible, iconType, variant, headerMessage, bodyMessage, bodyType, buttonConfig, id } = useAppSelector(selectModal);

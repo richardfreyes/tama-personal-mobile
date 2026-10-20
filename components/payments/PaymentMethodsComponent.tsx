@@ -1,9 +1,9 @@
+import { useThemedStyles, useThemeColors } from '@/hooks/useAppTheme';
 import { PAYMENT_METHOD_SKELETON_COUNT } from '@/constants';
 import { useGetPaymentMethodsQuery } from '@/redux/features/paymentMethods/paymentMethodApi';
 import { openPaymentMethod } from '@/services/routeNavigation';
-import { Colors } from '@/styles/common/colors';
-import { globalStyle } from '@/styles/common/globals';
-import { paymentMethodsComponentStyles as styles } from '@/styles/components/payments/PaymentMethodsComponent';
+import { createGlobalStyle as makeGlobalStyle } from '@/styles/common/globals';
+import { createPaymentMethodsComponentStyles as makeStyles } from '@/styles/components/payments/PaymentMethodsComponent';
 import { ComponentsProps, PaymentMethodRowProps } from '@/types';
 import { formatLastFourDigits, getCardIcon, getProviderDisplay, getSavedPaymentMethods } from '@/utils/card';
 import { router } from 'expo-router';
@@ -18,6 +18,8 @@ import { SectionHeaderComponent } from '../common/SectionHeaderComponent';
 import PaymentOptionRow from './PaymentOptionRow';
 
 const PaymentMethodRow = ({ method, route }: PaymentMethodRowProps) => {
+  const styles = useThemedStyles(makeStyles);
+
   const provider = getProviderDisplay(method.paymentMethodProvider);
   const lastFour = formatLastFourDigits(method.lastFourCardDigits);
   const CardLogo = getCardIcon(method.paymentMethodProvider).uri;
@@ -57,6 +59,10 @@ export default function PaymentMethodsComponent({
   selectedMethodId,
   onSelectMethod,
 }: ComponentsProps) {
+  const globalStyle = useThemedStyles(makeGlobalStyle);
+  const styles = useThemedStyles(makeStyles);
+  const Colors = useThemeColors();
+
   const { data, isLoading, isFetching, isError, refetch } = useGetPaymentMethodsQuery();
   const [isRefreshing, setIsRefreshing] = useState(false);
   const methods = getSavedPaymentMethods(data);

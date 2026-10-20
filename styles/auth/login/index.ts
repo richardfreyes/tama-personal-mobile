@@ -1,45 +1,86 @@
-import { Colors } from "@/styles/common/colors";
-import { StyleSheet } from "react-native";
+import { Colors as LightColors } from '@/styles/common/colors';
+import type { ThemeColors } from '@/types/theme';
+import { StyleSheet } from 'react-native';
 
-export const loginStyle = StyleSheet.create({
+export const createLoginStyle = (Colors: ThemeColors) => StyleSheet.create({
   screenContainer: {
     paddingBottom: 48,
+    paddingTop: 48,
   },
   logoContainer: {
     alignItems: 'center',
-    marginBottom: 24,
+    gap: 8,
+    marginBottom: 40,
   },
-  logo: {
-    marginBottom: 16
+  tagline: {
+    color: Colors.textSecondary,
+    fontSize: 15,
+    lineHeight: 20,
+    textAlign: 'center',
+  },
+  title: {
+    fontSize: 24,
+    lineHeight: 30,
+    marginBottom: 16,
   },
   checkbox: {
-    width: 20,
     height: 20,
+    width: 20,
   },
   rememberRow: {
+    alignItems: 'center',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center',
-    marginTop: 5,
     marginBottom: 24,
+    marginTop: 16,
   },
   rememberMe: {
-    flexDirection: 'row',
     alignItems: 'center',
+    flexDirection: 'row',
+    gap: 8,
+  },
+  rememberLabel: {
+    fontSize: 13,
+    lineHeight: 18,
   },
   forgotPasswordText: {
-    fontSize: 14,
-    fontWeight: '400',
-    color: Colors.red10,
-    textDecorationLine: 'underline',
+    color: Colors.primaryText,
+    fontFamily: 'PoppinsMedium',
+    fontSize: 13,
+    lineHeight: 18,
   },
   signupRow: {
+    alignItems: 'center',
     flexDirection: 'row',
     justifyContent: 'center',
   },
+  signupPrompt: {
+    color: Colors.textSecondary,
+    fontSize: 13,
+    lineHeight: 18,
+  },
+  signupLink: {
+    fontSize: 13,
+    lineHeight: 18,
+  },
+  welcomeName: {
+    fontSize: 22,
+    lineHeight: 28,
+    textAlign: 'center',
+  },
+  welcomeEmail: {
+    color: Colors.textSecondary,
+    fontSize: 15,
+    lineHeight: 20,
+    textAlign: 'center',
+  },
   faceIdIcon: {
     alignItems: 'center',
-    marginBottom: 24
+    marginBottom: 24,
+  },
+  switchAccount: {
+    color: Colors.primaryText,
+    fontFamily: 'PoppinsSemiBold',
   },
   versionFooter: {
     alignItems: 'center',
@@ -49,8 +90,11 @@ export const loginStyle = StyleSheet.create({
     right: 0,
   },
   versionText: {
-    color: Colors.neutral07,
+    color: Colors.textSecondary,
     fontSize: 10,
+    lineHeight: 14,
     textAlign: 'center',
   },
 });
+
+export const loginStyle = createLoginStyle(LightColors);

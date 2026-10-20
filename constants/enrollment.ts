@@ -1,4 +1,4 @@
-import { Colors } from '@/styles/common/colors';
+import { DASHBOARD_BILL_CARD_GRADIENT_COLORS, DASHBOARD_BILL_CARD_GRADIENT_LOCATIONS } from '@/constants/dashboard';
 import type { EnrollmentCallbackOutcome } from '@/types/enrollment';
 
 export const ERRORS = {
@@ -77,8 +77,8 @@ export const ENROLLMENT_CALLBACK_MESSAGES: Record<EnrollmentCallbackOutcome, str
 
 export const MAX_CALLBACK_MESSAGE_LENGTH = 240;
 
-export const ENROLLMENT_SUMMARY_GRADIENT_COLORS = [Colors.maroon10, Colors.brandGradientDeep, Colors.red09] as const;
-export const ENROLLMENT_SUMMARY_GRADIENT_LOCATIONS = [0, 0.5, 1] as const;
+export const ENROLLMENT_SUMMARY_GRADIENT_COLORS = DASHBOARD_BILL_CARD_GRADIENT_COLORS;
+export const ENROLLMENT_SUMMARY_GRADIENT_LOCATIONS = DASHBOARD_BILL_CARD_GRADIENT_LOCATIONS;
 export const ENROLLMENT_SUMMARY_GRADIENT_START = { x: 0, y: 0 } as const;
 export const ENROLLMENT_SUMMARY_GRADIENT_END = { x: 1, y: 1 } as const;
 
@@ -101,3 +101,11 @@ export const ENROLLMENT_IMPORTANT_NOTES = [
   'The cardholder must be authorized to use this card for the enrolled account.',
 ] as const;
 export const ENROLLMENT_EMPTY_DISPLAY_VALUES = new Set(['n/a', 'na', 'none', 'null', 'undefined', 'nan']);
+export const ENROLLMENT_CAROUSEL_GAP = 8;
+export const ENROLLMENT_SUMMARY_PANEL_GRADIENT_COLORS = ['#C21212', '#D41414', '#DC3A18'] as const;
+export const ENROLLMENT_SUMMARY_PANEL_GRADIENT_LOCATIONS = [0, 0.45, 1] as const;
+export const ENROLLMENT_SUMMARY_PANEL_GRADIENT_START = { x: 0, y: 0.15 } as const;
+export const ENROLLMENT_SUMMARY_PANEL_GRADIENT_END = { x: 1, y: 0.85 } as const;
+export const ENROLLMENT_SUMMARY_PANEL_GLOW_COLORS = ['rgba(255,173,56,0.38)', 'rgba(255,173,56,0)'] as const;
+export const ENROLLMENT_SUMMARY_PANEL_GLOW_START = { x: 1, y: 0 } as const;
+export const ENROLLMENT_SUMMARY_PANEL_GLOW_END = { x: 0.45, y: 0.6 } as const;

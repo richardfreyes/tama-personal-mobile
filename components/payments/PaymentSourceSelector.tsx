@@ -1,10 +1,13 @@
-import { paymentSourceSelectorStyles as styles } from '@/styles/components/payments/PaymentSourceSelector';
+import { useThemedStyles } from '@/hooks/useAppTheme';
+import { createPaymentSourceSelectorStyles as makeStyles } from '@/styles/components/payments/PaymentSourceSelector';
 import { PaymentSourceSelectorProps } from '@/types';
 import React from 'react';
 import { Pressable, View } from 'react-native';
 import { AppText } from '../common/AppText';
 
 const PaymentSourceSelector: React.FC<PaymentSourceSelectorProps> = ({ options, selectedValue, onSelect }) => {
+  const styles = useThemedStyles(makeStyles);
+
   const selectedOption = options.find((option) => option.value === selectedValue);
 
   return (

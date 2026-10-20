@@ -1,7 +1,8 @@
 import { StyleSheet } from 'react-native';
-import { Colors } from '../../common/colors';
+import { Colors as LightColors } from '@/styles/common/colors';
+import type { ThemeColors } from '@/types/theme';
 
-export const dueSummaryStripStyles = StyleSheet.create({
+export const createDueSummaryStripStyles = (Colors: ThemeColors) => StyleSheet.create({
   strip: {
     alignItems: 'center',
     borderRadius: 16,
@@ -29,7 +30,7 @@ export const dueSummaryStripStyles = StyleSheet.create({
     lineHeight: 17,
   },
   total: {
-    color: Colors.maroon11,
+    color: Colors.text,
     fontSize: 18,
     fontVariant: ['tabular-nums'],
     lineHeight: 26,
@@ -45,3 +46,5 @@ export const dueSummaryStripStyles = StyleSheet.create({
     textAlign: 'right',
   },
 });
+
+export const dueSummaryStripStyles = createDueSummaryStripStyles(LightColors);

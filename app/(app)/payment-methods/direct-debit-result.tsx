@@ -1,15 +1,18 @@
+import { useThemedStyles } from '@/hooks/useAppTheme';
 import { AppButton } from '@/components/common/AppButton';
 import { AppText } from '@/components/common/AppText';
 import { SpacerComponent } from '@/components/common/SpacerComponent';
 import NavHeaderComponent from '@/components/layout/NavHeaderComponent';
 import { DIRECT_DEBIT_RESULT_COPY } from '@/constants/directDebit';
-import { globalStyle } from '@/styles/common/globals';
+import { createGlobalStyle as makeGlobalStyle } from '@/styles/common/globals';
 import { DirectDebitOutcome } from '@/types/common';
 import { router, useLocalSearchParams } from 'expo-router';
 import React from 'react';
 import { ScrollView, View } from 'react-native';
 
 const DirectDebitResult = () => {
+  const globalStyle = useThemedStyles(makeGlobalStyle);
+
   const { outcome, returnTo, billingReferenceId, returnAmount } = useLocalSearchParams<{
     outcome?: string;
     returnTo?: string;

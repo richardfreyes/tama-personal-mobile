@@ -1,3 +1,4 @@
+import { useThemedStyles, useThemeColors } from '@/hooks/useAppTheme';
 import { AppButton } from '@/components/common/AppButton';
 import { AppText } from '@/components/common/AppText';
 import EmptyStateCard from '@/components/common/EmptyStateCard';
@@ -12,9 +13,8 @@ import { useAddBillMutation } from '@/redux/features/bills/billsApi';
 import { AddBillRequest } from '@/redux/features/bills/billsTypes';
 import { showSnackbar } from '@/redux/features/snackbar/snackbarSlice';
 import { useAppDispatch } from '@/redux/hooks';
-import { formStyles as styles } from '@/styles/app/bills/one-time-payments/add/form';
-import { Colors } from '@/styles/common/colors';
-import { globalStyle } from '@/styles/common/globals';
+import { createFormStyles as makeStyles } from '@/styles/app/bills/one-time-payments/add/form';
+import { createGlobalStyle as makeGlobalStyle } from '@/styles/common/globals';
 import { resolveBillerEnrollmentMetadata } from '@/utils/billerEnrollment';
 import { resolveVisibilityState } from '@/utils/fieldVisibility';
 import { normalizeLookupOptions } from '@/utils/normalizeLookupOptions';
@@ -25,6 +25,10 @@ import { KeyboardAvoidingView, Platform, View } from 'react-native';
 import { Checkbox } from 'react-native-paper';
 
 export default function AddBillerFormScreen() {
+  const styles = useThemedStyles(makeStyles);
+  const globalStyle = useThemedStyles(makeGlobalStyle);
+  const Colors = useThemeColors();
+
   const dispatch = useAppDispatch();
   const params = useLocalSearchParams();
   const merchantId = params.merchantId ? parseInt(params.merchantId as string) : undefined;

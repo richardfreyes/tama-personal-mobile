@@ -1,7 +1,8 @@
 import { StyleSheet } from 'react-native';
-import { Colors } from '../../common/colors';
+import { Colors as LightColors } from '@/styles/common/colors';
+import type { ThemeColors } from '@/types/theme';
 
-export const feeNoticeStyles = StyleSheet.create({
+export const createFeeNoticeStyles = (Colors: ThemeColors) => StyleSheet.create({
   calculating: {
     alignSelf: 'flex-start',
   },
@@ -23,8 +24,10 @@ export const feeNoticeStyles = StyleSheet.create({
     lineHeight: 17,
   },
   feeAmount: {
-    color: Colors.maroon11,
+    color: Colors.text,
     fontSize: 12,
     lineHeight: 17,
   },
 });
+
+export const feeNoticeStyles = createFeeNoticeStyles(LightColors);

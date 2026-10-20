@@ -1,7 +1,7 @@
+import { useThemedStyles, useThemeColors } from '@/hooks/useAppTheme';
 import { AppText } from '@/components/common/AppText';
 import { DASHBOARD_BILL_CARD_GRADIENT_COLORS, DASHBOARD_BILL_CARD_GRADIENT_LOCATIONS, DASHBOARD_BILL_CAROUSEL_GAP, GRADIENT_HORIZONTAL_END, GRADIENT_HORIZONTAL_START, } from '@/constants';
-import { Colors } from '@/styles/common/colors';
-import { upcomingBillCardStyles as styles } from '@/styles/components/enrollments/UpcomingBillCard';
+import { createUpcomingBillCardStyles as makeStyles } from '@/styles/components/enrollments/UpcomingBillCard';
 import type { UpcomingBillCardProps } from '@/types/common';
 import { getAmountParts } from '@/utils/format';
 import { Feather } from '@expo/vector-icons';
@@ -10,6 +10,9 @@ import React, { memo, useRef } from 'react';
 import { Animated, Easing, Pressable, View } from 'react-native';
 
 const UpcomingBillCard = ({ bill, index, onEnroll, onPress, pageWidth }: UpcomingBillCardProps) => {
+  const styles = useThemedStyles(makeStyles);
+  const Colors = useThemeColors();
+
   const pressScale = useRef(new Animated.Value(1)).current;
   const accessibilityTitle = bill.merchantName || bill.title;
   const amountParts = getAmountParts(bill.amount);
@@ -45,7 +48,7 @@ const UpcomingBillCard = ({ bill, index, onEnroll, onPress, pageWidth }: Upcomin
             >
               <View style={styles.labelColumn}>
                 <AppText weight="400" style={styles.overline}>Next bill due</AppText>
-                <AppText numberOfLines={1} weight="500" style={styles.merchantName}>
+                <AppText ellipsizeMode="tail" numberOfLines={1} weight="500" style={styles.merchantName}>
                   {accessibilityTitle}
                 </AppText>
               </View>
@@ -71,7 +74,9 @@ const UpcomingBillCard = ({ bill, index, onEnroll, onPress, pageWidth }: Upcomin
               <View style={styles.dueRow}>
                 <View style={styles.dueDate}>
                   <Feather name="calendar" size={14} color={Colors.maroon10} />
-                  <AppText weight="500" style={styles.dueDateText}>{`Due ${bill.dueDateLabel}`}</AppText>
+                  <AppText ellipsizeMode="tail" numberOfLines={1} weight="500" style={styles.dueDateText}>
+                    {`Due ${bill.dueDateLabel}`}
+                  </AppText>
                 </View>
                 <View style={styles.daysBadge}>
                   <AppText weight="500" style={styles.daysBadgeText}>{bill.daysRemainingLabel}</AppText>

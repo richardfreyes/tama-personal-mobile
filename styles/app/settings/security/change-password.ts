@@ -1,8 +1,9 @@
-import { Colors } from "@/styles/common/colors";
+import { Colors as LightColors } from '@/styles/common/colors';
+import type { ThemeColors } from '@/types/theme';
 import { FontSizes } from "@/styles/common/typography";
 import { StyleSheet } from "react-native";
 
-export const changePasswordStyles = StyleSheet.create({
+export const createChangePasswordStyles = (Colors: ThemeColors) => StyleSheet.create({
   wrapper: {
     backgroundColor: Colors.neutral01,
     paddingHorizontal: 12,
@@ -22,3 +23,4 @@ export const changePasswordStyles = StyleSheet.create({
     position: 'relative',
   },
 });
+export const changePasswordStyles = createChangePasswordStyles(LightColors);

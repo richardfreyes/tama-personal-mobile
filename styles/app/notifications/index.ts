@@ -1,7 +1,8 @@
-import { Colors } from '@/styles/common/colors';
+import { Colors as LightColors } from '@/styles/common/colors';
+import type { ThemeColors } from '@/types/theme';
 import { StyleSheet } from 'react-native';
 
-export const notificationStyles = StyleSheet.create({
+export const createNotificationStyles = (Colors: ThemeColors) => StyleSheet.create({
   container: {
     flex: 1,
     marginTop: 'auto',
@@ -18,7 +19,7 @@ export const notificationStyles = StyleSheet.create({
     marginBottom: 'auto',
   },
   sectionHeader: {
-    color: Colors.red10,
+    color: Colors.primaryText,
     marginTop: 24,
     marginBottom: 24,
     paddingHorizontal: 20,
@@ -55,3 +56,4 @@ export const notificationStyles = StyleSheet.create({
     marginTop: 5,
   },
 });
+export const notificationStyles = createNotificationStyles(LightColors);

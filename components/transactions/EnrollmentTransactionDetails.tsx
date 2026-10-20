@@ -1,15 +1,18 @@
+import { useThemedStyles } from '@/hooks/useAppTheme';
 import InfoFieldComponent from '@/components/common/InfoFieldComponent';
 import { AppText } from '@/components/common/AppText';
 import { GlobalScrollView } from '@/components/common/GlobalScrollView';
 import { SpacerComponent } from '@/components/common/SpacerComponent';
 import NavHeaderComponent from '@/components/layout/NavHeaderComponent';
-import { globalStyle } from '@/styles/common/globals';
+import { createGlobalStyle as makeGlobalStyle } from '@/styles/common/globals';
 import type { EnrollmentTransactionDetailsProps } from '@/types';
 import { formatMoney } from '@/utils/format';
 import React from 'react';
 import { View } from 'react-native';
 
 const EnrollmentTransactionDetails = ({ transaction }: EnrollmentTransactionDetailsProps) => {
+  const globalStyle = useThemedStyles(makeGlobalStyle);
+
   const transactionDateFormatted = new Date(transaction.createdAt).toLocaleDateString();
   const enrollmentName = transaction.enrollmentName || transaction.billingName || transaction.description;
   const referenceId = transaction.paymentReferenceId || transaction.invoiceReferenceId || transaction.enrollmentReferenceId;

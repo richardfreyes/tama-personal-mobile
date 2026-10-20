@@ -1,6 +1,6 @@
+import { useThemedStyles, useThemeColors } from '@/hooks/useAppTheme';
 import { BRAND_SOFT_GRADIENT_COLORS, GRADIENT_DIAGONAL_END, GRADIENT_DIAGONAL_START } from '@/constants/gradients';
-import { Colors } from '@/styles/common/colors';
-import { emptyStateCardStyles as styles } from '@/styles/components/common/EmptyStateCard';
+import { createEmptyStateCardStyles as makeStyles } from '@/styles/components/common/EmptyStateCard';
 import { EmptyStateCardProps } from '@/types';
 import { Feather } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -21,6 +21,9 @@ const EmptyStateCard: React.FC<EmptyStateCardProps> = ({
   actionLabel,
   onAction,
 }) => {
+  const styles = useThemedStyles(makeStyles);
+  const Colors = useThemeColors();
+
   if (variant === 'error' && onRetry) {
     return (
       <View accessibilityRole="alert" style={[styles.errorCard, containerStyle]}>

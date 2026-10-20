@@ -1,17 +1,17 @@
 import { BRAND_ACTION_GRADIENT_COLORS, BRAND_ACTION_GRADIENT_LOCATIONS, GRADIENT_HORIZONTAL_END, GRADIENT_HORIZONTAL_START, SAVED_BILL_CARD_SNAP_INTERVAL, SAVED_BILL_SKELETON_COUNT, } from '@/constants';
 import { useAllSavedBills } from '@/hooks/useAllSavedBills';
+import { useThemeColors, useThemedStyles } from '@/hooks/useAppTheme';
 import { useGetBillersQuery } from '@/redux/features/biller/billerApi';
 import { useGetBillsQuery } from '@/redux/features/bills/billsApi';
 import { openAddBiller, openSavedBill } from '@/services/routeNavigation';
-import { Colors } from '@/styles/common/colors';
-import { globalStyle } from '@/styles/common/globals';
-import { billsComponentStyles as styles } from '@/styles/components/one-time-payments/BillsComponent';
+import { createGlobalStyle as makeGlobalStyle } from '@/styles/common/globals';
+import { createBillsComponentStyles as makeStyles } from '@/styles/components/one-time-payments/BillsComponent';
 import type { BillsComponentProps } from '@/types';
 import { getBillerDueSummary, getBillerLogoMap, getSavedBillIdentity, getSavedBillsForDisplay, getUniqueSavedBills, shouldUseMockSavedBills, sortSavedBillsByUrgency, } from '@/utils/savedBills';
 import { Feather } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
 import { router } from 'expo-router';
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 import { Pressable, ScrollView, View } from 'react-native';
 import { AppText } from '../common/AppText';
 import EmptyStateCard from '../common/EmptyStateCard';
@@ -20,7 +20,10 @@ import { SectionHeaderComponent } from '../common/SectionHeaderComponent';
 import DueSummaryStrip from './DueSummaryStrip';
 import SavedBillCard from './SavedBillCard';
 
-const BillerSkeleton = () => (
+const BillerSkeleton = () => {
+  const globalStyle = useThemedStyles(makeGlobalStyle);
+  const styles = useThemedStyles(makeStyles);
+  return (
   <View accessibilityLabel="Loading saved bill" style={styles.skeletonCard}>
     <SkeletonBlock borderRadius={20} height={40} style={globalStyle.skeletonOnCard} width={40} />
     <View style={styles.skeletonDetails}>
@@ -30,6 +33,7 @@ const BillerSkeleton = () => (
     <SkeletonBlock height={14} style={[globalStyle.skeletonOnCard, styles.skeletonAmount]} width={84} />
   </View>
 );
+};
 
 export default function BillsComponent({
   sectionHeader,
@@ -39,6 +43,10 @@ export default function BillsComponent({
   onPayNowPress,
   variant = 'panel',
 }: BillsComponentProps) {
+  const globalStyle = useThemedStyles(makeGlobalStyle);
+  const styles = useThemedStyles(makeStyles);
+  const Colors = useThemeColors();
+
   const isPlain = variant === 'plain';
   const billsQuery = useGetBillsQuery({ page: 0 }, { skip: isPlain });
   const allSavedBills = useAllSavedBills({ skip: !isPlain });

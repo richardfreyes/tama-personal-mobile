@@ -1,8 +1,9 @@
-import { Colors } from "@/styles/common/colors";
+import { Colors as LightColors } from '@/styles/common/colors';
+import type { ThemeColors } from '@/types/theme';
 import { FontSizes } from "@/styles/common/typography";
 import { StyleSheet } from "react-native";
 
-export const searchMerchantsStyles = StyleSheet.create({
+export const createSearchMerchantsStyles = (Colors: ThemeColors) => StyleSheet.create({
   scrollViewContent: {
   },
   header: {
@@ -24,7 +25,7 @@ export const searchMerchantsStyles = StyleSheet.create({
     alignItems: 'center',
   },
   addButtonText: {
-    color: Colors.neutral01,
+    color: Colors.white,
     fontSize: 16,
     fontWeight: 'bold',
   },
@@ -77,9 +78,9 @@ export const searchMerchantsStyles = StyleSheet.create({
     backgroundColor: Colors.neutral01,
   },
   scrollContainerContent: {
-    paddingHorizontal: 20, 
+    paddingHorizontal: 16, 
     paddingTop: 10,
-    backgroundColor: Colors.neutral01,
+    backgroundColor: Colors.background,
   },
   inputDefault: {
   },
@@ -90,7 +91,7 @@ export const searchMerchantsStyles = StyleSheet.create({
     flexDirection: 'row',
     marginBottom: 4,
     marginTop: 8,
-    paddingHorizontal: 20,
+    paddingHorizontal: 16,
   },
   pill: {
     flexDirection: 'row',
@@ -110,7 +111,7 @@ export const searchMerchantsStyles = StyleSheet.create({
   },
   billerRowTouchable: {
     borderBottomWidth: 1,
-    borderBottomColor: '#f0f0f0',
+    borderBottomColor: Colors.dashboardCardBorder,
   },
   billerRow: {
     flexDirection: 'row',
@@ -123,15 +124,15 @@ export const searchMerchantsStyles = StyleSheet.create({
     marginRight: 15,
     borderRadius: 5,
     borderWidth: 1,
-    borderColor: '#eee',
+    borderColor: Colors.dashboardCardBorder,
   },
   billerNameRow: {
     fontSize: 16,
     fontWeight: '500',
-    color: '#333',
+    color: Colors.neutral09,
   },
   directory: {
-    backgroundColor: Colors.neutral01,
+    backgroundColor: Colors.background,
     flex: 1,
   },
   directoryContent: {
@@ -141,16 +142,38 @@ export const searchMerchantsStyles = StyleSheet.create({
     display: 'none',
   },
   searchWrapper: {
-    backgroundColor: Colors.neutral01,
-    paddingBottom: 12,
-    paddingLeft: 20,
-    paddingRight: 44,
+    backgroundColor: Colors.backgroundSecondary,
+    borderTopLeftRadius: 12,
+    borderTopRightRadius: 12,
+    marginLeft: 16,
+    marginRight: 28,
+    paddingBottom: 10,
+    paddingHorizontal: 12,
     paddingTop: 12,
   },
+  directorySearch: {
+    backgroundColor: Colors.neutral01,
+    borderColor: Colors.dashboardCardBorder,
+    borderRadius: 8,
+    borderWidth: 1,
+  },
   directoryList: {
+    backgroundColor: Colors.backgroundSecondary,
+    borderBottomLeftRadius: 12,
+    borderBottomRightRadius: 12,
+    marginLeft: 16,
+    marginRight: 28,
     paddingBottom: 132,
-    paddingLeft: 20,
-    paddingRight: 44,
+    paddingHorizontal: 12,
+    paddingTop: 0,
+  },
+  listCard: {
+    backgroundColor: Colors.neutral01,
+    borderColor: Colors.dashboardCardBorder,
+    borderRadius: 8,
+    borderWidth: 1,
+    overflow: 'hidden',
+    paddingHorizontal: 12,
   },
   matchCount: {
     color: Colors.maroon09,
@@ -159,15 +182,17 @@ export const searchMerchantsStyles = StyleSheet.create({
     paddingVertical: 4,
   },
   letterHeading: {
-    color: Colors.red09,
-    fontSize: 13,
-    lineHeight: 18,
+    color: Colors.primaryText,
+    fontSize: 15,
+    lineHeight: 20,
     paddingBottom: 4,
-    paddingTop: 12,
+    paddingTop: 14,
   },
   rail: {
     position: 'absolute',
-    right: 4,
+    right: 6,
     zIndex: 3,
   },
 });
+
+export const searchMerchantsStyles = createSearchMerchantsStyles(LightColors);

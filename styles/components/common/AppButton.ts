@@ -1,50 +1,51 @@
 import { StyleSheet } from "react-native";
-import { Colors } from "../../common/colors";
+import { Colors as LightColors } from '@/styles/common/colors';
+import type { ThemeColors } from '@/types/theme';
 import { FontSizes } from "../../common/typography";
 
-export const appButtonStyles = StyleSheet.create({
+export const createAppButtonStyles = (Colors: ThemeColors) => StyleSheet.create({
   base: {
     paddingVertical: 8,
-    borderRadius: 20,
+    borderRadius: 8,
     alignItems: 'center',
     justifyContent: 'center',
-    minHeight: 40,
+    minHeight: 44,
     borderWidth: 1,
     borderColor: Colors.transparent,
-  },
+   paddingHorizontal: 16,},
   primary: {
     backgroundColor: Colors.red10
   },
   secondary: {
-    backgroundColor: Colors.red02,
+    backgroundColor: Colors.primaryTint,
   },
   tertiary: {
     backgroundColor: Colors.transparent,
-    borderColor: Colors.red10,
+    borderColor: Colors.borderStrong,
   },
   quaternary: {
     backgroundColor: Colors.transparent,
-    borderColor: Colors.maroon10,
+    borderColor: Colors.borderStrong,
   },
   danger: {
     backgroundColor: Colors.error06,
   },
   disabled: {
-    backgroundColor: Colors.neutral03,
-    color: Colors.neutral05,
+    backgroundColor: Colors.disabledBackground,
+    color: Colors.disabledText,
   },
 
   gradient: {
-    borderRadius: 14,
+    borderRadius: 8,
     borderWidth: 0,
-    minHeight: 52,
+    minHeight: 44,
     paddingVertical: 0,
   },
   gradientShadow: {
-    boxShadow: '0px 6px 16px -8px rgba(229, 87, 43, 0.6)',
+    boxShadow: 'none',
   },
   gradientFill: {
-    borderRadius: 14,
+    borderRadius: 8,
   },
   gradientDisabled: {
     backgroundColor: Colors.dashboardSkeleton,
@@ -67,28 +68,30 @@ export const appButtonStyles = StyleSheet.create({
     top: 0,
   },
   textBase: {
-    fontSize: FontSizes.base,
-  },
+    fontSize: 14,
+   lineHeight: 20,},
   textPrimary: {
-    color: Colors.neutral01,
+    color: Colors.white,
   },
   textSecondary: {
-    color: Colors.red10
+    color: Colors.primaryText
   },
   textTertiary: {
-    color: Colors.red10,
+    color: Colors.text,
   },
   textQuaternary: {
-    color: Colors.maroon10,
+    color: Colors.text,
   },
   textDanger: {
-    color: Colors.neutral01
+    color: Colors.white
   },
   textGradient: {
-    color: Colors.neutral01,
-    fontSize: FontSizes.medium,
+    color: Colors.white,
+    fontSize: 14,
   },
   textGradientDisabled: {
-    color: Colors.maroon07,
+    color: Colors.disabledText,
   },
 });
+
+export const appButtonStyles = createAppButtonStyles(LightColors);

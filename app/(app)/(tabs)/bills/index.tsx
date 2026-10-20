@@ -1,16 +1,19 @@
+import { useThemedStyles } from '@/hooks/useAppTheme';
 import OneTimePaymentCard from '@/components/bills/OneTimePaymentCard';
 import { GlobalScrollView } from '@/components/common/GlobalScrollView';
 import { SpacerComponent } from '@/components/common/SpacerComponent';
 import AutoDebitCard from '@/components/enrollments/AutoDebitCard';
 import NavHeaderComponent from '@/components/layout/NavHeaderComponent';
 import { useGetEnrollmentsQuery } from '@/redux/features/enrollments/enrollmentApi';
-import { globalStyle } from '@/styles/common/globals';
+import { createGlobalStyle as makeGlobalStyle } from '@/styles/common/globals';
 import { countActiveEnrollments } from '@/utils/enrollmentPresentation';
 import { router } from 'expo-router';
 import React, { useMemo } from 'react';
 import { KeyboardAvoidingView, Platform, View } from 'react-native';
 
 export default function Bills() {
+  const globalStyle = useThemedStyles(makeGlobalStyle);
+
   const { data: enrollmentsData, isLoading: isLoadingEnrollments } = useGetEnrollmentsQuery();
   const activeEnrollmentCount = useMemo(
     () => countActiveEnrollments(enrollmentsData?.items),

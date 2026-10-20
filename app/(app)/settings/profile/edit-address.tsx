@@ -1,3 +1,4 @@
+import { useThemedStyles } from '@/hooks/useAppTheme';
 import { AppButton } from '@/components/common/AppButton';
 import { AppText } from '@/components/common/AppText';
 import { SpacerComponent } from '@/components/common/SpacerComponent';
@@ -8,8 +9,8 @@ import { useAuth } from '@/hooks/useAuth';
 import { useGetProfileDataQuery, useUpdateAddressMutation } from '@/redux/features/profile/profileApi';
 import { showSnackbar } from '@/redux/features/snackbar/snackbarSlice';
 import { useAppDispatch } from '@/redux/hooks';
-import { editAddressStyles as styles } from '@/styles/app/settings/profile/edit-address';
-import { globalStyle } from '@/styles/common/globals';
+import { createEditAddressStyles as makeStyles } from '@/styles/app/settings/profile/edit-address';
+import { createGlobalStyle as makeGlobalStyle } from '@/styles/common/globals';
 import { AddressInputs } from '@/types';
 import { validateField } from '@/utils/validators';
 import { City, Country, ICity, ICountry, IState, State } from 'country-state-city';
@@ -18,6 +19,9 @@ import { useCallback, useEffect, useState } from 'react';
 import { KeyboardAvoidingView, Platform, ScrollView, View } from 'react-native';
 
 export default function EditAddress() {
+  const styles = useThemedStyles(makeStyles);
+  const globalStyle = useThemedStyles(makeGlobalStyle);
+
   const dispatch = useAppDispatch();
   const { data: profileData, refetch } = useGetProfileDataQuery();
   const [updateAddress, { isLoading }] = useUpdateAddressMutation();

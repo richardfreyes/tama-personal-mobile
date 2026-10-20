@@ -1,4 +1,4 @@
-import BrandLogo from '@/assets/logo-brand.svg';
+import { useThemedStyles } from '@/hooks/useAppTheme';
 import { AppButton } from '@/components/common/AppButton';
 import { AppText } from '@/components/common/AppText';
 import InputValidationComponent from '@/components/forms/InputValidationComponent';
@@ -10,14 +10,17 @@ import { useSignupMutation } from '@/redux/features/signup/signupApi';
 import { SignupRequest } from '@/redux/features/signup/signupTypes';
 import { showSnackbar } from '@/redux/features/snackbar/snackbarSlice';
 import { useAppDispatch } from '@/redux/hooks';
-import { signupStyles as styles } from '@/styles/auth/signup/signup';
-import { globalStyle } from '@/styles/common/globals';
+import { createSignupStyles as makeStyles } from '@/styles/auth/signup/signup';
+import { createGlobalStyle as makeGlobalStyle } from '@/styles/common/globals';
 import { validateField } from '@/utils/validators';
 import { router, useFocusEffect } from 'expo-router';
 import React, { useCallback, useState } from 'react';
 import { KeyboardAvoidingView, Platform, ScrollView, TouchableOpacity, View } from 'react-native';
 
 const SignupScreen = () => {
+  const styles = useThemedStyles(makeStyles);
+  const globalStyle = useThemedStyles(makeGlobalStyle);
+
   const [signup, { isLoading }] = useSignupMutation();
   const dispatch = useAppDispatch();
   const [formData, setFormData] = useState({
@@ -163,33 +166,49 @@ const SignupScreen = () => {
     <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === "ios" ? "padding" : "height"} >
       <ScrollView contentContainerStyle={globalStyle.screenContainer}>
         <NavHeaderComponent />
-        <View style={[styles.header]}>
-          <View style={globalStyle.alignCenter}>
-            <BrandLogo width={210} height={53} />
+
+        <AppText weight='600' style={globalStyle.authTitle}>Sign Up with TamaPay</AppText>
+
+        <View style={{ marginBottom: 18 }}>
+          <View style={globalStyle.nameRow}>
+            <View style={globalStyle.nameField}>
+              <InputValidationComponent
+                field="firstName"
+                value={formData.firstName}
+                setValue={(text) => handleSetValueAndValidate('firstName', text)}
+                label="First Name"
+                placeholder="First Name"
+                mode="outlined"
+                errors={errors}
+                setErrors={setErrors}
+                touched={touched}
+                setTouched={setTouched}
+                validateField={validateField} 
+              />
+            </View>
+            <View style={globalStyle.nameField}>
+              <InputValidationComponent
+                field="lastName"
+                value={formData.lastName}
+                setValue={(text) => handleSetValueAndValidate('lastName', text)}
+                label="Last Name"
+                placeholder="Last Name"
+                mode="outlined"
+                errors={errors}
+                setErrors={setErrors}
+                touched={touched}
+                setTouched={setTouched}
+                validateField={validateField} 
+              />
+            </View>
           </View>
-        </View>
-
-        <AppText weight='700' style={[globalStyle.headerTitle, { marginBottom: 16 }]}>Sign Up with Tama</AppText>
-
-        <View style={{ marginBottom: 24 }}>
-          <InputValidationComponent
-            field="firstName"
-            value={formData.firstName}
-            setValue={(text) => handleSetValueAndValidate('firstName', text)}
-            placeholder="First Name"
-            mode="outlined"
-            errors={errors}
-            setErrors={setErrors}
-            touched={touched}
-            setTouched={setTouched}
-            validateField={validateField} 
-          />
 
           <InputValidationComponent
             field="middleName"
             value={formData.middleName}
             setValue={(text) => handleSetValueAndValidate('middleName', text)}
-            placeholder="Middle Name (Optional)"
+            label="Middle Name (Optional)"
+            placeholder="Middle Name"
             mode="outlined"
             errors={errors}
             setErrors={setErrors}
@@ -197,24 +216,12 @@ const SignupScreen = () => {
             setTouched={setTouched}
             validateField={validateField}
           />
-          
-          <InputValidationComponent
-            field="lastName"
-            value={formData.lastName}
-            setValue={(text) => handleSetValueAndValidate('lastName', text)}
-            placeholder="Last Name"
-            mode="outlined"
-            errors={errors}
-            setErrors={setErrors}
-            touched={touched}
-            setTouched={setTouched}
-            validateField={validateField} 
-          />
 
           <InputValidationComponent
             field="email"
             value={formData.email}
             setValue={(text) => handleSetValueAndValidate('email', text)}
+            label="Email"
             placeholder="Email"
             mode="outlined"
             keyboardType="email-address"
@@ -230,6 +237,7 @@ const SignupScreen = () => {
             field="signupPassword"
             value={formData.signupPassword}
             setValue={(text) => handleSetValueAndValidate('signupPassword', text)}
+            label="Password"
             placeholder="Password"
             mode="outlined"
             secureTextEntry={true}
@@ -250,6 +258,7 @@ const SignupScreen = () => {
             field="confirmPassword"
             value={formData.confirmPassword}
             setValue={(text) => handleSetValueAndValidate('confirmPassword', text)}
+            label="Confirm Password"
             placeholder="Confirm Password"
             mode="outlined"
             secureTextEntry={true}

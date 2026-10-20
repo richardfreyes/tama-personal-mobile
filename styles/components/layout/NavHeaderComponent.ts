@@ -1,7 +1,8 @@
 import { NAV_HEADER_DEFAULT_HORIZONTAL_PADDING, NAV_HEADER_OUTLINED_BOTTOM_PADDING, NAV_HEADER_OUTLINED_BUTTON_SIZE, NAV_HEADER_OUTLINED_HORIZONTAL_PADDING, NAV_HEADER_VERTICAL_PADDING } from '@/constants';
 import { COMMON } from '@/constants/common';
 import { StyleSheet, ViewStyle } from "react-native";
-import { Colors } from "../../common/colors";
+import { Colors as LightColors } from '@/styles/common/colors';
+import type { ThemeColors } from '@/types/theme';
 
 const navButtonBase: ViewStyle = {
   justifyContent: 'center',
@@ -9,16 +10,17 @@ const navButtonBase: ViewStyle = {
   zIndex: 10,
   width: COMMON.BACK_BUTTON_SIZE,
   height: COMMON.BACK_BUTTON_SIZE,
-  borderRadius: COMMON.BACK_BUTTON_SIZE / 2,
+  borderRadius: 8,
 };
 
+export const createNavHeaderComponentStyles = (Colors: ThemeColors) => {
 const navHeaderStyles = StyleSheet.create({
   headerContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    backgroundColor: Colors.neutral01,
-    paddingVertical: 12,
+    backgroundColor: Colors.background,
+    paddingVertical: 6,
   },
   backButtonContainer: {
     width: COMMON.BACK_BUTTON_SIZE,
@@ -38,10 +40,10 @@ const navHeaderStyles = StyleSheet.create({
     alignItems: 'center',
   },
   headerTitle: {
-    fontSize: 16,
+    fontSize: 17,
     textAlign: 'center',
-    textTransform: 'capitalize',
-  },
+    textTransform: 'none',
+   lineHeight: 22,},
   rightSpacer: {
     width: COMMON.RIGHT_SPACER_WIDTH,
   },
@@ -52,8 +54,8 @@ const navHeaderStyles = StyleSheet.create({
     right: 0,
     zIndex: 1000,
     elevation: 0,
-    backgroundColor: Colors.neutral01,
-    shadowColor: Colors.neutral10,
+    backgroundColor: Colors.background,
+    shadowColor: Colors.shadow,
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0,
     shadowRadius: 0,
@@ -69,7 +71,7 @@ const navHeaderStyles = StyleSheet.create({
 
   outlinedContainer: {
     alignItems: 'center',
-    backgroundColor: Colors.neutral01,
+    backgroundColor: Colors.background,
     flexDirection: 'row',
     gap: 8,
     paddingBottom: NAV_HEADER_OUTLINED_BOTTOM_PADDING,
@@ -77,10 +79,10 @@ const navHeaderStyles = StyleSheet.create({
   },
   outlinedButton: {
     alignItems: 'center',
-    backgroundColor: Colors.neutral01,
+    backgroundColor: Colors.backgroundSecondary,
     borderColor: Colors.dashboardCardBorder,
-    borderRadius: 14,
-    borderWidth: 1,
+    borderRadius: 8,
+    borderWidth: 0,
     height: NAV_HEADER_OUTLINED_BUTTON_SIZE,
     justifyContent: 'center',
     width: NAV_HEADER_OUTLINED_BUTTON_SIZE,
@@ -92,16 +94,20 @@ const navHeaderStyles = StyleSheet.create({
     width: NAV_HEADER_OUTLINED_BUTTON_SIZE,
   },
   outlinedTitle: {
-    color: Colors.maroon11,
+    color: Colors.text,
     flex: 1,
     fontSize: 17,
-    lineHeight: 24,
+    lineHeight: 22,
     textAlign: 'center',
   },
 });
 
-export const navHeaderComponentStyles = {
+return {
   ...navHeaderStyles,
   getHeaderHeight: (safeAreaTop: number) => safeAreaTop + COMMON.BACK_BUTTON_SIZE + (NAV_HEADER_VERTICAL_PADDING * 2),
   getOutlinedHeaderHeight: (safeAreaTop: number) => safeAreaTop + NAV_HEADER_OUTLINED_BUTTON_SIZE + NAV_HEADER_OUTLINED_BOTTOM_PADDING,
 };
+
+};
+
+export const navHeaderComponentStyles = createNavHeaderComponentStyles(LightColors);

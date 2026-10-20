@@ -32,7 +32,7 @@ function getTabButtons() {
 }
 
 function getIconColor(button: ReturnType<typeof getTabButtons>[number]) {
-  return button.props.children[0].props.children.props.stroke;
+  return button.props.children[1].props.children.props.stroke;
 }
 
 const VALID_ROUTE_NAMES = FLOATING_NAV_TABS.map(({ name }) => name);
@@ -56,11 +56,11 @@ describe('FloatingNavBar', () => {
     expect(screen.UNSAFE_queryAllByType(TouchableOpacity)).toHaveLength(0);
   });
 
-  it('stays on the other payment screens', () => {
+  it('hides on payment confirmation to leave room for the pinned action', () => {
     mockUseSegments.mockReturnValue(['(app)', 'bills', 'one-time-payments', 'pay', 'confirm-payment']);
     renderNavBar();
 
-    expect(getTabButtons()).toHaveLength(4);
+    expect(screen.queryByRole('tab')).toBeNull();
   });
 
   it('renders without crashing', () => {
@@ -79,8 +79,8 @@ describe('FloatingNavBar', () => {
     });
     expect(floatingNavBarStyles.tabBar).toEqual(expect.objectContaining({
       backgroundColor: Colors.neutral01,
-      borderRadius: 24,
-      borderWidth: 1,
+      borderRadius: 0,
+      borderTopWidth: 1,
     }));
   });
 
@@ -93,7 +93,7 @@ describe('FloatingNavBar', () => {
     expect(buttons).toHaveLength(VALID_ROUTE_NAMES.length);
     expect(buttons[0].props.accessibilityState).toEqual({ selected: false });
     expect(buttons[1].props.accessibilityState).toEqual({ selected: true });
-    expect(getIconColor(buttons[1])).toBe(Colors.red09);
+    expect(getIconColor(buttons[1])).toBe(Colors.primaryText);
   });
 
   it('renders a tab button for each route that has an icon config', () => {
@@ -173,11 +173,11 @@ describe('FloatingNavBar', () => {
     buttons.forEach((btn, i) => {
       if (i === 1) {
         expect(btn.props.accessibilityState).toEqual({ selected: true });
-        expect(getIconColor(btn)).toBe(Colors.red09);
+        expect(getIconColor(btn)).toBe(Colors.primaryText);
         expect(StyleSheet.flatten(btn.props.children[0].props.style).backgroundColor).toBe(Colors.red01);
       } else {
         expect(btn.props.accessibilityState).toEqual({ selected: false });
-        expect(getIconColor(btn)).toBe(Colors.maroon09);
+        expect(getIconColor(btn)).toBe(Colors.textSecondary);
       }
     });
   });
@@ -187,7 +187,7 @@ describe('FloatingNavBar', () => {
     const { unmount } = renderNavBar();
     let buttons = getTabButtons();
     expect(buttons[0].props.accessibilityState).toEqual({ selected: true });
-    expect(getIconColor(buttons[2])).toBe(Colors.maroon09);
+    expect(getIconColor(buttons[2])).toBe(Colors.textSecondary);
     unmount();
 
     mockUsePathname.mockReturnValue('/transactions');
@@ -195,7 +195,7 @@ describe('FloatingNavBar', () => {
     buttons = getTabButtons();
     expect(buttons[0].props.accessibilityState).toEqual({ selected: false });
     expect(buttons[2].props.accessibilityState).toEqual({ selected: true });
-    expect(getIconColor(buttons[2])).toBe(Colors.red09);
+    expect(getIconColor(buttons[2])).toBe(Colors.primaryText);
   });
 
   it('keeps the Bills navigation item active throughout the Add Biller flow', () => {
@@ -206,7 +206,7 @@ describe('FloatingNavBar', () => {
     const buttons = getTabButtons();
     expect(buttons[0].props.accessibilityState).toEqual({ selected: false });
     expect(buttons[1].props.accessibilityState).toEqual({ selected: true });
-    expect(getIconColor(buttons[1])).toBe(Colors.red09);
+    expect(getIconColor(buttons[1])).toBe(Colors.primaryText);
   });
 
   it('stores the measured height when onLayout fires', () => {

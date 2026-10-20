@@ -1,4 +1,5 @@
-import { statusBadgeStyles as styles } from '@/styles/components/common/StatusBadge';
+import { useThemedStyles } from '@/hooks/useAppTheme';
+import { createStatusBadgeStyles as makeStyles } from '@/styles/components/common/StatusBadge';
 import type { StatusBadgeProps } from '@/types';
 import React from 'react';
 import { View } from 'react-native';
@@ -12,6 +13,8 @@ export default function StatusBadge({
   style,
   testID,
 }: StatusBadgeProps) {
+  const styles = useThemedStyles(makeStyles);
+
   const isBadge = appearance === 'badge';
 
   return (

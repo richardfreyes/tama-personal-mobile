@@ -1,6 +1,7 @@
+import { useThemedStyles } from '@/hooks/useAppTheme';
 import { AppText } from '@/components/common/AppText';
 import { bulletLinePattern, linkedTextPattern, sampleScenariosHeader, sectionHeadingPattern } from '@/constants/legalDocument';
-import { legalStyles as styles } from '@/styles/app/settings/legal';
+import { createLegalStyles as makeStyles } from '@/styles/app/settings/legal';
 import { LegalDocumentContentProps } from '@/types';
 import type { LegalTableData } from '@/types/legalDocuments';
 import { getBulletLevel, getDocumentLines, getLineStyle, getLineWeight, getLinkParts, getTableCells, getTableColumnWidth, openContactLink } from '@/utils/legalDocuments';
@@ -8,6 +9,8 @@ import type { ReactNode } from 'react';
 import { ScrollView, Text, View } from 'react-native';
 
 export default function LegalDocumentContent({ content, style }: LegalDocumentContentProps) {
+  const styles = useThemedStyles(makeStyles);
+
   const documentLines = getDocumentLines(content);
 
   const renderLinkedText = (text: string, keyPrefix: string): ReactNode => {

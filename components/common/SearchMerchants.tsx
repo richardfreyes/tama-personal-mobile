@@ -1,3 +1,4 @@
+import { useThemedStyles, useThemeColors } from '@/hooks/useAppTheme';
 import AlphabetIndex from '@/components/common/AlphabetIndex';
 import { AppText } from '@/components/common/AppText';
 import EmptyStateCard from '@/components/common/EmptyStateCard';
@@ -6,8 +7,7 @@ import SearchInput from '@/components/common/SearchInput';
 import { BILLER_DIRECTORY_SEARCH_HEIGHT, BILLER_INDEX_BOTTOM_CLEARANCE, BILLER_INDEX_LETTER_HEIGHT, BILLER_INDEX_MIN_LETTER_HEIGHT, } from '@/constants/billerDirectory';
 import { COMMON } from '@/constants/common';
 import { useAlphabetIndex } from '@/hooks/useAlphabetIndex';
-import { Colors } from '@/styles/common/colors';
-import { searchMerchantsStyles as styles } from '@/styles/components/common/SearchMerchants';
+import { createSearchMerchantsStyles as makeStyles } from '@/styles/components/common/SearchMerchants';
 import { SearchMerchantsProps } from '@/types/common';
 import { filterBillersByName, groupBillersByLetter, sortBillersByName } from '@/utils/billerDirectory';
 import { useFocusEffect } from 'expo-router';
@@ -42,6 +42,9 @@ export default function SearchMerchants({
   onRetry,
   refreshControl,
 }: SearchMerchantsProps) {
+  const styles = useThemedStyles(makeStyles);
+  const Colors = useThemeColors();
+
   const [searchQuery, setSearchQuery] = useState('');
 
   useFocusEffect(
@@ -118,6 +121,8 @@ function BillerDirectory({
   searchQuery: string;
   setSearchQuery: (value: string) => void;
 }) {
+  const styles = useThemedStyles(makeStyles);
+
   const [headerHeight, setHeaderHeight] = useState(0);
   const [viewHeight, setViewHeight] = useState(0);
   const searchTerm = searchQuery.trim();
@@ -227,7 +232,7 @@ function BillerDirectory({
         onLayout={(event) => alphabetIndex.handleSectionLayout(group.letter, event)}
         testID={`biller-section-${group.letter}`}
       >
-        <AppText weight="600" style={styles.letterHeading}>{group.letter}</AppText>
+        <AppText weight="700" style={styles.letterHeading}>{group.letter}</AppText>
         {group.billers.map(renderRow)}
       </View>
     ));
@@ -258,6 +263,7 @@ function BillerDirectory({
               accessibilityLabel="Search biller"
               autoCapitalize="none"
               autoCorrect={false}
+              containerStyle={styles.directorySearch}
               onChangeText={handleSearchChange}
               onClear={clearSearch}
               placeholder={`Search ${billers.length} ${billers.length === 1 ? 'biller' : 'billers'}`}
@@ -270,7 +276,9 @@ function BillerDirectory({
         ) : null}
         {isLoading ? null : (
           <View onLayout={alphabetIndex.handleListLayout} style={styles.directoryList} testID="biller-directory-list">
-            {renderBillers()}
+            <View style={styles.listCard}>
+              {renderBillers()}
+            </View>
           </View>
         )}
       </Animated.ScrollView>

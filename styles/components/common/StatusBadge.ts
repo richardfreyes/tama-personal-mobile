@@ -1,7 +1,8 @@
 import { StyleSheet } from 'react-native';
-import { Colors } from '../../common/colors';
+import { Colors as LightColors } from '@/styles/common/colors';
+import type { ThemeColors } from '@/types/theme';
 
-export const statusBadgeStyles = StyleSheet.create({
+export const createStatusBadgeStyles = (Colors: ThemeColors) => StyleSheet.create({
   row: {
     alignItems: 'center',
     flexDirection: 'row',
@@ -10,19 +11,20 @@ export const statusBadgeStyles = StyleSheet.create({
   badge: {
     alignItems: 'center',
     alignSelf: 'flex-start',
-    borderRadius: 8,
+    borderRadius: 4,
     flexDirection: 'row',
-    minHeight: 24,
-    paddingHorizontal: 8,
-    paddingVertical: 3,
+    minHeight: 20,
+    paddingHorizontal: 6,
+    paddingVertical: 2,
   },
   summaryCardBadge: {
     alignSelf: 'center',
-    borderRadius: 999,
-    marginLeft: 6,
-    minHeight: 28,
+    borderRadius: 4,
+    height: 22,
+    marginLeft: 0,
+    minHeight: 22,
     paddingHorizontal: 8,
-    paddingVertical: 4,
+    paddingVertical: 0,
   },
   dot: {
     borderRadius: 3,
@@ -35,9 +37,11 @@ export const statusBadgeStyles = StyleSheet.create({
   },
   label: {
     fontSize: 12,
-    lineHeight: 17,
+    lineHeight: 16,
   },
   badgeText: {
     color: Colors.neutral09,
-  },
+   fontSize: 12, lineHeight: 16,},
 });
+
+export const statusBadgeStyles = createStatusBadgeStyles(LightColors);

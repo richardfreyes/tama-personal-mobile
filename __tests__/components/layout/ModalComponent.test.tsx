@@ -257,7 +257,7 @@ describe('ModalComponent', () => {
 
     it('keeps the default layout when no variant is set', () => {
       renderModal(visibleState({ buttonConfig: { primaryLabel: 'OK' } }));
-      expect(StyleSheet.flatten(screen.getByTestId('modal-backdrop').props.style).backgroundColor).toBe('rgba(0, 0, 0, 0.4)');
+      expect(StyleSheet.flatten(screen.getByTestId('modal-backdrop').props.style).backgroundColor).toBe('rgba(17,24,39,0.45)');
     });
   });
 });

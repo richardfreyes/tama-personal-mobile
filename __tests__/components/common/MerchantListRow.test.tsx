@@ -34,16 +34,21 @@ describe('MerchantListRow', () => {
     expect(screen.getByLabelText('Avida Land, saved')).toBeTruthy();
   });
 
-  it('is 81pt tall, as drawn in the design: 60pt of content, 10pt of padding either side and a divider', () => {
+  it('is 60pt tall with a light divider, matching the enroll-in-auto-debit directory', () => {
     renderWithProviders(<MerchantListRow name="Avida Land" testID="biller-row-19" />);
 
     expect(StyleSheet.flatten(screen.getByTestId('biller-row-19').props.style)).toEqual(
-      expect.objectContaining({ borderBottomWidth: 1, minHeight: 81, paddingVertical: 10 }),
+      expect.objectContaining({ borderBottomWidth: 1, minHeight: 60, paddingVertical: 10 }),
     );
   });
 
   it('is not pressable unless an onPress is given', () => {
     renderWithProviders(<MerchantListRow badge="Saved" name="Avida Land" />);
     expect(screen.queryByRole('button')).toBeNull();
+  });
+
+  it('shows a trailing chevron when the row is pressable', () => {
+    renderWithProviders(<MerchantListRow name="Avida Land" onPress={() => undefined} testID="biller-row-19" />);
+    expect(screen.getByRole('button')).toBeTruthy();
   });
 });

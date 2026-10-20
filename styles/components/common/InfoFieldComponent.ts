@@ -1,8 +1,9 @@
 import { StyleSheet } from "react-native";
-import { Colors } from "../../common/colors";
+import { Colors as LightColors } from '@/styles/common/colors';
+import type { ThemeColors } from '@/types/theme';
 import { FontSizes } from "../../common/typography";
 
-export const infoFieldComponentStyles = StyleSheet.create({
+export const createInfoFieldComponentStyles = (Colors: ThemeColors) => StyleSheet.create({
   fieldContainer: {
     display: 'flex',
     flexDirection: 'row',
@@ -46,7 +47,7 @@ export const infoFieldComponentStyles = StyleSheet.create({
     lineHeight: 20,
   },
   summaryValue: {
-    color: Colors.maroon11,
+    color: Colors.text,
     flex: 1,
     fontSize: 14,
     fontVariant: ['tabular-nums'],
@@ -66,3 +67,4 @@ export const infoFieldComponentStyles = StyleSheet.create({
     backgroundColor: Colors.dashboardSkeleton,
   },
 });
+export const infoFieldComponentStyles = createInfoFieldComponentStyles(LightColors);

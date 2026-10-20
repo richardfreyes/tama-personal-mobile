@@ -1,9 +1,10 @@
+import { useThemedStyles } from '@/hooks/useAppTheme';
 import AutoPayStatusCard from '@/components/bills/AutoPayStatusCard';
 import EmptyStateCard from '@/components/common/EmptyStateCard';
 import { SkeletonBlock, SkeletonGroup } from '@/components/common/Loading';
 import { SectionHeaderComponent } from '@/components/common/SectionHeaderComponent';
-import { globalStyle } from '@/styles/common/globals';
-import { autoPayStatusCardStyles } from '@/styles/components/bills/AutoPayStatusCard';
+import { createGlobalStyle as makeGlobalStyle } from '@/styles/common/globals';
+import { createAutoPayStatusCardStyles as makeAutoPayStatusCardStyles } from '@/styles/components/bills/AutoPayStatusCard';
 import { autoDebitCardStyles as styles } from '@/styles/components/enrollments/AutoDebitCard';
 import { AutoDebitCardProps } from '@/types/common';
 import React from 'react';
@@ -17,6 +18,9 @@ export default function AutoDebitCard({
   isError = false,
   onRetry,
 }: AutoDebitCardProps) {
+  const globalStyle = useThemedStyles(makeGlobalStyle);
+  const autoPayStatusCardStyles = useThemedStyles(makeAutoPayStatusCardStyles);
+
   return (
     <View style={globalStyle.sectionPanel} testID="auto-debit-card">
       <SectionHeaderComponent

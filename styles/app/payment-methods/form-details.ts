@@ -1,8 +1,9 @@
-import { Colors } from "@/styles/common/colors";
+import { Colors as LightColors } from '@/styles/common/colors';
+import type { ThemeColors } from '@/types/theme';
 import { FontSizes } from "@/styles/common/typography";
 import { StyleSheet } from "react-native";
 
-export const formDetailsStyles = StyleSheet.create({
+export const createFormDetailsStyles = (Colors: ThemeColors) => StyleSheet.create({
   outerContainer: {
     backgroundColor: Colors.neutral01,
     borderRadius: 8,
@@ -65,3 +66,4 @@ export const formDetailsStyles = StyleSheet.create({
     marginBottom: 4,
   },
 });
+export const formDetailsStyles = createFormDetailsStyles(LightColors);

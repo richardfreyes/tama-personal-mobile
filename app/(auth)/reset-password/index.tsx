@@ -1,24 +1,27 @@
+import { useThemeColors, useThemedStyles } from '@/hooks/useAppTheme';
 import { AppButton } from '@/components/common/AppButton';
 import { AppText } from '@/components/common/AppText';
 import InputValidationComponent from '@/components/forms/InputValidationComponent';
 import NavHeaderComponent from '@/components/layout/NavHeaderComponent';
 import { useResetPasswordMutation } from '@/redux/features/resetPassword/resetPasswordApi';
-import { resetPasswordStyles as styles } from '@/styles/auth/reset-password';
-import { globalStyle } from '@/styles/common/globals';
+import { createResetPasswordStyles as makeStyles } from '@/styles/auth/reset-password';
+import { createGlobalStyle as makeGlobalStyle } from '@/styles/common/globals';
 import { ResetPasswordInputs } from '@/types';
 import { validateField } from '@/utils/validators';
+import { Feather } from '@expo/vector-icons';
 import { router } from 'expo-router';
 import React, { useMemo, useState } from 'react';
 import { KeyboardAvoidingView, Platform, ScrollView, TouchableOpacity, View } from 'react-native';
-import { useTheme } from 'react-native-paper';
 
 const ResetPasswordScreen = () => {
+  const globalStyle = useThemedStyles(makeGlobalStyle);
+  const styles = useThemedStyles(makeStyles);
+  const Colors = useThemeColors();
+
   const [formData, setFormData] = useState<ResetPasswordInputs>({ email: '' });
   const [errors, setErrors] = useState<Partial<Record<keyof ResetPasswordInputs, string | undefined>>>({});
   const [touched, setTouched] = useState<Partial<Record<keyof ResetPasswordInputs, boolean>>>({});
   const [resetPassword, { isLoading }] = useResetPasswordMutation();
-  const theme = useTheme();
-  const primaryColor = theme.colors.primary;
 
   const isFormValid = useMemo(() => {
     const hasEmail = formData.email.trim().length > 0;
@@ -58,17 +61,21 @@ const ResetPasswordScreen = () => {
       <ScrollView contentContainerStyle={[globalStyle.screenContainer, styles.container]}>
         <View>
           <NavHeaderComponent />
-          <AppText weight='700' style={[globalStyle.headerTitle, { marginBottom: 24 }]}>Forgot Password</AppText>
+          <View style={globalStyle.authHeroIcon}>
+            <Feather name="lock" size={22} color={Colors.primaryText} />
+          </View>
+          <AppText weight='600' style={globalStyle.authTitle}>Forgot Password</AppText>
           
-          <AppText variant='bodyMedium'>
+          <AppText style={globalStyle.authLead}>
             Enter the email associated with your account and we’ll send an email with instructions to reset your password.
           </AppText>
 
-          <View style={{ marginTop: 24 }}>
+          <View style={{ marginTop: 16 }}>
             <InputValidationComponent
               field="email"
               value={formData.email}
               setValue={(text) => handleSetValue('email', text)}
+              label="Email"
               placeholder="Email"
               errors={errors}
               setErrors={setErrors}
@@ -93,9 +100,9 @@ const ResetPasswordScreen = () => {
           </View>
           
           <View style={styles.loginLinkContainer}>
-            <AppText>Remember your password? </AppText>
+            <AppText style={styles.loginPrompt}>Remember your password? </AppText>
             <TouchableOpacity onPress={() => router.replace('/login')}>
-              <AppText style={[styles.loginLink, { color: primaryColor }]}>Login</AppText>
+              <AppText style={styles.loginLink}>Login</AppText>
             </TouchableOpacity>
           </View>
         </View>

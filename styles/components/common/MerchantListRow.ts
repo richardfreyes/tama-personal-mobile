@@ -1,21 +1,22 @@
 import { MERCHANT_LIST_ROW_CONTENT_MIN_HEIGHT, MERCHANT_LIST_ROW_DIVIDER, MERCHANT_LIST_ROW_PADDING } from '@/constants';
 import { StyleSheet } from 'react-native';
-import { Colors } from '../../common/colors';
+import { Colors as LightColors } from '@/styles/common/colors';
+import type { ThemeColors } from '@/types/theme';
 
-export const merchantListRowStyles = StyleSheet.create({
+export const createMerchantListRowStyles = (Colors: ThemeColors) => StyleSheet.create({
   row: {
     alignItems: 'center',
-    borderBottomColor: Colors.dashboardSkeleton,
+    borderBottomColor: Colors.divider,
     borderBottomWidth: MERCHANT_LIST_ROW_DIVIDER,
     flexDirection: 'row',
     gap: 12,
-    minHeight: MERCHANT_LIST_ROW_CONTENT_MIN_HEIGHT + (MERCHANT_LIST_ROW_PADDING * 2) + MERCHANT_LIST_ROW_DIVIDER,
+    minHeight: 60,
     paddingVertical: MERCHANT_LIST_ROW_PADDING,
   },
   name: {
-    color: Colors.maroon11,
+    color: Colors.text,
     flex: 1,
-    fontSize: 14,
+    fontSize: 15,
     lineHeight: 20,
     minWidth: 0,
   },
@@ -33,4 +34,10 @@ export const merchantListRowStyles = StyleSheet.create({
     fontSize: 11,
     lineHeight: 16,
   },
+  chevron: {
+    flexShrink: 0,
+    marginLeft: 4,
+  },
 });
+
+export const merchantListRowStyles = createMerchantListRowStyles(LightColors);

@@ -1,10 +1,13 @@
-import { paymentMethodCardComponentStyles as styles } from '@/styles/components/payments/PaymentMethodCardComponent';
+import { useThemedStyles } from '@/hooks/useAppTheme';
+import { createPaymentMethodCardComponentStyles as makeStyles } from '@/styles/components/payments/PaymentMethodCardComponent';
 import { LogoReference, PaymentMethodCardProps } from '@/types';
 import React from 'react';
 import { FlatList, TouchableOpacity, View } from 'react-native';
 import { AppText } from '../common/AppText';
 
 const SmallLogoItem: React.FC<{ item: LogoReference; spacing: number; isLast: boolean }> = ({ item, spacing, isLast }) => {
+  const styles = useThemedStyles(makeStyles);
+
   const SvgComponent = item.uri;
   return (
     <View
@@ -22,6 +25,8 @@ const SmallLogoItem: React.FC<{ item: LogoReference; spacing: number; isLast: bo
 };
 
 const PaymentMethodCardComponent: React.FC<PaymentMethodCardProps> = ({ option, onPress, style }) => {
+  const styles = useThemedStyles(makeStyles);
+
   const isLogoList = option.logos.length > 0;
   const mainLogoRef = option.mainLogoUri;
   const SingleLogoComponent = (mainLogoRef && 'uri' in mainLogoRef) ? ((mainLogoRef as any as LogoReference).uri) : null;

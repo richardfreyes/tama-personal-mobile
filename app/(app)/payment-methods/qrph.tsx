@@ -1,3 +1,4 @@
+import { useThemedStyles } from '@/hooks/useAppTheme';
 import { AppButton } from '@/components/common/AppButton';
 import { AppText } from '@/components/common/AppText';
 import { NativeLoadingIndicator } from '@/components/common/Loading';
@@ -8,7 +9,7 @@ import { PAYMENT_REQUEST_TIMEOUT_MS, QRPH_VERIFY_MAX_ATTEMPTS, QRPH_VERIFY_POLL_
 import { showSnackbar } from '@/redux/features/snackbar/snackbarSlice';
 import { usePayWithQrphMutation, useVerifyQrphMutation } from '@/redux/features/transactions/transactionApi';
 import { useAppDispatch } from '@/redux/hooks';
-import { globalStyle } from '@/styles/common/globals';
+import { createGlobalStyle as makeGlobalStyle } from '@/styles/common/globals';
 import { QrphSession } from '@/types/common';
 import { wait } from '@/utils/async';
 import { isPaymentPending } from '@/utils/paymentErrors';
@@ -18,6 +19,8 @@ import React, { useCallback, useRef, useState } from 'react';
 import { ScrollView, View } from 'react-native';
 
 const QrphPayment = () => {
+  const globalStyle = useThemedStyles(makeGlobalStyle);
+
   const dispatch = useAppDispatch();
   const { billingReferenceId, baseAmount, baseCurrency } = useLocalSearchParams<{billingReferenceId?: string; baseAmount?: string; baseCurrency?: string;}>();
   const [payWithQrph] = usePayWithQrphMutation();

@@ -1,7 +1,7 @@
+import { useThemedStyles, useThemeColors } from '@/hooks/useAppTheme';
 import WarningIcon from '@/assets/icons/warning.svg';
-import { Colors } from '@/styles/common/colors';
-import { globalStyle, inputFocusColor } from '@/styles/common/globals';
-import { fullScreenModalStyles as styles } from '@/styles/components/layout/FullScreenModal';
+import { createGlobalStyle as makeGlobalStyle, inputFocusColor } from '@/styles/common/globals';
+import { createFullScreenModalStyles as makeStyles } from '@/styles/components/layout/FullScreenModal';
 import { FullScreenModalProps, IconProps } from '@/types';
 import React from 'react';
 import { Modal, ScrollView, TouchableOpacity, View } from 'react-native';
@@ -19,6 +19,10 @@ const FullScreenModal: React.FC<FullScreenModalProps> = ({
   onAction,
   headerActionText,
 }) => {
+  const globalStyle = useThemedStyles(makeGlobalStyle);
+  const styles = useThemedStyles(makeStyles);
+  const Colors = useThemeColors();
+
   const insets = useSafeAreaInsets();
 
   const getTypeIconProps = (type: string | null | undefined): IconProps => {

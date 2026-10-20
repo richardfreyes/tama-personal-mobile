@@ -1,9 +1,9 @@
+import { useThemedStyles, useThemeColors } from '@/hooks/useAppTheme';
 import InfoFieldComponent from '@/components/common/InfoFieldComponent';
 import { AppText } from '@/components/common/AppText';
 import { BILLER_SUMMARY_EMPTY_LABEL } from '@/constants/savedBills';
-import { paymentInfoStyles as styles } from '@/styles/app/bills/common/payment-info';
-import { Colors } from '@/styles/common/colors';
-import { globalStyle } from '@/styles/common/globals';
+import { createPaymentInfoStyles as makeStyles } from '@/styles/app/bills/common/payment-info';
+import { createGlobalStyle as makeGlobalStyle } from '@/styles/common/globals';
 import { Feather } from '@expo/vector-icons';
 import React, { memo, useState } from 'react';
 import { Pressable, View } from 'react-native';
@@ -17,6 +17,10 @@ const PaymentInfoSection = ({
   variant = 'default',
   testID,
 }: PaymentInfoSectionProps) => {
+  const styles = useThemedStyles(makeStyles);
+  const globalStyle = useThemedStyles(makeGlobalStyle);
+  const Colors = useThemeColors();
+
   const [expanded, setExpanded] = useState(false);
   const isSummary = variant === 'summary';
   const visibleRows = expanded ? [...rows, ...secondaryRows] : rows;

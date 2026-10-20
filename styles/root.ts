@@ -1,7 +1,8 @@
 import { StyleSheet } from "react-native";
-import { Colors } from "./common/colors";
+import { Colors as LightColors } from '@/styles/common/colors';
+import type { ThemeColors } from '@/types/theme';
 
-export const rootStyles = StyleSheet.create({
+export const createRootStyles = (Colors: ThemeColors) => StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.neutral01,
@@ -16,3 +17,4 @@ export const rootStyles = StyleSheet.create({
     marginTop: 20,
   }
 });
+export const rootStyles = createRootStyles(LightColors);

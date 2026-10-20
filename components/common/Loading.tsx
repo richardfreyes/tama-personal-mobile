@@ -1,7 +1,8 @@
+import { useThemedStyles } from '@/hooks/useAppTheme';
 import { BILLER_DIRECTORY_SKELETON_ROW_WIDTHS } from '@/constants/billerDirectory';
 import { SAVED_BILL_CARD_WIDTH } from '@/constants/savedBills';
 import { Colors } from '@/styles/common/colors';
-import { loadingStyles as styles } from '@/styles/components/common/Loading';
+import { createLoadingStyles as makeStyles } from '@/styles/components/common/Loading';
 import { DetailsSkeletonProps, FormSkeletonProps, HorizontalCardSkeletonProps, NativeLoadingIndicatorProps, NativeProgressBarProps, PaymentInfoSkeletonProps, SkeletonBlockProps, SkeletonGroupProps, SkeletonListProps } from '@/types/loading';
 import React, { useEffect, useRef, useState } from 'react';
 import { AccessibilityInfo, ActivityIndicator, Animated, Easing, Platform, View } from 'react-native';
@@ -68,7 +69,9 @@ export const NativeLoadingIndicator = ({
 export const InlineLoadingIndicator = ({
   label = 'Loading',
   style,
-}: Omit<NativeLoadingIndicatorProps, 'size' | 'testID'>) => (
+}: Omit<NativeLoadingIndicatorProps, 'size' | 'testID'>) => {
+  const styles = useThemedStyles(makeStyles);
+  return (
   <View
     accessibilityLabel={label}
     accessibilityLiveRegion="polite"
@@ -82,6 +85,7 @@ export const InlineLoadingIndicator = ({
     </AppText>
   </View>
 );
+};
 
 export const SkeletonBlock = ({
   width = '100%',
@@ -90,6 +94,8 @@ export const SkeletonBlock = ({
   style,
   testID = 'skeleton-block',
 }: SkeletonBlockProps) => {
+  const styles = useThemedStyles(makeStyles);
+
   const reducedMotion = useReducedMotion();
   const opacity = useRef(new Animated.Value(1)).current;
 
@@ -155,6 +161,8 @@ export const SkeletonList = ({
   showTrailing = true,
   rowStyle,
 }: SkeletonListProps) => {
+  const styles = useThemedStyles(makeStyles);
+
   useLoadingAnnouncement(label);
 
   return (
@@ -193,6 +201,8 @@ export const HorizontalCardSkeleton = ({
   itemWidth = 120,
   itemHeight = 132,
 }: HorizontalCardSkeletonProps) => {
+  const styles = useThemedStyles(makeStyles);
+
   useLoadingAnnouncement(label);
 
   return (
@@ -217,6 +227,8 @@ export const HorizontalCardSkeleton = ({
 };
 
 export const BillerListSkeleton = ({ rows = 6, label = 'Loading billers' }: Pick<SkeletonListProps, 'rows' | 'label'>) => {
+  const styles = useThemedStyles(makeStyles);
+
   useLoadingAnnouncement(label);
 
   return (
@@ -237,7 +249,9 @@ export const BillerListSkeleton = ({ rows = 6, label = 'Loading billers' }: Pick
   );
 };
 
-export const SavedBillersSkeleton = ({ label = 'Loading saved bills' }: { label?: string }) => (
+export const SavedBillersSkeleton = ({ label = 'Loading saved bills' }: { label?: string }) => {
+  const styles = useThemedStyles(makeStyles);
+  return (
   <SkeletonGroup label={label} style={styles.savedBillers} testID="bills-loading">
     <SkeletonBlock borderRadius={6} height={18} style={styles.skeletonBar} width={132} />
     <SkeletonBlock borderRadius={16} height={64} style={styles.skeletonSoft} />
@@ -248,8 +262,11 @@ export const SavedBillersSkeleton = ({ label = 'Loading saved bills' }: { label?
     </View>
   </SkeletonGroup>
 );
+};
 
-export const BillerDirectorySkeleton = ({ label = 'Loading billers' }: { label?: string }) => (
+export const BillerDirectorySkeleton = ({ label = 'Loading billers' }: { label?: string }) => {
+  const styles = useThemedStyles(makeStyles);
+  return (
   <SkeletonGroup label={label} style={styles.billerDirectory} testID="biller-directory-loading">
     <SkeletonBlock borderRadius={999} height={48} style={styles.skeletonSoft} />
     <View style={styles.billerDirectoryRows}>
@@ -262,8 +279,11 @@ export const BillerDirectorySkeleton = ({ label = 'Loading billers' }: { label?:
     </View>
   </SkeletonGroup>
 );
+};
 
 export const PaymentMethodListSkeleton = ({ rows = 3, label = 'Loading payment methods' }: Pick<SkeletonListProps, 'rows' | 'label'>) => {
+  const styles = useThemedStyles(makeStyles);
+
   useLoadingAnnouncement(label);
 
   return (
@@ -292,6 +312,8 @@ export const PaymentMethodListSkeleton = ({ rows = 3, label = 'Loading payment m
 };
 
 export const TransactionHistorySkeleton = ({ rows = 5, label = 'Loading transactions' }: Pick<SkeletonListProps, 'rows' | 'label'>) => {
+  const styles = useThemedStyles(makeStyles);
+
   useLoadingAnnouncement(label);
 
   return (
@@ -324,6 +346,8 @@ export const TransactionHistorySkeleton = ({ rows = 5, label = 'Loading transact
 };
 
 export const ProfileSkeleton = ({ label = 'Loading profile' }: { label?: string }) => {
+  const styles = useThemedStyles(makeStyles);
+
   useLoadingAnnouncement(label);
 
   return (
@@ -362,6 +386,8 @@ export const PaymentInfoSkeleton = ({
   includeNotice = false,
   includeCheckbox = false,
 }: PaymentInfoSkeletonProps) => {
+  const styles = useThemedStyles(makeStyles);
+
   useLoadingAnnouncement(label);
 
   return (
@@ -406,6 +432,8 @@ export const PaymentInfoSkeleton = ({
 };
 
 export const ReceiptSkeleton = ({ label = 'Loading payment receipt' }: { label?: string }) => {
+  const styles = useThemedStyles(makeStyles);
+
   useLoadingAnnouncement(label);
 
   return (
@@ -432,6 +460,8 @@ export const ReceiptSkeleton = ({ label = 'Loading payment receipt' }: { label?:
 };
 
 export const BillPaymentSkeleton = ({ label = 'Loading biller details' }: { label?: string }) => {
+  const styles = useThemedStyles(makeStyles);
+
   useLoadingAnnouncement(label);
 
   return (
@@ -473,6 +503,8 @@ export const TransactionDetailSkeleton = ({ label = 'Loading transaction details
 );
 
 export const FormSkeleton = ({ fields = 5, label = 'Loading form' }: FormSkeletonProps) => {
+  const styles = useThemedStyles(makeStyles);
+
   useLoadingAnnouncement(label);
 
   return (
@@ -502,6 +534,8 @@ export const DetailsSkeleton = ({
   rowsPerSection = 4,
   label = 'Loading details',
 }: DetailsSkeletonProps) => {
+  const styles = useThemedStyles(makeStyles);
+
   useLoadingAnnouncement(label);
 
   return (
@@ -533,6 +567,8 @@ export const NativeProgressBar = ({
   label = 'Loading progress',
   style,
 }: NativeProgressBarProps) => {
+  const styles = useThemedStyles(makeStyles);
+
   const clampedProgress = Math.max(0, Math.min(1, progress));
 
   return (

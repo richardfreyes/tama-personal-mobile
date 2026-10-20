@@ -1,8 +1,9 @@
 import { StyleSheet } from "react-native";
-import { Colors } from "../../common/colors";
+import { Colors as LightColors } from '@/styles/common/colors';
+import type { ThemeColors } from '@/types/theme';
 import { FontSizes } from "../../common/typography";
 
-export const resendCodeTimerStyles = StyleSheet.create({
+export const createResendCodeTimerStyles = (Colors: ThemeColors) => StyleSheet.create({
   waitingMessage: {
     fontSize: FontSizes.small,
     color: Colors.neutral07,
@@ -13,7 +14,8 @@ export const resendCodeTimerStyles = StyleSheet.create({
   },
   resendText: {
     fontSize: FontSizes.small,
-    color: Colors.red10,
-    textDecorationLine: 'underline',
+    color: Colors.primaryText,
+    fontFamily: 'PoppinsSemiBold',
   },
 });
+export const resendCodeTimerStyles = createResendCodeTimerStyles(LightColors);

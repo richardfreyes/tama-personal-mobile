@@ -1,7 +1,8 @@
-import { Colors } from "@/styles/common/colors";
+import { Colors as LightColors } from '@/styles/common/colors';
+import type { ThemeColors } from '@/types/theme';
 import { StyleSheet } from "react-native";
 
-export const formStyles = StyleSheet.create({
+export const createFormStyles = (Colors: ThemeColors) => StyleSheet.create({
   loaderContainer: {
     flex: 1,
     justifyContent: 'center',
@@ -9,7 +10,7 @@ export const formStyles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    backgroundColor: Colors.neutral03,
+    backgroundColor: Colors.backgroundSecondary,
     padding: 12,
     borderRadius: 8,
     alignItems: 'center',
@@ -23,3 +24,5 @@ export const formStyles = StyleSheet.create({
     flex: 1,
   },
 });
+
+export const formStyles = createFormStyles(LightColors);

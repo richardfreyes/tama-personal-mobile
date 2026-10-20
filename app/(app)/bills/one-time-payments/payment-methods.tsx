@@ -1,15 +1,18 @@
+import { useThemedStyles } from '@/hooks/useAppTheme';
 import { GlobalScrollView } from '@/components/common/GlobalScrollView';
 import { SpacerComponent } from '@/components/common/SpacerComponent';
 import NavHeaderComponent from '@/components/layout/NavHeaderComponent';
 import PaymentMethodCardComponent from '@/components/payments/PaymentMethodCardComponent';
 import { COMMON } from '@/constants/common';
 import { openOneTimePaymentMethod } from '@/services/routeNavigation';
-import { globalStyle } from '@/styles/common/globals';
+import { createGlobalStyle as makeGlobalStyle } from '@/styles/common/globals';
 import { useLocalSearchParams } from 'expo-router';
 import React from 'react';
 import { View } from 'react-native';
 
 export default function OneTimePaymentMethodsScreen() {
+  const globalStyle = useThemedStyles(makeGlobalStyle);
+
   const { billingReferenceId, baseAmount, baseCurrency, returnTo, returnAmount } = useLocalSearchParams<{
     billingReferenceId?: string;
     baseAmount?: string;

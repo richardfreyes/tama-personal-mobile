@@ -1,3 +1,4 @@
+import { useThemedStyles } from '@/hooks/useAppTheme';
 import InfoFieldComponent from '@/components/common/InfoFieldComponent';
 import { AppButton } from '@/components/common/AppButton';
 import { AppText } from '@/components/common/AppText';
@@ -14,8 +15,8 @@ import { useCreateMerchantEnrollmentMutation, useGetMerchantByIdQuery, useGetMer
 import { selectEnrollmentReview, setEnrollmentTransactionResponse } from '@/redux/features/enrollments/review/reviewSlice';
 import { showSnackbar } from '@/redux/features/snackbar/snackbarSlice';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
-import { formStyles as styles } from '@/styles/app/bills/enrollments/form';
-import { globalStyle } from '@/styles/common/globals';
+import { createFormStyles as makeStyles } from '@/styles/app/bills/enrollments/form';
+import { createGlobalStyle as makeGlobalStyle } from '@/styles/common/globals';
 import { flattenFields, resolveVisibilityState, sortFieldsByDisplayOrder } from '@/utils/fieldVisibility';
 import { removeHiddenKeys, validateEnrollmentField } from '@/utils/enrollmentFormValidation';
 import { buildEnrollmentReviewFields, buildEnrollmentFormPayloads } from '@/utils/enrollmentPayloadBuilder';
@@ -25,6 +26,9 @@ import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { View } from 'react-native';
 
 export default function InformationScreen() {
+  const styles = useThemedStyles(makeStyles);
+  const globalStyle = useThemedStyles(makeGlobalStyle);
+
   const dispatch = useAppDispatch();
   const { firstName, lastName, email } = useAuth();
   const params = useLocalSearchParams();

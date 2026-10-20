@@ -1,5 +1,5 @@
-import { Colors } from '@/styles/common/colors';
-import { sectionHeaderComponentStyles as styles } from '@/styles/components/common/SectionHeaderComponent';
+import { useThemedStyles, useThemeColors } from '@/hooks/useAppTheme';
+import { createSectionHeaderComponentStyles as makeStyles } from '@/styles/components/common/SectionHeaderComponent';
 import { SectionHeaderProps } from '@/types/common';
 import { Feather } from '@expo/vector-icons';
 import React from 'react';
@@ -15,10 +15,13 @@ export const SectionHeaderComponent: React.FC<SectionHeaderProps> = ({
   linkStyle,
   containerStyle,
 }) => {
+  const styles = useThemedStyles(makeStyles);
+  const Colors = useThemeColors();
+
   return (
     <View style={[styles.container, containerStyle]}>
       <View style={styles.titleGroup}>
-        <AppText weight="600" numberOfLines={count === undefined ? undefined : 1} style={[styles.title, titleStyle]}>{title}</AppText>
+        <AppText weight="600" numberOfLines={1} style={[styles.title, titleStyle]}>{title}</AppText>
         {count === undefined ? null : (
           <View style={styles.countBadge} testID="section-header-count">
             <AppText weight="600" style={styles.countText}>{count}</AppText>

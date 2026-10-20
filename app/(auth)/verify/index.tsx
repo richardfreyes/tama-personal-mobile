@@ -1,3 +1,4 @@
+import { useThemeColors, useThemedStyles } from '@/hooks/useAppTheme';
 import { AppButton } from '@/components/common/AppButton';
 import { AppText } from '@/components/common/AppText';
 import ResendCodeTimer from '@/components/common/ResendCodeTimer';
@@ -8,16 +9,18 @@ import { COMMON } from '@/constants/common';
 import { useResendOtpMutation, useVerifyOtpMutation } from '@/redux/features/signup/signupApi';
 import { showSnackbar } from '@/redux/features/snackbar/snackbarSlice';
 import { useAppDispatch } from '@/redux/hooks';
-import { verifyStyles as styles } from '@/styles/auth/verify-otp';
-import { globalStyle } from '@/styles/common/globals';
-import { FontSizes } from '@/styles/common/typography';
+import { createVerifyStyles as makeStyles } from '@/styles/auth/verify-otp';
+import { createGlobalStyle as makeGlobalStyle } from '@/styles/common/globals';
+import { Feather } from '@expo/vector-icons';
 import { useLocalSearchParams } from 'expo-router';
 import React, { useMemo, useState } from 'react';
 import { Keyboard, ScrollView, View } from 'react-native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 const VerificationScreen = () => {
-  const insets = useSafeAreaInsets();
+  const globalStyle = useThemedStyles(makeGlobalStyle);
+  const styles = useThemedStyles(makeStyles);
+  const Colors = useThemeColors();
+
   const dispatch = useAppDispatch();
   const { email, tempToken } = useLocalSearchParams<{ email: string, tempToken: string }>();
   const [verifyOtp, { isLoading: isVerifying }] = useVerifyOtpMutation();
@@ -99,16 +102,19 @@ const VerificationScreen = () => {
     <ScrollView contentContainerStyle={[globalStyle.screenContainer, styles.container]}>
       <View>
         <NavHeaderComponent />
-        <AppText weight='700' style={[globalStyle.headerTitle, { marginBottom: 24 }]}>Enter Verification Code</AppText>
-        <AppText style={{fontSize: FontSizes.base}}>
-          We have sent a six digit verification code to <AppText weight='700'>{email || 'your email'}</AppText>. Please input code below to complete sign up and verify your account.
+        <View style={globalStyle.authHeroIcon}>
+          <Feather name="mail" size={22} color={Colors.primaryText} />
+        </View>
+        <AppText weight='600' style={globalStyle.authTitle}>Enter Verification Code</AppText>
+        <AppText style={globalStyle.authLead}>
+          We have sent a six digit verification code to <AppText weight='600'>{email || 'your email'}</AppText>. Please input code below to complete sign up and verify your account.
         </AppText>
         <OTPInput 
           length={6} 
           onCodeChange={handleOTPChange}
           onClearError={handleClearError}
           error={otpError}
-          containerStyle={{ marginTop: 24 }}
+          containerStyle={{ marginTop: 28 }}
         />
         <ResendCodeTimer initialTime={30} onResend={handleResendCode}/>
       </View>

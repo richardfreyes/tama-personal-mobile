@@ -1,9 +1,9 @@
 import { StyleSheet } from "react-native";
-import { Colors } from "../../common/colors";
-import { inputFocusColor } from "../../common/globals";
+import { Colors as LightColors } from '@/styles/common/colors';
+import type { ThemeColors } from '@/types/theme';
 import { FontSizes } from "../../common/typography";
 
-export const OTPInputStyles = StyleSheet.create({
+export const createOTPInputStyles = (Colors: ThemeColors) => StyleSheet.create({
   inputVerifyContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -11,27 +11,28 @@ export const OTPInputStyles = StyleSheet.create({
     gap: 8,
   },
   inputVerify: {
-    height: 50,
-    width: 50,
+    height: 56,
+    width: undefined,
     borderWidth: 1,
-    borderRadius: 4,
+    borderRadius: 8,
     borderColor: Colors.neutral05,
     textAlign: 'center',
-    fontSize: FontSizes.base,
-    color: Colors.neutral08,
-    backgroundColor: Colors.neutral01,
+    fontSize: 22,
+    color: Colors.text,
+    backgroundColor: Colors.inputBackground,
     fontWeight: 'bold',
-    outlineColor: inputFocusColor,
-  },
+    outlineColor: Colors.primary,
+   flex: 1, minWidth: 0, fontFamily: 'PoppinsSemiBold',},
   inputFocused: {
-    backgroundColor: 'red',
-    borderColor: inputFocusColor,
-  },
+    backgroundColor: Colors.inputBackground,
+    borderColor: Colors.primary,
+   boxShadow: `0 0 0 3px ${Colors.focusRing}`,},
   helperText: {
     marginTop: 4,
     paddingLeft: 0,
-    fontSize: FontSizes.small,
+    fontSize: 12,
     marginBottom: 22,
     color: Colors.error10,
-  }
+   lineHeight: 16,}
 });
+export const OTPInputStyles = createOTPInputStyles(LightColors);

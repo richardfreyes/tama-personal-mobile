@@ -1,5 +1,7 @@
+import { useThemedStyles, useThemeColors } from '@/hooks/useAppTheme';
 import FaceIdIcon from '@/assets/icons/face-id.svg';
 import FingerprintIcon from '@/assets/icons/fingerprint.svg';
+import BrandLogoWhite from '@/assets/logo-brand-white.svg';
 import BrandLogo from '@/assets/logo-brand.svg';
 import { AppButton } from '@/components/common/AppButton';
 import { AppText } from '@/components/common/AppText';
@@ -9,9 +11,8 @@ import { useLoginMutation } from '@/redux/features/auth/auth';
 import { showSnackbar } from '@/redux/features/snackbar/snackbarSlice';
 import { useAppDispatch } from '@/redux/hooks';
 import { clearBiometricCredentials, getBiometricCredentials, hasBiometricsEnabled, saveBiometricCredentials } from '@/services/authStorage';
-import { loginStyle as styles } from '@/styles/auth/login/index';
-import { Colors } from '@/styles/common/colors';
-import { globalStyle } from '@/styles/common/globals';
+import { createLoginStyle as makeStyles } from '@/styles/auth/login/index';
+import { createGlobalStyle as makeGlobalStyle } from '@/styles/common/globals';
 import { ApiErrorResponse, LoginFormInputs } from '@/types/form';
 import { getAppVersionLabel } from '@/utils/appInfo';
 import { decodeJwt } from '@/utils/jwt';
@@ -19,10 +20,16 @@ import { validateField } from '@/utils/validators';
 import * as LocalAuthentication from 'expo-local-authentication';
 import { router, useFocusEffect } from 'expo-router';
 import React, { useCallback, useState } from 'react';
-import { KeyboardAvoidingView, Platform, ScrollView, TouchableOpacity, View } from 'react-native';
+import { KeyboardAvoidingView, Platform, ScrollView, TouchableOpacity, useColorScheme, View } from 'react-native';
 import { Checkbox } from 'react-native-paper';
 
 const LoginScreen = () => {
+  const styles = useThemedStyles(makeStyles);
+  const globalStyle = useThemedStyles(makeGlobalStyle);
+  const Colors = useThemeColors();
+  const isDark = useColorScheme() === 'dark';
+  const Logo = isDark ? BrandLogoWhite : BrandLogo;
+
   const dispatch = useAppDispatch();
   const [login, { isLoading }] = useLoginMutation();
   const [formData, setFormData] = useState<LoginFormInputs>({email: '', password: '', rememberMe: false });
@@ -38,6 +45,7 @@ const LoginScreen = () => {
     field: 'password',
     value: formData.password,
     setValue: (text: string) => handleSetValue('password', text),
+    label: 'Password',
     placeholder: 'Password',
     errors: errors,
     setErrors: setErrors,
@@ -266,16 +274,16 @@ const LoginScreen = () => {
           <View>
             <View style={{ marginBottom: 'auto' }}>
               <View style={styles.logoContainer}>
-                <BrandLogo style={styles.logo} width={210} height={53} />
-                <AppText size='medium' weight='700' color='neutral08' mTop={5}>Pay all your bills in one place</AppText>
+                <Logo width={168} height={42} />
+                <AppText weight='500' style={styles.tagline}>Pay all your bills in one place</AppText>
               </View>
               { faceId ?  (
                 <View>
-                  { !loginWithPassword && ( <AppText style={globalStyle.textAlignCenter} size='extraExtraLarge'>Welcome back,</AppText> )}
-                  <AppText style={globalStyle.textAlignCenter} weight='700' size='extraExtraLarge'>{savedUser.name || 'User'}</AppText>
+                  { !loginWithPassword && ( <AppText weight='600' style={styles.welcomeName}>Welcome back,</AppText> )}
+                  <AppText weight='600' style={styles.welcomeName}>{savedUser.name || 'User'}</AppText>
                   {loginWithPassword && (
                     <View>
-                      <AppText size='small' mBottom={16} style={[globalStyle.textAlignCenter]}>{savedUser.email || 'Email'}</AppText>
+                      <AppText mBottom={16} style={styles.welcomeEmail}>{savedUser.email || 'Email'}</AppText>
                       <InputValidationComponent {...passwordInputProps} />
                     </View>
                   )}
@@ -283,11 +291,12 @@ const LoginScreen = () => {
               ) :
               (
                 <View>
-                  <AppText weight='700' mBottom={16} size='extraExtraLarge' color='maroon10'>Login</AppText>
+                  <AppText weight='600' style={styles.title}>Login</AppText>
                   <InputValidationComponent
                     field='email'
                     value={formData.email}
                     setValue={(text) => handleSetValue('email', text)}
+                    label='Email'
                     placeholder='Email'
                     errors={errors}
                     setErrors={setErrors}
@@ -306,21 +315,22 @@ const LoginScreen = () => {
                         status={formData.rememberMe ? 'checked' : 'unchecked'}
                         onPress={() => handleSetValue('rememberMe', !formData.rememberMe)}
                         style={styles.checkbox}
-                        uncheckedColor={Colors.red10}
+                        uncheckedColor={Colors.borderStrong}
+                        color={Colors.primary}
                       />
-                      <AppText>Remember me</AppText>
+                      <AppText style={styles.rememberLabel}>Remember me</AppText>
                     </View>
                     <TouchableOpacity onPress={() => router.navigate('/reset-password')}>
                       <AppText style={styles.forgotPasswordText}>Forgot Password?</AppText>
                     </TouchableOpacity>
                   </View>
 
-                  <View style={{ marginBottom: 24 }}>{btnLogin()}</View>
+                  <View style={{ marginBottom: 20 }}>{btnLogin()}</View>
 
                   <View style={styles.signupRow}>
-                    <AppText>{"Don't have an account? "}</AppText>
+                    <AppText style={styles.signupPrompt}>{"Don't have an account? "}</AppText>
                     <TouchableOpacity onPress={() => router.navigate('/signup')}>
-                      <AppText style={styles.forgotPasswordText}>Sign Up</AppText>
+                      <AppText style={[globalStyle.authLink, styles.signupLink]}>Sign Up</AppText>
                     </TouchableOpacity>
                   </View>
                 </View>
@@ -337,7 +347,7 @@ const LoginScreen = () => {
                 </TouchableOpacity>
                 <View>
                   <AppText style={[globalStyle.textAlignCenter, {marginBottom: 24}]}>Not you? 
-                    <AppText style={{color: Colors.red10}} onPress={handleSwitchAccount}> Switch Account</AppText>
+                    <AppText style={styles.switchAccount} onPress={handleSwitchAccount}> Switch Account</AppText>
                   </AppText>
                   {btnLogin()}
                   <SpacerComponent height={24} />

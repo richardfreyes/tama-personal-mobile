@@ -1,7 +1,7 @@
+import { useThemedStyles, useThemeColors } from '@/hooks/useAppTheme';
 import SearchIcon from '@/assets/icons/search.svg';
-import { Colors } from '@/styles/common/colors';
-import { globalStyle } from '@/styles/common/globals';
-import { searchInputStyles as styles } from '@/styles/components/common/SearchInput';
+import { createGlobalStyle as makeGlobalStyle } from '@/styles/common/globals';
+import { createSearchInputStyles as makeStyles } from '@/styles/components/common/SearchInput';
 import type { SearchInputProps } from '@/types/component-props';
 import { Feather } from '@expo/vector-icons';
 import Ionicons from '@expo/vector-icons/Ionicons';
@@ -20,6 +20,10 @@ const SearchInput = forwardRef<TextInput, SearchInputProps>(function SearchInput
   variant = 'outlined',
   ...props
 }, ref) {
+  const globalStyle = useThemedStyles(makeGlobalStyle);
+  const styles = useThemedStyles(makeStyles);
+  const Colors = useThemeColors();
+
   const [isFocused, setIsFocused] = useState(false);
 
   const handleFocus: NonNullable<TextInputProps['onFocus']> = (event) => {

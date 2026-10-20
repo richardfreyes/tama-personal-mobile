@@ -1,5 +1,6 @@
+import { useThemedStyles } from '@/hooks/useAppTheme';
 import TermsAndConditionsCheckbox from '@/components/settings/TermsAndPolicyText';
-import { globalStyle } from '@/styles/common/globals';
+import { createGlobalStyle as makeGlobalStyle } from '@/styles/common/globals';
 import { CheckboxFieldRendererProps } from '@/types';
 import { View } from 'react-native';
 import { HelperText } from 'react-native-paper';
@@ -15,6 +16,8 @@ export const CheckboxFieldRenderer = ({
   errors,
   handleFieldChange,
 }: CheckboxFieldRendererProps) => {
+  const globalStyle = useThemedStyles(makeGlobalStyle);
+
   const shouldUsePolicyModals = !isEnrollment && (!!onPrivacyPress || !!onRefundPress);
 
   return (

@@ -2,24 +2,27 @@ import { AppText } from '@/components/common/AppText';
 import EmptyStateCard from '@/components/common/EmptyStateCard';
 import { SkeletonBlock } from '@/components/common/Loading';
 import { BRAND_ACTION_GRADIENT_COLORS, BRAND_ACTION_GRADIENT_LOCATIONS, BRAND_SOFT_GRADIENT_COLORS, DASHBOARD_BILL_CAROUSEL_GAP, DASHBOARD_BILL_PAGE_INSET, GRADIENT_DIAGONAL_END, GRADIENT_DIAGONAL_START, GRADIENT_HORIZONTAL_END, GRADIENT_HORIZONTAL_START, } from '@/constants';
+import { useThemeColors, useThemedStyles } from '@/hooks/useAppTheme';
 import { useGetMonthlyBillsEnrollmentsQuery } from '@/redux/features/enrollments/enrollmentApi';
 import { setSelectedEnrollment } from '@/redux/features/enrollmentSelection/enrollmentSelectionSlice';
 import { useAppDispatch } from '@/redux/hooks';
 import { openAddBiller } from '@/services/routeNavigation';
-import { Colors } from '@/styles/common/colors';
-import { globalStyle } from '@/styles/common/globals';
-import { monthlyBillsStyles as styles } from '@/styles/components/enrollments/MonthlyBills';
+import { createGlobalStyle as makeGlobalStyle } from '@/styles/common/globals';
+import { createMonthlyBillsStyles as makeStyles } from '@/styles/components/enrollments/MonthlyBills';
 import type { UpcomingEnrollmentBill } from '@/types/bill';
 import { getIndicatorSlots, getNearestBillIndexForSlot } from '@/utils/monthlyBillIndicators';
 import { getUpcomingBillsForMonth } from '@/utils/upcomingBills';
 import { Feather } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
 import { router } from 'expo-router';
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { FlatList, type LayoutChangeEvent, type ListRenderItemInfo, type NativeScrollEvent, type NativeSyntheticEvent, Platform, Pressable, View, useWindowDimensions } from 'react-native';
 import UpcomingBillCard from './UpcomingBillCard';
 
-const MonthlyBillsSkeleton = () => (
+const MonthlyBillsSkeleton = () => {
+  const globalStyle = useThemedStyles(makeGlobalStyle);
+  const styles = useThemedStyles(makeStyles);
+  return (
   <View
     accessibilityLabel="Loading upcoming bills"
     accessibilityLiveRegion="polite"
@@ -42,8 +45,12 @@ const MonthlyBillsSkeleton = () => (
     <SkeletonBlock borderRadius={14} height={48} style={globalStyle.skeletonOnCard} />
   </View>
 );
+};
 
 export const MonthlyBillsComponent = () => {
+  const styles = useThemedStyles(makeStyles);
+  const Colors = useThemeColors();
+
   const dispatch = useAppDispatch();
   const { width: windowWidth } = useWindowDimensions();
   const [activeIndex, setActiveIndex] = useState(0);
@@ -138,6 +145,7 @@ export const MonthlyBillsComponent = () => {
                 accessibilityLabel={`Bill ${targetBillIndex + 1} of ${upcomingBills.length}`}
                 accessibilityRole="tab"
                 accessibilityState={{ selected: isActive }}
+                hitSlop={{ top: 12, bottom: 12, left: 4, right: 4 }}
                 key={slotIndex}
                 onPress={() => handleIndicatorPress(slotIndex)}
                 style={[styles.indicatorSlot, isActive && styles.indicatorSlotActive]}
@@ -160,6 +168,7 @@ export const MonthlyBillsComponent = () => {
         </View>
         <AppText
           accessibilityLabel={`Bill ${activeIndex + 1} of ${upcomingBills.length}`}
+          numberOfLines={1}
           weight="500"
           style={styles.indicatorCount}
           testID="monthly-bill-indicator-count"

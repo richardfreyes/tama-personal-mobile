@@ -1,8 +1,9 @@
-import { Colors } from "@/styles/common/colors";
+import { Colors as LightColors } from '@/styles/common/colors';
+import type { ThemeColors } from '@/types/theme';
 import { FontSizes } from "@/styles/common/typography";
 import { StyleSheet } from "react-native";
 
-export const confirmPaymentStyles = StyleSheet.create({
+export const createConfirmPaymentStyles = (Colors: ThemeColors) => StyleSheet.create({
   disclaimerContainer: {
     marginBottom: 24,
     padding: 12,
@@ -48,3 +49,5 @@ export const confirmPaymentStyles = StyleSheet.create({
     color: Colors.neutral07,
   },
 });
+
+export const confirmPaymentStyles = createConfirmPaymentStyles(LightColors);

@@ -1,17 +1,21 @@
+import { useThemedStyles, useThemeColors } from '@/hooks/useAppTheme';
 import { AppButton } from '@/components/common/AppButton';
 import { AppText } from '@/components/common/AppText';
 import { NativeLoadingIndicator } from '@/components/common/Loading';
 import { PageState } from '@/components/common/PageState';
 import { SpacerComponent } from '@/components/common/SpacerComponent';
 import { useChangeEmailConfirmMutation } from '@/redux/features/accountSecurity/accountSecurityApi';
-import { Colors } from '@/styles/common/colors';
-import { globalStyle } from '@/styles/common/globals';
-import { pageStateStyles as styles } from '@/styles/components/common/PageState';
+import { createGlobalStyle as makeGlobalStyle } from '@/styles/common/globals';
+import { createPageStateStyles as makePageStateStyles } from '@/styles/components/common/PageState';
 import { router, useLocalSearchParams } from 'expo-router';
 import React, { useEffect } from 'react';
 import { View } from 'react-native';
 
 const ChangeEmailConfirmScreen = () => {
+  const globalStyle = useThemedStyles(makeGlobalStyle);
+  const styles = useThemedStyles(makePageStateStyles);
+  const Colors = useThemeColors();
+
   const { Otoken, Ntoken, code } = useLocalSearchParams<{ Otoken: string; Ntoken: string; code: string }>();
   const [confirmEmail, { isLoading, isSuccess }] = useChangeEmailConfirmMutation();
 
@@ -44,7 +48,7 @@ const ChangeEmailConfirmScreen = () => {
   }
 
   return (
-    <PageState title="Update Failed" description={'Invalid request link. Please try again.'}>
+      <PageState status="error" title="Update Failed" description={'Invalid request link. Please try again.'}>
       <AppButton title="Try Again" variant="tertiary" onPress={handleNavigateLogin}/>
       <SpacerComponent height={12} />
       <AppButton title="Back to Home" variant="primary" onPress={handleNavigateLogin}/>

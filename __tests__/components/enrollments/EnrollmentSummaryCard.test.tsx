@@ -33,7 +33,7 @@ describe('EnrollmentSummaryCard', () => {
     render(<EnrollmentSummaryCard item={enrollment} index={0} onPress={onPress} />);
     expect(screen.getByText('TAMA')).toBeTruthy();
     expect(screen.getByText('ENR-001')).toBeTruthy();
-    expect(screen.getByText('MONTHLY AMOUNT')).toBeTruthy();
+    expect(screen.getByText('MONTHLY')).toBeTruthy();
     expect(screen.getByText('NEXT DEBIT')).toBeTruthy();
     const card = screen.getByTestId('enrollment-card-0');
     fireEvent.press(card);

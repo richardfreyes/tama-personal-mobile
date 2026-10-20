@@ -1,5 +1,6 @@
+import { useThemedStyles } from '@/hooks/useAppTheme';
 import { BILLER_INDEX_BADGE_SIZE, BILLER_INDEX_HOLD_MS, BILLER_INDEX_LETTER_HEIGHT, BILLER_INDEX_LETTER_WIDTH, BILLER_INDEX_MAGNIFY_MS, BILLER_INDEX_MAGNIFY_SHIFT, BILLER_INDEX_MAX_SCALE, } from '@/constants/billerDirectory';
-import { alphabetIndexStyles as styles } from '@/styles/components/common/AlphabetIndex';
+import { createAlphabetIndexStyles as makeStyles } from '@/styles/components/common/AlphabetIndex';
 import type { AlphabetIndexLetterProps, AlphabetIndexProps } from '@/types/common';
 import { getLetterIndexAtY, getLetterMagnification } from '@/utils/alphabetIndex';
 import * as Haptics from 'expo-haptics';
@@ -10,6 +11,8 @@ import Animated, { runOnJS, useAnimatedStyle, useSharedValue, withTiming } from 
 import { AppText } from './AppText';
 
 function AlphabetIndexLetter({ letter, index, isActive, letterHeight, touchY, magnify, onPress }: AlphabetIndexLetterProps) {
+  const styles = useThemedStyles(makeStyles);
+
   const badgeSize = Math.min(BILLER_INDEX_BADGE_SIZE, letterHeight);
 
   const magnifiedStyle = useAnimatedStyle(() => {
@@ -36,10 +39,10 @@ function AlphabetIndexLetter({ letter, index, isActive, letterHeight, touchY, ma
       >
         {isActive ? (
           <View style={[styles.badge, { borderRadius: badgeSize / 2, height: badgeSize, width: badgeSize }]}>
-            <AppText weight="600" style={styles.badgeText}>{letter}</AppText>
+            <AppText weight="700" style={styles.badgeText}>{letter}</AppText>
           </View>
         ) : (
-          <AppText weight="600" style={styles.letterText}>{letter}</AppText>
+          <AppText weight="700" style={styles.letterText}>{letter}</AppText>
         )}
       </Pressable>
     </Animated.View>
@@ -54,6 +57,8 @@ export default function AlphabetIndex({
   onScrub,
   style,
 }: AlphabetIndexProps) {
+  const styles = useThemedStyles(makeStyles);
+
 
   const touchY = useSharedValue(-1);
   const magnify = useSharedValue(0);

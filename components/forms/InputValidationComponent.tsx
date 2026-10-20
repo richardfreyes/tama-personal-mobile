@@ -1,8 +1,10 @@
-import { Colors } from "@/styles/common/colors";
-import { globalStyle, inputFocusColor } from "@/styles/common/globals";
-import { inputValidationComponentStyles as styles } from "@/styles/components/forms/InputValidationComponent";
+import { useThemedStyles, useThemeColors } from '@/hooks/useAppTheme';
+import { createGlobalStyle as makeGlobalStyle, inputFocusColor } from "@/styles/common/globals";
+import { createInputValidationComponentStyles as makeStyles } from "@/styles/components/forms/InputValidationComponent";
 import { InputValidationProps } from "@/types";
 import { formatCurrencyInput, getCurrencyInputSelection, normalizeCurrencyInput } from "@/utils/format";
+import { BRAND_RING_GRADIENT_COLORS, GRADIENT_HORIZONTAL_END, GRADIENT_HORIZONTAL_START } from "@/constants/gradients";
+import { LinearGradient } from "expo-linear-gradient";
 import React, { useLayoutEffect, useRef, useState } from "react";
 import { KeyboardTypeOptions, NativeSyntheticEvent, TextInput, TextInputSelectionChangeEventData, View } from "react-native";
 import { HelperText, TextInput as PaperTextInput, useTheme } from "react-native-paper";
@@ -36,6 +38,10 @@ const InputValidationComponent = ({
   prefix,
   helperText,
 }: InputValidationProps) => {
+  const globalStyle = useThemedStyles(makeGlobalStyle);
+  const styles = useThemedStyles(makeStyles);
+  const Colors = useThemeColors();
+
   const theme = useTheme();
   const hasError = touched[field] && errors[field];
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
@@ -46,6 +52,7 @@ const InputValidationComponent = ({
   const pendingSelectionRef = useRef<{ start: number; end: number } | undefined>(undefined);
   const lastKeyRef = useRef<string | undefined>(undefined);
 
+  const showFocusRing = isFocused && !hasError && editable;
   const finalSecureTextEntry = secureTextEntry && !isPasswordVisible;
 
   const handleValidation = (text: string) => {
@@ -189,7 +196,7 @@ const InputValidationComponent = ({
         <PaperTextInput.Icon
           icon={isPasswordVisible ? "eye-off" : "eye"}
           onPress={() => setIsPasswordVisible((v) => !v)}
-          color={Colors.red10}
+          color={Colors.textSecondary}
           forceTextInputFocus={false}
         />
       );
@@ -241,14 +248,32 @@ const InputValidationComponent = ({
 
   return (
     <View>
+      <View>
+        {showFocusRing ? (
+          <LinearGradient
+            colors={[...BRAND_RING_GRADIENT_COLORS]}
+            end={GRADIENT_HORIZONTAL_END}
+            pointerEvents="none"
+            start={GRADIENT_HORIZONTAL_START}
+            style={globalStyle.inputFocusGradient}
+          />
+        ) : null}
+        {showFocusRing ? <View pointerEvents="none" style={globalStyle.inputFocusFill} /> : null}
       <PaperTextInput
+        label={label || placeholder}
         mode={mode}
-        label={!label ? placeholder : label}
+        accessibilityLabel={label || placeholder}
+        outlineStyle={[globalStyle.inputOutline, showFocusRing && { backgroundColor: Colors.transparent, borderColor: Colors.transparent }]}
+        contentStyle={globalStyle.inputContent}
+        outlineColor={Colors.border}
+        textColor={Colors.text}
+        placeholderTextColor={placeholder && placeholder !== (label || placeholder) ? Colors.textSecondary : Colors.transparent}
         placeholder={placeholder}
         value={displayValue}
         onChangeText={handleValidation}
         style={[
           globalStyle.paperTextInput,
+          multiline && { height: undefined, minHeight: 96 },
           editable ? undefined : { backgroundColor: Colors.neutral03 },
           style,
         ]}
@@ -259,8 +284,10 @@ const InputValidationComponent = ({
         keyboardType={keyboardType as KeyboardTypeOptions}
         secureTextEntry={finalSecureTextEntry}
         maxLength={maxLength}
-        theme={{ colors: { primary: theme.colors.primary } }}
+        theme={{ colors: { primary: inputFocusColor } }}
         activeOutlineColor={inputFocusColor}
+        cursorColor={inputFocusColor}
+        selectionColor={inputFocusColor}
         right={getRightAccessory()}
         left={left}
         multiline={multiline}
@@ -269,6 +296,7 @@ const InputValidationComponent = ({
         onSelectionChange={handleSelectionChange}
         onKeyPress={handleKeyPress}
       />
+      </View>
 
       <HelperText
         style={globalStyle.inputLabelError}

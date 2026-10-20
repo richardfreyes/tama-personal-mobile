@@ -1,4 +1,4 @@
-import { Colors } from '@/styles/common/colors';
+import { useThemeColors } from '@/hooks/useAppTheme';
 import { snackBarStyles as styles } from '@/styles/components/layout/SnackBar';
 import { SnackBarProps } from '@/types';
 import Octicons from '@expo/vector-icons/Octicons';
@@ -9,6 +9,8 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { AppText } from '../common/AppText';
 
 const SnackbarComponent: React.FC<SnackBarProps> = ({ variant = 'success', visible, onDismiss, message }) => {
+  const Colors = useThemeColors();
+
   const insets = useSafeAreaInsets();
   const topPosition = insets.top + 10; 
 
@@ -39,17 +41,17 @@ const SnackbarComponent: React.FC<SnackBarProps> = ({ variant = 'success', visib
         visible={visible}
         onDismiss={onDismiss}
         duration={4000}
-        wrapperStyle={{ top: topPosition, zIndex: 10000, position: 'absolute', paddingHorizontal: 24 }}
-        style={[styles.snackbar, { backgroundColor: config.backgroundColor, borderColor: config.borderColor }]}
+        wrapperStyle={{ top: topPosition, zIndex: 10000, position: 'absolute', paddingHorizontal: 16 }}
+        style={[styles.snackbar, { backgroundColor: Colors.snackbar }]}
       >
         <View style={styles.content}>
           <Octicons 
             name={config.icon} 
-            size={20} 
+            size={18} 
             color={config.color}
-            style={{ marginRight: 24 }} 
+            style={{ marginRight: 0 }} 
           />
-          <AppText style={{paddingRight: 24}} size='small'>
+          <AppText style={{ color: Colors.snackbarText, flex: 1, lineHeight: 18 }} size='small'>
             {message}
           </AppText>
         </View>

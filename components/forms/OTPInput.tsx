@@ -1,7 +1,7 @@
+import { useThemedStyles, useThemeColors } from '@/hooks/useAppTheme';
 import { COMMON } from '@/constants/common';
-import { Colors } from '@/styles/common/colors';
 import { inputFocusColor } from '@/styles/common/globals';
-import { OTPInputStyles as styles } from '@/styles/components/forms/OTPInput';
+import { createOTPInputStyles as makeStyles } from '@/styles/components/forms/OTPInput';
 import { OTPInputProps } from '@/types';
 import React, { useRef, useState } from 'react';
 import { Keyboard, TextInput, TextInputKeyPressEvent, View } from 'react-native';
@@ -15,6 +15,10 @@ const OTPInput: React.FC<OTPInputProps> = ({
   error,
   onClearError
 }) => {
+  const styles = useThemedStyles(makeStyles);
+  const Colors = useThemeColors();
+
+  const [focusedIndex, setFocusedIndex] = useState<number | null>(null);
   const [otpCode, setOtpCode] = useState<string[]>(new Array(length).fill(''));
   const inputRefs = useRef<(TextInput | null)[]>([]);
 
@@ -63,7 +67,8 @@ const OTPInput: React.FC<OTPInputProps> = ({
             key={index}
             ref={(ref) => { inputRefs.current[index] = ref; }}
             style={[
-              styles.inputVerify, 
+              styles.inputVerify,
+              focusedIndex === index && styles.inputFocused, 
               inputStyle,
               error ? { borderColor: Colors.error10 } : {}
             ]}
@@ -76,7 +81,9 @@ const OTPInput: React.FC<OTPInputProps> = ({
             value={otpCode[index]}
             onChangeText={(text) => handleTextChange(text, index)}
             onKeyPress={(e) => handleKeyPress(e, index)}
+            onBlur={() => setFocusedIndex(null)}
             onFocus={() => {
+              setFocusedIndex(index);
               if (otpCode[index] !== '') {
                 const newOtpCode = [...otpCode];
                 newOtpCode[index] = '';

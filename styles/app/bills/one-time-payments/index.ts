@@ -1,10 +1,11 @@
-import { Colors } from "@/styles/common/colors";
+import { Colors as LightColors } from '@/styles/common/colors';
+import type { ThemeColors } from '@/types/theme';
 import { FontSizes } from "@/styles/common/typography";
 import { StyleSheet } from "react-native";
 
-export const billsStyles = StyleSheet.create({
+export const createBillsStyles = (Colors: ThemeColors) => StyleSheet.create({
   screen: {
-    backgroundColor: Colors.neutral01,
+    backgroundColor: Colors.background,
     flex: 1,
   },
   scrollViewContent: {
@@ -31,7 +32,7 @@ export const billsStyles = StyleSheet.create({
     alignItems: 'center',
   },
   addButtonText: {
-    color: Colors.neutral01,
+    color: Colors.white,
     fontSize: 16,
     fontWeight: 'bold',
   },
@@ -84,17 +85,17 @@ export const billsStyles = StyleSheet.create({
     backgroundColor: Colors.neutral01,
   },
   scrollContainerContent: {
-    paddingHorizontal: 20, 
+    paddingHorizontal: 16, 
     paddingTop: 10,
-    backgroundColor: Colors.neutral01,
+    backgroundColor: Colors.background,
   },
   inputDefault: {
   },
   filterScrollView: {
     flexDirection: 'row',
     marginBottom: 20,
-    marginHorizontal: -20, 
-    paddingHorizontal: 20,
+    marginHorizontal: -16, 
+    paddingHorizontal: 16,
   },
   pill: {
     flexDirection: 'row',
@@ -114,7 +115,7 @@ export const billsStyles = StyleSheet.create({
   },
   billerRowTouchable: {
     borderBottomWidth: 1,
-    borderBottomColor: '#f0f0f0',
+    borderBottomColor: Colors.dashboardCardBorder,
   },
   billerRow: {
     flexDirection: 'row',
@@ -127,11 +128,13 @@ export const billsStyles = StyleSheet.create({
     marginRight: 15,
     borderRadius: 5,
     borderWidth: 1,
-    borderColor: '#eee',
+    borderColor: Colors.dashboardCardBorder,
   },
   billerNameRow: {
     fontSize: 16,
     fontWeight: '500',
-    color: '#333',
+    color: Colors.neutral09,
   },
 });
+
+export const billsStyles = createBillsStyles(LightColors);

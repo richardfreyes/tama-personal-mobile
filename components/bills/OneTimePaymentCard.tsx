@@ -1,6 +1,7 @@
+import { useThemedStyles } from '@/hooks/useAppTheme';
 import { useGetBillsQuery } from '@/redux/features/bills/billsApi';
-import { globalStyle } from '@/styles/common/globals';
-import { oneTimePaymentCardStyles as styles } from '@/styles/components/bills/OneTimePaymentCard';
+import { createGlobalStyle as makeGlobalStyle } from '@/styles/common/globals';
+import { createOneTimePaymentCardStyles as makeStyles } from '@/styles/components/bills/OneTimePaymentCard';
 import { OneTimePaymentCardProps } from '@/types/common';
 import { getActiveSavedBillCount, getSavedBillsForDisplay, shouldUseMockSavedBills } from '@/utils/savedBills';
 import React, { useMemo } from 'react';
@@ -11,6 +12,9 @@ import { SkeletonBlock } from '../common/Loading';
 import { SectionHeaderComponent } from '../common/SectionHeaderComponent';
 
 export default function OneTimePaymentCard({ onMakePayment }: OneTimePaymentCardProps) {
+  const globalStyle = useThemedStyles(makeGlobalStyle);
+  const styles = useThemedStyles(makeStyles);
+
   const { data: billsData, isLoading, isError } = useGetBillsQuery({ page: 0 });
   const isUsingMock = shouldUseMockSavedBills(billsData);
   const displayBills = useMemo(() => getSavedBillsForDisplay(billsData), [billsData]);

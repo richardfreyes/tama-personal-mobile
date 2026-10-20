@@ -1,26 +1,27 @@
-import { Colors } from '@/styles/common/colors';
+import { Colors as LightColors } from '@/styles/common/colors';
+import type { ThemeColors } from '@/types/theme';
 import { StyleSheet } from 'react-native';
 
-export const searchInputStyles = StyleSheet.create({
+export const createSearchInputStyles = (Colors: ThemeColors) => StyleSheet.create({
 
   filledContainer: {
     alignItems: 'center',
-    backgroundColor: Colors.neutral03,
-    borderRadius: 999,
+    backgroundColor: Colors.backgroundSecondary,
+    borderRadius: 8,
     flexDirection: 'row',
     gap: 10,
-    height: 48,
-    paddingLeft: 16,
+    height: 44,
+    paddingLeft: 12,
     paddingRight: 6,
   },
   filledIcon: {
     flexShrink: 0,
   },
   filledInput: {
-    color: Colors.maroon11,
+    color: Colors.text,
     flex: 1,
     fontFamily: 'PoppinsRegular',
-    fontSize: 15,
+    fontSize: 14,
     includeFontPadding: false,
     minWidth: 0,
     outlineColor: Colors.transparent,
@@ -29,11 +30,11 @@ export const searchInputStyles = StyleSheet.create({
     padding: 0,
   },
   filledPlaceholder: {
-    color: Colors.maroon06,
+    color: Colors.textSecondary,
     fontFamily: 'PoppinsRegular',
     fontSize: 15,
-    left: 46,
-    lineHeight: 22,
+    left: 40,
+    lineHeight: 20,
     position: 'absolute',
     right: 42,
   },
@@ -45,3 +46,5 @@ export const searchInputStyles = StyleSheet.create({
     width: 36,
   },
 });
+
+export const searchInputStyles = createSearchInputStyles(LightColors);

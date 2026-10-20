@@ -1,12 +1,16 @@
+import { useThemedStyles } from '@/hooks/useAppTheme';
 import { AppText } from '@/components/common/AppText';
 import { GlobalScrollView } from '@/components/common/GlobalScrollView';
 import NavHeaderComponent from '@/components/layout/NavHeaderComponent';
 import { LICENSE_LOGOS } from '@/constants/license';
-import { aboutStyles as styles } from '@/styles/app/settings/about';
-import { globalStyle } from '@/styles/common/globals';
+import { createAboutStyles as makeStyles } from '@/styles/app/settings/about';
+import { createGlobalStyle as makeGlobalStyle } from '@/styles/common/globals';
 import { Image, View } from 'react-native';
 
 export default function LicensesScreen() {
+  const styles = useThemedStyles(makeStyles);
+  const globalStyle = useThemedStyles(makeGlobalStyle);
+
   return (
     <GlobalScrollView contentContainerStyle={[globalStyle.screenContainer, styles.screenContainer]}>
       <NavHeaderComponent title="Licenses" />

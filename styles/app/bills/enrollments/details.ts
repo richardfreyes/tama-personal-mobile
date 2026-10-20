@@ -1,10 +1,11 @@
-import { Colors } from '@/styles/common/colors';
+import { Colors as LightColors } from '@/styles/common/colors';
+import type { ThemeColors } from '@/types/theme';
 import { FontSizes } from '@/styles/common/typography';
 import { StyleSheet } from 'react-native';
 
-export const enrollmentDetailsStyles = StyleSheet.create({
+export const createEnrollmentDetailsStyles = (Colors: ThemeColors) => StyleSheet.create({
   screenContent: {
-    backgroundColor: Colors.neutral02,
+    backgroundColor: Colors.background,
     paddingBottom: 40,
   },
   screenInner: {
@@ -17,11 +18,11 @@ export const enrollmentDetailsStyles = StyleSheet.create({
   },
   heroCard: {
     backgroundColor: Colors.neutral01,
-    borderColor: Colors.neutral04,
-    borderRadius: 16,
+    borderColor: Colors.dashboardCardBorder,
+    borderRadius: 12,
     borderWidth: 1,
     padding: 18,
-    shadowColor: Colors.neutral10,
+    shadowColor: Colors.shadow,
     shadowOffset: { height: 2, width: 0 },
     shadowOpacity: 0.04,
     shadowRadius: 8,
@@ -101,7 +102,7 @@ export const enrollmentDetailsStyles = StyleSheet.create({
     borderWidth: 2,
   },
   paymentSummaryCard: {
-    borderRadius: 18,
+    borderRadius: 12,
     overflow: 'hidden',
     padding: 20,
   },
@@ -111,7 +112,7 @@ export const enrollmentDetailsStyles = StyleSheet.create({
     lineHeight: 18,
   },
   monthlyAmount: {
-    color: Colors.neutral01,
+    color: Colors.white,
     fontSize: 34,
     letterSpacing: -0.8,
     lineHeight: 45,
@@ -133,7 +134,7 @@ export const enrollmentDetailsStyles = StyleSheet.create({
     lineHeight: 15,
   },
   estimatedTotalValue: {
-    color: Colors.neutral01,
+    color: Colors.white,
     lineHeight: 18,
   },
   summaryMetrics: {
@@ -161,14 +162,14 @@ export const enrollmentDetailsStyles = StyleSheet.create({
     lineHeight: 15,
   },
   summaryMetricValue: {
-    color: Colors.neutral01,
+    color: Colors.white,
     lineHeight: 19,
     marginTop: 3,
   },
   sectionCard: {
     backgroundColor: Colors.neutral01,
-    borderColor: Colors.neutral04,
-    borderRadius: 16,
+    borderColor: Colors.dashboardCardBorder,
+    borderRadius: 12,
     borderWidth: 1,
     padding: 18,
   },
@@ -211,7 +212,7 @@ export const enrollmentDetailsStyles = StyleSheet.create({
     marginTop: 16,
   },
   progressDetail: {
-    backgroundColor: Colors.neutral02,
+    backgroundColor: Colors.backgroundSecondary,
     borderRadius: 10,
     flexBasis: '46%',
     flexGrow: 1,
@@ -425,3 +426,5 @@ export const enrollmentDetailsStyles = StyleSheet.create({
     marginTop: 12,
   },
 });
+
+export const enrollmentDetailsStyles = createEnrollmentDetailsStyles(LightColors);

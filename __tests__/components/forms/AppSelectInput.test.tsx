@@ -35,9 +35,10 @@ describe('AppSelectInput', () => {
     expect(screen.getAllByText('Country').length).toBeGreaterThanOrEqual(1);
   });
 
-  it('shows placeholder as display value when no option is selected', () => {
+  it('leaves the field empty so the floating label shows when no option is selected', () => {
     renderSelect();
-    expect(screen.getByDisplayValue('Select a country')).toBeTruthy();
+    expect(screen.getByDisplayValue('')).toBeTruthy();
+    expect(screen.getAllByText('Country').length).toBeGreaterThanOrEqual(1);
   });
 
   it('shows selected option name when selectedValue matches', () => {
@@ -45,9 +46,9 @@ describe('AppSelectInput', () => {
     expect(screen.getByDisplayValue('Philippines')).toBeTruthy();
   });
 
-  it('falls back to placeholder when selectedValue does not match any option', () => {
+  it('stays empty when selectedValue does not match any option', () => {
     renderSelect({ selectedValue: 'xx' });
-    expect(screen.getByDisplayValue('Select a country')).toBeTruthy();
+    expect(screen.getByDisplayValue('')).toBeTruthy();
   });
 
   it('shows all options when anchor is pressed', async () => {
@@ -100,7 +101,7 @@ describe('AppSelectInput', () => {
   it('renders with an empty options array', () => {
     renderSelect({ options: [] });
     expect(screen.getAllByText('Country').length).toBeGreaterThanOrEqual(1);
-    expect(screen.getByDisplayValue('Select a country')).toBeTruthy();
+    expect(screen.getByDisplayValue('')).toBeTruthy();
   });
 
   it('does not throw when onValueChange is not provided', async () => {

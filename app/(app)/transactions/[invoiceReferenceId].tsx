@@ -1,3 +1,4 @@
+import { useThemedStyles } from '@/hooks/useAppTheme';
 import { AppText } from '@/components/common/AppText';
 import { GlobalScrollView } from '@/components/common/GlobalScrollView';
 import InfoFieldComponent from '@/components/common/InfoFieldComponent';
@@ -8,14 +9,17 @@ import NavHeaderComponent from '@/components/layout/NavHeaderComponent';
 import EnrollmentTransactionDetails from '@/components/transactions/EnrollmentTransactionDetails';
 import { useGetEnrollmentTransactionHistoryQuery } from '@/redux/features/enrollmentTransactionHistory/enrollmentTransactionHistoryApi';
 import { useGetTransactionDetailQuery } from '@/redux/features/transactionDetail/transactionDetailApi';
-import { invoiceReferenceIdStyles as styles } from '@/styles/app/transactions/invoiceReferenceId';
-import { globalStyle } from '@/styles/common/globals';
+import { createInvoiceReferenceIdStyles as makeStyles } from '@/styles/app/transactions/invoiceReferenceId';
+import { createGlobalStyle as makeGlobalStyle } from '@/styles/common/globals';
 import { formatMoney } from '@/utils/format';
 import { router, useLocalSearchParams } from 'expo-router';
 import React, { useState } from 'react';
 import { TouchableOpacity, View } from 'react-native';
 
 const TransactionDetailScreen = () => {
+  const styles = useThemedStyles(makeStyles);
+  const globalStyle = useThemedStyles(makeGlobalStyle);
+
   const { invoiceReferenceId, isAutoPay, transactionId: transactionIdParam, transactionType } = useLocalSearchParams();
   const routeReferenceId = Array.isArray(invoiceReferenceId) ? invoiceReferenceId[0] : invoiceReferenceId;
   const routeTransactionId = Array.isArray(transactionIdParam) ? transactionIdParam[0] : transactionIdParam;

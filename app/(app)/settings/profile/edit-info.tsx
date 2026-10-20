@@ -1,3 +1,4 @@
+import { useThemedStyles } from '@/hooks/useAppTheme';
 import { AppButton } from '@/components/common/AppButton';
 import { AppText } from '@/components/common/AppText';
 import InputValidationComponent from '@/components/forms/InputValidationComponent';
@@ -6,8 +7,8 @@ import { useAuth } from '@/hooks/useAuth';
 import { useGetProfileDataQuery, useUpdateProfileMutation } from '@/redux/features/profile/profileApi';
 import { showSnackbar } from '@/redux/features/snackbar/snackbarSlice';
 import { useAppDispatch } from '@/redux/hooks';
-import { editInfoStyles as styles } from '@/styles/app/settings/profile/edit-info';
-import { globalStyle } from '@/styles/common/globals';
+import { createEditInfoStyles as makeStyles } from '@/styles/app/settings/profile/edit-info';
+import { createGlobalStyle as makeGlobalStyle } from '@/styles/common/globals';
 import { EditProfileInputs } from '@/types';
 import { validateField } from '@/utils/validators';
 import { router, useFocusEffect } from 'expo-router';
@@ -15,6 +16,9 @@ import { useCallback, useEffect, useState } from 'react';
 import { KeyboardAvoidingView, Platform, ScrollView, View } from 'react-native';
 
 export default function EditInfo() {
+  const styles = useThemedStyles(makeStyles);
+  const globalStyle = useThemedStyles(makeGlobalStyle);
+
   const dispatch = useAppDispatch();
   const [errors, setErrors] = useState<Partial<Record<keyof EditProfileInputs, string | undefined>>>({});
   const [touched, setTouched] = useState<Partial<Record<keyof EditProfileInputs, boolean>>>({});

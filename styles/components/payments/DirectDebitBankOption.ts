@@ -1,7 +1,8 @@
-import { Colors } from '@/styles/common/colors';
+import { Colors as LightColors } from '@/styles/common/colors';
+import type { ThemeColors } from '@/types/theme';
 import { StyleSheet } from 'react-native';
 
-export const directDebitBankOptionStyles = StyleSheet.create({
+export const createDirectDebitBankOptionStyles = (Colors: ThemeColors) => StyleSheet.create({
   container: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -37,3 +38,5 @@ export const directDebitBankOptionStyles = StyleSheet.create({
     flexShrink: 0,
   },
 });
+
+export const directDebitBankOptionStyles = createDirectDebitBankOptionStyles(LightColors);

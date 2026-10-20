@@ -1,12 +1,13 @@
 import { StyleSheet } from "react-native";
-import { Colors } from "../../common/colors";
+import { Colors as LightColors } from '@/styles/common/colors';
+import type { ThemeColors } from '@/types/theme';
 import { FontSizes } from "../../common/typography";
 
-export const signupStyles = StyleSheet.create({
+export const createSignupStyles = (Colors: ThemeColors) => StyleSheet.create({
   header: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 20,
+    marginBottom: 12,
   },
   termsRow: {
     marginBottom: 24,
@@ -23,19 +24,22 @@ export const signupStyles = StyleSheet.create({
   },
   termsLink: {
     fontSize: FontSizes.small,
-    color: Colors.info07
+    color: Colors.primaryText
   },
   loginLinkContainer: {
     flexDirection: 'row',
     justifyContent: 'center',
   },
   loginLinkText: {
-    fontSize: FontSizes.small,
+    color: Colors.textSecondary,
+    fontSize: 15,
+    lineHeight: 20,
   },
   loginLink: {
-    fontSize: FontSizes.small,
-    color: Colors.red10, 
-    fontWeight: 'bold',
-    textDecorationLine: 'underline'
+    color: Colors.primaryText,
+    fontFamily: 'PoppinsSemiBold',
+    fontSize: 15,
+    lineHeight: 20,
   }
 });
+export const signupStyles = createSignupStyles(LightColors);

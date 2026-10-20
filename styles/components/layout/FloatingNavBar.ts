@@ -1,57 +1,61 @@
 import { StyleSheet } from "react-native";
-import { Colors } from "../../common/colors";
+import { Colors as LightColors } from '@/styles/common/colors';
+import type { ThemeColors } from '@/types/theme';
 
-export const floatingNavBarStyles = StyleSheet.create({
+export const createFloatingNavBarStyles = (Colors: ThemeColors) => StyleSheet.create({
   tabBarContainer: {
     position: 'absolute',
-    left: 16,
-    right: 16,
+    left: 0,
+    right: 0,
     alignItems: 'center',
     justifyContent: 'center',
-  },
+   bottom: 0, backgroundColor: Colors.tabBar,},
   tabBar: {
-    backgroundColor: Colors.neutral01,
+    backgroundColor: Colors.tabBar,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
     width: '100%',
-    borderRadius: 24,
-    borderWidth: 1,
-    borderColor: Colors.dashboardCardBorder,
-    padding: 6,
-    shadowColor: Colors.maroon10,
+    borderRadius: 0,
+    borderWidth: 0,
+    borderColor: Colors.border,
+    padding: 0,
+    shadowColor: Colors.shadow,
     shadowOffset: { width: 0, height: 10 },
-    shadowOpacity: 0.28,
+    shadowOpacity: 0,
     shadowRadius: 18,
-    elevation: 10,
-  },
+    elevation: 0,
+   borderTopWidth: 1,},
   tabButton: {
     flex: 1,
     minHeight: 56,
     alignItems: 'center',
     justifyContent: 'center',
-    gap: 4,
+    gap: 3,
     paddingVertical: 2,
   },
   iconSlot: {
-    width: 60,
-    height: 32,
-    borderRadius: 16,
+    width: 24,
+    height: 24,
+    borderRadius: 0,
     alignItems: 'center',
     justifyContent: 'center',
   },
   activeIconSlot: {
-    backgroundColor: Colors.red01,
+    backgroundColor: 'transparent',
   },
   tabLabel: {
-    fontSize: 12,
-    lineHeight: 16,
+    fontSize: 11,
+    lineHeight: 14,
     textAlign: 'center',
   },
   activeTabLabel: {
-    color: Colors.red09,
+    color: Colors.primaryText,
   },
   inactiveTabLabel: {
-    color: Colors.maroon09,
+    color: Colors.textSecondary,
   },
+  activeIndicator: { position: 'absolute', top: 0, width: 32, height: 2, backgroundColor: Colors.primary },
 });
+
+export const floatingNavBarStyles = createFloatingNavBarStyles(LightColors);

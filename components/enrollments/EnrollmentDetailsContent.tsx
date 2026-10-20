@@ -1,3 +1,4 @@
+import { useThemedStyles, useThemeColors } from '@/hooks/useAppTheme';
 import { AppText } from '@/components/common/AppText';
 import { NativeProgressBar } from '@/components/common/Loading';
 import DetailRows from '@/components/enrollments/DetailRows';
@@ -6,8 +7,7 @@ import { SUPPORT_EMAIL_CHANNEL } from '@/constants/contact';
 import { ENROLLMENT_DETAILS_COPY, ENROLLMENT_DETAILS_WIDE_BREAKPOINT, ENROLLMENT_IMPORTANT_NOTES, ENROLLMENT_SUMMARY_GRADIENT_COLORS, ENROLLMENT_SUMMARY_GRADIENT_END, ENROLLMENT_SUMMARY_GRADIENT_LOCATIONS, ENROLLMENT_SUMMARY_GRADIENT_START, } from '@/constants/enrollment';
 import { showSnackbar } from '@/redux/features/snackbar/snackbarSlice';
 import { useAppDispatch } from '@/redux/hooks';
-import { enrollmentDetailsStyles as styles } from '@/styles/app/bills/enrollments/details';
-import { Colors } from '@/styles/common/colors';
+import { createEnrollmentDetailsStyles as makeStyles } from '@/styles/app/bills/enrollments/details';
 import type { EnrollmentDetailsContentProps } from '@/types/common';
 import { getCardIcon } from '@/utils/card';
 import { buildEnrollmentDetailsViewModel } from '@/utils/enrollmentPresentation';
@@ -18,6 +18,9 @@ import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { Animated, Easing, Linking, Pressable, useWindowDimensions, View } from 'react-native';
 
 export default function EnrollmentDetailsContent({ enrollment }: EnrollmentDetailsContentProps) {
+  const styles = useThemedStyles(makeStyles);
+  const Colors = useThemeColors();
+
   const dispatch = useAppDispatch();
   const { width } = useWindowDimensions();
   const isWide = width >= ENROLLMENT_DETAILS_WIDE_BREAKPOINT;

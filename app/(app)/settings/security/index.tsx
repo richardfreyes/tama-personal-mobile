@@ -1,16 +1,20 @@
+import { useThemedStyles, useThemeColors } from '@/hooks/useAppTheme';
 import { AppText } from '@/components/common/AppText';
 import NavHeaderComponent from '@/components/layout/NavHeaderComponent';
 import { COMMON } from '@/constants/common';
 import { showModal } from '@/redux/features/modal/modalSlice';
 import { store } from '@/redux/store';
-import { settingsStyles } from '@/styles/app/settings';
-import { Colors } from '@/styles/common/colors';
-import { globalStyle } from '@/styles/common/globals';
+import { createSettingsStyles as makeSettingsStyles } from '@/styles/app/settings';
+import { createGlobalStyle as makeGlobalStyle } from '@/styles/common/globals';
 import { SettingRoute } from '@/types';
 import { router } from 'expo-router';
 import { ScrollView, TouchableOpacity, View } from 'react-native';
 
 export default function Security() {
+  const settingsStyles = useThemedStyles(makeSettingsStyles);
+  const globalStyle = useThemedStyles(makeGlobalStyle);
+  const Colors = useThemeColors();
+
   const handleSettingsRoute = (route: SettingRoute) => {
     if (!route) return;
 

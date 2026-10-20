@@ -1,3 +1,4 @@
+import { differenceInCalendarDays, parseISO } from 'date-fns';
 import { ENROLLMENT_DETAIL_SECTION_ORDER, ENROLLMENT_EMPTY_DISPLAY_VALUES } from '@/constants/enrollment';
 import type { Enrollment, EnrollmentDetailField, EnrollmentDetailSection, EnrollmentDetailSectionTitle, EnrollmentDetailsViewModel, EnrollmentDisplayField, EnrollmentPaymentMethodDetails, EnrollmentPaymentMethodSummary } from '@/types/enrollment';
 import { getProviderDisplay } from '@/utils/card';
@@ -188,6 +189,23 @@ export const getEnrollmentNextDebitDate = (enrollment: Enrollment): string => {
   const date = getEnrollmentNextDebitDateValue(enrollment);
 
   return date ? formatApiDate(date, 'MMM dd, yyyy') : 'Not scheduled';
+};
+
+export const getEnrollmentNextDebitShortDate = (enrollment: Enrollment): string | null => {
+  const date = getEnrollmentNextDebitDateValue(enrollment);
+
+  return date ? formatApiDate(date, 'MMM dd') : null;
+};
+
+export const getEnrollmentNextDebitCountdown = (enrollment: Enrollment, now = new Date()): string | null => {
+  const date = parseISO(getEnrollmentNextDebitDateValue(enrollment) ?? '');
+  if (Number.isNaN(date.getTime())) return null;
+
+  const days = differenceInCalendarDays(date, now);
+  if (days < 0) return null;
+  if (days === 0) return 'today';
+
+  return `in ${days} ${days === 1 ? 'day' : 'days'}`;
 };
 
 export const getEnrollmentBillTitle = (enrollment: Enrollment): string => (

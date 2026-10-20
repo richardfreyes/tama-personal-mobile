@@ -1,8 +1,9 @@
 import { StyleSheet } from "react-native";
-import { Colors } from "../../common/colors";
+import { Colors as LightColors } from '@/styles/common/colors';
+import type { ThemeColors } from '@/types/theme';
 import { FontSizes } from "../../common/typography";
 
-export const filterAutoPayStyles = StyleSheet.create({
+export const createFilterAutoPayStyles = (Colors: ThemeColors) => StyleSheet.create({
   header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -33,7 +34,7 @@ export const filterAutoPayStyles = StyleSheet.create({
   },
   resetButtonText: {
     fontSize: FontSizes.small,
-    color: Colors.red10,
+    color: Colors.primaryText,
   },
   checkboxContainer: {
     flexDirection: 'row',
@@ -50,3 +51,5 @@ export const filterAutoPayStyles = StyleSheet.create({
     justifyContent: 'space-between',
   },
 });
+
+export const filterAutoPayStyles = createFilterAutoPayStyles(LightColors);

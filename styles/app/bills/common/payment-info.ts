@@ -1,7 +1,8 @@
 import { StyleSheet } from 'react-native';
-import { Colors } from '../../../common/colors';
+import { Colors as LightColors } from '@/styles/common/colors';
+import type { ThemeColors } from '@/types/theme';
 
-export const paymentInfoStyles = StyleSheet.create({
+export const createPaymentInfoStyles = (Colors: ThemeColors) => StyleSheet.create({
   wrapper: {
     flex: 1,
     paddingHorizontal: 12,
@@ -12,7 +13,7 @@ export const paymentInfoStyles = StyleSheet.create({
     gap: 10,
   },
   title: {
-    color: Colors.maroon11,
+    color: Colors.text,
     fontSize: 16,
     lineHeight: 24,
   },
@@ -34,8 +35,10 @@ export const paymentInfoStyles = StyleSheet.create({
     opacity: 0.7,
   },
   toggleText: {
-    color: Colors.red09,
+    color: Colors.primaryText,
     fontSize: 14,
     lineHeight: 20,
   },
 });
+
+export const paymentInfoStyles = createPaymentInfoStyles(LightColors);

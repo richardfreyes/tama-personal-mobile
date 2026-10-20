@@ -241,6 +241,7 @@ export interface PageStateProps {
   description: string;
   children: React.ReactNode;
   containerStyle?: StyleProp<ViewStyle>;
+  status?: 'success' | 'error' | 'neutral';
 }
 
 export interface GlobalScrollViewProps extends ScrollViewProps {

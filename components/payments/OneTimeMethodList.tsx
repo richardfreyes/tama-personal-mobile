@@ -1,12 +1,16 @@
+import { useThemedStyles } from '@/hooks/useAppTheme';
 import { ONE_TIME_PAYMENT_METHODS } from '@/constants/paymentOptions';
-import { globalStyle } from '@/styles/common/globals';
-import { oneTimeMethodListStyles as styles } from '@/styles/components/payments/OneTimeMethodList';
+import { createGlobalStyle as makeGlobalStyle } from '@/styles/common/globals';
+import { createOneTimeMethodListStyles as makeStyles } from '@/styles/components/payments/OneTimeMethodList';
 import type { OneTimeMethodListProps } from '@/types';
 import React from 'react';
 import { View } from 'react-native';
 import PaymentOptionRow from './PaymentOptionRow';
 
 export default function OneTimeMethodList({ selectedMethod, onSelectMethod }: OneTimeMethodListProps) {
+  const globalStyle = useThemedStyles(makeGlobalStyle);
+  const styles = useThemedStyles(makeStyles);
+
   return (
     <View accessibilityRole="radiogroup" style={[globalStyle.listCard, styles.list]}>
       {ONE_TIME_PAYMENT_METHODS.map((method, index) => {

@@ -1,7 +1,8 @@
-import { Colors } from "@/styles/common/colors";
+import { Colors as LightColors } from '@/styles/common/colors';
+import type { ThemeColors } from '@/types/theme';
 import { StyleSheet } from "react-native";
 
-export const billingReferenceIdStyles = StyleSheet.create({
+export const createBillingReferenceIdStyles = (Colors: ThemeColors) => StyleSheet.create({
   screen: {
     backgroundColor: Colors.neutral01,
     flex: 1,
@@ -26,8 +27,10 @@ export const billingReferenceIdStyles = StyleSheet.create({
     gap: 12,
   },
   sectionTitle: {
-    color: Colors.maroon11,
+    color: Colors.text,
     fontSize: 16,
     lineHeight: 24,
   },
 });
+
+export const billingReferenceIdStyles = createBillingReferenceIdStyles(LightColors);

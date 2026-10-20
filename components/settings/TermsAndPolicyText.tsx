@@ -1,7 +1,7 @@
+import { useThemedStyles, useThemeColors } from '@/hooks/useAppTheme';
 import { LEGAL_URLS } from '@/constants/enrollment';
-import { Colors } from '@/styles/common/colors';
 import { FontSizes } from '@/styles/common/typography';
-import { termsAndPolicyTextStyles as styles } from '@/styles/components/settings/TermsAndPolicyText';
+import { createTermsAndPolicyTextStyles as makeStyles } from '@/styles/components/settings/TermsAndPolicyText';
 import { TermsAndConditionsCheckboxProps } from '@/types';
 import * as WebBrowser from 'expo-web-browser';
 import React from 'react';
@@ -18,6 +18,9 @@ const TermsAndConditionsCheckbox: React.FC<TermsAndConditionsCheckboxProps> = ({
   onToggle,
   containerStyle,
 }) => {
+  const styles = useThemedStyles(makeStyles);
+  const Colors = useThemeColors();
+
   const theme = useTheme();
   const primaryColor = theme.colors.primary;
   const hasPolicyLinkHandlers = !!onPrivacyLinkPress || !!onRefundLinkPress;

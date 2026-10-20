@@ -1,7 +1,8 @@
+import { useThemedStyles } from '@/hooks/useAppTheme';
 import { AppText } from '@/components/common/AppText';
 import { BRAND_RING_GRADIENT_COLORS, GRADIENT_DIAGONAL_END, GRADIENT_DIAGONAL_START } from '@/constants/gradients';
 import { useAuth } from '@/hooks/useAuth';
-import { headerComponentStyles as styles } from '@/styles/components/layout/HeaderComponent';
+import { createHeaderComponentStyles as makeStyles } from '@/styles/components/layout/HeaderComponent';
 import type { HeaderProps } from '@/types';
 import { LinearGradient } from 'expo-linear-gradient';
 import { router } from 'expo-router';
@@ -16,13 +17,15 @@ const greetingForHour = (hour: number) => {
 };
 
 const HeaderComponent: React.FC<HeaderProps> = () => {
+  const styles = useThemedStyles(makeStyles);
+
   const { firstName, lastName } = useAuth();
   const insets = useSafeAreaInsets();
   const initials = `${firstName?.charAt(0) || ''}${lastName?.charAt(0) || ''}`.toUpperCase();
   const name = `${firstName} ${lastName}`.trim();
 
   return (
-    <View style={[styles.headerContainer, { paddingTop: insets.top + 8 }]}>
+    <View style={[styles.headerContainer, { paddingTop: insets.top + 4 }]}>
       <Pressable
         accessibilityHint="Opens your settings"
         accessibilityLabel={`Profile, ${name}`}

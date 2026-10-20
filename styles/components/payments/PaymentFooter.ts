@@ -1,7 +1,8 @@
 import { StyleSheet } from 'react-native';
-import { Colors } from '../../common/colors';
+import { Colors as LightColors } from '@/styles/common/colors';
+import type { ThemeColors } from '@/types/theme';
 
-export const paymentFooterStyles = StyleSheet.create({
+export const createPaymentFooterStyles = (Colors: ThemeColors) => StyleSheet.create({
   footer: {
     backgroundColor: Colors.neutral01,
     borderTopColor: Colors.dashboardCardBorder,
@@ -31,10 +32,12 @@ export const paymentFooterStyles = StyleSheet.create({
     color: Colors.dashboardErrorText,
   },
   total: {
-    color: Colors.maroon11,
+    color: Colors.text,
     flexShrink: 0,
     fontSize: 17,
     fontVariant: ['tabular-nums'],
     lineHeight: 24,
   },
 });
+
+export const paymentFooterStyles = createPaymentFooterStyles(LightColors);

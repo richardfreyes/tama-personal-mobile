@@ -1,10 +1,10 @@
+import { useThemedStyles, useThemeColors } from '@/hooks/useAppTheme';
 import { AppButton } from '@/components/common/AppButton';
 import { AppText } from '@/components/common/AppText';
 import { NativeLoadingIndicator } from '@/components/common/Loading';
 import { ENROLLMENT_CALLBACK_MESSAGES } from '@/constants/enrollment';
 import { ENV_CONFIG } from '@/constants/env';
-import { Colors } from '@/styles/common/colors';
-import { enrollmentVerificationWebViewStyles as styles } from '@/styles/components/layout/EnrollmentVerificationWebView';
+import { createEnrollmentVerificationWebViewStyles as makeStyles } from '@/styles/components/layout/EnrollmentVerificationWebView';
 import { EnrollmentCallbackResult, EnrollmentVerificationWebViewProps } from '@/types';
 import { getLegacyEnrollmentCallbackResult, parseEnrollmentCallbackUrl } from '@/utils/enrollmentCallback';
 import React, { useCallback, useRef, useState } from 'react';
@@ -27,6 +27,9 @@ const enrollmentVerificationOriginWhitelist = ENV_CONFIG.base.startsWith('http:/
   : ['https://*', 'personaldashboardmob://enrollment-result*'];
 
 export const EnrollmentVerificationWebView = ({ url, accessSignature, accessType, onComplete }: EnrollmentVerificationWebViewProps) => {
+  const styles = useThemedStyles(makeStyles);
+  const Colors = useThemeColors();
+
   const insets = useSafeAreaInsets();
   const headerTitleInset = Math.max(insets.left, insets.right, 72);
   const hasCompletedRef = useRef(false);

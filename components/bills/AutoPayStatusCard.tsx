@@ -1,6 +1,6 @@
+import { useThemedStyles, useThemeColors } from '@/hooks/useAppTheme';
 import { BRAND_SOFT_GRADIENT_COLORS, GRADIENT_DIAGONAL_END, GRADIENT_DIAGONAL_START } from '@/constants';
-import { Colors } from '@/styles/common/colors';
-import { autoPayStatusCardStyles as styles } from '@/styles/components/bills/AutoPayStatusCard';
+import { createAutoPayStatusCardStyles as makeStyles } from '@/styles/components/bills/AutoPayStatusCard';
 import { AutoPayStatusCardProps } from '@/types/common';
 import { Feather } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -8,6 +8,9 @@ import { Pressable, View } from 'react-native';
 import { AppText } from '../common/AppText';
 
 export default function AutoPayStatusCard({ activeCount, onManage }: AutoPayStatusCardProps) {
+  const styles = useThemedStyles(makeStyles);
+  const Colors = useThemeColors();
+
   const isActive = activeCount > 0;
   const countLabel = isActive
     ? `${activeCount} active ${activeCount === 1 ? 'enrollment' : 'enrollments'}`
@@ -30,7 +33,7 @@ export default function AutoPayStatusCard({ activeCount, onManage }: AutoPayStat
       </LinearGradient>
       <View style={styles.textColumn}>
         <View style={styles.titleRow}>
-          <AppText weight="600" style={styles.enrollmentCount}>{countLabel}</AppText>
+          <AppText numberOfLines={1} weight="600" style={styles.enrollmentCount}>{countLabel}</AppText>
           <View style={[styles.statusBadge, isActive ? styles.activeBadge : styles.inactiveBadge]}>
             <View style={[styles.statusDot, { backgroundColor: isActive ? Colors.success09 : Colors.neutral06 }]} />
             <AppText weight="500" style={[styles.statusText, { color: isActive ? Colors.dashboardSuccessText : Colors.neutral08 }]}>

@@ -36,7 +36,7 @@ const oneLineImportsRule = {
 module.exports = defineConfig([
   expoConfig,
   {
-    ignores: ['dist/*'],
+    ignores: ['dist/*', 'design-reference/**', '.ai-progress/**'],
     plugins: {
       local: {
         rules: {

@@ -1,8 +1,8 @@
+import { useThemedStyles, useThemeColors } from '@/hooks/useAppTheme';
 import { FLOATING_NAV_HIDDEN_ROUTES, FLOATING_NAV_TABS } from '@/constants';
 import { AppText } from '@/components/common/AppText';
 import { useTabBarAnimation } from '@/context/TabBarAnimationContext';
-import { Colors } from '@/styles/common/colors';
-import { floatingNavBarStyles as styles } from '@/styles/components/layout/FloatingNavBar';
+import { createFloatingNavBarStyles as makeStyles } from '@/styles/components/layout/FloatingNavBar';
 import { router, usePathname, useSegments } from 'expo-router';
 import React, { useEffect } from 'react';
 import { TouchableOpacity, View } from 'react-native';
@@ -10,6 +10,9 @@ import Animated, { useAnimatedKeyboard, useAnimatedStyle } from 'react-native-re
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 const FloatingNavBar = () => {
+  const styles = useThemedStyles(makeStyles);
+  const Colors = useThemeColors();
+
   const pathname = usePathname();
   const segments = useSegments();
   const { tabBarTranslateY, tabBarHeight } = useTabBarAnimation();
@@ -43,7 +46,7 @@ const FloatingNavBar = () => {
 
   return (
     <Animated.View
-      style={[styles.tabBarContainer, { bottom: insets.bottom + 8 }, animatedStyle]}
+      style={[styles.tabBarContainer, { paddingBottom: insets.bottom }, animatedStyle]}
       onLayout={(event) => {
         tabBarHeight.value = event.nativeEvent.layout.height;
       }}
@@ -52,7 +55,7 @@ const FloatingNavBar = () => {
         {FLOATING_NAV_TABS.map((tab) => {
           const { icon: Icon } = tab;
           const isFocused = getSection(tab.name) === activeSection;
-          const iconColor = isFocused ? Colors.red09 : Colors.maroon09;
+          const iconColor = isFocused ? Colors.primaryText : Colors.textSecondary;
 
           const onPress = () => {
             if (!isFocused) {
@@ -71,8 +74,9 @@ const FloatingNavBar = () => {
               accessibilityLabel={tab.label}
               accessibilityState={{ selected: isFocused }}
             >
+              {isFocused ? <View style={styles.activeIndicator} /> : null}
               <View style={[styles.iconSlot, isFocused && styles.activeIconSlot]}>
-                <Icon width={22} height={22} stroke={iconColor} />
+                <Icon width={24} height={24} stroke={iconColor} />
               </View>
               <AppText weight={isFocused ? '600' : '500'} style={[styles.tabLabel, isFocused ? styles.activeTabLabel : styles.inactiveTabLabel]}>
                 {tab.label}

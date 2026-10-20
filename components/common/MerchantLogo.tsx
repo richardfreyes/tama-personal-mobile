@@ -1,6 +1,7 @@
+import { useThemedStyles } from '@/hooks/useAppTheme';
 import { BRAND_RING_GRADIENT_COLORS, GRADIENT_DIAGONAL_END, GRADIENT_DIAGONAL_START } from '@/constants/gradients';
 import { MERCHANT_LOGO_CIRCLE_RATIO, MERCHANT_LOGO_DEFAULT_SIZE, MERCHANT_LOGO_RING_INSET } from '@/constants/merchantLogo';
-import { merchantLogoStyles as styles } from '@/styles/components/common/MerchantLogo';
+import { createMerchantLogoStyles as makeStyles } from '@/styles/components/common/MerchantLogo';
 import { MerchantLogoProps } from '@/types/common';
 import { LinearGradient } from 'expo-linear-gradient';
 import React from 'react';
@@ -8,6 +9,8 @@ import { Image, View } from 'react-native';
 import { AppText } from './AppText';
 
 export default function MerchantLogo({ initials, logoUrl, variant = 'tile', size = MERCHANT_LOGO_DEFAULT_SIZE }: MerchantLogoProps) {
+  const styles = useThemedStyles(makeStyles);
+
   if (variant === 'tile') {
     return (
       <View style={styles.tile}>

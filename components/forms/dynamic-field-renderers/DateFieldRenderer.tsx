@@ -1,4 +1,5 @@
-import { globalStyle, inputFocusColor } from '@/styles/common/globals';
+import { useThemedStyles, useThemeColors } from '@/hooks/useAppTheme';
+import { createGlobalStyle as makeGlobalStyle, inputFocusColor } from '@/styles/common/globals';
 import { DateFieldRendererProps } from '@/types';
 import { formatDateDisplay } from '@/utils/date';
 import { TouchableOpacity, View } from 'react-native';
@@ -12,6 +13,9 @@ export const DateFieldRenderer = ({
   touched,
   openDatePicker,
 }: DateFieldRendererProps) => {
+  const Colors = useThemeColors();
+  const globalStyle = useThemedStyles(makeGlobalStyle);
+
   const handleOpenDatePicker = () => {
     openDatePicker(field.key);
   };
@@ -22,10 +26,16 @@ export const DateFieldRenderer = ({
         <View pointerEvents="none">
           <TextInput
             mode="outlined"
-            activeOutlineColor={inputFocusColor}
             label={field.label}
+            activeOutlineColor={inputFocusColor}
+            accessibilityLabel={field.label}
+            style={globalStyle.paperTextInput}
+            contentStyle={globalStyle.inputContent}
+            outlineStyle={globalStyle.inputOutline}
+            outlineColor={Colors.border}
+            textColor={Colors.text}
             value={formatDateDisplay(formData[field.key])}
-            placeholder={field.placeholder || field.label}
+            placeholder={field.placeholder && field.placeholder !== field.label ? field.placeholder : undefined}
             editable={false}
             error={!!(touched[field.key] && errors[field.key])}
             right={

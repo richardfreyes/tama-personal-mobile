@@ -1,21 +1,29 @@
-import ChevronRightIcon from '@/assets/icons/chevron-right.svg';
+import { useThemedStyles, useThemeColors } from '@/hooks/useAppTheme';
 import { AppText } from '@/components/common/AppText';
 import EnrollmentStatusBadge from '@/components/enrollments/EnrollmentStatusBadge';
-import { enrollmentListComponentStyles as styles } from '@/styles/components/enrollments/EnrollmentListComponent';
+import { ENROLLMENT_SUMMARY_PANEL_GLOW_COLORS, ENROLLMENT_SUMMARY_PANEL_GLOW_END, ENROLLMENT_SUMMARY_PANEL_GLOW_START, ENROLLMENT_SUMMARY_PANEL_GRADIENT_COLORS, ENROLLMENT_SUMMARY_PANEL_GRADIENT_END, ENROLLMENT_SUMMARY_PANEL_GRADIENT_LOCATIONS, ENROLLMENT_SUMMARY_PANEL_GRADIENT_START, } from '@/constants/enrollment';
+import { Feather } from '@expo/vector-icons';
+import { createEnrollmentListComponentStyles as makeStyles } from '@/styles/components/enrollments/EnrollmentListComponent';
 import type { EnrollmentSummaryCardProps } from '@/types/enrollment';
 import { getCardIcon } from '@/utils/card';
-import { getEnrollmentMerchantCode, getEnrollmentMonthlyAmount, getEnrollmentNextDebitDate, getEnrollmentPaymentMethod, getEnrollmentReferenceId, getEnrollmentStatusLabel, getEnrollmentTitle } from '@/utils/enrollmentPresentation';
+import { getEnrollmentMerchantCode, getEnrollmentMonthlyAmount, getEnrollmentNextDebitCountdown, getEnrollmentNextDebitShortDate, getEnrollmentPaymentMethod, getEnrollmentReferenceId, getEnrollmentStatusLabel, getEnrollmentTitle } from '@/utils/enrollmentPresentation';
+import { LinearGradient } from 'expo-linear-gradient';
 import React, { memo, useEffect, useRef } from 'react';
 import { Animated, Easing, Image, Pressable, View } from 'react-native';
 
 const EnrollmentSummaryCard = ({ item, index, logoUrl: resolvedLogoUrl, onPress, wrapperStyle }: EnrollmentSummaryCardProps) => {
+  const styles = useThemedStyles(makeStyles);
+  const Colors = useThemeColors();
+
   const scale = useRef(new Animated.Value(1)).current;
   const opacity = useRef(new Animated.Value(0)).current;
   const title = getEnrollmentTitle(item);
   const referenceId = getEnrollmentReferenceId(item);
   const merchantCode = getEnrollmentMerchantCode(item);
-  const amount = getEnrollmentMonthlyAmount(item);
-  const nextDebitDate = getEnrollmentNextDebitDate(item);
+  const monthlyAmount = getEnrollmentMonthlyAmount(item);
+  const amount = monthlyAmount.startsWith('PHP') ? monthlyAmount.replace(/^PHP\s*/, '₱') : monthlyAmount;
+  const nextDebitDate = getEnrollmentNextDebitShortDate(item) ?? 'Not scheduled';
+  const nextDebitCountdown = getEnrollmentNextDebitCountdown(item);
   const paymentMethod = getEnrollmentPaymentMethod(item);
   const displayTitle = merchantCode === 'Not available' ? title : merchantCode;
   const avatarInitial = displayTitle.trim().charAt(0).toUpperCase() || 'A';
@@ -95,45 +103,67 @@ const EnrollmentSummaryCard = ({ item, index, logoUrl: resolvedLogoUrl, onPress,
             </AppText>
           </View>
           <EnrollmentStatusBadge status={item.status} variant="summaryCard" />
-          <ChevronRightIcon height={22} width={22} style={styles.chevron} />
+          <Feather
+            accessible={false}
+            color={Colors.neutral06}
+            name="chevron-right"
+            size={18}
+            style={styles.headerChevron}
+          />
         </View>
 
-        <View style={styles.amountPanel}>
-          <AppText size="extraSmall" weight="600" style={styles.panelLabel}>
-            MONTHLY AMOUNT
-          </AppText>
-          <AppText
-            adjustsFontSizeToFit
-            numberOfLines={1}
-            weight="700"
-            style={styles.panelAmount}
-          >
-            {amount}
-          </AppText>
-          <View style={styles.panelDivider} />
-          <View style={styles.nextDebitRow}>
-            <AppText size="extraSmall" weight="600" style={styles.panelLabel}>
-              NEXT DEBIT
+        <LinearGradient
+          colors={[...ENROLLMENT_SUMMARY_PANEL_GRADIENT_COLORS]}
+          end={ENROLLMENT_SUMMARY_PANEL_GRADIENT_END}
+          locations={[...ENROLLMENT_SUMMARY_PANEL_GRADIENT_LOCATIONS]}
+          start={ENROLLMENT_SUMMARY_PANEL_GRADIENT_START}
+          style={styles.amountPanel}
+        >
+          <LinearGradient
+            colors={[...ENROLLMENT_SUMMARY_PANEL_GLOW_COLORS]}
+            end={ENROLLMENT_SUMMARY_PANEL_GLOW_END}
+            pointerEvents="none"
+            start={ENROLLMENT_SUMMARY_PANEL_GLOW_START}
+            style={styles.amountPanelGlow}
+          />
+          <View style={styles.amountColumn}>
+            <AppText weight="600" style={styles.panelLabel}>
+              MONTHLY
             </AppText>
             <AppText
               adjustsFontSizeToFit
-              minimumFontScale={0.8}
+              minimumFontScale={0.7}
               numberOfLines={1}
-              size="extraSmall"
-              weight="600"
-              style={styles.nextDebitValue}
+              weight="700"
+              style={styles.panelAmount}
             >
-              {nextDebitDate}
+              {amount}
             </AppText>
           </View>
-        </View>
+          <View style={styles.nextDebitColumn}>
+            <AppText weight="600" style={styles.panelLabel}>
+              NEXT DEBIT
+            </AppText>
+            <AppText numberOfLines={1} weight="700" style={styles.nextDebitValue}>
+              {nextDebitDate}
+            </AppText>
+            {nextDebitCountdown ? (
+              <AppText numberOfLines={1} weight="500" style={styles.nextDebitCountdown}>
+                {nextDebitCountdown}
+              </AppText>
+            ) : null}
+          </View>
+        </LinearGradient>
 
         <View style={styles.paymentMethodFooter}>
           <View style={styles.paymentMethodIconFrame}>
             <PaymentMethodIcon height={24} width={34} />
           </View>
-          <AppText numberOfLines={1} size="small" weight="500" style={styles.paymentMethodText}>
-            {paymentMethod.display}
+          <AppText numberOfLines={1} weight="400" style={styles.paymentMethodText}>
+            {paymentMethod.lastFour ? `\u2022\u2022 ${paymentMethod.lastFour}` : paymentMethod.display}
+          </AppText>
+          <AppText weight="600" style={styles.manageText}>
+            Manage
           </AppText>
         </View>
       </Pressable>

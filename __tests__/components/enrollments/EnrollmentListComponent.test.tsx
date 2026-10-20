@@ -130,11 +130,11 @@ describe('EnrollmentListComponent', () => {
 
     expect(screen.getByText('TAMA')).toBeTruthy();
     expect(screen.getByText('Active')).toBeTruthy();
-    expect(screen.getByText('PHP 1,234.56')).toBeTruthy();
-    expect(screen.getByText('Mar 15, 2026')).toBeTruthy();
-    expect(screen.getByText('Visa ending in 1111')).toBeTruthy();
+    expect(screen.getByText('₱1,234.56')).toBeTruthy();
+    expect(screen.getByText('Mar 15')).toBeTruthy();
+    expect(screen.getByText('\u2022\u2022 1111')).toBeTruthy();
     expect(screen.getByText('ENR-001').props.numberOfLines).toBe(1);
-    expect(screen.getByText('MONTHLY AMOUNT')).toBeTruthy();
+    expect(screen.getByText('MONTHLY')).toBeTruthy();
     expect(screen.getByText('NEXT DEBIT')).toBeTruthy();
 
     expect(screen.queryByText('Acqua Private Residences')).toBeNull();
@@ -165,8 +165,8 @@ describe('EnrollmentListComponent', () => {
     const images = screen.UNSAFE_getAllByType(Image);
     const avatarStyle = StyleSheet.flatten(screen.getByTestId('enrollment-avatar-0').props.style);
     expect(images.some((image) => image.props.source?.uri === logoUrl)).toBe(true);
-    expect(avatarStyle.backgroundColor).toBe(Colors.transparent);
-    expect(avatarStyle.borderColor).toBe(Colors.neutral04);
+    expect(avatarStyle.backgroundColor).toBe(Colors.neutral01);
+    expect(avatarStyle.borderColor).toBe(Colors.dashboardCardBorder);
     expect(avatarStyle.borderWidth).toBe(1);
     expect(screen.queryByText('A')).toBeNull();
     expect(mockUseGetMerchantsQuery).toHaveBeenCalledWith('');
@@ -181,12 +181,12 @@ describe('EnrollmentListComponent', () => {
 
     expect(carousel.props.horizontal).toBe(true);
     expect(carousel.props.removeClippedSubviews).toBe(false);
-    expect(carouselStyle.marginHorizontal).toBe(-8);
-    expect(carouselStyle.marginVertical).toBe(-6);
-    expect(contentStyle.paddingLeft).toBe(8);
-    expect(contentStyle.paddingRight).toBe(20);
-    expect(contentStyle.paddingTop).toBe(10);
-    expect(contentStyle.paddingBottom).toBe(10);
+    expect(carouselStyle.marginHorizontal).toBe(0);
+    expect(carouselStyle.marginVertical).toBe(0);
+    expect(contentStyle.paddingLeft).toBe(0);
+    expect(contentStyle.paddingRight).toBe(0);
+    expect(contentStyle.paddingTop).toBe(0);
+    expect(contentStyle.paddingBottom).toBe(0);
     expect(screen.queryByPlaceholderText('Search enrollments')).toBeNull();
 
     fireEvent.press(screen.getByText('View All'));

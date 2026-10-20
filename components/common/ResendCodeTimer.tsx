@@ -1,11 +1,14 @@
+import { useThemedStyles } from '@/hooks/useAppTheme';
 import useResendCountdown from '@/hooks/useResendCountdown';
-import { resendCodeTimerStyles as styles } from '@/styles/components/common/ResendCodeTimer';
+import { createResendCodeTimerStyles as makeStyles } from '@/styles/components/common/ResendCodeTimer';
 import { ResendCodeTimerProps } from '@/types/common';
 import React from 'react';
 import { View } from 'react-native';
 import { AppText } from './AppText';
 
 const ResendCodeTimer: React.FC<ResendCodeTimerProps> = ({initialTime = 30, onResend, containerStyle}) => {
+  const styles = useThemedStyles(makeStyles);
+
   const { countdown, isActive, startCountdown } = useResendCountdown(initialTime);
 
   const formatCountdown = (time: number): string => {

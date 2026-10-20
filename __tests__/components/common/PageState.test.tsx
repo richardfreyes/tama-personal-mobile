@@ -22,13 +22,13 @@ describe('PageState', () => {
     expect(screen.getByText('Please try again.')).toBeTruthy();
   });
 
-  it('renders the brand logo (mocked svg)', () => {
-    const { toJSON } = renderWithProviders(
+  it('renders the success status icon by default', () => {
+    renderWithProviders(
       <PageState title="Title" description="Desc">
         {null}
       </PageState>,
     );
-    expect(JSON.stringify(toJSON())).toContain('SvgMock');
+    expect(screen.getByLabelText('success status')).toBeTruthy();
   });
 
   it('renders children passed to it', () => {

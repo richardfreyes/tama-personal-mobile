@@ -1,3 +1,4 @@
+import { useThemedStyles } from '@/hooks/useAppTheme';
 import InfoFieldComponent from '@/components/common/InfoFieldComponent';
 import { AppButton } from '@/components/common/AppButton';
 import { AppText } from '@/components/common/AppText';
@@ -17,7 +18,7 @@ import { showSnackbar } from '@/redux/features/snackbar/snackbarSlice';
 import { usePayTransactionMutation } from '@/redux/features/transactions/transactionApi';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { confirmPaymentsStyles as styles } from '@/styles/app/bills/one-time-payments/pay/confirm-payment';
-import { globalStyle } from '@/styles/common/globals';
+import { createGlobalStyle as makeGlobalStyle } from '@/styles/common/globals';
 import { formatLastFourDigits, getProviderDisplay } from '@/utils/card';
 import { formatMoney } from '@/utils/format';
 import { isConfirmedPaymentStatus, isFailedPaymentStatus } from '@/utils/paymentStatus';
@@ -27,6 +28,8 @@ import React, { useEffect, useRef } from 'react';
 import { View } from 'react-native';
 
 const ConfirmPaymentScreen = () => {
+  const globalStyle = useThemedStyles(makeGlobalStyle);
+
   const dispatch = useAppDispatch();
   const [ payTransaction, { isLoading }] = usePayTransactionMutation();
   const [getTransactionDetail, { isFetching: isCheckingStatus }] = useLazyGetTransactionDetailQuery();

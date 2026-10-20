@@ -1,14 +1,18 @@
+import { useThemedStyles } from '@/hooks/useAppTheme';
 import { AppText } from '@/components/common/AppText';
 import { GlobalScrollView } from '@/components/common/GlobalScrollView';
 import { SpacerComponent } from '@/components/common/SpacerComponent';
 import NavHeaderComponent from '@/components/layout/NavHeaderComponent';
 import SettingToggleItem from '@/components/settings/NotificationSetting';
-import { notificationSettingsStyles as styles } from '@/styles/app/notifications/settings';
-import { globalStyle } from '@/styles/common/globals';
+import { createNotificationSettingsStyles as makeStyles } from '@/styles/app/notifications/settings';
+import { createGlobalStyle as makeGlobalStyle } from '@/styles/common/globals';
 import React, { useState } from 'react';
 import { View } from 'react-native';
 
 const NotificationSettingsScreen = () => {
+  const styles = useThemedStyles(makeStyles);
+  const globalStyle = useThemedStyles(makeGlobalStyle);
+
   const [settings, setSettings] = useState({
     pushNotification: true,
     emailNotification: false,

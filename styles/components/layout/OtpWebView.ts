@@ -1,7 +1,8 @@
 import { StyleSheet } from 'react-native';
-import { Colors } from '../../common/colors';
+import { Colors as LightColors } from '@/styles/common/colors';
+import type { ThemeColors } from '@/types/theme';
 
-export const otpWebViewStyles = StyleSheet.create({
+export const createOtpWebViewStyles = (Colors: ThemeColors) => StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.neutral01,
@@ -28,7 +29,7 @@ export const otpWebViewStyles = StyleSheet.create({
   closeButtonText: {
     fontSize: 16,
     fontWeight: '600',
-    color: Colors.info10,
+    color: Colors.primaryText,
   },
   waitHint: {
     paddingHorizontal: 16,
@@ -52,3 +53,5 @@ export const otpWebViewStyles = StyleSheet.create({
     backgroundColor: Colors.neutral01,
   },
 });
+
+export const otpWebViewStyles = createOtpWebViewStyles(LightColors);

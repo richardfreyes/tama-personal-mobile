@@ -1,8 +1,9 @@
-import { Colors } from "@/styles/common/colors";
+import { Colors as LightColors } from '@/styles/common/colors';
+import type { ThemeColors } from '@/types/theme';
 import { FontSizes } from "@/styles/common/typography";
 import { StyleSheet } from "react-native";
 
-export const aboutStyles = StyleSheet.create({
+export const createAboutStyles = (Colors: ThemeColors) => StyleSheet.create({
   screenContainer: {
     justifyContent: 'flex-start',
   },
@@ -11,7 +12,7 @@ export const aboutStyles = StyleSheet.create({
     marginBottom: 28,
   },
   eyebrow: {
-    color: Colors.red10,
+    color: Colors.primaryText,
     fontSize: FontSizes.extraSmall,
     marginBottom: 8,
     textTransform: 'uppercase',
@@ -207,3 +208,5 @@ export const aboutStyles = StyleSheet.create({
     maxWidth: '100%',
   },
 });
+
+export const aboutStyles = createAboutStyles(LightColors);

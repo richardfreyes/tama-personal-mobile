@@ -1,4 +1,5 @@
-import { modalContentStyles as styles } from '@/styles/components/layout/ModalContent';
+import { useThemedStyles } from '@/hooks/useAppTheme';
+import { createModalContentStyles as makeStyles } from '@/styles/components/layout/ModalContent';
 import { ModalContentProps } from '@/types';
 import React from 'react';
 import { Modal, ScrollView, View } from 'react-native';
@@ -15,6 +16,8 @@ const ModalContent: React.FC<ModalContentProps> = ({
   children,
   onClose,
 }) => {
+  const styles = useThemedStyles(makeStyles);
+
   const insets = useSafeAreaInsets();
 
   return (

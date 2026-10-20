@@ -1,3 +1,4 @@
+import { useThemeColors, useThemedStyles } from '@/hooks/useAppTheme';
 import { AppButton } from '@/components/common/AppButton';
 import { AppText } from '@/components/common/AppText';
 import { SpacerComponent } from '@/components/common/SpacerComponent';
@@ -9,13 +10,17 @@ import usePasswordValidation from '@/hooks/usePasswordValidation';
 import { useResetPasswordWithTokenMutation } from '@/redux/features/resetPassword/resetPasswordApi';
 import { showSnackbar } from '@/redux/features/snackbar/snackbarSlice';
 import { useAppDispatch } from '@/redux/hooks';
-import { globalStyle } from '@/styles/common/globals';
+import { createGlobalStyle as makeGlobalStyle } from '@/styles/common/globals';
 import { validateField } from '@/utils/validators';
+import { Feather } from '@expo/vector-icons';
 import { router, useLocalSearchParams } from 'expo-router';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { KeyboardAvoidingView, Platform, ScrollView, View } from 'react-native';
 
 const CreateNewPasswordScreen: React.FC = () => {
+  const globalStyle = useThemedStyles(makeGlobalStyle);
+  const Colors = useThemeColors();
+
   const dispatch = useAppDispatch();
   const [resetPasswordWithToken, { isLoading }] = useResetPasswordWithTokenMutation();
   const { token, code } = useLocalSearchParams<{ token?: string; code?: string }>();
@@ -123,12 +128,16 @@ const CreateNewPasswordScreen: React.FC = () => {
       <ScrollView contentContainerStyle={[globalStyle.screenContainer]}>
         <NavHeaderComponent />
         <View style={{ flex: 1 }}>
-          <AppText weight='700' style={[globalStyle.headerTitle, { marginBottom: 16 }]}>Create New Password</AppText>
+          <View style={globalStyle.authHeroIcon}>
+            <Feather name="lock" size={22} color={Colors.primaryText} />
+          </View>
+          <AppText weight='600' style={globalStyle.authTitle}>Create New Password</AppText>
 
           <InputValidationComponent
             field="createPassword"
             value={formData.createPassword}
             setValue={(text) => handleSetValueAndValidate('createPassword', text)}
+            label="Password"
             placeholder="Password"
             mode="outlined"
             secureTextEntry={true}
@@ -150,6 +159,7 @@ const CreateNewPasswordScreen: React.FC = () => {
             field="confirmPassword"
             value={formData.confirmPassword}
             setValue={(text) => handleSetValueAndValidate('confirmPassword', text)}
+            label="Confirm Password"
             placeholder="Confirm Password"
             mode="outlined"
             secureTextEntry={true}

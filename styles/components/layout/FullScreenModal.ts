@@ -1,7 +1,8 @@
 import { StyleSheet } from "react-native";
-import { Colors } from "../../common/colors";
+import { Colors as LightColors } from '@/styles/common/colors';
+import type { ThemeColors } from '@/types/theme';
 
-export const fullScreenModalStyles = StyleSheet.create({
+export const createFullScreenModalStyles = (Colors: ThemeColors) => StyleSheet.create({
   centerView: {
     flex: 1,
     justifyContent: 'center',
@@ -26,3 +27,4 @@ export const fullScreenModalStyles = StyleSheet.create({
     flexDirection: 'row',
   }
 });
+export const fullScreenModalStyles = createFullScreenModalStyles(LightColors);

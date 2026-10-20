@@ -1,7 +1,8 @@
-import { Colors } from "@/styles/common/colors";
+import { Colors as LightColors } from '@/styles/common/colors';
+import type { ThemeColors } from '@/types/theme';
 import { StyleSheet } from "react-native";
 
-export const updateCardStyles = StyleSheet.create({
+export const createUpdateCardStyles = (Colors: ThemeColors) => StyleSheet.create({
   cardDetailsContainer: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -19,7 +20,7 @@ export const updateCardStyles = StyleSheet.create({
     backgroundColor: Colors.info10,
     paddingVertical: 2,
     paddingHorizontal: 6,
-    color: Colors.neutral01,
+    color: Colors.white,
     borderRadius: 4,
     marginLeft: 8,
   },
@@ -39,3 +40,4 @@ export const updateCardStyles = StyleSheet.create({
     marginTop: 8,
   }
 });
+export const updateCardStyles = createUpdateCardStyles(LightColors);

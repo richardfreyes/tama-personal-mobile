@@ -43,11 +43,11 @@ describe('UpcomingBillCard', () => {
     expect(screen.queryByText('Pay Now')).toBeNull();
 
     const gradient = UNSAFE_getAllByType(LinearGradient)[0];
-    expect(gradient.props.colors).toEqual(['#3D2422', '#7F211D', '#C11E1A', '#E65F2C']);
-    expect(gradient.props.locations).toEqual([0, 0.4, 0.78, 1]);
+    expect(gradient.props.colors).toEqual(['#D41414', '#E2361C', '#F36B25']);
+    expect(gradient.props.locations).toEqual([0, 0.55, 1]);
     const cardStyle = StyleSheet.flatten(screen.getByTestId('monthly-bill-card-container-0').props.style);
-    expect(cardStyle.backgroundColor).toBe('#FFF');
-    expect(cardStyle.borderRadius).toBe(24);
+    expect(cardStyle.backgroundColor).toBe('#FFFFFF');
+    expect(cardStyle.borderRadius).toBe(12);
   });
 
   it('keeps enrollment details on the card and opens Enroll Auto Debit separately', () => {

@@ -1,7 +1,8 @@
-import { Colors } from '@/styles/common/colors';
+import { Colors as LightColors } from '@/styles/common/colors';
+import type { ThemeColors } from '@/types/theme';
 import { StyleSheet } from 'react-native';
 
-export const notificationSettingsStyles = StyleSheet.create({
+export const createNotificationSettingsStyles = (Colors: ThemeColors) => StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.neutral03,
@@ -39,3 +40,4 @@ export const notificationSettingsStyles = StyleSheet.create({
     flex: 1,
   },
 });
+export const notificationSettingsStyles = createNotificationSettingsStyles(LightColors);

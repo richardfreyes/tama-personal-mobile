@@ -1,7 +1,8 @@
 import { StyleSheet } from "react-native";
-import { Colors } from "../../common/colors";
+import { Colors as LightColors } from '@/styles/common/colors';
+import type { ThemeColors } from '@/types/theme';
 
-export const paymentOptionRowStyles = StyleSheet.create({
+export const createPaymentOptionRowStyles = (Colors: ThemeColors) => StyleSheet.create({
   row: {
     alignItems: 'center',
     flexDirection: 'row',
@@ -25,7 +26,7 @@ export const paymentOptionRowStyles = StyleSheet.create({
     minWidth: 0,
   },
   title: {
-    color: Colors.maroon11,
+    color: Colors.text,
     fontSize: 14,
     lineHeight: 20,
   },
@@ -69,3 +70,5 @@ export const paymentOptionRowStyles = StyleSheet.create({
     borderWidth: 1.5,
   },
 });
+
+export const paymentOptionRowStyles = createPaymentOptionRowStyles(LightColors);

@@ -1,8 +1,9 @@
-import { Colors } from "@/styles/common/colors";
+import { Colors as LightColors } from '@/styles/common/colors';
+import type { ThemeColors } from '@/types/theme';
 import { FontSizes } from "@/styles/common/typography";
 import { StyleSheet } from "react-native";
 
-export const settingsStyles = StyleSheet.create({
+export const createSettingsStyles = (Colors: ThemeColors) => StyleSheet.create({
   profileImage: {
     width: 64,
     height: 64,
@@ -52,3 +53,4 @@ export const settingsStyles = StyleSheet.create({
     fontSize: FontSizes.small,
   },
 });
+export const settingsStyles = createSettingsStyles(LightColors);

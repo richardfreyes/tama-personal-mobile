@@ -1,34 +1,35 @@
 import { StyleSheet } from "react-native";
-import { Colors } from "../../common/colors";
+import { Colors as LightColors } from '@/styles/common/colors';
+import type { ThemeColors } from '@/types/theme';
 
-export const modalComponentStyles = StyleSheet.create({
+export const createModalComponentStyles = (Colors: ThemeColors) => StyleSheet.create({
   headerMessage: {
-    marginBottom: 24,
+    marginBottom: 6,
     textAlign: 'center',
-  },
+   fontSize: 17, lineHeight: 22,},
   centeredView: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.4)',
-  },
+    backgroundColor: Colors.overlay,
+   padding: 20,},
   modalView: {
     backgroundColor: Colors.neutral01,
-    borderRadius: 8,
-    paddingHorizontal: 12,
+    borderRadius: 16,
+    paddingHorizontal: 20,
     paddingVertical: 24,
     alignItems: 'center',
-    width: '80%',
-  },
+    width: '100%',
+   maxWidth: 400,},
   icon: {
-    color: Colors.red10,
+    color: Colors.primaryText,
     marginBottom: 12,
   },
   modalText: {
-    fontSize: 16,
+    fontSize: 15,
     marginBottom: 24,
     textAlign: 'center',
-  },
+   lineHeight: 21, color: Colors.textSecondary,},
 
   confirmScrim: {
     alignItems: 'center',
@@ -40,14 +41,14 @@ export const modalComponentStyles = StyleSheet.create({
   confirmCard: {
     alignItems: 'center',
     backgroundColor: Colors.neutral01,
-    borderRadius: 24,
+    borderRadius: 16,
     boxShadow: '0px 20px 48px -16px rgba(37, 22, 21, 0.4)',
     gap: 16,
     paddingBottom: 20,
     paddingHorizontal: 20,
     paddingTop: 24,
     width: '100%',
-  },
+   maxWidth: 400,},
   confirmIcon: {
     alignItems: 'center',
     backgroundColor: Colors.red01,
@@ -61,39 +62,39 @@ export const modalComponentStyles = StyleSheet.create({
     gap: 6,
   },
   confirmTitle: {
-    color: Colors.maroon11,
+    color: Colors.text,
     fontSize: 17,
-    lineHeight: 24,
+    lineHeight: 22,
     textAlign: 'center',
   },
   confirmBody: {
     color: Colors.maroon09,
-    fontSize: 14,
+    fontSize: 15,
     lineHeight: 21,
     textAlign: 'center',
   },
   confirmActions: {
     gap: 8,
     width: '100%',
-  },
+   flexDirection: 'row-reverse',},
   confirmPrimaryButton: {
-    backgroundColor: Colors.red09,
-    borderRadius: 14,
-    minHeight: 48,
+    backgroundColor: Colors.primary,
+    borderRadius: 8,
+    minHeight: 44,
     paddingVertical: 0,
-  },
+   flex: 1,},
   confirmSecondaryButton: {
-    backgroundColor: Colors.neutral03,
-    borderColor: Colors.transparent,
-    borderRadius: 14,
-    minHeight: 48,
+    backgroundColor: Colors.surface,
+    borderColor: Colors.borderStrong,
+    borderRadius: 8,
+    minHeight: 44,
     paddingVertical: 0,
-  },
+   flex: 1,},
   confirmButtonText: {
     fontSize: 15,
   },
   confirmSecondaryText: {
-    color: Colors.maroon11,
+    color: Colors.text,
     fontSize: 15,
   },
   invoiceTitle: {
@@ -102,4 +103,7 @@ export const modalComponentStyles = StyleSheet.create({
   invoiceLabel: {
     marginBottom: 4,
   },
+  dangerIcon: { backgroundColor: Colors.errorBackground },
+  dangerButton: { backgroundColor: Colors.errorFill },
 });
+export const modalComponentStyles = createModalComponentStyles(LightColors);

@@ -1,3 +1,4 @@
+import { useThemedStyles, useThemeColors } from '@/hooks/useAppTheme';
 import { AppText } from '@/components/common/AppText';
 import EmptyStateCard from '@/components/common/EmptyStateCard';
 import { GlobalScrollView } from '@/components/common/GlobalScrollView';
@@ -26,8 +27,7 @@ import { useCreateTransactionComputationMutation } from '@/redux/features/transa
 import { TransactionComputationResponse } from '@/redux/features/transactions/transactionTypes';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { openOneTimePaymentMethod, openPaymentMethod } from '@/services/routeNavigation';
-import { billingReferenceIdStyles as styles } from '@/styles/app/bills/one-time-payments/pay/billingReferenceId';
-import { Colors } from '@/styles/common/colors';
+import { createBillingReferenceIdStyles as makeStyles } from '@/styles/app/bills/one-time-payments/pay/billingReferenceId';
 import type { OneTimePaymentMethodId } from '@/types';
 import { formatLastFourDigits, getProviderDisplay, getSavedPaymentMethods } from '@/utils/card';
 import { formatPaymentTotal, formatPesoAmount, normalizeCurrencyInput, parseCurrencyInput } from '@/utils/format';
@@ -39,6 +39,9 @@ import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { KeyboardAvoidingView, Platform, View } from 'react-native';
 
 const PayBillScreen = () => {
+  const styles = useThemedStyles(makeStyles);
+  const Colors = useThemeColors();
+
   const dispatch = useAppDispatch();
   const params = useLocalSearchParams();
   const billingReferenceId = params.billingReferenceId as string;

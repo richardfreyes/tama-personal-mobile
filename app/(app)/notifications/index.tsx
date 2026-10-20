@@ -1,3 +1,4 @@
+import { useThemedStyles } from '@/hooks/useAppTheme';
 import { AppText } from '@/components/common/AppText';
 import { GlobalScrollView } from '@/components/common/GlobalScrollView';
 import { SpacerComponent } from '@/components/common/SpacerComponent';
@@ -6,14 +7,17 @@ import NavHeaderComponent from '@/components/layout/NavHeaderComponent';
 import { SlideUpScreenModal } from '@/components/layout/SlideUpScreenModal';
 import NotificationItem from '@/components/settings/NotificationItem';
 import { COMMON } from '@/constants/common';
-import { notificationStyles as styles } from '@/styles/app/notifications';
-import { globalStyle } from '@/styles/common/globals';
+import { createNotificationStyles as makeStyles } from '@/styles/app/notifications';
+import { createGlobalStyle as makeGlobalStyle } from '@/styles/common/globals';
 import { SlideUpScreenModalRef } from '@/types';
 import { router } from 'expo-router';
 import React, { useRef, useState } from 'react';
 import { ScrollView, TouchableOpacity, View } from 'react-native';
 
 const NotificationsScreen = () => {
+  const styles = useThemedStyles(makeStyles);
+  const globalStyle = useThemedStyles(makeGlobalStyle);
+
   const [notifications, setNotifications] = useState<typeof COMMON.MOCK_DATA.NOTIFICATIONS>([]);
   const [listFilter, setListFilter] = useState('Recent Activity');
   const bottomSheetRef = useRef<SlideUpScreenModalRef>(null);

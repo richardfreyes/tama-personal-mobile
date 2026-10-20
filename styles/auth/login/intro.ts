@@ -1,57 +1,50 @@
-import { Colors } from "@/styles/common/colors";
-import { StatusBar, StyleSheet } from "react-native";
+import { Colors as LightColors } from '@/styles/common/colors';
+import type { ThemeColors } from '@/types/theme';
+import { StyleSheet } from 'react-native';
 
-export const introStyle = StyleSheet.create({
-  logo: {
-    flex: 1,
-    justifyContent: 'center',
-  },
+export const createIntroStyle = (Colors: ThemeColors) => StyleSheet.create({
   backgroundImage: {
     flex: 1,
-    resizeMode: 'cover',
     justifyContent: 'flex-end',
   },
   imageStyleFix: {
-    width: '100%',
     height: '100%',
+    width: '100%',
   },
   overlay: {
     ...StyleSheet.absoluteFill,
-    backgroundColor: 'rgba(0,0,0,0.4)',
   },
   contentContainer: {
     flex: 1,
-    paddingHorizontal: 20,
+    justifyContent: 'flex-end',
     paddingBottom: 40,
-    paddingTop: StatusBar.currentHeight || 50,
+    paddingHorizontal: 16,
   },
   logoContainer: {
-    display: 'flex',
     alignItems: 'center',
-    marginTop: 'auto',
+    flex: 1,
+    justifyContent: 'center',
+    paddingBottom: 24,
   },
-  logoText: {
-    fontSize: 32,
-    fontWeight: 'bold',
-    color: Colors.neutral01,
+  tagline: {
+    color: Colors.white,
+    fontSize: 15,
+    lineHeight: 20,
+    marginTop: 12,
+    textAlign: 'center',
   },
   buttonContainer: {
-    marginTop: 'auto',
-    width: '100%',
     gap: 12,
-  },
-  getStartedButton: {
-    height: 50,
-    borderRadius: 8,
+    width: '100%',
   },
   loginButton: {
     backgroundColor: 'transparent',
-    borderColor: Colors.neutral01,
+    borderColor: Colors.white,
     borderWidth: 1,
-    height: 50,
-    borderRadius: 8,
   },
   loginButtonText: {
-    color: Colors.neutral01,
+    color: Colors.white,
   },
 });
+
+export const introStyle = createIntroStyle(LightColors);

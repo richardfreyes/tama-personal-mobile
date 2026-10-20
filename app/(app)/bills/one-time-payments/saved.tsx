@@ -1,3 +1,4 @@
+import { useThemedStyles, useThemeColors } from '@/hooks/useAppTheme';
 import EmptyStateCard from '@/components/common/EmptyStateCard';
 import { useTabBarScrollHandler } from '@/components/common/GlobalScrollView';
 import { InlineLoadingIndicator, SkeletonList } from '@/components/common/Loading';
@@ -7,11 +8,10 @@ import SavedBillCard from '@/components/one-time-payments/SavedBillCard';
 import { useGetBillersQuery } from '@/redux/features/biller/billerApi';
 import { useGetBillsQuery } from '@/redux/features/bills/billsApi';
 import type { Bill } from '@/redux/features/bills/billsTypes';
-import { billsStyles } from '@/styles/app/bills/one-time-payments';
+import { createBillsStyles as makeBillsStyles } from '@/styles/app/bills/one-time-payments';
 import { openSavedBill } from '@/services/routeNavigation';
-import { Colors } from '@/styles/common/colors';
-import { globalStyle } from '@/styles/common/globals';
-import { enrollmentListComponentStyles } from '@/styles/components/enrollments/EnrollmentListComponent';
+import { createGlobalStyle as makeGlobalStyle } from '@/styles/common/globals';
+import { createEnrollmentListComponentStyles as makeEnrollmentListComponentStyles } from '@/styles/components/enrollments/EnrollmentListComponent';
 import { getActiveSavedBillCount, getBillerLogoMap, getSavedBillIdentity, getSavedBillsForDisplay, getUniqueSavedBills, shouldUseMockSavedBills } from '@/utils/savedBills';
 import { useFocusEffect } from 'expo-router';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
@@ -19,6 +19,11 @@ import { Platform, RefreshControl, View } from 'react-native';
 import Animated from 'react-native-reanimated';
 
 export default function SavedBillsScreen() {
+  const billsStyles = useThemedStyles(makeBillsStyles);
+  const globalStyle = useThemedStyles(makeGlobalStyle);
+  const enrollmentListComponentStyles = useThemedStyles(makeEnrollmentListComponentStyles);
+  const Colors = useThemeColors();
+
   const [page, setPage] = useState(0);
   const [items, setItems] = useState<Bill[]>([]);
   const [hasMore, setHasMore] = useState(true);

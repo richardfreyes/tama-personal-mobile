@@ -1,16 +1,17 @@
 import { SAVED_BILL_NO_AMOUNT_LABEL, SAVED_BILL_STATUS_COLORS } from '@/constants/savedBills';
-import { globalStyle } from '@/styles/common/globals';
-import { enrollmentListComponentStyles } from '@/styles/components/enrollments/EnrollmentListComponent';
-import { invoiceItemStyles } from '@/styles/components/one-time-payments/InvoiceItemComponent';
-import { savedBillCardStyles as cardStyles } from '@/styles/components/one-time-payments/SavedBillCard';
-import { SavedBillCardProps } from '@/types/common';
+import { useThemedStyles } from '@/hooks/useAppTheme';
 import type { Bill } from '@/redux/features/bills/billsTypes';
+import { createGlobalStyle as makeGlobalStyle } from '@/styles/common/globals';
+import { createEnrollmentListComponentStyles as makeEnrollmentListComponentStyles } from '@/styles/components/enrollments/EnrollmentListComponent';
+import { createInvoiceItemStyles as makeInvoiceItemStyles } from '@/styles/components/one-time-payments/InvoiceItemComponent';
+import { createSavedBillCardStyles as makeCardStyles } from '@/styles/components/one-time-payments/SavedBillCard';
+import { SavedBillCardProps } from '@/types/common';
 import { formatSavedBillAmount, getBillerStatus, getSavedBillInitials, getSavedBillNickname, getSavedBillSubtitle, } from '@/utils/savedBills';
-import React, { useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { Pressable, View } from 'react-native';
-import StatusBadge from '../common/StatusBadge';
 import { AppText } from '../common/AppText';
 import MerchantLogo from '../common/MerchantLogo';
+import StatusBadge from '../common/StatusBadge';
 
 export default function SavedBillCard({
   bill,
@@ -20,6 +21,11 @@ export default function SavedBillCard({
   fullWidth = false,
   status: statusOverride,
 }: SavedBillCardProps) {
+  const globalStyle = useThemedStyles(makeGlobalStyle);
+  const enrollmentListComponentStyles = useThemedStyles(makeEnrollmentListComponentStyles);
+  const invoiceItemStyles = useThemedStyles(makeInvoiceItemStyles);
+  const cardStyles = useThemedStyles(makeCardStyles);
+
   const [isFocused, setIsFocused] = useState(false);
   const amount = formatSavedBillAmount(bill as Bill);
   const hasAmount = amount !== SAVED_BILL_NO_AMOUNT_LABEL;
@@ -28,9 +34,7 @@ export default function SavedBillCard({
   const status = statusOverride !== undefined ? statusOverride : computedStatus;
   const isCard = variant === 'card';
   const isHero = variant === 'hero';
-  const reference = 'billing_reference_id' in bill
-    ? bill.billing_reference_id || bill.billing_id
-    : undefined;
+  const reference = 'billing_reference_id' in bill ? bill.billing_reference_id || bill.billing_id : undefined;
 
   const statusBadge = status ? (
     <StatusBadge
@@ -90,8 +94,8 @@ export default function SavedBillCard({
               variant="ring"
             />
             <View style={cardStyles.names}>
-              <AppText numberOfLines={1} weight="600" style={cardStyles.nickname}>{name}</AppText>
-              <AppText numberOfLines={1} style={cardStyles.merchantName}>{bill.merchant_name}</AppText>
+              <AppText ellipsizeMode="tail" numberOfLines={1} weight="600" style={cardStyles.nickname}>{name}</AppText>
+              <AppText ellipsizeMode="tail" numberOfLines={1} style={cardStyles.merchantName}>{bill.merchant_name}</AppText>
             </View>
           </View>
           <View style={[cardStyles.details, fullWidth && cardStyles.detailsFull]}>

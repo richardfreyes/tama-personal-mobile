@@ -17,7 +17,7 @@ const getStatusColors = (status?: string | null): { text: string; dot: string; b
   }
 
   if (statusWords.some((word) => ['active', 'approved', 'completed', 'success', 'successful', 'ongoing', 'progress'].includes(word))) {
-    return { background: Colors.success01, dot: Colors.success10, text: Colors.neutral09 };
+    return { background: Colors.success01, dot: Colors.success, text: Colors.successText };
   }
 
   if (statusWords.includes('paused') || normalized === 'on hold') {

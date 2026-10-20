@@ -1,10 +1,10 @@
-import { Colors } from "@/styles/common/colors";
-import { FontSizes } from "@/styles/common/typography";
+import { Colors as LightColors } from '@/styles/common/colors';
+import type { ThemeColors } from '@/types/theme';
 import { StyleSheet } from "react-native";
 
-export const onboardingFlowStyles = StyleSheet.create({
+export const createOnboardingFlowStyles = (Colors: ThemeColors) => StyleSheet.create({
   container: {
-    padding: 24,
+    padding: 16,
     flex: 1,
     justifyContent: 'center',
   },
@@ -19,13 +19,17 @@ export const onboardingFlowStyles = StyleSheet.create({
   },
   title: {
     marginBottom: 12,
+    marginTop: 16,
     textAlign: 'center',
-    fontSize: FontSizes.extraExtraLarge,
-    color: Colors.maroon10
+    fontSize: 22,
+    lineHeight: 28,
+    color: Colors.text
   },
   desc: {
     textAlign: 'center',
-    fontSize: FontSizes.base,
+    fontSize: 15,
+    lineHeight: 22,
+    color: Colors.textSecondary,
   },
   indicatorContainer: {
     marginBottom: 24
@@ -35,3 +39,4 @@ export const onboardingFlowStyles = StyleSheet.create({
     marginBottom: 24,
   }
 });
+export const onboardingFlowStyles = createOnboardingFlowStyles(LightColors);

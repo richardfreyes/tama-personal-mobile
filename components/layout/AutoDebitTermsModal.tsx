@@ -1,11 +1,13 @@
+import { useThemeColors } from '@/hooks/useAppTheme';
 import { AppText } from '@/components/common/AppText';
 import ModalContent from '@/components/layout/ModalContent';
 import { SUPPORT_EMAIL, SUPPORT_MAILTO } from '@/constants/contact';
-import { Colors } from '@/styles/common/colors';
 import { AutoDebitTermsModalProps } from '@/types/common';
 import { Linking, View } from 'react-native';
 
-export const AutoDebitTermsModal = ({ visible, onClose }: AutoDebitTermsModalProps) => (
+export const AutoDebitTermsModal = ({ visible, onClose }: AutoDebitTermsModalProps) => {
+  const Colors = useThemeColors();
+  return (
   <ModalContent
     visible={visible}
     title='Auto-Debit Enrollment Terms & Conditions'
@@ -62,3 +64,4 @@ export const AutoDebitTermsModal = ({ visible, onClose }: AutoDebitTermsModalPro
     </View>
   </ModalContent>
 );
+};

@@ -1,11 +1,11 @@
+import { useThemedStyles, useThemeColors } from '@/hooks/useAppTheme';
 import { AppButton } from '@/components/common/AppButton';
 import { AppText } from '@/components/common/AppText';
 import EmptyStateCard from '@/components/common/EmptyStateCard';
 import EnrollmentDetailsContent from '@/components/enrollments/EnrollmentDetailsContent';
 import EnrollmentDetailsSkeleton from '@/components/enrollments/EnrollmentDetailsSkeleton';
 import { useGetEnrollmentsQuery } from '@/redux/features/enrollments/enrollmentApi';
-import { enrollmentDetailsStyles as styles } from '@/styles/app/bills/enrollments/details';
-import { Colors } from '@/styles/common/colors';
+import { createEnrollmentDetailsStyles as makeStyles } from '@/styles/app/bills/enrollments/details';
 import type { EnrollmentDetailsLookupProps } from '@/types/common';
 import { matchesEnrollmentId } from '@/utils/enrollment';
 import { Feather } from '@expo/vector-icons';
@@ -13,6 +13,9 @@ import React from 'react';
 import { View } from 'react-native';
 
 export default function EnrollmentDetailsLookup({ enrollmentId }: EnrollmentDetailsLookupProps) {
+  const styles = useThemedStyles(makeStyles);
+  const Colors = useThemeColors();
+
   const { data, isError, isFetching, isLoading, refetch } = useGetEnrollmentsQuery({
     count: 10,
     page: 0,

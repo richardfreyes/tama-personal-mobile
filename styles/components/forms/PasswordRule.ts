@@ -1,20 +1,27 @@
-import { StyleSheet } from "react-native";
-import { FontSizes } from "../../common/typography";
+import { Colors as LightColors } from '@/styles/common/colors';
+import type { ThemeColors } from '@/types/theme';
+import { StyleSheet } from 'react-native';
 
-export const passwordRuleStyles = StyleSheet.create({
+export const createPasswordRuleStyles = (Colors: ThemeColors) => StyleSheet.create({
   ruleRow: {
-    flexDirection: 'row',
     alignItems: 'flex-start',
-    marginBottom: 8,
+    flexDirection: 'row',
+    gap: 8,
+    marginBottom: 6,
   },
   ruleIcon: {
-    marginTop: 3,
-    marginRight: 12,
     flexShrink: 0,
+    marginTop: 0,
   },
   ruleText: {
+    color: Colors.textSecondary,
     flex: 1,
-    fontSize: FontSizes.small,
-    lineHeight: 20,
+    fontSize: 12,
+    lineHeight: 16,
+  },
+  ruleTextValid: {
+    color: Colors.successText,
   },
 });
+
+export const passwordRuleStyles = createPasswordRuleStyles(LightColors);

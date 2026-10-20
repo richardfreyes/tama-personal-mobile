@@ -1,4 +1,5 @@
-import { paymentFooterStyles as styles } from '@/styles/components/payments/PaymentFooter';
+import { useThemedStyles } from '@/hooks/useAppTheme';
+import { createPaymentFooterStyles as makeStyles } from '@/styles/components/payments/PaymentFooter';
 import type { PaymentFooterProps } from '@/types';
 import React from 'react';
 import { View } from 'react-native';
@@ -14,6 +15,8 @@ export default function PaymentFooter({
   isConfirming,
   onConfirm,
 }: PaymentFooterProps) {
+  const styles = useThemedStyles(makeStyles);
+
   const insets = useSafeAreaInsets();
 
   return (

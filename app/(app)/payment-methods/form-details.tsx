@@ -1,3 +1,4 @@
+import { useThemedStyles } from '@/hooks/useAppTheme';
 import CalendarIcon from '@/assets/icons/calendar.svg';
 import CardIcon from '@/assets/icons/card.svg';
 import InfoIcon from '@/assets/icons/info.svg';
@@ -20,8 +21,8 @@ import { useGetProfileDataQuery, useUpdateAddressMutation } from '@/redux/featur
 import { showSnackbar } from '@/redux/features/snackbar/snackbarSlice';
 import { usePayTransactionMutation, usePayWithCardMutation } from '@/redux/features/transactions/transactionApi';
 import { useAppDispatch } from '@/redux/hooks';
-import { formDetailsStyles as styles } from '@/styles/app/payment-methods/form-details';
-import { globalStyle } from '@/styles/common/globals';
+import { createFormDetailsStyles as makeStyles } from '@/styles/app/payment-methods/form-details';
+import { createGlobalStyle as makeGlobalStyle } from '@/styles/common/globals';
 import { AddCardFormInputs, PaymentMethodFormData } from '@/types';
 import { detectCardProvider } from '@/utils/card';
 import { buildAddCardRequestPayload, buildAddressPayload, buildEnrollmentCardPayload, formatPaymentMethodFieldValue, getNormalizedCardNumber, getPaymentOptionByTitle, getSavedBillingAddressFormValues, validatePaymentMethodForm, validatePaymentMethodInput } from '@/utils/paymentMethodForm';
@@ -36,6 +37,9 @@ import { KeyboardAvoidingView, Platform, View } from 'react-native';
 import { Checkbox, useTheme } from 'react-native-paper';
 
 const FormDetails = () => {
+  const styles = useThemedStyles(makeStyles);
+  const globalStyle = useThemedStyles(makeGlobalStyle);
+
   const theme = useTheme();
   const primaryColor = theme.colors.primary;
   const dispatch = useAppDispatch();

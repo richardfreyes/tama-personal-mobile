@@ -1,7 +1,8 @@
 import { StyleSheet } from 'react-native';
-import { Colors } from '../../common/colors';
+import { Colors as LightColors } from '@/styles/common/colors';
+import type { ThemeColors } from '@/types/theme';
 
-export const invoiceItemStyles = StyleSheet.create({
+export const createInvoiceItemStyles = (Colors: ThemeColors) => StyleSheet.create({
   cardContainer: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -12,7 +13,7 @@ export const invoiceItemStyles = StyleSheet.create({
     justifyContent: 'center',
   },
   billerName: {
-    color: Colors.red10,
+    color: Colors.primaryText,
     marginBottom: 2,
   },
   dateText: {
@@ -41,3 +42,4 @@ export const invoiceItemStyles = StyleSheet.create({
     backgroundColor: Colors.maroon02,
   }
 });
+export const invoiceItemStyles = createInvoiceItemStyles(LightColors);

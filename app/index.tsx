@@ -1,11 +1,11 @@
+import { useThemedStyles, useThemeColors } from '@/hooks/useAppTheme';
 import BrandLogo from '@/assets/logo-brand.svg';
 import { NativeLoadingIndicator } from '@/components/common/Loading';
 import { COMMON } from '@/constants/common';
 import { retrieveToken } from '@/redux/features/login/loginApi';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { store } from '@/redux/store';
-import { Colors } from '@/styles/common/colors';
-import { rootStyles } from '@/styles/root';
+import { createRootStyles as makeRootStyles } from '@/styles/root';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Redirect, usePathname, useSegments } from 'expo-router';
 import { useEffect, useState } from 'react';
@@ -13,6 +13,9 @@ import { StatusBar, View } from 'react-native';
 import { Provider } from 'react-redux';
 
 const RedirectingPage = () => {
+  const rootStyles = useThemedStyles(makeRootStyles);
+  const Colors = useThemeColors();
+
   const dispatch = useAppDispatch();
   const segments = useSegments() as string[];
   const pathname = usePathname();

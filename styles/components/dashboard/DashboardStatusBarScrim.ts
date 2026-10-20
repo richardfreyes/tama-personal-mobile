@@ -1,7 +1,8 @@
-import { Colors } from '@/styles/common/colors';
+import { Colors as LightColors } from '@/styles/common/colors';
+import type { ThemeColors } from '@/types/theme';
 import { StyleSheet } from 'react-native';
 
-export const dashboardStatusBarScrimStyles = StyleSheet.create({
+export const createDashboardStatusBarScrimStyles = (Colors: ThemeColors) => StyleSheet.create({
   scrim: {
     backgroundColor: Colors.neutral01,
     left: 0,
@@ -18,3 +19,5 @@ export const dashboardStatusBarScrimStyles = StyleSheet.create({
     top: '100%',
   },
 });
+
+export const dashboardStatusBarScrimStyles = createDashboardStatusBarScrimStyles(LightColors);

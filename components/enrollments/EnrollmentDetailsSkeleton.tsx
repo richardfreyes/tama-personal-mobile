@@ -1,9 +1,12 @@
+import { useThemedStyles } from '@/hooks/useAppTheme';
 import { SkeletonBlock } from '@/components/common/Loading';
-import { enrollmentDetailsStyles as styles } from '@/styles/app/bills/enrollments/details';
+import { createEnrollmentDetailsStyles as makeStyles } from '@/styles/app/bills/enrollments/details';
 import React from 'react';
 import { View } from 'react-native';
 
 export default function EnrollmentDetailsSkeleton() {
+  const styles = useThemedStyles(makeStyles);
+
   return (
     <View
       accessibilityLabel="Loading enrollment details"

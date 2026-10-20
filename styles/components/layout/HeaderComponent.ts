@@ -1,37 +1,39 @@
-import { Colors } from '@/styles/common/colors';
+import { Colors as LightColors } from '@/styles/common/colors';
+import type { ThemeColors } from '@/types/theme';
 import { StyleSheet } from 'react-native';
 
-export const headerComponentStyles = StyleSheet.create({
+export const createHeaderComponentStyles = (Colors: ThemeColors) => StyleSheet.create({
   headerContainer: {
-    backgroundColor: Colors.neutral01,
+    backgroundColor: Colors.background,
   },
   profileButton: {
     alignItems: 'center',
+    alignSelf: 'stretch',
     flexDirection: 'row',
     minHeight: 44,
-    width: '100%',
+    minWidth: 0,
   },
   avatarRing: {
     alignItems: 'center',
-    borderRadius: 22,
-    height: 44,
-    justifyContent: 'center',
-    width: 44,
-  },
-  avatarInner: {
-    alignItems: 'center',
-    backgroundColor: Colors.red01,
-    borderColor: Colors.neutral01,
     borderRadius: 20,
-    borderWidth: 2,
     height: 40,
     justifyContent: 'center',
     width: 40,
   },
+  avatarInner: {
+    alignItems: 'center',
+    backgroundColor: Colors.avatarBackground,
+    borderColor: Colors.neutral01,
+    borderRadius: 18,
+    borderWidth: 0,
+    height: 36,
+    justifyContent: 'center',
+    width: 36,
+  },
   initials: {
-    color: Colors.red09,
-    fontSize: 14,
-    lineHeight: 20,
+    color: Colors.primaryText,
+    fontSize: 13,
+    lineHeight: 18,
   },
   textColumn: {
     flex: 1,
@@ -44,8 +46,10 @@ export const headerComponentStyles = StyleSheet.create({
     lineHeight: 18,
   },
   name: {
-    color: Colors.maroon11,
-    fontSize: 18,
-    lineHeight: 26,
+    color: Colors.text,
+    fontSize: 17,
+    lineHeight: 22,
   },
 });
+
+export const headerComponentStyles = createHeaderComponentStyles(LightColors);

@@ -15,7 +15,11 @@ const EnrollmentResultScreen = () => {
       : 'Enrollment verification failed';
 
   return (
-    <PageState title={title} description={message}>
+    <PageState
+      status={outcome === 'success' ? 'success' : outcome === 'cancelled' ? 'neutral' : 'error'}
+      title={title}
+      description={message}
+    >
       <AppButton
         title={outcome === 'success' ? 'Back to Home' : 'Return to Enrollments'}
         variant="primary"

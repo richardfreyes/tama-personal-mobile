@@ -1,4 +1,5 @@
-import { paymentOptionRowStyles as styles } from '@/styles/components/payments/PaymentOptionRow';
+import { useThemedStyles } from '@/hooks/useAppTheme';
+import { createPaymentOptionRowStyles as makeStyles } from '@/styles/components/payments/PaymentOptionRow';
 import type { PaymentOptionRowProps } from '@/types';
 import React from 'react';
 import { Pressable, View } from 'react-native';
@@ -16,6 +17,8 @@ export default function PaymentOptionRow({
   onPress,
   testID,
 }: PaymentOptionRowProps) {
+  const styles = useThemedStyles(makeStyles);
+
   return (
     <Pressable
       accessibilityLabel={[title, subtitle, badge].filter(Boolean).join(', ')}

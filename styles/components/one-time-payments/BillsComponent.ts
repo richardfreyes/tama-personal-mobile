@@ -1,8 +1,9 @@
 import { SAVED_BILL_CARD_GAP, SAVED_BILL_CARD_WIDTH } from "@/constants/savedBills";
 import { StyleSheet } from "react-native";
-import { Colors } from "../../common/colors";
+import { Colors as LightColors } from '@/styles/common/colors';
+import type { ThemeColors } from '@/types/theme';
 
-export const billsComponentStyles = StyleSheet.create({
+export const createBillsComponentStyles = (Colors: ThemeColors) => StyleSheet.create({
 
   carouselViewport: {
     marginHorizontal: -16,
@@ -32,7 +33,7 @@ export const billsComponentStyles = StyleSheet.create({
     backgroundColor: Colors.red02,
   },
   addBillerText: {
-    color: Colors.red09,
+    color: Colors.primaryText,
     fontSize: 15,
     lineHeight: 22,
   },
@@ -54,7 +55,7 @@ export const billsComponentStyles = StyleSheet.create({
     opacity: 0.93,
   },
   payNowText: {
-    color: Colors.neutral01,
+    color: Colors.white,
     fontSize: 15,
     lineHeight: 22,
   },
@@ -98,3 +99,5 @@ export const billsComponentStyles = StyleSheet.create({
     paddingTop: 2,
   },
 });
+
+export const billsComponentStyles = createBillsComponentStyles(LightColors);

@@ -1,8 +1,9 @@
-import { Colors } from "@/styles/common/colors";
+import { Colors as LightColors } from '@/styles/common/colors';
+import type { ThemeColors } from '@/types/theme';
 import { FontSizes } from "@/styles/common/typography";
 import { StyleSheet } from "react-native";
 
-export const paymentSuccessStyles = StyleSheet.create({
+export const createPaymentSuccessStyles = (Colors: ThemeColors) => StyleSheet.create({
   wrapper: {
     paddingHorizontal: 12,
     paddingVertical: 12,
@@ -61,3 +62,5 @@ export const paymentSuccessStyles = StyleSheet.create({
     paddingHorizontal: 4,
   },
 });
+
+export const paymentSuccessStyles = createPaymentSuccessStyles(LightColors);

@@ -1,7 +1,8 @@
 import { StyleSheet } from 'react-native';
-import { Colors } from '../../common/colors';
+import { Colors as LightColors } from '@/styles/common/colors';
+import type { ThemeColors } from '@/types/theme';
 
-export const alphabetIndexStyles = StyleSheet.create({
+export const createAlphabetIndexStyles = (Colors: ThemeColors) => StyleSheet.create({
   rail: {
     alignItems: 'center',
   },
@@ -10,18 +11,20 @@ export const alphabetIndexStyles = StyleSheet.create({
     justifyContent: 'center',
   },
   letterText: {
-    color: Colors.red09,
-    fontSize: 12,
-    lineHeight: 16,
+    color: Colors.red10,
+    fontSize: 11,
+    lineHeight: 14,
   },
   badge: {
     alignItems: 'center',
-    backgroundColor: Colors.red09,
+    backgroundColor: Colors.red10,
     justifyContent: 'center',
   },
   badgeText: {
-    color: Colors.neutral01,
-    fontSize: 12,
-    lineHeight: 16,
+    color: Colors.white,
+    fontSize: 11,
+    lineHeight: 14,
   },
 });
+
+export const alphabetIndexStyles = createAlphabetIndexStyles(LightColors);

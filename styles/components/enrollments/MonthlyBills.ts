@@ -1,14 +1,14 @@
-import { Colors } from '@/styles/common/colors';
+import { Colors as LightColors } from '@/styles/common/colors';
+import type { ThemeColors } from '@/types/theme';
 import { StyleSheet } from 'react-native';
 
-export const monthlyBillsStyles = StyleSheet.create({
+export const createMonthlyBillsStyles = (Colors: ThemeColors) => StyleSheet.create({
   container: {
     alignSelf: 'stretch',
   },
   carouselViewport: {
     alignSelf: 'stretch',
-    marginHorizontal: -20,
-
+    marginHorizontal: -16,
     marginVertical: -16,
   },
   carousel: {
@@ -16,33 +16,36 @@ export const monthlyBillsStyles = StyleSheet.create({
     width: '100%',
   },
   carouselContent: {
-    paddingHorizontal: 20,
+    paddingHorizontal: 16,
     paddingVertical: 16,
   },
   indicatorContainer: {
     alignItems: 'center',
     flexDirection: 'row',
+    gap: 12,
     justifyContent: 'space-between',
-    marginTop: 10,
-    minHeight: 24,
+    marginTop: 25,
+    minHeight: 18,
   },
   indicatorTrack: {
     alignItems: 'center',
+    flex: 1,
     flexDirection: 'row',
+    flexShrink: 1,
     gap: 6,
+    minWidth: 0,
   },
   indicatorSlot: {
     alignItems: 'center',
-    height: 44,
+    height: 18,
     justifyContent: 'center',
-    marginVertical: -10,
     width: 12,
   },
   indicatorSlotActive: {
-    width: 26,
+    width: 18,
   },
   monthlyIndicatorInactive: {
-    backgroundColor: Colors.red04,
+    backgroundColor: Colors.background === '#0E0F13' ? '#4A2A2C' : '#F5BDBD',
     borderRadius: 3,
     height: 6,
     width: 6,
@@ -55,7 +58,7 @@ export const monthlyBillsStyles = StyleSheet.create({
   },
   indicatorActive: {
     backgroundColor: Colors.red10,
-    width: 20,
+    width: 18,
   },
   indicatorInactive: {
     backgroundColor: Colors.red04,
@@ -64,14 +67,15 @@ export const monthlyBillsStyles = StyleSheet.create({
     borderRadius: 3,
     height: 6,
     overflow: 'hidden',
-    width: 20,
+    width: 18,
   },
   indicatorGradient: {
     height: 6,
-    width: 20,
+    width: 18,
   },
   indicatorCount: {
     color: Colors.maroon09,
+    flexShrink: 0,
     fontSize: 13,
     fontVariant: ['tabular-nums'],
     lineHeight: 18,
@@ -81,7 +85,7 @@ export const monthlyBillsStyles = StyleSheet.create({
     alignSelf: 'stretch',
     backgroundColor: Colors.neutral01,
     borderColor: Colors.dashboardCardBorder,
-    borderRadius: 24,
+    borderRadius: 12,
     borderWidth: 1,
     gap: 20,
     minHeight: 258,
@@ -103,7 +107,7 @@ export const monthlyBillsStyles = StyleSheet.create({
     alignSelf: 'stretch',
     backgroundColor: Colors.neutral01,
     borderColor: Colors.dashboardCardBorder,
-    borderRadius: 24,
+    borderRadius: 12,
     borderWidth: 1,
     gap: 16,
     paddingHorizontal: 20,
@@ -122,21 +126,21 @@ export const monthlyBillsStyles = StyleSheet.create({
     gap: 6,
   },
   emptyTitle: {
-    color: Colors.maroon11,
-    fontSize: 18,
-    lineHeight: 26,
+    color: Colors.text,
+    fontSize: 15,
+    lineHeight: 20,
     textAlign: 'center',
   },
   emptySubtitle: {
-    color: Colors.maroon09,
-    fontSize: 14,
-    lineHeight: 21,
+    color: Colors.textSecondary,
+    fontSize: 13,
+    lineHeight: 18,
     maxWidth: 280,
     textAlign: 'center',
   },
   emptyButton: {
-    borderRadius: 14,
-    height: 48,
+    borderRadius: 8,
+    height: 44,
     overflow: 'hidden',
     width: '100%',
   },
@@ -147,13 +151,15 @@ export const monthlyBillsStyles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
     gap: 8,
-    height: 48,
+    height: 44,
     justifyContent: 'center',
     width: '100%',
   },
   emptyButtonText: {
-    color: Colors.neutral01,
+    color: Colors.white,
     fontSize: 15,
     lineHeight: 22,
   },
 });
+
+export const monthlyBillsStyles = createMonthlyBillsStyles(LightColors);

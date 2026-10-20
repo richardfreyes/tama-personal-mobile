@@ -1,6 +1,7 @@
+import { useThemedStyles } from '@/hooks/useAppTheme';
 import { showSnackbar } from '@/redux/features/snackbar/snackbarSlice';
 import { useAppDispatch } from '@/redux/hooks';
-import { infoFieldComponentStyles as styles } from '@/styles/components/common/InfoFieldComponent';
+import { createInfoFieldComponentStyles as makeStyles } from '@/styles/components/common/InfoFieldComponent';
 import { InfoFieldProps } from '@/types';
 import { formatMonetaryDisplayValue } from '@/utils/format';
 import * as Clipboard from 'expo-clipboard';
@@ -20,6 +21,8 @@ const InfoFieldComponent: React.FC<InfoFieldProps> = ({
   variant = 'default',
   emptyText = '---',
 }) => {
+  const styles = useThemedStyles(makeStyles);
+
   const dispatch = useAppDispatch();
   const displayValue = formatMonetaryDisplayValue(value, label) || value;
 

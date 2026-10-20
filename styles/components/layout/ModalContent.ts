@@ -1,7 +1,8 @@
 import { StyleSheet } from 'react-native';
-import { Colors } from '../../common/colors';
+import { Colors as LightColors } from '@/styles/common/colors';
+import type { ThemeColors } from '@/types/theme';
 
-export const modalContentStyles = StyleSheet.create({
+export const createModalContentStyles = (Colors: ThemeColors) => StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.neutral01,
@@ -44,3 +45,5 @@ export const modalContentStyles = StyleSheet.create({
     borderTopColor: Colors.neutral04,
   },
 });
+
+export const modalContentStyles = createModalContentStyles(LightColors);

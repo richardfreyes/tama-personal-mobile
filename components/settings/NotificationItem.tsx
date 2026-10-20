@@ -1,7 +1,7 @@
+import { useThemedStyles, useThemeColors } from '@/hooks/useAppTheme';
 import AqwireLogo from '@/assets/icons/aqwire-logo.svg';
 import { AppText } from '@/components/common/AppText';
-import { notificationStyles as styles } from '@/styles/app/notifications';
-import { Colors } from '@/styles/common/colors';
+import { createNotificationStyles as makeStyles } from '@/styles/app/notifications';
 import { NotificationItemProps } from '@/types';
 import React from 'react';
 import { TouchableOpacity, View } from 'react-native';
@@ -14,6 +14,9 @@ const NotificationItem: React.FC<NotificationItemProps> = ({
   isRead,
   onPress,
 }) => {
+  const styles = useThemedStyles(makeStyles);
+  const Colors = useThemeColors();
+
   return (
     <TouchableOpacity style={[styles.notificationCard, !isRead ? { backgroundColor: Colors.maroon01 } : null]} onPress={() => onPress(id)}>
       <View style={styles.iconContainer}>

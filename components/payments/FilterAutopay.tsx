@@ -1,6 +1,7 @@
+import { useThemedStyles } from '@/hooks/useAppTheme';
 import { COMMON } from '@/constants/common';
 import { TRANSACTION_TYPE_OPTIONS } from '@/constants/transaction';
-import { filterAutoPayStyles as styles } from '@/styles/components/payments/FilterAutopay';
+import { createFilterAutoPayStyles as makeStyles } from '@/styles/components/payments/FilterAutopay';
 import { AppliedFilters, DateRange, FilterAutopayProps, TransactionSource } from '@/types';
 import React, { useState } from 'react';
 import { KeyboardAvoidingView, Platform, ScrollView, TouchableOpacity, View } from 'react-native';
@@ -13,6 +14,8 @@ import { AppText } from '../common/AppText';
 import { SpacerComponent } from '../common/SpacerComponent';
 
 const FilterAutopay: React.FC<FilterAutopayProps> = ({ onApply, onReset, initialFilters }) => {
+  const styles = useThemedStyles(makeStyles);
+
   const [statusFilters, setStatusFilters] = useState<string[]>(initialFilters?.statusFilters ?? []);
   const [transactionTypeFilters, setTransactionTypeFilters] = useState<TransactionSource[]>(initialFilters?.transactionTypeFilters ?? []);
   const [range, setRange] = useState<DateRange>({

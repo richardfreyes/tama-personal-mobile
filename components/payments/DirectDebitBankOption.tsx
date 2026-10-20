@@ -1,11 +1,14 @@
+import { useThemedStyles } from '@/hooks/useAppTheme';
 import { AppText } from '@/components/common/AppText';
 import ChevronRightIcon from '@/assets/icons/chevron-right.svg';
-import { directDebitBankOptionStyles as styles } from '@/styles/components/payments/DirectDebitBankOption';
+import { createDirectDebitBankOptionStyles as makeStyles } from '@/styles/components/payments/DirectDebitBankOption';
 import type { DirectDebitBankOptionProps } from '@/types/common';
 import React from 'react';
 import { TouchableOpacity, View } from 'react-native';
 
 export default function DirectDebitBankOption({ label, icon: Icon, onPress, disabled }: DirectDebitBankOptionProps) {
+  const styles = useThemedStyles(makeStyles);
+
   return (
     <TouchableOpacity
       style={[styles.container, disabled && styles.disabled]}

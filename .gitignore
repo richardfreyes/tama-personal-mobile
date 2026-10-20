@@ -54,3 +54,7 @@ qa/
 
 # Test coverage output
 coverage/
+
+
+design-reference/
+.ai-progress/

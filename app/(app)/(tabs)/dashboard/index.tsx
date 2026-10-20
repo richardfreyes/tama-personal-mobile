@@ -1,3 +1,4 @@
+import { useThemedStyles } from '@/hooks/useAppTheme';
 import { GlobalScrollView } from '@/components/common/GlobalScrollView';
 import DashboardStatusBarScrim from '@/components/dashboard/DashboardStatusBarScrim';
 import AutoDebitCard from '@/components/enrollments/AutoDebitCard';
@@ -10,13 +11,15 @@ import { DASHBOARD_RECENT_TRANSACTION_COUNT } from '@/constants';
 import { clearEnrollmentCardPayload, clearEnrollmentTransactionResponse } from '@/redux/features/enrollments/review/reviewSlice';
 import { useGetMonthlyBillsEnrollmentsQuery } from '@/redux/features/enrollments/enrollmentApi';
 import { useAppDispatch } from '@/redux/hooks';
-import { dashboardStyles as styles } from '@/styles/app/dashboard/index';
+import { createDashboardStyles as makeStyles } from '@/styles/app/dashboard/index';
 import { countActiveEnrollments } from '@/utils/enrollmentPresentation';
 import { router } from 'expo-router';
 import React from 'react';
 import { View } from 'react-native';
 
 export default function Dashboard() {
+  const styles = useThemedStyles(makeStyles);
+
   const dispatch = useAppDispatch();
   const enrollmentsQuery = useGetMonthlyBillsEnrollmentsQuery();
   const activeEnrollmentCount = countActiveEnrollments(enrollmentsQuery.data?.items);

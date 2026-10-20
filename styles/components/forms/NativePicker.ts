@@ -1,17 +1,18 @@
 import { StyleSheet } from "react-native";
-import { Colors } from "../../common/colors";
+import { Colors as LightColors } from '@/styles/common/colors';
+import type { ThemeColors } from '@/types/theme';
 import { FontSizes } from "../../common/typography";
 
-export const nativePickerStyles = StyleSheet.create({
+export const createNativePickerStyles = (Colors: ThemeColors) => StyleSheet.create({
   container: {},
   inputWrapper: { 
     position: 'relative' 
   },
 
   input: { 
-    backgroundColor: 'white', 
+    backgroundColor: Colors.inputBackground, 
     fontSize: FontSizes.base 
-  },
+  , minHeight: 48, borderRadius: 8,},
 
   disabledInput: { 
     backgroundColor: Colors.neutral02 
@@ -49,12 +50,12 @@ export const nativePickerStyles = StyleSheet.create({
 
   modalBackdrop: { 
     ...StyleSheet.absoluteFill, 
-    backgroundColor: 'rgba(0, 0, 0, 0.5)' 
+    backgroundColor: Colors.overlay 
   },
 
   modalContent: {
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
+    borderTopLeftRadius: 16,
+    borderTopRightRadius: 16,
     paddingBottom: 34,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: -4 },
@@ -67,10 +68,10 @@ export const nativePickerStyles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingHorizontal: 20,
+    paddingHorizontal: 16,
     paddingVertical: 16,
     borderBottomWidth: StyleSheet.hairlineWidth,
-    borderBottomColor: '#E0E0E0',
+    borderBottomColor: Colors.border,
   },
 
   modalTitle: { 
@@ -80,12 +81,12 @@ export const nativePickerStyles = StyleSheet.create({
 
   cancelButton: { 
     color: Colors.neutral07, 
-    fontSize: 17 
+    fontSize: 15 
   },
 
   doneButton: { 
-    color: Colors.red10, 
-    fontSize: 17, 
+    color: Colors.primaryText, 
+    fontSize: 15, 
     fontWeight: '600' 
   },
 
@@ -102,4 +103,12 @@ export const nativePickerStyles = StyleSheet.create({
     height: 216, 
     fontSize: 20 
   },
+  pickerLabel: { flex: 1, color: Colors.text, fontSize: 15, lineHeight: 20 },
+  pickerList: { maxHeight: 320 },
+  selectedLabel: { color: Colors.primaryText, fontFamily: 'PoppinsSemiBold' },
+  selectedRow: { backgroundColor: Colors.primaryTint },
+  pickerSearch: { margin: 16 },
+  pickerRow: { minHeight: 48, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: 16, borderBottomWidth: 1, borderColor: Colors.divider },
 });
+
+export const nativePickerStyles = createNativePickerStyles(LightColors);

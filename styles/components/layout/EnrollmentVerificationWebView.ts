@@ -1,8 +1,9 @@
 import { StyleSheet } from 'react-native';
-import { Colors } from '../../common/colors';
+import { Colors as LightColors } from '@/styles/common/colors';
+import type { ThemeColors } from '@/types/theme';
 import { FontSizes } from '../../common/typography';
 
-export const enrollmentVerificationWebViewStyles = StyleSheet.create({
+export const createEnrollmentVerificationWebViewStyles = (Colors: ThemeColors) => StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.neutral01,
@@ -35,7 +36,7 @@ export const enrollmentVerificationWebViewStyles = StyleSheet.create({
     position: 'absolute',
   },
   cancelButtonText: {
-    color: Colors.red10,
+    color: Colors.primaryText,
     fontSize: FontSizes.base,
     fontWeight: '600',
   },
@@ -59,7 +60,7 @@ export const enrollmentVerificationWebViewStyles = StyleSheet.create({
     elevation: 2,
     maxWidth: 440,
     padding: 32,
-    shadowColor: Colors.neutral10,
+    shadowColor: Colors.shadow,
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.08,
     shadowRadius: 16,
@@ -98,3 +99,5 @@ export const enrollmentVerificationWebViewStyles = StyleSheet.create({
     top: 0,
   },
 });
+
+export const enrollmentVerificationWebViewStyles = createEnrollmentVerificationWebViewStyles(LightColors);

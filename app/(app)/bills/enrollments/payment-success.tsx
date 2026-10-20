@@ -1,3 +1,4 @@
+import { useThemedStyles, useThemeColors } from '@/hooks/useAppTheme';
 import InfoFieldComponent from '@/components/common/InfoFieldComponent';
 import { AppButton } from '@/components/common/AppButton';
 import { AppText } from '@/components/common/AppText';
@@ -8,9 +9,8 @@ import NavHeaderComponent from '@/components/layout/NavHeaderComponent';
 import { SUPPORT_EMAIL, SUPPORT_MAILTO } from '@/constants/contact';
 import { useGetMerchantEnrollmentReceiptQuery, useGetMerchantReceiptQuery } from '@/redux/features/merchants/merchantApi';
 import type { MerchantTransactionFieldPayload } from '@/redux/features/merchants/merchantTypes';
-import { paymentSuccessStyles as styles } from '@/styles/app/bills/common/payment-success';
-import { Colors } from '@/styles/common/colors';
-import { globalStyle } from '@/styles/common/globals';
+import { createPaymentSuccessStyles as makeStyles } from '@/styles/app/bills/common/payment-success';
+import { createGlobalStyle as makeGlobalStyle } from '@/styles/common/globals';
 import { formatApiDate } from '@/utils/date';
 import { formatEnrollmentAmount, formatMoney, getFirstString, getSearchParam, resolveDisplayValue } from '@/utils/format';
 import { buildScheduledPaymentInfo } from '@/utils/paymentMappers';
@@ -19,6 +19,10 @@ import React from 'react';
 import { Linking, View } from 'react-native';
 
 const EnrollmentPaymentSuccessScreen = () => {
+  const styles = useThemedStyles(makeStyles);
+  const globalStyle = useThemedStyles(makeGlobalStyle);
+  const Colors = useThemeColors();
+
   const { merchantId, referenceId, receiptAccessSignature, receiptAccessType, receiptAccessToken, isEnrollment: isEnrollmentParam } = useLocalSearchParams<{ merchantId?: string | string[]; referenceId?: string | string[]; receiptAccessSignature?: string | string[]; receiptAccessType?: string | string[]; receiptAccessToken?: string | string[]; isEnrollment?: string | string[]; }>();
   const merchantCode = getSearchParam(merchantId);
   const receiptReferenceId = getSearchParam(referenceId);

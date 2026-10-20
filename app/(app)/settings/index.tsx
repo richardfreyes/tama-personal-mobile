@@ -1,3 +1,4 @@
+import { useThemedStyles, useThemeColors } from '@/hooks/useAppTheme';
 import { AppText } from '@/components/common/AppText';
 import { GlobalScrollView } from '@/components/common/GlobalScrollView';
 import NavHeaderComponent from '@/components/layout/NavHeaderComponent';
@@ -9,9 +10,8 @@ import { clearSession } from '@/redux/features/login/loginApi';
 import { showModal } from '@/redux/features/modal/modalSlice';
 import { useAppDispatch } from '@/redux/hooks';
 import { handleSettingsRoute } from '@/services/navigation';
-import { settingsStyles as styles } from '@/styles/app/settings';
-import { Colors } from '@/styles/common/colors';
-import { globalStyle } from '@/styles/common/globals';
+import { createSettingsStyles as makeStyles } from '@/styles/app/settings';
+import { createGlobalStyle as makeGlobalStyle } from '@/styles/common/globals';
 import { SettingRoute, SlideUpScreenModalRef } from '@/types';
 import { modalActions } from '@/utils/modalActions';
 import { router } from 'expo-router';
@@ -19,7 +19,11 @@ import * as WebBrowser from 'expo-web-browser';
 import { useRef } from 'react';
 import { TouchableOpacity, View } from 'react-native';
 
-export default function AccountSettingsScreen() {  
+export default function AccountSettingsScreen() {
+  const styles = useThemedStyles(makeStyles);
+  const globalStyle = useThemedStyles(makeGlobalStyle);
+  const Colors = useThemeColors();
+  
   const dispatch = useAppDispatch();
   const bottomSheetRef = useRef<SlideUpScreenModalRef>(null);
   const { firstName, lastName, email } = useAuth();

@@ -1,17 +1,20 @@
-import { Colors } from '@/styles/common/colors';
+import { Colors as LightColors } from '@/styles/common/colors';
+import type { ThemeColors } from '@/types/theme';
 import { StyleSheet } from 'react-native';
 
-export const dashboardStyles = StyleSheet.create({
+export const createDashboardStyles = (Colors: ThemeColors) => StyleSheet.create({
   content: {
-    backgroundColor: Colors.neutral01,
+    backgroundColor: Colors.background,
     flexGrow: 1,
-    gap: 16,
-    paddingBottom: 132,
-    paddingHorizontal: 20,
+    gap: 12,
+    paddingBottom: 88,
+    paddingHorizontal: 16,
     paddingTop: 0,
   },
   screen: {
-    backgroundColor: Colors.neutral01,
+    backgroundColor: Colors.background,
     flex: 1,
   },
 });
+
+export const dashboardStyles = createDashboardStyles(LightColors);

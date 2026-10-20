@@ -1,3 +1,4 @@
+import { useThemedStyles } from '@/hooks/useAppTheme';
 import { AppButton } from '@/components/common/AppButton';
 import { AppText } from '@/components/common/AppText';
 import { SpacerComponent } from '@/components/common/SpacerComponent';
@@ -10,8 +11,8 @@ import { clearBiometricCredentials } from '@/services/authStorage';
 import { showModal } from '@/redux/features/modal/modalSlice';
 import { showSnackbar } from '@/redux/features/snackbar/snackbarSlice';
 import { useAppDispatch } from '@/redux/hooks';
-import { changeEmailStyles as styles } from '@/styles/app/settings/security/change-email';
-import { globalStyle } from '@/styles/common/globals';
+import { createChangeEmailStyles as makeStyles } from '@/styles/app/settings/security/change-email';
+import { createGlobalStyle as makeGlobalStyle } from '@/styles/common/globals';
 import { EmailUpdateInputs } from '@/types';
 import { validateField } from '@/utils/validators';
 import { router, useFocusEffect } from 'expo-router';
@@ -19,6 +20,9 @@ import { useCallback, useEffect, useState } from 'react';
 import { KeyboardAvoidingView, Platform, ScrollView, View } from 'react-native';
 
 export default function ChangeEmail() {
+  const styles = useThemedStyles(makeStyles);
+  const globalStyle = useThemedStyles(makeGlobalStyle);
+
   const dispatch = useAppDispatch();
   const { email: currentEmailFromAuth } = useAuth();
   const [updateEmail, { isLoading }] = useUpdateEmailMutation();

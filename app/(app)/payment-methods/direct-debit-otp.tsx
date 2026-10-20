@@ -1,3 +1,4 @@
+import { useThemedStyles } from '@/hooks/useAppTheme';
 import { AppButton } from '@/components/common/AppButton';
 import { AppText } from '@/components/common/AppText';
 import { SpacerComponent } from '@/components/common/SpacerComponent';
@@ -5,13 +6,15 @@ import NavHeaderComponent from '@/components/layout/NavHeaderComponent';
 import { useResendDirectDebitOtpMutation, useValidateDirectDebitOtpMutation } from '@/redux/features/paymentMethods/paymentMethodApi';
 import { showSnackbar } from '@/redux/features/snackbar/snackbarSlice';
 import { useAppDispatch } from '@/redux/hooks';
-import { globalStyle, inputFocusColor } from '@/styles/common/globals';
+import { createGlobalStyle as makeGlobalStyle, inputFocusColor } from '@/styles/common/globals';
 import { router, useLocalSearchParams } from 'expo-router';
 import React, { useState } from 'react';
 import { ScrollView, View } from 'react-native';
 import { TextInput } from 'react-native-paper';
 
 const DirectDebitOtp = () => {
+  const globalStyle = useThemedStyles(makeGlobalStyle);
+
   const dispatch = useAppDispatch();
   const { paymentId, xenditPaymentId, otpMobileNumber, billingReferenceId, invoiceReferenceId } =
     useLocalSearchParams<{

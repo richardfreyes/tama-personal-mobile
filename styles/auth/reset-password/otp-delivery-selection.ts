@@ -1,46 +1,47 @@
-import { Colors } from "@/styles/common/colors";
-import { FontSizes } from "@/styles/common/typography";
-import { StyleSheet } from "react-native";
+import { Colors as LightColors } from '@/styles/common/colors';
+import type { ThemeColors } from '@/types/theme';
+import { StyleSheet } from 'react-native';
 
-export const optDeliverySelectionStyles = StyleSheet.create({
+export const createOptDeliverySelectionStyles = (Colors: ThemeColors) => StyleSheet.create({
   container: {
-    flex: 1,
-  },
-  headerTitle: {
-    fontSize: FontSizes.base,
-    fontWeight: 'bold',
-    marginBottom: 10,
-    marginTop: 20,
-  },
-  headerMessage: {
-    fontSize: FontSizes.base,
-    marginBottom: 24,
+    flexGrow: 1,
   },
   cardContainer: {
-    backgroundColor: Colors.maroon01,
-    borderRadius: 8,
-    padding: 12,
+    gap: 12,
+    marginTop: 16,
   },
   card: {
-    flexDirection: 'row',
     alignItems: 'center',
-    padding: 24,
-    borderRadius: 8,
-    backgroundColor: Colors.neutral01,
+    backgroundColor: Colors.surface,
+    borderColor: Colors.border,
+    borderRadius: 12,
+    borderWidth: 1,
+    flexDirection: 'row',
+    gap: 12,
+    paddingHorizontal: 12,
+    paddingVertical: 14,
   },
   iconWrapper: {
-    justifyContent: 'center',
     alignItems: 'center',
-    marginRight: 24,
+    backgroundColor: Colors.primaryTint,
+    borderRadius: 8,
+    height: 40,
+    justifyContent: 'center',
+    width: 40,
   },
   textWrapper: {
     flex: 1,
+    minWidth: 0,
   },
   cardTitle: {
-    fontSize: FontSizes.base,
+    color: Colors.textSecondary,
+    fontSize: 13,
+    lineHeight: 18,
   },
   cardDescription: {
-    fontSize: FontSizes.medium,
-    marginTop: 4,
+    fontSize: 15,
+    lineHeight: 20,
   },
 });
+
+export const optDeliverySelectionStyles = createOptDeliverySelectionStyles(LightColors);

@@ -1,3 +1,4 @@
+import { useThemedStyles, useThemeColors } from '@/hooks/useAppTheme';
 import InfoFieldComponent from '@/components/common/InfoFieldComponent';
 import { AppButton } from '@/components/common/AppButton';
 import { AppText } from '@/components/common/AppText';
@@ -7,14 +8,17 @@ import { SpacerComponent } from '@/components/common/SpacerComponent';
 import NavHeaderComponent from '@/components/layout/NavHeaderComponent';
 import { useAuth } from '@/hooks/useAuth';
 import { useGetProfileDataQuery } from '@/redux/features/profile/profileApi';
-import { profileStyles as styles } from '@/styles/app/settings/profile';
-import { Colors } from '@/styles/common/colors';
-import { globalStyle } from '@/styles/common/globals';
+import { createProfileStyles as makeStyles } from '@/styles/app/settings/profile';
+import { createGlobalStyle as makeGlobalStyle } from '@/styles/common/globals';
 import React from 'react';
 import { Country, State } from 'country-state-city';
 import { RefreshControl, ScrollView, View } from 'react-native';
 
 export default function ProfileScreen() {
+  const styles = useThemedStyles(makeStyles);
+  const globalStyle = useThemedStyles(makeGlobalStyle);
+  const Colors = useThemeColors();
+
   const { data: profileData, isLoading, isFetching, isError, refetch } = useGetProfileDataQuery();
   const { firstName, lastName, email } = useAuth();
 

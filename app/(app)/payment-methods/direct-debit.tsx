@@ -1,3 +1,4 @@
+import { useThemedStyles } from '@/hooks/useAppTheme';
 import { AppText } from '@/components/common/AppText';
 import { SpacerComponent } from '@/components/common/SpacerComponent';
 import NavHeaderComponent from '@/components/layout/NavHeaderComponent';
@@ -8,13 +9,15 @@ import { DIRECT_DEBIT_BANKS } from '@/constants/directDebit';
 import { useChargeDirectDebitMutation, useGetPaymentMethodsQuery, useLinkDirectDebitMutation } from '@/redux/features/paymentMethods/paymentMethodApi';
 import { showSnackbar } from '@/redux/features/snackbar/snackbarSlice';
 import { useAppDispatch } from '@/redux/hooks';
-import { globalStyle } from '@/styles/common/globals';
+import { createGlobalStyle as makeGlobalStyle } from '@/styles/common/globals';
 import { router, useLocalSearchParams } from 'expo-router';
 import * as Crypto from 'expo-crypto';
 import React, { useCallback, useRef, useState } from 'react';
 import { ScrollView, View } from 'react-native';
 
 const DirectDebit = () => {
+  const globalStyle = useThemedStyles(makeGlobalStyle);
+
   const dispatch = useAppDispatch();
   const { returnTo, billingReferenceId, returnAmount } = useLocalSearchParams<{ returnTo?: string; billingReferenceId?: string; returnAmount?: string }>();
   const [linkDirectDebit, { isLoading }] = useLinkDirectDebitMutation();

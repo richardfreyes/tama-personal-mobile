@@ -1,6 +1,6 @@
+import { useThemedStyles, useThemeColors } from '@/hooks/useAppTheme';
 import { AppText } from '@/components/common/AppText';
-import { notificationSettingsStyles as styles } from '@/styles/app/notifications/settings';
-import { Colors } from '@/styles/common/colors';
+import { createNotificationSettingsStyles as makeStyles } from '@/styles/app/notifications/settings';
 import { SettingToggleItemProps } from '@/types';
 import React from 'react';
 import { Switch, TouchableOpacity, View } from 'react-native';
@@ -12,6 +12,9 @@ const SettingToggleItem: React.FC<SettingToggleItemProps> = ({
   onToggle,
   isLast = false,
 }) => {
+  const styles = useThemedStyles(makeStyles);
+  const Colors = useThemeColors();
+
   return (
     <TouchableOpacity
       style={[styles.toggleItemContainer]}

@@ -1,7 +1,8 @@
-import { Colors } from "@/styles/common/colors";
+import { Colors as LightColors } from '@/styles/common/colors';
+import type { ThemeColors } from '@/types/theme';
 import { StyleSheet } from "react-native";
 
-export const paymentSourceSelectorStyles = StyleSheet.create({
+export const createPaymentSourceSelectorStyles = (Colors: ThemeColors) => StyleSheet.create({
   container: {
     gap: 8,
   },
@@ -28,7 +29,7 @@ export const paymentSourceSelectorStyles = StyleSheet.create({
     lineHeight: 20,
   },
   segmentTextSelected: {
-    color: Colors.maroon11,
+    color: Colors.text,
   },
   hint: {
     color: Colors.maroon09,
@@ -37,3 +38,5 @@ export const paymentSourceSelectorStyles = StyleSheet.create({
     paddingHorizontal: 2,
   },
 });
+
+export const paymentSourceSelectorStyles = createPaymentSourceSelectorStyles(LightColors);

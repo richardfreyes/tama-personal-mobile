@@ -1,3 +1,4 @@
+import { useThemedStyles } from '@/hooks/useAppTheme';
 import DownloadIcon from '@/assets/icons/download.svg';
 import InfoFieldComponent from '@/components/common/InfoFieldComponent';
 import { AppButton } from '@/components/common/AppButton';
@@ -15,8 +16,8 @@ import type { TransactionDetail } from '@/redux/features/transactionDetail/trans
 import { oneTimePaymentCompleted } from '@/redux/features/oneTimePayment/oneTimePaymentSlice';
 import { cacheCompletedTransaction } from '@/redux/features/transactions/transactionApi';
 import { useAppDispatch } from '@/redux/hooks';
-import { paymentSuccessStyles as styles } from '@/styles/app/bills/common/payment-success';
-import { globalStyle } from '@/styles/common/globals';
+import { createPaymentSuccessStyles as makeStyles } from '@/styles/app/bills/common/payment-success';
+import { createGlobalStyle as makeGlobalStyle } from '@/styles/common/globals';
 import { formatApiDate } from '@/utils/date';
 import { getSearchParam } from '@/utils/format';
 import { isFailedPaymentStatus, isProcessingPaymentStatus } from '@/utils/paymentStatus';
@@ -27,6 +28,9 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { TouchableOpacity, View } from 'react-native';
 
 const PaymentSuccessScreen = () => {
+  const styles = useThemedStyles(makeStyles);
+  const globalStyle = useThemedStyles(makeGlobalStyle);
+
   const dispatch = useAppDispatch();
   const { billingReferenceId, computationResponse, invoiceReferenceId, transactionReferenceId } = useLocalSearchParams();
   const billingId = getSearchParam(billingReferenceId);

@@ -1,8 +1,9 @@
-import { Colors } from "@/styles/common/colors";
+import { Colors as LightColors } from '@/styles/common/colors';
+import type { ThemeColors } from '@/types/theme';
 import { FontSizes } from "@/styles/common/typography";
 import { StyleSheet } from "react-native";
 
-export const contactStyles = StyleSheet.create({
+export const createContactStyles = (Colors: ThemeColors) => StyleSheet.create({
   screenContainer: {
     justifyContent: 'flex-start',
   },
@@ -13,7 +14,7 @@ export const contactStyles = StyleSheet.create({
     padding: 16,
   },
   introEyebrow: {
-    color: Colors.red10,
+    color: Colors.primaryText,
     fontSize: FontSizes.extraSmall,
     marginBottom: 8,
     textTransform: 'uppercase',
@@ -102,3 +103,5 @@ export const contactStyles = StyleSheet.create({
     lineHeight: 19,
   },
 });
+
+export const contactStyles = createContactStyles(LightColors);

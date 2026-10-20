@@ -1,8 +1,9 @@
-import { Colors } from "@/styles/common/colors";
+import { Colors as LightColors } from '@/styles/common/colors';
+import type { ThemeColors } from '@/types/theme';
 import { FontSizes } from "@/styles/common/typography";
 import { StyleSheet } from "react-native";
 
-export const legalStyles = StyleSheet.create({
+export const createLegalStyles = (Colors: ThemeColors) => StyleSheet.create({
   screenContainer: {
     justifyContent: 'flex-start',
   },
@@ -76,7 +77,7 @@ export const legalStyles = StyleSheet.create({
     lineHeight: 19,
   },
   inlineLink: {
-    color: Colors.red10,
+    color: Colors.primaryText,
   },
   legalTableScroll: {
     marginBottom: 12,
@@ -122,3 +123,5 @@ export const legalStyles = StyleSheet.create({
     color: Colors.maroon10,
   },
 });
+
+export const legalStyles = createLegalStyles(LightColors);

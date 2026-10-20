@@ -1,13 +1,16 @@
+import { useThemedStyles } from '@/hooks/useAppTheme';
 import { SpacerComponent } from '@/components/common/SpacerComponent';
 import NavHeaderComponent from '@/components/layout/NavHeaderComponent';
 import PaymentMethodCardComponent from '@/components/payments/PaymentMethodCardComponent';
 import { COMMON } from '@/constants/common';
-import { globalStyle } from '@/styles/common/globals';
+import { createGlobalStyle as makeGlobalStyle } from '@/styles/common/globals';
 import { router, useLocalSearchParams } from 'expo-router';
 import React from 'react';
 import { ScrollView, View } from 'react-native';
 
 const AddCard = () => {
+  const globalStyle = useThemedStyles(makeGlobalStyle);
+
   const { returnTo, billingReferenceId, returnAmount } = useLocalSearchParams<{ returnTo?: string, billingReferenceId?: string, returnAmount?: string }>();
 
   const handleSelect = (title: string) => {

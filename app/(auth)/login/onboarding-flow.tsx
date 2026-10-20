@@ -1,15 +1,20 @@
+import { useThemedStyles } from '@/hooks/useAppTheme';
 
 import { AppButton } from '@/components/common/AppButton';
 import { AppText } from '@/components/common/AppText';
 import { COMMON } from '@/constants/common';
-import { onboardingFlowStyles as styles } from '@/styles/auth/login/onboarding-flow';
-import { globalStyle } from '@/styles/common/globals';
-import { monthlyBillsStyles } from '@/styles/components/enrollments/MonthlyBills';
+import { createOnboardingFlowStyles as makeStyles } from '@/styles/auth/login/onboarding-flow';
+import { createGlobalStyle as makeGlobalStyle } from '@/styles/common/globals';
+import { createMonthlyBillsStyles as makeMonthlyBillsStyles } from '@/styles/components/enrollments/MonthlyBills';
 import { router } from 'expo-router';
 import React, { useRef, useState } from 'react';
 import { NativeScrollEvent, NativeSyntheticEvent, ScrollView, View } from 'react-native';
 
 const OnboardingFlow = () => {
+  const styles = useThemedStyles(makeStyles);
+  const globalStyle = useThemedStyles(makeGlobalStyle);
+  const monthlyBillsStyles = useThemedStyles(makeMonthlyBillsStyles);
+
   const [containerWidth, setContainerWidth] = useState(0);
   const [activeIndex, setActiveIndex] = useState(0);
   const scrollViewRef = useRef<ScrollView>(null);
@@ -66,7 +71,7 @@ const OnboardingFlow = () => {
         {renderIndicators()}
       </View>
       <View>
-        <AppText weight='700' style={styles.title}>Lorem ipsum dolor sit amet</AppText>
+        <AppText weight='600' style={styles.title}>Lorem ipsum dolor sit amet</AppText>
         <AppText style={styles.desc}>Integrate multiple payment methoods to help you up the process quickly</AppText>
       </View>
       <View style={styles.buttonContainer}>

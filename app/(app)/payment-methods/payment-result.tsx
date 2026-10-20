@@ -1,3 +1,4 @@
+import { useThemedStyles } from '@/hooks/useAppTheme';
 import { AppButton } from '@/components/common/AppButton';
 import { AppText } from '@/components/common/AppText';
 import { NativeLoadingIndicator } from '@/components/common/Loading';
@@ -7,7 +8,7 @@ import { PAYMENT_RESULT_COPY, PAYMENT_RESULT_PROVIDER_LABELS } from '@/constants
 import { showSnackbar } from '@/redux/features/snackbar/snackbarSlice';
 import { useCancelPayPalMutation, useCapturePayPalMutation, useVerifyQrphMutation, } from '@/redux/features/transactions/transactionApi';
 import { useAppDispatch } from '@/redux/hooks';
-import { globalStyle } from '@/styles/common/globals';
+import { createGlobalStyle as makeGlobalStyle } from '@/styles/common/globals';
 import { PaymentResultProvider, PaymentResultStatus } from '@/types/common';
 import { getPaymentErrorMessage, isPaymentPending } from '@/utils/paymentErrors';
 import { router, useLocalSearchParams } from 'expo-router';
@@ -15,6 +16,8 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { ScrollView, View } from 'react-native';
 
 const PaymentResult = () => {
+  const globalStyle = useThemedStyles(makeGlobalStyle);
+
   const dispatch = useAppDispatch();
   const { provider, outcome, transactionReferenceId, invoiceReferenceId } = useLocalSearchParams<{
     provider?: string;

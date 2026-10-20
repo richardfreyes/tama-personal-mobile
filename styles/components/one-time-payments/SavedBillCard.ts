@@ -1,12 +1,13 @@
 import { SAVED_BILL_CARD_WIDTH } from '@/constants/savedBills';
+import { Colors as LightColors } from '@/styles/common/colors';
+import type { ThemeColors } from '@/types/theme';
 import { StyleSheet } from 'react-native';
-import { Colors } from '../../common/colors';
 
-export const savedBillCardStyles = StyleSheet.create({
+export const createSavedBillCardStyles = (Colors: ThemeColors) => StyleSheet.create({
   card: {
     backgroundColor: Colors.neutral01,
     borderColor: Colors.dashboardCardBorder,
-    borderRadius: 20,
+    borderRadius: 8,
     borderWidth: 1,
     boxShadow: '0px 6px 18px -12px rgba(61, 36, 34, 0.28)',
     gap: 12,
@@ -34,13 +35,15 @@ export const savedBillCardStyles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
     gap: 10,
+    minWidth: 0,
+    width: '100%',
   },
   names: {
     flex: 1,
     minWidth: 0,
   },
   nickname: {
-    color: Colors.maroon11,
+    color: Colors.text,
     fontSize: 14,
     lineHeight: 20,
   },
@@ -53,7 +56,7 @@ export const savedBillCardStyles = StyleSheet.create({
     gap: 4,
   },
   amount: {
-    color: Colors.maroon11,
+    color: Colors.text,
     fontSize: 17,
     fontVariant: ['tabular-nums'],
     lineHeight: 24,
@@ -74,7 +77,7 @@ export const savedBillCardStyles = StyleSheet.create({
     minWidth: 0,
   },
   heroNickname: {
-    color: Colors.maroon11,
+    color: Colors.text,
     fontSize: 18,
     lineHeight: 26,
   },
@@ -88,3 +91,5 @@ export const savedBillCardStyles = StyleSheet.create({
     marginTop: 4,
   },
 });
+
+export const savedBillCardStyles = createSavedBillCardStyles(LightColors);

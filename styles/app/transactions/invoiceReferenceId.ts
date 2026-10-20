@@ -1,7 +1,8 @@
-import { Colors } from "@/styles/common/colors";
+import { Colors as LightColors } from '@/styles/common/colors';
+import type { ThemeColors } from '@/types/theme';
 import { StyleSheet } from "react-native";
 
-export const invoiceReferenceIdStyles = StyleSheet.create({
+export const createInvoiceReferenceIdStyles = (Colors: ThemeColors) => StyleSheet.create({
   centered: {
     flex: 1,
     justifyContent: 'center',
@@ -17,7 +18,8 @@ export const invoiceReferenceIdStyles = StyleSheet.create({
     fontSize: 16,
   },
   backLink: {
-    color: Colors.red10,
+    color: Colors.primaryText,
     marginTop: 10,
   },
 });
+export const invoiceReferenceIdStyles = createInvoiceReferenceIdStyles(LightColors);

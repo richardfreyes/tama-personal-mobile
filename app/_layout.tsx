@@ -6,7 +6,7 @@ import { showModal } from '@/redux/features/modal/modalSlice';
 import { hideSnackbar, selectSnackbar } from '@/redux/features/snackbar/snackbarSlice';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { store } from '@/redux/store';
-import { customTheme } from '@/styles/theme';
+import { customDarkTheme, customTheme } from '@/styles/theme';
 import { handleDirectDebitBrowserCallback } from '@/utils/directDebitCallback';
 import { handleEnrollmentBrowserCallback } from '@/utils/enrollmentCallback';
 import { handlePaymentResultBrowserCallback } from '@/utils/paymentResultCallback';
@@ -15,6 +15,7 @@ import { Poppins_100Thin, Poppins_200ExtraLight, Poppins_300Light, Poppins_400Re
 import * as Linking from 'expo-linking';
 import { SplashScreen, Stack, useRouter, useSegments } from 'expo-router';
 import { useEffect, useState } from 'react';
+import { StatusBar, useColorScheme } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import 'react-native-get-random-values';
 import { PaperProvider, Portal as PaperPortal } from 'react-native-paper';
@@ -166,6 +167,7 @@ function GlobalLayout() {
 }
 
 export default function RootLayout() {
+  const isDark = useColorScheme() === 'dark';
   const [fontsLoaded, fontError] = useFonts({
     PoppinsThin: Poppins_100Thin,
     PoppinsExtraLight: Poppins_200ExtraLight,
@@ -200,7 +202,8 @@ export default function RootLayout() {
 
   return (
     <Provider store={store}>
-      <PaperProvider theme={customTheme}>
+      <PaperProvider theme={isDark ? customDarkTheme : customTheme}>
+        <StatusBar barStyle={isDark ? 'light-content' : 'dark-content'} />
         <GestureHandlerRootView>
           <GlobalLayout />
         </GestureHandlerRootView>

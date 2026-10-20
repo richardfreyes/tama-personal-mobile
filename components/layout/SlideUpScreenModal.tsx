@@ -1,4 +1,5 @@
-import { slideScreenModalStyles as styles } from "@/styles/components/layout/SlideUpScreenModal";
+import { useThemedStyles } from '@/hooks/useAppTheme';
+import { createSlideScreenModalStyles as makeStyles } from "@/styles/components/layout/SlideUpScreenModal";
 import { SlideUpScreenModalProps, SlideUpScreenModalRef } from "@/types";
 import React, { useCallback, useImperativeHandle, useMemo, useRef, useState } from "react";
 import { Animated, Easing, Modal, PanResponder, Pressable, useWindowDimensions, View } from "react-native";
@@ -9,6 +10,8 @@ const CLOSE_DURATION_MS = 200;
 const DISMISS_DRAG_PX = 80;
 
 export const SlideUpScreenModal = React.forwardRef<SlideUpScreenModalRef, SlideUpScreenModalProps>(({ children, onClose }, ref) => {
+  const styles = useThemedStyles(makeStyles);
+
   const { height: windowHeight } = useWindowDimensions();
   const [visible, setVisible] = useState(false);
   const [snapIndex, setSnapIndex] = useState(0);

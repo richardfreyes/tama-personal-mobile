@@ -1,10 +1,10 @@
 export const FontSizes = {
-  tiny: 8,
-  extraSmall: 10,
-  small: 12,
-  base: 14,
-  medium: 16,
+  tiny: 10,
+  extraSmall: 12,
+  small: 13,
+  base: 15,
+  medium: 17,
   large: 18,
-  extraLarge: 20,
-  extraExtraLarge: 24,
+  extraLarge: 22,
+  extraExtraLarge: 28,
 };

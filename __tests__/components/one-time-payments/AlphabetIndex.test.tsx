@@ -23,7 +23,7 @@ describe('AlphabetIndex', () => {
     expect(screen.getByRole('button', { name: 'Jump to C' }).props.accessibilityState).toEqual({ selected: false });
 
     expect(StyleSheet.flatten(screen.getByText('A').props.style).color).toBe(Colors.neutral01);
-    expect(StyleSheet.flatten(screen.getByText('C').props.style).color).toBe(Colors.red09);
+    expect(StyleSheet.flatten(screen.getByText('C').props.style).color).toBe(Colors.red10);
   });
 
   it('reports the letter that was tapped', () => {

@@ -1,6 +1,6 @@
+import { useThemedStyles, useThemeColors } from '@/hooks/useAppTheme';
 import { BRAND_SOFT_GRADIENT_COLORS, GRADIENT_HORIZONTAL_END, GRADIENT_HORIZONTAL_START } from '@/constants/gradients';
-import { Colors } from '@/styles/common/colors';
-import { dueSummaryStripStyles as styles } from '@/styles/components/one-time-payments/DueSummaryStrip';
+import { createDueSummaryStripStyles as makeStyles } from '@/styles/components/one-time-payments/DueSummaryStrip';
 import type { DueSummaryStripProps } from '@/types';
 import { formatPesoAmount } from '@/utils/format';
 import { Feather } from '@expo/vector-icons';
@@ -10,6 +10,9 @@ import { View } from 'react-native';
 import { AppText } from '../common/AppText';
 
 export default function DueSummaryStrip({ summary }: DueSummaryStripProps) {
+  const styles = useThemedStyles(makeStyles);
+  const Colors = useThemeColors();
+
   const { billCount, overdueCount, total, knownAmountCount, hasUnknownAmounts, next } = summary;
   const label = `${billCount} ${billCount === 1 ? 'bill' : 'bills'} to pay${overdueCount > 0 ? ` · ${overdueCount} overdue` : ''}`;
   const nextLabel = next ? `Next: ${next.nickname}, ${next.dueDateLabel}` : '';

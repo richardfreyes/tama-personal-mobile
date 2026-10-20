@@ -1,12 +1,12 @@
+import { useThemedStyles, useThemeColors } from '@/hooks/useAppTheme';
 import ChevronRightIcon from '@/assets/icons/chevron-right.svg';
 import { AppText } from '@/components/common/AppText';
 import { GlobalScrollView } from '@/components/common/GlobalScrollView';
 import NavHeaderComponent from '@/components/layout/NavHeaderComponent';
 import { CONTACT_CHANNELS, CONTACT_SUPPORT_INFO } from '@/constants/contact';
 import type { ContactActionType } from '@/types/settings';
-import { contactStyles as styles } from '@/styles/app/settings/contact';
-import { Colors } from '@/styles/common/colors';
-import { globalStyle } from '@/styles/common/globals';
+import { createContactStyles as makeStyles } from '@/styles/app/settings/contact';
+import { createGlobalStyle as makeGlobalStyle } from '@/styles/common/globals';
 import { Feather } from '@expo/vector-icons';
 import * as WebBrowser from 'expo-web-browser';
 import { Linking, TouchableOpacity, View } from 'react-native';
@@ -21,6 +21,10 @@ const openContactChannel = async (url: string, action: ContactActionType) => {
 };
 
 export default function ContactScreen() {
+  const styles = useThemedStyles(makeStyles);
+  const globalStyle = useThemedStyles(makeGlobalStyle);
+  const Colors = useThemeColors();
+
   return (
     <GlobalScrollView contentContainerStyle={[globalStyle.screenContainer, styles.screenContainer]}>
       <NavHeaderComponent title="Contact Us" />

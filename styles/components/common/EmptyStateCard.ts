@@ -1,8 +1,9 @@
 import { StyleSheet } from "react-native";
-import { Colors } from "../../common/colors";
+import { Colors as LightColors } from '@/styles/common/colors';
+import type { ThemeColors } from '@/types/theme';
 import { FontSizes } from "../../common/typography";
 
-export const emptyStateCardStyles = StyleSheet.create({
+export const createEmptyStateCardStyles = (Colors: ThemeColors) => StyleSheet.create({
   cardContainer: {
     width: '100%',
     justifyContent: 'center',
@@ -18,7 +19,7 @@ export const emptyStateCardStyles = StyleSheet.create({
   },
   actionButton: {
     width: '100%',
-    height: 50,
+    height: 44,
     borderRadius: 8,
   },
 
@@ -27,7 +28,7 @@ export const emptyStateCardStyles = StyleSheet.create({
     alignSelf: 'stretch',
     backgroundColor: Colors.neutral01,
     borderColor: Colors.dashboardCardBorder,
-    borderRadius: 20,
+    borderRadius: 12,
     borderWidth: 1,
     gap: 12,
     paddingHorizontal: 16,
@@ -36,21 +37,21 @@ export const emptyStateCardStyles = StyleSheet.create({
   errorIcon: {
     alignItems: 'center',
     backgroundColor: Colors.error01,
-    borderRadius: 20,
-    height: 40,
+    borderRadius: 22,
+    height: 44,
     justifyContent: 'center',
-    width: 40,
+    width: 44,
   },
   errorMessage: {
     color: Colors.maroon10,
-    fontSize: 14,
+    fontSize: 15,
     lineHeight: 20,
     textAlign: 'center',
   },
   retryButton: {
     alignItems: 'center',
     backgroundColor: Colors.red01,
-    borderRadius: 12,
+    borderRadius: 8,
     flexDirection: 'row',
     gap: 8,
     height: 44,
@@ -61,75 +62,75 @@ export const emptyStateCardStyles = StyleSheet.create({
     backgroundColor: Colors.red02,
   },
   retryText: {
-    color: Colors.red09,
-    fontSize: 14,
+    color: Colors.primaryText,
+    fontSize: 15,
     lineHeight: 20,
   },
 
   emptyCard: {
     alignItems: 'center',
     backgroundColor: Colors.neutral01,
-    borderColor: Colors.dashboardCardBorder,
-    borderRadius: 20,
+    borderColor: Colors.borderStrong,
+    borderRadius: 8,
     borderWidth: 1,
     flexDirection: 'row',
-    gap: 14,
-    padding: 16,
-  },
+    gap: 12,
+    padding: 12,
+   borderStyle: 'dashed',},
   emptyIcon: {
     alignItems: 'center',
     backgroundColor: Colors.neutral03,
-    borderRadius: 14,
-    height: 44,
+    borderRadius: 8,
+    height: 40,
     justifyContent: 'center',
-    width: 44,
+    width: 40,
   },
   emptyCopy: {
     flex: 1,
     gap: 2,
   },
   emptyTitle: {
-    color: Colors.maroon11,
-    fontSize: 14,
+    color: Colors.text,
+    fontSize: 15,
     lineHeight: 20,
   },
   emptyDescription: {
     color: Colors.maroon09,
     fontSize: 13,
-    lineHeight: 19,
+    lineHeight: 18,
   },
 
   dashedCard: {
     alignItems: 'center',
     borderColor: Colors.outlineMuted,
-    borderRadius: 20,
+    borderRadius: 8,
     borderStyle: 'dashed',
-    borderWidth: 1.5,
+    borderWidth: 1,
     flexDirection: 'row',
-    gap: 14,
-    padding: 18,
+    gap: 12,
+    padding: 12,
   },
   dashedIcon: {
     alignItems: 'center',
-    borderRadius: 24,
-    height: 48,
+    borderRadius: 8,
+    height: 40,
     justifyContent: 'center',
-    width: 48,
-  },
+    width: 40,
+   backgroundColor: Colors.neutralBackground,},
   dashedCopy: {
     flex: 1,
     gap: 2,
     minWidth: 0,
   },
   dashedTitle: {
-    color: Colors.maroon11,
-    fontSize: 14,
+    color: Colors.text,
+    fontSize: 15,
     lineHeight: 20,
   },
   dashedDescription: {
     color: Colors.maroon09,
-    fontSize: 12,
-    lineHeight: 17,
+    fontSize: 13,
+    lineHeight: 18,
   },
 
   centeredCard: {
@@ -140,32 +141,32 @@ export const emptyStateCardStyles = StyleSheet.create({
   },
   centeredIcon: {
     alignItems: 'center',
-    borderRadius: 28,
-    height: 56,
+    borderRadius: 22,
+    height: 44,
     justifyContent: 'center',
-    width: 56,
+    width: 44,
   },
   centeredCopy: {
     alignItems: 'center',
     gap: 6,
   },
   centeredTitle: {
-    color: Colors.maroon11,
-    fontSize: 16,
-    lineHeight: 24,
+    color: Colors.text,
+    fontSize: 15,
+    lineHeight: 20,
     textAlign: 'center',
   },
   centeredDescription: {
     color: Colors.maroon09,
-    fontSize: 14,
-    lineHeight: 21,
+    fontSize: 13,
+    lineHeight: 18,
     maxWidth: 270,
     textAlign: 'center',
   },
   centeredAction: {
     alignItems: 'center',
     backgroundColor: Colors.red01,
-    borderRadius: 12,
+    borderRadius: 8,
     height: 44,
     justifyContent: 'center',
     paddingHorizontal: 18,
@@ -174,8 +175,10 @@ export const emptyStateCardStyles = StyleSheet.create({
     backgroundColor: Colors.red02,
   },
   centeredActionText: {
-    color: Colors.red09,
-    fontSize: 14,
+    color: Colors.primaryText,
+    fontSize: 15,
     lineHeight: 20,
   },
 });
+
+export const emptyStateCardStyles = createEmptyStateCardStyles(LightColors);

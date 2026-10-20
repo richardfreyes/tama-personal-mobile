@@ -1,16 +1,20 @@
+import { useThemedStyles, useThemeColors } from '@/hooks/useAppTheme';
 import ChevronRightIcon from '@/assets/icons/chevron-right.svg';
 import { AppText } from '@/components/common/AppText';
 import { GlobalScrollView } from '@/components/common/GlobalScrollView';
 import NavHeaderComponent from '@/components/layout/NavHeaderComponent';
 import { LEGAL_ROWS, STATS, VERSION_ROWS } from '@/constants/about';
-import { aboutStyles as styles } from '@/styles/app/settings/about';
-import { Colors } from '@/styles/common/colors';
-import { globalStyle } from '@/styles/common/globals';
+import { createAboutStyles as makeStyles } from '@/styles/app/settings/about';
+import { createGlobalStyle as makeGlobalStyle } from '@/styles/common/globals';
 import { Feather } from '@expo/vector-icons';
 import React from 'react';
 import { TouchableOpacity, useWindowDimensions, View } from 'react-native';
 
 export default function AboutScreen() {
+  const styles = useThemedStyles(makeStyles);
+  const globalStyle = useThemedStyles(makeGlobalStyle);
+  const Colors = useThemeColors();
+
   const { width } = useWindowDimensions();
   const isStatsHorizontal = width >= 390;
 

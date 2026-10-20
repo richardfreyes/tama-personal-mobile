@@ -1,4 +1,4 @@
-import { Colors } from '@/styles/common/colors';
+import { useThemeColors } from '@/hooks/useAppTheme';
 import { FontSizes } from '@/styles/common/typography';
 import { AppTextProps } from '@/types';
 import { POPPINS_FONT_NAMES } from '@/constants/fonts';
@@ -23,6 +23,8 @@ export const AppText: React.FC<AppTextProps> = ({
   mVertical,
   ...rest 
 }) => {
+  const Colors = useThemeColors();
+
   const fontFamilyString = POPPINS_FONT_NAMES[weight];
   const customFontFamilyStyle = { fontFamily: fontFamilyString };
 
@@ -49,7 +51,7 @@ export const AppText: React.FC<AppTextProps> = ({
   };
 
   const fontSizeStyle = size ? { fontSize: FontSizes[size] } : null;
-  const colorStyle = color ? { color: Colors[color] } : null;
+  const colorStyle = { color: color ? Colors[color] : Colors.text };
 
   const textElement = (
     <Text variant={variant as any} style={[customFontFamilyStyle, fontSizeStyle, colorStyle, spacingStyle, style]} {...rest}>
