@@ -15,7 +15,7 @@ import { Poppins_100Thin, Poppins_200ExtraLight, Poppins_300Light, Poppins_400Re
 import * as Linking from 'expo-linking';
 import { SplashScreen, Stack, useRouter, useSegments } from 'expo-router';
 import { useEffect, useState } from 'react';
-import { StatusBar, useColorScheme } from 'react-native';
+import { Image, StatusBar, StyleSheet, useColorScheme, View } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import 'react-native-get-random-values';
 import { PaperProvider, Portal as PaperPortal } from 'react-native-paper';
@@ -166,6 +166,19 @@ function GlobalLayout() {
   );
 }
 
+const jsSplashStyles = StyleSheet.create({
+  container: {
+    alignItems: 'center',
+    backgroundColor: '#ffffff',
+    flex: 1,
+    justifyContent: 'center',
+  },
+  logo: {
+    height: 200,
+    width: 200,
+  },
+});
+
 export default function RootLayout() {
   const isDark = useColorScheme() === 'dark';
   const [fontsLoaded, fontError] = useFonts({
@@ -197,7 +210,16 @@ export default function RootLayout() {
   }, [canRender]);
 
   if (!canRender) {
-    return null;
+    return (
+      <View style={jsSplashStyles.container}>
+        <Image
+          resizeMode="contain"
+          source={require('../assets/images/splash-icon.png')}
+          style={jsSplashStyles.logo}
+          testID="splash-logo"
+        />
+      </View>
+    );
   }
 
   return (

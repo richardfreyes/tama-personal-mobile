@@ -146,12 +146,36 @@ describe('RootLayout', () => {
     (Linking.getInitialURL as jest.Mock<(...args: any[]) => any>).mockResolvedValue(null);
   });
 
-  it('waits for fonts when there is no font error', () => {
+  it('shows the app logo while fonts are loading', () => {
     mockFontState.loaded = false;
     const view = render(<RootLayout />);
-    expect(view.toJSON()).toBeNull();
+    expect(screen.getByTestId('splash-logo')).toBeTruthy();
     expect(SplashScreen.hideAsync).not.toHaveBeenCalled();
     view.unmount();
+  });
+
+  it('does not render the "Tama Personal" or "Tama Pay" text label on the splash', () => {
+    mockFontState.loaded = false;
+    render(<RootLayout />);
+    expect(screen.queryByText('Tama Personal')).toBeNull();
+    expect(screen.queryByText('Tama Pay')).toBeNull();
+  });
+
+  it('uses the official splash-icon asset for the logo', () => {
+    mockFontState.loaded = false;
+    render(<RootLayout />);
+    const logo = screen.getByTestId('splash-logo');
+    expect(logo.props.source).toEqual(
+      expect.objectContaining({ testUri: expect.stringContaining('splash-icon.png') }),
+    );
+  });
+
+  it('logo dimensions preserve a square aspect ratio', () => {
+    mockFontState.loaded = false;
+    render(<RootLayout />);
+    const logo = screen.getByTestId('splash-logo');
+    const { width, height } = logo.props.style;
+    expect(width).toBe(height);
   });
 
   it('hides the splash and renders if fonts never finish after a reload', () => {
@@ -160,7 +184,7 @@ describe('RootLayout', () => {
     mockFontState.error = null;
     const view = render(<RootLayout />);
     try {
-      expect(view.toJSON()).toBeNull();
+      expect(screen.getByTestId('splash-logo')).toBeTruthy();
 
       act(() => {
         jest.advanceTimersByTime(1500);
