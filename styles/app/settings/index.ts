@@ -52,5 +52,26 @@ export const createSettingsStyles = (Colors: ThemeColors) => StyleSheet.create({
   itemTitle: {
     fontSize: FontSizes.small,
   },
+  logoutSection: {
+    marginTop: 12,
+  },
+  logoutButton: {
+    backgroundColor: Colors.error01,
+    padding: 12,
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: Colors.error02,
+  },
+  logoutContent: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  logoutIcon: {
+    marginRight: 8,
+  },
+  logoutLabel: {
+    fontSize: FontSizes.small,
+    color: Colors.error08,
+  },
 });
 export const settingsStyles = createSettingsStyles(LightColors);

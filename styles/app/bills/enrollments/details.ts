@@ -1,6 +1,6 @@
 import { Colors as LightColors } from '@/styles/common/colors';
-import type { ThemeColors } from '@/types/theme';
 import { FontSizes } from '@/styles/common/typography';
+import type { ThemeColors } from '@/types/theme';
 import { StyleSheet } from 'react-native';
 
 export const createEnrollmentDetailsStyles = (Colors: ThemeColors) => StyleSheet.create({
@@ -322,8 +322,8 @@ export const createEnrollmentDetailsStyles = (Colors: ThemeColors) => StyleSheet
   },
   supportCard: {
     alignItems: 'flex-start',
-    backgroundColor: Colors.red01,
-    borderColor: Colors.red03,
+    backgroundColor: Colors.info01,
+    borderColor: Colors.info03,
     borderRadius: 14,
     borderWidth: 1,
     flexDirection: 'row',

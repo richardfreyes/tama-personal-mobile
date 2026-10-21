@@ -1,6 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { afterEach, beforeEach, describe, expect, it, jest } from '@jest/globals';
 import { appApi } from '@/redux/appApi';
+import loginReducer from '@/redux/features/login/loginApi';
 import { cacheCompletedTransaction, transactionApi } from '@/redux/features/transactions/transactionApi';
 import type { Transaction } from '@/types';
 
@@ -19,6 +20,66 @@ const makeTransaction = (overrides: Partial<Transaction>): Transaction => ({
   status: 'captured',
   createdAt: '2026-06-01T09:00:00Z',
   ...overrides,
+});
+
+const createFullTestStore = () => configureStore({
+  reducer: {
+    login: loginReducer,
+    [appApi.reducerPath]: appApi.reducer,
+  },
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(appApi.middleware),
+});
+
+describe('payTransaction request shape', () => {
+  beforeEach(() => {
+    jest.useFakeTimers();
+  });
+
+  afterEach(() => {
+    jest.runOnlyPendingTimers();
+    jest.useRealTimers();
+  });
+
+  it('sends an empty JSON body with Idempotency-Key and Content-Type application/json', async () => {
+    const capturedRequests: Request[] = [];
+
+    // RTK Query calls fetchFn(request) with a single Request object — not (url, init).
+    // `fetch` may be installed as a lazy getter in the jest-expo node environment, so use
+    // Object.defineProperty to forcefully replace it with a writable value property and restore
+    // the original descriptor afterward.
+    const originalDescriptor = Object.getOwnPropertyDescriptor(global, 'fetch');
+    const mockFetch = jest.fn(async (request: Request) => {
+      capturedRequests.push(request);
+      return new Response(JSON.stringify({ redirect: null }), {
+        status: 200,
+        headers: { 'Content-Type': 'application/json' },
+      });
+    });
+    Object.defineProperty(global, 'fetch', { value: mockFetch, writable: true, configurable: true });
+
+    const testStore = createFullTestStore();
+    try {
+      await testStore.dispatch(
+        transactionApi.endpoints.payTransaction.initiate({
+          transactionId: 'txn_abc123',
+          idempotencyKey: 'idem_key_xyz',
+        }),
+      );
+    } finally {
+      if (originalDescriptor) {
+        Object.defineProperty(global, 'fetch', originalDescriptor);
+      } else {
+        delete (global as any).fetch;
+      }
+      testStore.dispatch(appApi.util.resetApiState());
+    }
+
+    expect(capturedRequests).toHaveLength(1);
+    const { headers } = capturedRequests[0];
+    expect(headers.get('content-type')).toBe('application/json');
+    expect(headers.get('idempotency-key')).toBe('idem_key_xyz');
+    expect(await capturedRequests[0].text()).toBe('{}');
+  });
 });
 
 describe('completed transaction cache reconciliation', () => {

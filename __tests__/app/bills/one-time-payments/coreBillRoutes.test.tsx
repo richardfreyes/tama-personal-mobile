@@ -275,6 +275,82 @@ describe('saved-biller and bill-payment routes', () => {
     }));
   });
 
+  it('shows the backend error message from a rejected payTransaction rather than a generic fallback', async () => {
+    Object.assign(mockParams, {
+      billingReferenceId: 'bill-1',
+      computationResponse: JSON.stringify({ computation: { totalCurrency: 'PHP', totalAmount: 125 } }),
+      invoiceReferenceId: 'invoice-1',
+      transactionReferenceId: 'transaction-1',
+    });
+    mockBillQuery.data = { merchant_name: 'Merchant One', custom_fields: {} };
+    mockPayTransaction.mockReturnValue({
+      unwrap: jest.fn<(...args: any[]) => any>().mockRejectedValue({
+        status: 400,
+        data: { message: 'Transaction already voided', code: 'TRANSACTION_VOIDED' },
+      }),
+    });
+
+    render(<ConfirmPaymentScreen />);
+    fireEvent.press(screen.getByRole('checkbox'));
+    fireEvent.press(screen.getByRole('button', { name: 'Complete My Payment' }));
+
+    await waitFor(() => expect(mockDispatch).toHaveBeenCalledWith(expect.objectContaining({
+      payload: expect.objectContaining({
+        message: 'Transaction already voided',
+        variant: 'error',
+      }),
+    })));
+  });
+
+  it('shows the payment-method mismatch message when the backend returns that code', async () => {
+    Object.assign(mockParams, {
+      billingReferenceId: 'bill-1',
+      computationResponse: JSON.stringify({ computation: { totalCurrency: 'PHP', totalAmount: 125 } }),
+      transactionReferenceId: 'transaction-1',
+    });
+    mockBillQuery.data = { merchant_name: 'Merchant One', custom_fields: {} };
+    mockPayTransaction.mockReturnValue({
+      unwrap: jest.fn<(...args: any[]) => any>().mockRejectedValue({
+        status: 422,
+        data: { code: 'PAYMENT_METHOD_MISMATCH' },
+      }),
+    });
+
+    render(<ConfirmPaymentScreen />);
+    fireEvent.press(screen.getByRole('checkbox'));
+    fireEvent.press(screen.getByRole('button', { name: 'Complete My Payment' }));
+
+    await waitFor(() => expect(mockDispatch).toHaveBeenCalledWith(expect.objectContaining({
+      payload: expect.objectContaining({
+        message: expect.stringContaining('different payment processor'),
+        variant: 'error',
+      }),
+    })));
+  });
+
+  it('falls back to the generic message when the error carries no details', async () => {
+    Object.assign(mockParams, {
+      billingReferenceId: 'bill-1',
+      computationResponse: JSON.stringify({ computation: { totalCurrency: 'PHP', totalAmount: 125 } }),
+      transactionReferenceId: 'transaction-1',
+    });
+    mockBillQuery.data = { merchant_name: 'Merchant One', custom_fields: {} };
+    mockPayTransaction.mockReturnValue({
+      unwrap: jest.fn<(...args: any[]) => any>().mockRejectedValue({ status: 500 }),
+    });
+
+    render(<ConfirmPaymentScreen />);
+    fireEvent.press(screen.getByRole('checkbox'));
+    fireEvent.press(screen.getByRole('button', { name: 'Complete My Payment' }));
+
+    await waitFor(() => expect(mockDispatch).toHaveBeenCalledWith(expect.objectContaining({
+      payload: expect.objectContaining({
+        message: 'Unable to confirm payment. Check its status before retrying.',
+        variant: 'error',
+      }),
+    })));
+  });
+
   it('opens the receipt while a payment is still processing', async () => {
     Object.assign(mockParams, {
       billingReferenceId: 'bill-1',

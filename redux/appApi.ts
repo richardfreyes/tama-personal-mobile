@@ -26,10 +26,8 @@ export const baseQuery = fetchBaseQuery({
 export const baseQueryWithAuth: typeof baseQuery = async (args, api, extraOptions) => {
   const endpoint = typeof args === 'string' ? args : args.url;
   const method = typeof args === 'string' ? 'GET' : (args.method || 'GET');
-  const body = typeof args === 'string' ? undefined : args.body;
-
   if (__DEV__) {
-
+    console.info(`[API Request] ${method} ${endpoint}`);
   }
 
   let result = await baseQuery(args, api, extraOptions);
@@ -53,10 +51,11 @@ export const baseQueryWithAuth: typeof baseQuery = async (args, api, extraOption
           `[API Error] ${method} ${endpoint}`,
           '\n  Status:', status,
           '\n  Error code:', typeof errorData === 'object' && errorData && 'code' in errorData ? errorData.code : 'unknown',
+          '\n  Message:', typeof errorData === 'object' && errorData && 'message' in errorData ? errorData.message : undefined,
         );
       }
     } else {
-
+      console.info(`[API Success] ${method} ${endpoint}`, '\n  Status:', status);
     }
   }
 

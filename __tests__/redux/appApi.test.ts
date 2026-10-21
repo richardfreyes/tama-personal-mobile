@@ -89,8 +89,26 @@ describe('appApi base query', () => {
       '[API Error] POST /profile',
       '\n  Status:', 500,
       '\n  Error code:', 'unknown',
+      '\n  Message:', 'failed',
     );
     consoleError.mockRestore();
+  });
+
+  it('logs request and success summaries without logging the request body', async () => {
+    const consoleInfo = jest.spyOn(console, 'info').mockImplementation(() => undefined);
+    const api = {
+      getState: () => ({ login: { token: null } }),
+      dispatch: jest.fn<(...args: any[]) => any>(),
+    };
+    mockRawBaseQuery.mockResolvedValueOnce({ data: { ok: true }, meta: { response: { status: 201 } } });
+
+    await appApiModule.baseQueryWithAuth({ url: '/profile', method: 'POST', body: { password: 'private' } }, api as any, {});
+
+    expect(consoleInfo.mock.calls).toEqual([
+      ['[API Request] POST /profile'],
+      ['[API Success] POST /profile', '\n  Status:', 201],
+    ]);
+    consoleInfo.mockRestore();
   });
 
   it('does not report a retryable QR Ph pending response as a console error', async () => {

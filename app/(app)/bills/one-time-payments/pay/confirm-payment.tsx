@@ -23,6 +23,7 @@ import { formatLastFourDigits, getProviderDisplay } from '@/utils/card';
 import { formatMoney } from '@/utils/format';
 import { isConfirmedPaymentStatus, isFailedPaymentStatus } from '@/utils/paymentStatus';
 import { getPaymentIntentKey } from '@/utils/paymentIntentKey';
+import { getPaymentErrorMessage } from '@/utils/paymentErrors';
 import { router, useLocalSearchParams } from 'expo-router';
 import React, { useEffect, useRef } from 'react';
 import { View } from 'react-native';
@@ -94,7 +95,7 @@ const ConfirmPaymentScreen = () => {
       await verifyPayment();
     } catch (err: any) {
       dispatch(showSnackbar({
-        message: err.data?.message || 'Unable to confirm payment. Check its status before retrying.',
+        message: getPaymentErrorMessage(err, 'Unable to confirm payment. Check its status before retrying.'),
         variant: 'error',
       }));
     } finally {

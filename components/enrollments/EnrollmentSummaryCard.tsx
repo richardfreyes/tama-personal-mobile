@@ -121,6 +121,7 @@ const EnrollmentSummaryCard = ({ item, index, logoUrl: resolvedLogoUrl, onPress,
               numberOfLines={1}
               weight="700"
               style={styles.panelAmount}
+              testID="enrollment-amount"
             >
               {amount}
             </AppText>

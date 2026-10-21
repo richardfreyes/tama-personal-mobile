@@ -32,18 +32,19 @@ export const transactionApi = appApi.injectEndpoints({
         method: 'POST',
         body,
       }),
-      invalidatesTags: ['Transactions'], 
+      // A computation is a draft/preview — it is not a completed transaction.
+      // Invalidating 'Transactions' here would refetch the full list on every
+      // fee preview keystroke, which is unnecessary and expensive.
     }),
     payTransaction: builder.mutation<PayTransactionResponse, PayTransactionRequest>({
       query: ({ transactionId, idempotencyKey }) => ({
         url: API_PATHS.transactions.pay(transactionId),
         method: 'POST',
+        body: {},
         headers: {
           'Idempotency-Key': idempotencyKey,
-          'Content-Type': 'application/json',
         },
       }),
-
       invalidatesTags: ['TransactionLast', 'Bills', 'TransactionDetail'],
     }),
     payWithCard: builder.mutation<PayWithCardResponse, { payload: PayWithCardPayload; idempotencyKey: string }>({

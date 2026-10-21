@@ -57,6 +57,7 @@ export default function Dashboard() {
           sectionHeader={{ title: 'Recent Transactions', linkText: 'View All' }}
         />
         <PaymentMethodsComponent
+          showAddWhenEmpty
           isRefreshable={false}
           route="/dashboard"
           sectionFooter={{ button: false }}

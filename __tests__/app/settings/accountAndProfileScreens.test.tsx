@@ -112,23 +112,56 @@ describe('account, security, profile, and notification settings screens', () => 
     expect(mockHandleSettingsRoute).toHaveBeenCalledWith('/settings/contact');
   });
 
-  it('opens support and registers a confirmed logout action', async () => {
+  it('renders logout outside the main settings list as a separate button', () => {
+    render(<AccountSettingsScreen />);
+    const logoutButton = screen.getByTestId('logout-button');
+    expect(logoutButton).toBeTruthy();
+    expect(screen.getByText('Logout')).toBeTruthy();
+  });
+
+  it('opens support url when help is pressed', async () => {
     render(<AccountSettingsScreen />);
     fireEvent.press(screen.getByText('Help'));
     expect(WebBrowser.openBrowserAsync).toHaveBeenCalledWith('https://support.aqwire.io/portal/en/home');
+  });
 
-    fireEvent.press(screen.getByText('Logout'));
+  it('dispatches a confirm logout modal with Log Out / Cancel actions', () => {
+    render(<AccountSettingsScreen />);
+    fireEvent.press(screen.getByTestId('logout-button'));
     expect(mockDispatch).toHaveBeenCalledWith(expect.objectContaining({
       type: 'modal/showModal',
       payload: expect.objectContaining({
-        headerMessage: 'Logout',
-        id: 'setDefaultPaymentMethod',
+        id: 'accountLogout',
+        variant: 'confirm',
+        headerMessage: 'Log Out',
+        bodyMessage: 'Are you sure you want to log out?',
+        buttonConfig: expect.objectContaining({
+          primaryLabel: 'Log Out',
+          secondaryLabel: 'Cancel',
+        }),
       }),
     }));
-    modalActions.setDefaultPaymentMethod();
+  });
+
+  it('executes logout and redirects when confirmation is confirmed', async () => {
+    render(<AccountSettingsScreen />);
+    fireEvent.press(screen.getByTestId('logout-button'));
+    modalActions.accountLogout();
     expect(mockDispatch).toHaveBeenCalledWith({ type: 'login/clearSession' });
     await Promise.resolve();
     expect(router.replace).toHaveBeenCalledWith('/login');
+  });
+
+  it('does not dispatch clearSession when logout is cancelled', () => {
+    render(<AccountSettingsScreen />);
+    fireEvent.press(screen.getByTestId('logout-button'));
+    // Confirm modal was shown but do NOT invoke the action (simulates Cancel)
+    const dispatchCallsBeforeCancel = mockDispatch.mock.calls.length;
+    expect(mockDispatch).toHaveBeenCalledWith(expect.objectContaining({ type: 'modal/showModal' }));
+    // clearSession should not have been called
+    expect(mockDispatch).not.toHaveBeenCalledWith({ type: 'login/clearSession' });
+    expect(router.replace).not.toHaveBeenCalled();
+    expect(mockDispatch.mock.calls.length).toBe(dispatchCallsBeforeCancel);
   });
 
   it('routes security actions and opens the deactivation modal', () => {

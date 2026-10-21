@@ -74,6 +74,7 @@ export interface SearchInputProps extends Omit<TextInputProps, 'style'> {
 }
 
 export interface ComponentsProps {
+  showAddWhenEmpty?: boolean;
   sectionHeader?: {
     title?: string;
     linkText?: string;

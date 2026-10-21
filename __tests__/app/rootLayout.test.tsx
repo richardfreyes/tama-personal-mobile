@@ -30,6 +30,10 @@ type PaymentResultCallbackHandler = (
 const mockHandlePaymentResultCallback = jest.fn<PaymentResultCallbackHandler>(() => false);
 let mockUrlListener: ((event: { url: string }) => void) | undefined;
 
+// ReactotronConfig is now required at module level in _layout.tsx. Mock it here so the
+// real reactotron-react-native package (which needs XMLHttpRequest) is never loaded in Jest.
+jest.mock('../../ReactotronConfig', () => ({}));
+
 jest.mock('@expo-google-fonts/poppins', () => ({
   Poppins_100Thin: 'thin',
   Poppins_200ExtraLight: 'extra-light',
@@ -137,6 +141,8 @@ jest.mock('expo-linking', () => ({
 describe('RootLayout', () => {
   beforeEach(() => {
     jest.clearAllMocks();
+    // Simulate production so canRender follows font-loading state, not the __DEV__ shortcut.
+    (global as any).__DEV__ = false;
     mockFontState.loaded = true;
     mockFontState.error = null;
     mockHandleEnrollmentCallback.mockReturnValue(false);
@@ -144,6 +150,10 @@ describe('RootLayout', () => {
     mockHandlePaymentResultCallback.mockReturnValue(false);
     delete modalActions['enrollment-verification-declined'];
     (Linking.getInitialURL as jest.Mock<(...args: any[]) => any>).mockResolvedValue(null);
+  });
+
+  afterEach(() => {
+    (global as any).__DEV__ = true;
   });
 
   it('shows the app logo while fonts are loading', () => {
@@ -176,6 +186,47 @@ describe('RootLayout', () => {
     const logo = screen.getByTestId('splash-logo');
     const { width, height } = logo.props.style;
     expect(width).toBe(height);
+  });
+
+  it('skips the JS splash in development mode so reloads show the app immediately', () => {
+    (global as any).__DEV__ = true;
+    mockFontState.loaded = false;
+    render(<RootLayout />);
+    expect(screen.queryByTestId('splash-logo')).toBeNull();
+    expect(screen.getByText('Stack')).toBeTruthy();
+  });
+
+  describe('dark mode JS splash', () => {
+    beforeEach(() => {
+      jest.useFakeTimers();
+      (global as any).__DEV__ = false;
+      jest.spyOn(require('react-native'), 'useColorScheme').mockReturnValue('dark');
+    });
+
+    afterEach(() => {
+      jest.useRealTimers();
+      jest.restoreAllMocks();
+    });
+
+    it('uses the dark-mode logo asset while fonts are loading in dark mode', () => {
+      mockFontState.loaded = false;
+      const view = render(<RootLayout />);
+      const logo = screen.getByTestId('splash-logo');
+      expect(logo.props.source).toEqual(
+        expect.objectContaining({ testUri: expect.stringContaining('splash-icon-dark.png') }),
+      );
+      view.unmount();
+    });
+
+    it('applies a black background to the splash container in dark mode', () => {
+      const { StyleSheet } = require('react-native');
+      mockFontState.loaded = false;
+      const view = render(<RootLayout />);
+      const container = screen.getByTestId('splash-container');
+      const flatStyle = StyleSheet.flatten(container.props.style);
+      expect(flatStyle.backgroundColor).toBe('#000000');
+      view.unmount();
+    });
   });
 
   it('hides the splash and renders if fonts never finish after a reload', () => {
@@ -310,24 +361,29 @@ describe('RootLayout', () => {
   });
 
   it('warns when deep links omit required credentials and removes the listener on cleanup', () => {
-    const warning = jest.spyOn(console, 'warn').mockImplementation(() => {});
-    const remove = jest.fn<(...args: any[]) => any>();
-    (Linking.addEventListener as jest.Mock<(...args: any[]) => any>).mockImplementationOnce((
-      _event: string,
-      listener: (event: { url: string }) => void,
-    ) => {
-      mockUrlListener = listener;
-      return { remove };
-    });
-    (Linking.parse as jest.Mock<(...args: any[]) => any>).mockReturnValue({
-      hostname: 'reset-password',
-      queryParams: {},
-    });
-    const { unmount } = render(<RootLayout />);
-    mockUrlListener?.({ url: 'personaldashboardmob://reset-password' });
-    expect(warning).toHaveBeenCalledWith('Reset password link missing token or code');
-    unmount();
-    expect(remove).toHaveBeenCalled();
-    warning.mockRestore();
+    jest.useFakeTimers();
+    try {
+      const warning = jest.spyOn(console, 'warn').mockImplementation(() => {});
+      const remove = jest.fn<(...args: any[]) => any>();
+      (Linking.addEventListener as jest.Mock<(...args: any[]) => any>).mockImplementationOnce((
+        _event: string,
+        listener: (event: { url: string }) => void,
+      ) => {
+        mockUrlListener = listener;
+        return { remove };
+      });
+      (Linking.parse as jest.Mock<(...args: any[]) => any>).mockReturnValue({
+        hostname: 'reset-password',
+        queryParams: {},
+      });
+      const { unmount } = render(<RootLayout />);
+      mockUrlListener?.({ url: 'personaldashboardmob://reset-password' });
+      expect(warning).toHaveBeenCalledWith('Reset password link missing token or code');
+      unmount();
+      expect(remove).toHaveBeenCalled();
+      warning.mockRestore();
+    } finally {
+      jest.useRealTimers();
+    }
   });
 });

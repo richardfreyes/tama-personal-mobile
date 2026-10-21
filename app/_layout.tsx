@@ -28,6 +28,14 @@ if (!__DEV__) {
   console.warn = () => {};
 }
 
+// Load Reactotron at module evaluation time — before any React renders — so the
+// WebSocket connection starts immediately and all startup logs are captured.
+// Must be a require() (not import) so it runs in the module body, not at hoist time.
+if (__DEV__) {
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
+  require('../ReactotronConfig');
+}
+
 registerTranslation('en', en);
 
 const SPLASH_FONT_WAIT_MS = 1500;
@@ -39,9 +47,12 @@ function hideSplash() {
   }
 }
 
-const preventSplashHide = SplashScreen.preventAutoHideAsync() as Promise<void> | void;
-if (preventSplashHide && typeof preventSplashHide.catch === 'function') {
-  void preventSplashHide.catch(() => {});
+// In dev, skip preventAutoHideAsync so the native splash dismisses on its own during reloads.
+if (!__DEV__) {
+  const preventSplashHide = SplashScreen.preventAutoHideAsync() as Promise<void> | void;
+  if (preventSplashHide && typeof preventSplashHide.catch === 'function') {
+    void preventSplashHide.catch(() => {});
+  }
 }
 
 function GlobalLayout() {
@@ -49,11 +60,6 @@ function GlobalLayout() {
   const { visible, message, variant } = useAppSelector(selectSnackbar);
   const segments = useSegments();
   const router = useRouter();
-
-  useEffect(() => {
-    const currentPath = '/' + segments.join('/');
-    console.log('ROUTE DETECTOR:', currentPath);
-  }, [segments]);
 
   useEffect(() => {
     const handleDeepLink = (event: Linking.EventType) => {
@@ -193,7 +199,8 @@ export default function RootLayout() {
     PoppinsBlack: Poppins_900Black,
   });
   const [fontWaitExpired, setFontWaitExpired] = useState(false);
-  const canRender = Boolean(fontsLoaded || fontError || fontWaitExpired);
+  // In dev, render immediately so the JS splash never blocks on reloads/fast refresh.
+  const canRender = __DEV__ || Boolean(fontsLoaded || fontError || fontWaitExpired);
 
   useEffect(() => {
     const fallback = setTimeout(() => setFontWaitExpired(true), SPLASH_FONT_WAIT_MS);
@@ -211,10 +218,17 @@ export default function RootLayout() {
 
   if (!canRender) {
     return (
-      <View style={jsSplashStyles.container}>
+      <View
+        style={[jsSplashStyles.container, isDark && { backgroundColor: '#000000' }]}
+        testID="splash-container"
+      >
         <Image
           resizeMode="contain"
-          source={require('../assets/images/splash-icon.png')}
+          source={
+            isDark
+              ? require('../assets/images/splash-icon-dark.png')
+              : require('../assets/images/splash-icon.png')
+          }
           style={jsSplashStyles.logo}
           testID="splash-logo"
         />

@@ -164,7 +164,7 @@ export const createEnrollmentListComponentStyles = (Colors: ThemeColors) => Styl
     lineHeight: 15,
   },
   panelAmount: {
-    color: Colors.primary,
+    color: Colors.text,
     fontSize: FontSizes.large,
     fontVariant: ['tabular-nums'],
     lineHeight: 26,

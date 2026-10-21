@@ -2,6 +2,7 @@ import { afterEach, beforeEach, describe, expect, it, jest } from '@jest/globals
 import EnrollmentSummaryCard from '@/components/enrollments/EnrollmentSummaryCard';
 import { fireEvent, render, screen } from '@testing-library/react-native';
 import React from 'react';
+import { StyleSheet } from 'react-native';
 import { Animated } from 'react-native';
 
 const enrollment = {
@@ -58,6 +59,15 @@ describe('EnrollmentSummaryCard', () => {
     expect(Animated.timing).toHaveBeenCalledWith(expect.anything(), expect.objectContaining({
       toValue: 1,
     }));
+  });
+
+  it('displays the monthly amount in the neutral text color, not the brand red', () => {
+    const { Colors } = require('@/styles/common/colors');
+    render(<EnrollmentSummaryCard item={enrollment} index={0} onPress={jest.fn<(...args: any[]) => any>()} />);
+    const amountEl = screen.getByTestId('enrollment-amount');
+    const flatStyle = StyleSheet.flatten(amountEl.props.style);
+    expect(flatStyle.color).toBe(Colors.text);
+    expect(flatStyle.color).not.toBe(Colors.primary);
   });
 
   it('falls back to merchant title and avatar initial when merchant code and logo are absent', () => {

@@ -135,6 +135,10 @@ All RTK Query `fetch` requests appear in the Timeline and Network tabs:
 
 The `ignoreUrls` filter in the config hides Expo's internal symbolicate and log requests.
 
+On Expo SDK 56+, native `fetch` bypasses XMLHttpRequest. `ReactotronConfig.ts` passes `globalThis.fetch` explicitly to the networking plugin so requests remain visible when a wrapper hides Expo's detection marker. If `EXPO_PUBLIC_USE_RN_FETCH` is `1` or `true`, the config uses XHR interception instead to avoid duplicate network events.
+
+The console bridge forwards `console.info` as well as log/debug/warn/error. RTK Query emits `[API Request]` and `[API Success]` summaries with the method, endpoint, and response status; failures retain `[API Error]` or `[API Pending]` logs. These summaries omit request bodies. After changing the Reactotron config, fully reload the app with Reactotron Desktop open to reinstall the interceptors.
+
 ### Inspecting AsyncStorage
 
 Go to the **AsyncStorage** tab to see all stored keys. This project stores:

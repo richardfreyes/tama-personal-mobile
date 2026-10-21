@@ -55,6 +55,7 @@ export default function PaymentMethodsComponent({
   sectionFooter,
   route,
   onAddPaymentMethod,
+  showAddWhenEmpty = false,
   isRefreshable = true,
   selectedMethodId,
   onSelectMethod,
@@ -67,7 +68,7 @@ export default function PaymentMethodsComponent({
   const [isRefreshing, setIsRefreshing] = useState(false);
   const methods = getSavedPaymentMethods(data);
   const isPaymentMethodsEmpty = methods.length === 0;
-  const showAddButton = !isError && sectionFooter?.button !== false;
+  const showAddButton = !isError && (sectionFooter?.button !== false || (showAddWhenEmpty && isPaymentMethodsEmpty));
 
   const isPicker = Boolean(onSelectMethod);
 
@@ -216,7 +217,7 @@ export default function PaymentMethodsComponent({
       ) : content}
       {showAddButton ? (
         <AppButton
-          title="Add Payment Method"
+          title={showAddWhenEmpty && isPaymentMethodsEmpty ? 'Add Card' : 'Add Payment Method'}
           variant="secondary"
           buttonStyle={styles.addButton}
           onPress={onAddPaymentMethod}
