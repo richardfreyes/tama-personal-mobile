@@ -44,18 +44,25 @@ export default function Security() {
     <ScrollView contentContainerStyle={globalStyle.screenContainer}>
       <View style={{ flex: 1 }}>
         <NavHeaderComponent title='Account & Security' />
-        <View style={globalStyle.outerContainer}>
-          {COMMON.ACCOUNT_SECURITY.map((item) => {
-            const SvgComponent = item.icon;
-            return (
-              <TouchableOpacity style={settingsStyles.itemContainer} key={item.id} onPress={() => handleSettingsRoute(item.route)}>
-                <View style={settingsStyles.itemContent}>
-                  <SvgComponent style={ settingsStyles.itemIcon } width={16} height={16} />
-                  <AppText style={settingsStyles.itemTitle} weight='600'>{item.title}</AppText>
+        <View style={[globalStyle.outerContainer, { gap: 8 }]}>
+          <View style={settingsStyles.settingsCard}>
+            {COMMON.ACCOUNT_SECURITY.map((item, index) => {
+              const SvgComponent = item.icon;
+              return (
+                <View key={item.id}>
+                  {index > 0 && <View style={settingsStyles.rowDivider} />}
+                  <TouchableOpacity onPress={() => handleSettingsRoute(item.route)} activeOpacity={0.7}>
+                    <View style={settingsStyles.settingsRow}>
+                      <View style={settingsStyles.iconTile}>
+                        <SvgComponent width={17} height={17} color={Colors.neutral09} />
+                      </View>
+                      <AppText weight='500' style={settingsStyles.rowTitle}>{item.title}</AppText>
+                    </View>
+                  </TouchableOpacity>
                 </View>
-              </TouchableOpacity>
-            )
-          })}
+              );
+            })}
+          </View>
         </View>
       </View>
     </ScrollView>

@@ -4,74 +4,114 @@ import { FontSizes } from "@/styles/common/typography";
 import { StyleSheet } from "react-native";
 
 export const createSettingsStyles = (Colors: ThemeColors) => StyleSheet.create({
-  profileImage: {
-    width: 64,
-    height: 64,
-    borderRadius: 32,
-    marginBottom: 8,
+  profileRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 14,
+    paddingVertical: 8,
   },
-  profileInitials: {
-    display: 'flex',
+  avatarRing: {
+    width: 68,
+    height: 68,
+    borderRadius: 34,
+    padding: 3,
+    flexShrink: 0,
+  },
+  avatarInner: {
+    flex: 1,
+    borderRadius: 31,
+    borderWidth: 2,
+    borderColor: Colors.background,
+    backgroundColor: Colors.avatarBackground,
+    alignItems: 'center',
     justifyContent: 'center',
-    alignItems: 'center',
-    width: 64,
-    height: 64,
-    borderRadius: 32,
-    marginBottom: 8,
-    backgroundColor: Colors.red07,
   },
-  infoBlock: {
+  initialsText: {
+    fontSize: FontSizes.large,
+    color: Colors.primaryText,
+  },
+  cameraBadge: {
+    position: 'absolute',
+    right: 0,
+    bottom: 0,
+    width: 26,
+    height: 26,
+    borderRadius: 13,
+    backgroundColor: Colors.primary,
+    borderWidth: 2.5,
+    borderColor: Colors.background,
     alignItems: 'center',
-    marginBottom: 10
+    justifyContent: 'center',
+  },
+  profileInfo: {
+    flex: 1,
+    minWidth: 0,
   },
   userNameText: {
-    textAlign: 'center',
     fontSize: FontSizes.base,
-    color: Colors.neutral08,
-    marginBottom: 2,
+    color: Colors.neutral09,
+    lineHeight: 22,
   },
-  infoText: {
+  emailText: {
+    fontSize: FontSizes.extraSmall,
+    color: Colors.neutral07,
+    lineHeight: 18,
+  },
+  settingsCard: {
+    backgroundColor: Colors.neutral01,
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: Colors.border,
+    paddingHorizontal: 12,
+    overflow: 'hidden',
+  },
+  settingsRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 12,
+    height: 52,
+  },
+  rowDivider: {
+    height: 1,
+    backgroundColor: Colors.neutral04,
+    marginLeft: 56,
+  },
+  iconTile: {
+    width: 32,
+    height: 32,
+    borderRadius: 8,
+    backgroundColor: Colors.backgroundSecondary,
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexShrink: 0,
+  },
+  iconTileDanger: {
+    width: 32,
+    height: 32,
+    borderRadius: 8,
+    backgroundColor: Colors.errorBackground,
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexShrink: 0,
+  },
+  rowTitle: {
+    flex: 1,
+    fontSize: FontSizes.small,
+    lineHeight: 20,
+    color: Colors.neutral09,
+  },
+  rowTitleDanger: {
+    flex: 1,
+    fontSize: FontSizes.small,
+    lineHeight: 20,
+    color: Colors.errorText,
+  },
+  versionText: {
     textAlign: 'center',
     fontSize: FontSizes.extraSmall,
-  },
-  itemContainer: {
-    backgroundColor: Colors.neutral01,
-    padding: 12,
-    marginBottom: 10,
-    borderRadius: 8,
-    borderWidth: 1,
-    borderColor: Colors.neutral03,
-  },
-  itemContent: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  itemIcon: {
-    marginRight: 8,
-  },
-  itemTitle: {
-    fontSize: FontSizes.small,
-  },
-  logoutSection: {
-    marginTop: 12,
-  },
-  logoutButton: {
-    backgroundColor: Colors.error01,
-    padding: 12,
-    borderRadius: 8,
-    borderWidth: 1,
-    borderColor: Colors.error02,
-  },
-  logoutContent: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  logoutIcon: {
-    marginRight: 8,
-  },
-  logoutLabel: {
-    fontSize: FontSizes.small,
-    color: Colors.error08,
+    color: Colors.neutral07,
+    marginTop: 0,
   },
 });
+
 export const settingsStyles = createSettingsStyles(LightColors);
